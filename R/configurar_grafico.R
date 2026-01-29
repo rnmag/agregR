@@ -27,9 +27,10 @@ configurar_grafico <- function(fonte = "Fira Sans",
 
   # Valores originais
   cores_padrao <- list(Lula = "#CF4446",
-                       Bolsonaro = "#9000C8",
+                       Bolsonaro = "#446AAF",
+                       "Fl\u00e1vio" = "#446AAF",
                        "Tarc\u00edsio" = "#008564",
-                       "Fl\u00e1vio" = "#446AAF")
+                       `Ratinho Jr.` = "#9000C8")
 
   simbolos_padrao <- list(Online = 3,
                           Presencial = 1,
