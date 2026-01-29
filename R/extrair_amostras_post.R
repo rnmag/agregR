@@ -1,10 +1,8 @@
-#' @title Extract Posterior Samples
-#' @description Extracts posterior samples for a specific parameter (mu or delta) from the model results.
+#' @noRd
 #' @param bd The results object returned by `rodar_agregador`.
 #' @param cand Candidate name.
 #' @param parametro Parameter to extract ("mu" or "delta").
 #' @return A tibble with posterior samples.
-#' @export
 #' @importFrom dplyr select mutate filter distinct inner_join all_of
 #' @importFrom tidyr pivot_longer
 #' @importFrom stringr str_extract
