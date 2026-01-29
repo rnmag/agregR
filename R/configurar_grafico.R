@@ -28,12 +28,12 @@ configurar_grafico <- function(fonte = "Fira Sans",
   # Valores originais
   cores_padrao <- list(Lula = "#CF4446",
                        Bolsonaro = "#9000C8",
-                       `Tarc\\u00edsio` = "#008564",
-                       `Fl\\u00e1vio` = "#446AAF")
+                       "Tarc\u00edsio" = "#008564",
+                       "Fl\u00e1vio" = "#446AAF")
 
   simbolos_padrao <- list(Online = 3,
                           Presencial = 1,
-                          `Telef\\u00f4nica` = 19)
+                          "Telef\u00f4nica" = 19)
 
   # Mudanças do usuário
   cores_candidaturas <- if (is.null(cores_candidaturas)) {

@@ -1,35 +1,31 @@
 #' @param nome_digitado Character. Candidate name provided by user.
 #' @noRd
 nome_robusto <- function(nome_digitado) {
-  nomes_padronizados <- c(
-    "Lula",
-    "Bolsonaro",
-    "Ciro",
-    "Simone",
-    "Moro",
-    "Tarc\u00edsio",
-    "Fl\u00e1vio",
-    "Eduardo",
-    "Caiado",
-    "Zema",
-    "Ratinho Jr.",
-    "Renan"
-  )
+  nomes_padronizados <- c("Lula",
+                          "Bolsonaro",
+                          "Ciro",
+                          "Simone",
+                          "Moro",
+                          "Tarc\u00edsio",
+                          "Fl\u00e1vio",
+                          "Eduardo",
+                          "Caiado",
+                          "Zema",
+                          "Ratinho Jr.",
+                          "Renan")
 
-  nomes_alternativos <- list(
-    Lula = c("lula", "luiz inacio lula da silva", "luis inacio lula da silva"),
-    Bolsonaro = c("bolsonaro", "jair bolsonaro", "jair messias bolsonaro"),
-    Ciro = c("ciro", "ciro gomes", "gomes"),
-    Simone = c("simone", "simone tebet", "tebet"),
-    Moro = c("moro", "sergio moro"),
-    `Tarc\\u00edsio` = c("tarcisio", "tarcisio de freitas", "freitas"),
-    `Fl\\u00e1vio` = c("flavio", "flavio bolsonaro"),
-    Eduardo = c("eduardo", "eduardo bolsonaro"),
-    Caiado = c("caiado", "ronaldo caiado"),
-    Zema = c("zema", "romeu zema", "romeu"),
-    `Ratinho Jr.` = c("ratinho", "ratinho jr", "ratinho jr.", "ratinho junior"),
-    Renan = c("renan", "renan santos")
-  )
+  nomes_alternativos <- list(Lula = c("lula", "luiz inacio lula da silva", "luis inacio lula da silva"),
+                             Bolsonaro = c("bolsonaro", "jair bolsonaro", "jair messias bolsonaro"),
+                             Ciro = c("ciro", "ciro gomes", "gomes"),
+                             Simone = c("simone", "simone tebet", "tebet"),
+                             Moro = c("moro", "sergio moro"),
+                             "Tarc\u00edsio" = c("tarcisio", "tarcisio de freitas", "freitas"),
+                             "Fl\u00e1vio" = c("flavio", "flavio bolsonaro"),
+                             Eduardo = c("eduardo", "eduardo bolsonaro"),
+                             Caiado = c("caiado", "ronaldo caiado"),
+                             Zema = c("zema", "romeu zema", "romeu"),
+                             `Ratinho Jr.` = c("ratinho", "ratinho jr", "ratinho jr.", "ratinho junior"),
+                             Renan = c("renan", "renan santos"))
 
   nome_digitado_ascii <- iconv(tolower(nome_digitado), to = "ASCII//TRANSLIT")
 
