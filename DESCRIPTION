@@ -1,0 +1,36 @@
+Package: agregR
+Type: Package
+Title: Bayesian State-Space Aggregation of Brazilian Electoral Polls
+Version: 0.1.0
+Author: Rafael N. Magalhaes
+Maintainer: Rafael N. Magalhaes <rnunesmagalhaes@gmail.com>
+Description: Implements Bayesian state-space models in Stan to aggregate Brazilian electoral polling data. Estimates latent voting intentions by accounting for house effects, non-sampling errors, and daily trends. Features specialized methods for retrospective analysis, bias adjustment based on past performance, and correction for asymmetric errors based on candidate political alignment.
+Depends:
+    R (>= 4.1.0)
+Imports:
+    instantiate,
+    tibble,
+    dplyr,
+    tidyr,
+    purrr,
+    readr,
+    stringr,
+    tidyselect,
+    ggplot2,
+    scales,
+    lubridate,
+    cli,
+    ggdist,
+    ragg,
+    sysfonts,
+    showtext
+Suggests:
+    bayesplot,
+    cmdstanr (>= 0.5.0)
+Additional_repositories:
+    https://mc-stan.org/r-packages/
+SystemRequirements: CmdStan (https://mc-stan.org/users/interfaces/cmdstan)
+LazyData: true
+RoxygenNote: 7.3.3
+License: MIT + file LICENSE
+Encoding: UTF-8
