@@ -35,5 +35,6 @@ file.copy("stan", bin, recursive = TRUE)
 
 # Executar compilação diretamente
 instantiate::stan_package_compile(
-  models = instantiate::stan_package_model_files(path = bin_stan)
+  models = instantiate::stan_package_model_files(path = bin_stan),
+  quiet = TRUE
 )
