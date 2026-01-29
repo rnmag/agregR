@@ -19,7 +19,7 @@
 #' if (instantiate::stan_cmdstan_exists()) {
 #'   resultados <- rodar_agregador(
 #'     turno = 2,
-#'     cenario = "Lula vs Tarcisio",
+#'     cenario = "Lula vs Tarcísio",
 #'     salvar = FALSE
 #'   )
 #' }
@@ -28,7 +28,7 @@
 #' \dontrun{
 #'   resultados_custom <- rodar_agregador(
 #'     turno = 2,
-#'     cenario = "Lula vs Tarcisio",
+#'     cenario = "Lula vs Tarcísio",
 #'     modelo = "Naive",
 #'     config_agregador = configurar_agregador(stan_chains = 1, stan_warmup = 200),
 #'     config_prioris = configurar_prioris("Naive", sd_mu_priori = 0.2),
