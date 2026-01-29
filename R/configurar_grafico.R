@@ -14,7 +14,7 @@
 #' @examples
 #' # Alternative colors for use in the config_grafico argument in a plot
 #' config_custom <- configurar_grafico(
-#'   cores_candidaturas = c(Lula = "red")
+#'   cores_candidaturas = c(Lula = "darkred")
 #' )
 configurar_grafico <- function(fonte = "Fira Sans",
                                cores_candidaturas = NULL,

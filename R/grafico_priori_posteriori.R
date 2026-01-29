@@ -2,7 +2,7 @@
 #' @description Generates a plot comparing prior and posterior distributions for candidates or bias.
 #' @param bd The results object returned by `rodar_agregador`.
 #' @param candidaturas A character vector of candidate names to include in the plot.
-#' @param tipo The type of plot: "Vies" (Bias) or "Percentual" (Percentage).
+#' @param tipo The type of plot: "Vi\u00e9s" (Bias) or "Percentual" (Percentage).
 #' @param salvar Logical. If TRUE, saves the plot to disk.
 #' @param config_agregador A list of configuration parameters created by `configurar_agregador()`.
 #' @param config_grafico A list of graphic parameters created by `configurar_grafico()`.
@@ -12,21 +12,21 @@
 #' @export
 #' @examples
 #' if (instantiate::stan_cmdstan_exists()) {
-#'   result <- rodar_agregador(turno = 2, cenario = "Lula vs Flavio", salvar = FALSE)
+#'   result <- rodar_agregador(turno = 2, cenario = "Lula vs Fl\u00e1vio", salvar = FALSE)
 #'
 #'   # Prior vs Posterior plot for institute bias
 #'   grafico_priori_posteriori(
 #'     result,
-#'     candidaturas = c("Lula", "Flavio"),
-#'     tipo = "Vies",
+#'     candidaturas = c("Lula", "Fl\u00e1vio"),
+#'     tipo = "Vi\u00e9s",
 #'     salvar = FALSE
 #'   )
 #'
 #'   # Altering candidate colors
 #'   grafico_priori_posteriori(
 #'     result,
-#'     candidaturas = c("Lula", "Flavio"),
-#'     tipo = "Vies",
+#'     candidaturas = c("Lula", "Fl\u00e1vio"),
+#'     tipo = "Vi\u00e9s",
 #'     salvar = FALSE,
 #'     config_grafico = configurar_grafico(
 #'       cores_candidaturas = c(Lula = "darkred")
@@ -43,7 +43,7 @@
 #' @importFrom ragg agg_png
 grafico_priori_posteriori <- function(bd,
                                       candidaturas,
-                                      tipo = "Vies",
+                                      tipo = "Vi\u00e9s",
                                       salvar = FALSE,
                                       config_agregador = configurar_agregador(),
                                       config_grafico = configurar_grafico(),
@@ -63,17 +63,17 @@ grafico_priori_posteriori <- function(bd,
   registrar_fonte()
 
   # Definir parâmetro a ser extraído conforme o tipo selecionado
-  parametro <- if (tipo == "Vies") "delta" else "mu"
+  parametro <- if (tipo == "Vi\u00e9s") "delta" else "mu"
 
   # Validação do tipo
-  if (!tipo %in% c("Percentual", "Vies")) {
+  if (!tipo %in% c("Percentual", "Vi\u00e9s")) {
 
-    cli_abort("O argumento {.arg tipo} deve ser 'Percentual' ou 'Vies'.")
+    cli_abort("O argumento {.arg tipo} deve ser 'Percentual' ou 'Vi\u00e9s'.")
 
   }
 
   # Erro se tentar fazer gráfico de viés com modelo "Naive"
-  if (tipo == "Vies" && bd$nome_modelo == "Naive") {
+  if (tipo == "Vi\u00e9s" && bd$nome_modelo == "Naive") {
 
     cli_abort("O gr\u00e1fico de vi\u00e9s n\u00e3o \u00e9 aplic\u00e1vel ao modelo 'Naive'.")
 
@@ -101,7 +101,7 @@ grafico_priori_posteriori <- function(bd,
     mutate(candidatura = factor(candidatura, levels = candidaturas))
 
   # 3. Gerar distribuições a priori -------------------------------------------
-  if (tipo == "Vies") {
+  if (tipo == "Vi\u00e9s") {
 
     # Se o modelo for "Viés Empírico", calcular desempenhos dos institutos
     if (bd$nome_modelo == "Vi\u00e9s Emp\u00edrico") {
@@ -219,7 +219,7 @@ grafico_priori_posteriori <- function(bd,
           strip.background = element_blank(),
           strip.text = element_text(face = "bold", size = 11))
 
-  if (tipo == "Vies") {
+  if (tipo == "Vi\u00e9s") {
 
     # Institutos em ordem alfabética
     dist_posteriori <- dist_posteriori |>

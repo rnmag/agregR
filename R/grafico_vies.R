@@ -10,19 +10,19 @@
 #' @export
 #' @examples
 #' if (instantiate::stan_cmdstan_exists()) {
-#'   result <- rodar_agregador(turno = 2, cenario = "Lula vs Flavio", salvar = FALSE)
+#'   result <- rodar_agregador(turno = 2, cenario = "Lula vs Fl\u00e1vio", salvar = FALSE)
 #'
 #'   # Standard bias plot
 #'   grafico_vies(
 #'     result,
-#'     candidaturas = c("Lula", "Flavio"),
+#'     candidaturas = c("Lula", "Fl\u00e1vio"),
 #'     salvar = FALSE
 #'   )
 #'
 #'   # Altering candidate colors
 #'   grafico_vies(
 #'     result,
-#'     candidaturas = c("Lula", "Flavio"),
+#'     candidaturas = c("Lula", "Fl\u00e1vio"),
 #'     salvar = FALSE,
 #'     config_grafico = configurar_grafico(
 #'       cores_candidaturas = c(Lula = "darkred")
