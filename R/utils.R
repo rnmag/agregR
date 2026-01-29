@@ -17,7 +17,7 @@ nome_robusto <- function(nome_digitado) {
   )
 
   nomes_alternativos <- list(
-    Lula = c("lula", "luiz inacio lula da silva"),
+    Lula = c("lula", "luiz inacio lula da silva", "luis inacio lula da silva"),
     Bolsonaro = c("bolsonaro", "jair bolsonaro", "jair messias bolsonaro"),
     Ciro = c("ciro", "ciro gomes", "gomes"),
     Simone = c("simone", "simone tebet", "tebet"),
@@ -107,7 +107,7 @@ gerar_saida <- function(dir_base, nome_modelo, nome_arquivo = NULL) {
 #' @param dados Data frame. Polling data.
 #' @noRd
 cenarios_disponiveis <- function(turno, dados) {
-  cenarios <- dados |>
+  cenarios <- ler_csv(dados) |>
     dplyr::filter(turno == !!turno) |>
     dplyr::pull(cenario) |>
     unique()
@@ -130,7 +130,10 @@ ler_csv <- function(caminho, arquivo_local_fallback = NULL) {
   # Função auxiliar tenta ler com diferentes delimitadores
   ler_robusto <- function(file) {
     # Tenta ler com ; (padrão brasileiro)
-    dados <- suppressWarnings(read_csv2(file, show_col_types = FALSE))
+    dados <- read_csv2(file,
+                       show_col_types = FALSE,
+                       locale = locale(decimal_mark = ",",
+                                       grouping_mark = "."))
 
     # Se falhar (apenas 1 coluna), tenta com ,
     if (ncol(dados) <= 1) {
@@ -156,7 +159,6 @@ ler_csv <- function(caminho, arquivo_local_fallback = NULL) {
 
     if (!is.null(dados) && ncol(dados) > 1) {
 
-      cli_alert_success("Dados atualizados baixados com sucesso!")
       return(dados)
 
     }

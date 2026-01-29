@@ -63,19 +63,19 @@ configurar_agregador <- function(pesquisas = NULL,
   # Definir URLs padrão se NULL
   if (is.null(pesquisas)) {
 
-    pesquisas <- "https://raw.githubusercontent.com/RafaelNMagalhaes/agregR/main/inst/extdata/pesquisas_2026.csv"
+    pesquisas <- "https://raw.githubusercontent.com/rnmag/agregR/refs/heads/main/inst/extdata/pesquisas_2026.csv"
 
   }
 
   if (is.null(resultado_eleicao_passada)) {
 
-    resultado_eleicao_passada <- "https://raw.githubusercontent.com/RafaelNMagalhaes/agregR/main/inst/extdata/resultado_eleicao_passada.csv"
+    resultado_eleicao_passada <- "https://raw.githubusercontent.com/rnmag/agregR/refs/heads/main/inst/extdata/resultado_eleicao_passada.csv"
 
   }
 
   if (is.null(resultado_eleicao_atual)) {
 
-    resultado_eleicao_atual <- "https://raw.githubusercontent.com/RafaelNMagalhaes/agregR/main/inst/extdata/resultado_eleicao_atual.csv"
+    resultado_eleicao_atual <- "https://raw.githubusercontent.com/rnmag/agregR/refs/heads/main/inst/extdata/resultado_eleicao_atual.csv"
 
   }
 
