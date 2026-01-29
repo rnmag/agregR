@@ -41,6 +41,6 @@ Defines configuration parameters for graphics, including colors, fonts, and dime
 \examples{
 # Alternative colors for use in the config_grafico argument in a plot
 config_custom <- configurar_grafico(
-  cores_candidaturas = c(Lula = "red")
+  cores_candidaturas = c(Lula = "darkred")
 )
 }

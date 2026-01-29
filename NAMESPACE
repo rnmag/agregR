@@ -3,7 +3,6 @@
 export(configurar_agregador)
 export(configurar_grafico)
 export(configurar_prioris)
-export(extrair_amostras_post)
 export(grafico_agregador)
 export(grafico_priori_posteriori)
 export(grafico_vies)
