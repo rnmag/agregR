@@ -2,7 +2,7 @@
 #' @description Generates a plot comparing prior and posterior distributions for candidates or bias.
 #' @param bd The results object returned by `rodar_agregador`.
 #' @param candidaturas A character vector of candidate names to include in the plot.
-#' @param tipo The type of plot: "Vi\u00e9s" (Bias) or "Percentual" (Percentage).
+#' @param tipo The type of plot: Bias or Percentage.
 #' @param salvar Logical. If TRUE, saves the plot to disk.
 #' @param config_agregador A list of configuration parameters created by `configurar_agregador()`.
 #' @param config_grafico A list of graphic parameters created by `configurar_grafico()`.
@@ -12,21 +12,19 @@
 #' @export
 #' @examples
 #' if (instantiate::stan_cmdstan_exists()) {
-#'   result <- rodar_agregador(turno = 2, cenario = "Lula vs Fl\u00e1vio", salvar = FALSE)
+#'   result <- rodar_agregador(turno = 2, cenario = "Lula vs Bolsonaro", salvar = FALSE)
 #'
 #'   # Prior vs Posterior plot for institute bias
 #'   grafico_priori_posteriori(
 #'     result,
-#'     candidaturas = c("Lula", "Fl\u00e1vio"),
-#'     tipo = "Vi\u00e9s",
+#'     candidaturas = c("Lula", "Bolsonaro"),
 #'     salvar = FALSE
 #'   )
 #'
 #'   # Altering candidate colors
 #'   grafico_priori_posteriori(
 #'     result,
-#'     candidaturas = c("Lula", "Fl\u00e1vio"),
-#'     tipo = "Vi\u00e9s",
+#'     candidaturas = c("Lula", "Bolsonaro"),
 #'     salvar = FALSE,
 #'     config_grafico = configurar_grafico(
 #'       cores_candidaturas = c(Lula = "darkred")

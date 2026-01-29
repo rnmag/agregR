@@ -55,7 +55,7 @@ Main function to run the state-space model for poll aggregation.
 if (instantiate::stan_cmdstan_exists()) {
   resultados <- rodar_agregador(
     turno = 2,
-    cenario = "Lula vs Fl\u00e1vio",
+    cenario = "Lula vs Bolsonaro",
     salvar = FALSE
   )
 }
@@ -64,7 +64,7 @@ if (instantiate::stan_cmdstan_exists()) {
 \dontrun{
   resultados_custom <- rodar_agregador(
     turno = 2,
-    cenario = "Lula vs Fl\u00e1vio",
+    cenario = "Lula vs Bolsonaro",
     modelo = "Naive",
     config_agregador = configurar_agregador(stan_chains = 1, stan_warmup = 200),
     config_prioris = configurar_prioris("Naive", sd_mu_priori = 0.2),

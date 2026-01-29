@@ -20,7 +20,7 @@ grafico_priori_posteriori(
 
 \item{candidaturas}{A character vector of candidate names to include in the plot.}
 
-\item{tipo}{The type of plot: "Vi\u00e9s" (Bias) or "Percentual" (Percentage).}
+\item{tipo}{The type of plot: Bias or Percentage.}
 
 \item{salvar}{Logical. If TRUE, saves the plot to disk.}
 
@@ -40,21 +40,19 @@ Generates a plot comparing prior and posterior distributions for candidates or b
 }
 \examples{
 if (instantiate::stan_cmdstan_exists()) {
-  result <- rodar_agregador(turno = 2, cenario = "Lula vs Fl\u00e1vio", salvar = FALSE)
+  result <- rodar_agregador(turno = 2, cenario = "Lula vs Bolsonaro", salvar = FALSE)
 
   # Prior vs Posterior plot for institute bias
   grafico_priori_posteriori(
     result,
-    candidaturas = c("Lula", "Fl\u00e1vio"),
-    tipo = "Vi\u00e9s",
+    candidaturas = c("Lula", "Bolsonaro"),
     salvar = FALSE
   )
 
   # Altering candidate colors
   grafico_priori_posteriori(
     result,
-    candidaturas = c("Lula", "Fl\u00e1vio"),
-    tipo = "Vi\u00e9s",
+    candidaturas = c("Lula", "Bolsonaro"),
     salvar = FALSE,
     config_grafico = configurar_grafico(
       cores_candidaturas = c(Lula = "darkred")

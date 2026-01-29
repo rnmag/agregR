@@ -14,7 +14,7 @@ configurar_agregador(
   cargo = "Presidente",
   ambito = "Brasil",
   cenario = "",
-  candidaturas_1t = c("Lula", "Flávio", "Zema", "Renan"),
+  candidaturas_1t = c("Lula", "Flávio", "Tarcísio", "Ratinho Jr."),
   candidaturas_2t = c("Lula", "Flávio", "Tarcísio"),
   direita_eleicao_atual = c("Bolsonaro", "Flávio", "Tarcísio", "Caiado"),
   direita_eleicao_passada = "Bolsonaro",

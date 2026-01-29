@@ -10,8 +10,8 @@
 #' # Get default parameters for the "Naive" model
 #' naive_params <- configurar_prioris(nome = "Naive")
 #'
-#' # Get parameters for "Vi\u00e9s Relativo com Pesos" and override a default value
-#' custom_params <- configurar_prioris(nome = "Vi\u00e9s Relativo com Pesos", sd_tau_priori = 0.1)
+#' # Get parameters for "Naive" and override a default value
+#' custom_params <- configurar_prioris(nome = "Naive", sd_mu_priori = 0.2)
 configurar_prioris <- function(nome = "Vi\u00e9s Relativo com Pesos", ...) {
 
   # Padronizar nome do modelo
