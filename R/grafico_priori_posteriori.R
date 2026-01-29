@@ -222,7 +222,7 @@ grafico_priori_posteriori <- function(bd,
   if (tipo == "Vies") {
 
     # Institutos em ordem alfabética
-    dist_posteriori <- dist_posteriori |
+    dist_posteriori <- dist_posteriori |>
       mutate(instituto = factor(instituto, levels = rev(sort(unique(instituto)))))
 
     # Configurações específicas para tipo = "Viés"
