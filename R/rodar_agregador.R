@@ -43,7 +43,8 @@
 #' }
 #'
 #' @section Priors Details:
-#' The `config_prioris` argument allows customization of the model's hyperparameters.
+#' The `config_prioris` argument allows customization of the model's hyperparameters. Default values can be found at `configurar_prioris()`.
+#'
 #' These priors control the strength of assumptions about institute bias, state evolution, and non-sampling errors.
 #'
 #' \strong{State Model - Level (\eqn{\mu})}
@@ -72,7 +73,7 @@
 #'
 #' \strong{Institute Bias (\eqn{\delta})}
 #' \itemize{
-#'   \item \code{delta_priori}: The mean expected bias for institutes.
+#'   \item \code{delta_priori}: The mean expected bias for institutes. Defaults to 0, except on "Viés Empírico" (where it is anchored on past election results).
 #'   \item \code{sd_delta_priori}: The standard deviation of the bias prior. Controls how much institutes are allowed to deviate from the mean bias.
 #'   \itemize{
 #'     \item \emph{Higher values:} Allow for larger, more variable biases across institutes.
@@ -82,7 +83,7 @@
 #'
 #' \strong{Non-Sampling Error (\eqn{\tau})}
 #' \itemize{
-#'   \item \code{tau_priori}: The expected magnitude of non-sampling errors (errors not explained by sample size or bias).
+#'   \item \code{tau_priori}: The expected magnitude of non-sampling errors (errors not explained by sample size or bias). Default depends on whether the model is weighted.
 #'   \item \code{sd_tau_priori}: The uncertainty around the non-sampling error.
 #'   \itemize{
 #'     \item \emph{Higher values:} The model treats polls as less precise, widening the credible intervals of the final estimate.
@@ -157,7 +158,7 @@ rodar_agregador <- function(bd = NULL,
 
   # Configurar agregador (geral)
   # Permite passar:
-  # 1. NULL (default)
+  # 1. NULL (defaults)
   # 2. Objeto completo (criado com configurar_agregador)
   # 3. Lista de argumentos (que será passada para configurar_agregador)
   if (is.null(config_agregador)) {
