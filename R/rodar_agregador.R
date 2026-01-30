@@ -26,7 +26,7 @@
 #' }
 #'
 #' # Tuning Stan, changing the model and altering priors
-#' \dontrun{
+#' if (instantiate::stan_cmdstan_exists()) {
 #'   resultados_custom <- rodar_agregador(
 #'     turno = 2,
 #'     cenario = "Lula vs Bolsonaro",
