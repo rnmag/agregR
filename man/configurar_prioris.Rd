@@ -8,7 +8,7 @@
 configurar_prioris(nome = "Viés Relativo com Pesos", ...)
 }
 \arguments{
-\item{nome}{Name of the model. Options: "Vi\u00e9s Relativo com Pesos", "Vi\u00e9s Relativo sem Pesos", "Vi\u00e9s Emp\u00edrico", "Retrospectivo" and "Naive".}
+\item{nome}{Name of the model. Options: "Viés Relativo com Pesos", "Viés Relativo sem Pesos", "Viés Empírico", "Retrospectivo" and "Naive".}
 
 \item{...}{Named arguments to override default hyperparameters (e.g., `sd_tau_priori = 0.05`).}
 }

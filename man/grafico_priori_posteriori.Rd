@@ -21,7 +21,7 @@ grafico_priori_posteriori(
 
 \item{candidaturas}{A character vector of candidate names to include in the plot.}
 
-\item{tipo}{The type of da to plot: "Vi\u00e9s" (for institute bias) or "Percentual" (for candidate voting share).}
+\item{tipo}{The type of da to plot: "Viés" (for institute bias) or "Percentual" (for candidate voting share).}
 
 \item{salvar}{Logical. If TRUE, saves the plot to disk.}
 
@@ -46,7 +46,7 @@ if (instantiate::stan_cmdstan_exists()) {
   # Prior vs Posterior plot for institute bias
   grafico_priori_posteriori(
     result,
-    tipo = "Vi\u00e9s",
+    tipo = "Viés",
     candidaturas = c("Lula", "Bolsonaro"),
     salvar = FALSE
   )
