@@ -9,8 +9,8 @@
 #' @param turno The election round (1 or 2).
 #' @param cenario The specific electoral scenario. Mandatory for second round.
 #' @param modelo The name of the model to run. Options: "Viés Relativo com Pesos" (default), "Viés Relativo sem Pesos", "Viés Empírico", "Retrospectivo" and "Naive".
-#' @param config_agregador A list of configuration parameters created by `configurar_agregador()`. Includes Stan options and definition of left/right wing candidates.
-#' @param config_prioris A list of model hyperparameters created by `configurar_prioris()`. If NULL, defaults are used based on `modelo`.
+#' @param config_agregador A list of configuration parameters created by `configurar_agregador()`. If NULL, uses defaults.
+#' @param config_prioris A list of model hyperparameters created by `configurar_prioris()`. If NULL, uses defaults based on `modelo`.
 #' @param salvar Logical. If TRUE, saves the results to disk.
 #' @param dir_saida Output directory for saved files if `salvar = TRUE`.
 #' @return A list containing the model name, estimated votes, institute bias, and the raw model object.
@@ -25,14 +25,14 @@
 #'   )
 #' }
 #'
-#' # Tuning Stan, changing the model and altering priors
+#' # Tuning Stan, changing the model and altering specific priors
 #' if (instantiate::stan_cmdstan_exists()) {
 #'   resultados_custom <- rodar_agregador(
 #'     turno = 2,
 #'     cenario = "Lula vs Bolsonaro",
 #'     modelo = "Viés Relativo sem Pesos",
-#'     config_agregador = configurar_agregador(stan_chains = 1, stan_warmup = 200),
-#'     config_prioris = configurar_prioris("Viés Relativo sem Pesos", tau_priori = 0.02),
+#'     config_agregador = list(stan_chains = 1, stan_warmup = 200),
+#'     config_prioris = list(tau_priori = 0.02),
 #'     salvar = FALSE
 #'   )
 #' }
@@ -42,6 +42,7 @@
 #' @importFrom purrr map map2
 #' @importFrom readr write_excel_csv2
 #' @importFrom instantiate stan_package_model
+#' @importFrom utils modifyList
 rodar_agregador <- function(bd = NULL,
                             data_inicio = "01/01/2025",
                             data_fim = Sys.Date(),
@@ -50,8 +51,8 @@ rodar_agregador <- function(bd = NULL,
                             cenario = NULL,
                             turno,
                             modelo = "Vi\u00e9s Relativo com Pesos",
-                            config_agregador = configurar_agregador(),
-                            config_prioris = configurar_prioris(modelo),
+                            config_agregador = NULL,
+                            config_prioris = NULL,
                             salvar = FALSE,
                             dir_saida = ".") {
 
@@ -63,6 +64,22 @@ rodar_agregador <- function(bd = NULL,
     cli_abort(c("O pacote {.pkg cmdstanr} \u00e9 necess\u00e1rio para rodar esta fun\u00e7\u00e3o.",
                 "i" = "Instale-o com {.code install.packages('cmdstanr', repos = 'https://mc-stan.org/r-packages/')}.",
                 "i" = "Ou consulte {.url https://mc-stan.org/cmdstanr/}."))
+
+  }
+
+  # Configurar agregador (geral)
+  # Permite passar:
+  # 1. NULL (default)
+  # 2. Objeto completo (criado com configurar_agregador)
+  # 3. Lista de argumentos (que será passada para configurar_agregador)
+  if (is.null(config_agregador)) {
+
+    config_agregador <- configurar_agregador()
+
+  } else if (is.list(config_agregador) && !"stan" %in% names(config_agregador)) {
+
+    # Se for lista sem a estrutura final ('stan'), processar como argumentos
+    config_agregador <- do.call(configurar_agregador, config_agregador)
 
   }
 
@@ -114,6 +131,20 @@ rodar_agregador <- function(bd = NULL,
 
     cli_abort(c("Modelo {.val {modelo}} inv\u00e1lido.",
                 "i" = "Escolha entre os modelos: {.val {modelos_validos}}"))
+
+  }
+
+  # Configurar prioris personalizadas
+  # Lógica paralela à do config_agregador:
+  # 1. NULL (padrão do modelo)
+  # 2. Lista de argumentos para sobrescrever o padrão
+  if (!is.null(config_prioris)) {
+
+    config_prioris <- modifyList(configurar_prioris(modelo), config_prioris)
+
+  } else {
+
+    config_prioris <- configurar_prioris(modelo)
 
   }
 
