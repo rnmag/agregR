@@ -1,7 +1,7 @@
 #' @encoding UTF-8
 #' @title Configuration for Statistical Models
 #' @description Defines hyperparameters for the specific Bayesian models.
-#' @param nome Name of the model. Options: "vies_relativo_sem_pesos", "vies_relativo_com_pesos", "vies_empirico", "retrospectivo", "naive".
+#' @param nome Name of the model. Options: Options: "Viés Relativo com Pesos", "Viés Relativo sem Pesos", "Viés Empírico", "Retrospectivo" and "Naive".
 #' @param ... Named arguments to override default hyperparameters (e.g., `sd_tau_priori = 0.05`).
 #' @return A list of model parameters.
 #' @export
