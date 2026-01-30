@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Configuration for Statistical Models
 #' @description Defines hyperparameters for the specific Bayesian models.
 #' @param nome Name of the model. Options: "vies_relativo_sem_pesos", "vies_relativo_com_pesos", "vies_empirico", "retrospectivo", "naive".

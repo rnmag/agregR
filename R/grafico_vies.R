@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Plot Institute Bias
 #' @description Generates a plot visualizing the bias of polling institutes.
 #' @param bd The results object returned by `rodar_agregador`.

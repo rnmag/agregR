@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Configuration function for Poll Aggregator
 #' @description Defines configuration parameters for the poll aggregator, including Stan settings, filters, and election details.
 #' @param pesquisas Path to a CSV file or URL containing current poll data. Defaults to a GitHub Raw URL.

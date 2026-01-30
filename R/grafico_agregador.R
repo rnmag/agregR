@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Plot Aggregator Results
 #' @description Generates a plot of the aggregated poll results over time.
 #' @param bd The results object returned by `rodar_agregador`.

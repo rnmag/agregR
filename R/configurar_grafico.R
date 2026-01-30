@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Configuration for Graphics
 #' @description Defines configuration parameters for graphics, including colors, fonts, and dimensions.
 #' @param fonte Font family (default: "Fira Sans").

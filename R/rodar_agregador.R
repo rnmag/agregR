@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Run Poll Aggregator
 #' @description Main function to run the state-space model for poll aggregation.
 #' @param bd Dataframe or path to a CSV file containing poll data.
@@ -7,15 +8,15 @@
 #' @param ambito The geographical scope (e.g., "Brasil"). Current data only contains national polls, but the package supports expansion for state races.
 #' @param turno The election round (1 or 2).
 #' @param cenario The specific electoral scenario. Mandatory for second round.
-#' @param modelo The name of the model to run.
-#' @param config_agregador A list of configuration parameters created by `configurar_agregador()`.
+#' @param modelo The name of the model to run. Options: "Viés Relativo com Pesos" (default), "Viés Relativo sem Pesos", "Viés Empírico", "Retrospectivo" and "Naive".
+#' @param config_agregador A list of configuration parameters created by `configurar_agregador()`. Includes Stan options and definition of left/right wing candidates.
 #' @param config_prioris A list of model hyperparameters created by `configurar_prioris()`. If NULL, defaults are used based on `modelo`.
 #' @param salvar Logical. If TRUE, saves the results to disk.
 #' @param dir_saida Output directory for saved files if `salvar = TRUE`.
 #' @return A list containing the model name, estimated votes, institute bias, and the raw model object.
 #' @export
 #' @examples
-#' # Running a second round scenario
+#' # Running the default model for a second round scenario
 #' if (instantiate::stan_cmdstan_exists()) {
 #'   resultados <- rodar_agregador(
 #'     turno = 2,
@@ -24,14 +25,14 @@
 #'   )
 #' }
 #'
-#' # Tuning Stan and altering priors
+#' # Tuning Stan, changing the model and altering priors
 #' \dontrun{
 #'   resultados_custom <- rodar_agregador(
 #'     turno = 2,
 #'     cenario = "Lula vs Bolsonaro",
-#'     modelo = "Naive",
+#'     modelo = "Viés Relativo sem Pesos",
 #'     config_agregador = configurar_agregador(stan_chains = 1, stan_warmup = 200),
-#'     config_prioris = configurar_prioris("Naive", sd_mu_priori = 0.2),
+#'     config_prioris = configurar_prioris("Viés Relativo sem Pesos", tau_priori = 0.02),
 #'     salvar = FALSE
 #'   )
 #' }
