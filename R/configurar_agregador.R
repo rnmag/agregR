@@ -1,20 +1,15 @@
 #' @encoding UTF-8
 #' @title Configuration function for Poll Aggregator
-#' @description Defines configuration parameters for the poll aggregator, including Stan settings, filters, and election details.
+#' @description Defines configuration parameters for the poll aggregator, including Stan settings, and election details.
 #' @param pesquisas Path to a CSV file or URL containing current poll data. Defaults to a GitHub Raw URL.
 #' @param resultado_eleicao_passada Path to a CSV file containing results from the previous election. Defaults to a GitHub Raw URL.
 #' @param resultado_eleicao_atual Path to a CSV file containing results for the current election (useful for retrospective model). Defaults to a GitHub Raw URL.
 #' @param historico_pesquisas Path to a CSV/RDS file containing historical poll data. If NULL (default), uses the package's internal dataset.
-#' @param data_inicio Start date for filtering polls (default: "01/01/2025").
-#' @param data_fim End date for filtering polls (default: current system date).
-#' @param cargo Office/position being analyzed (default: "Presidente").
-#' @param ambito Geographical scope (default: "Brasil").
-#' @param cenario Electoral scenario (default: "").
-#' @param candidaturas_1t Character vector of candidates in the 1st round.
-#' @param candidaturas_2t Character vector of candidates in the 2nd round.
-#' @param direita_eleicao_atual Character vector of right-wing candidates in the current race. The model can compensate institute errors against right-wing candidates in the last election.
+#' @param candidaturas_1t Character vector of candidates in the 1st round. If NULL, uses default candidates.
+#' @param candidaturas_2t Character vector of candidates in the 2nd round. If NULL, uses default candidates.
+#' @param direita_eleicao_atual Character vector of right-wing candidates in the current race. If NULL, uses default candidates. The model can compensate institute errors against right-wing candidates in the last election.
 #' @param direita_eleicao_passada Name of the right-wing candidate in the previous election.
-#' @param esquerda_eleicao_atual Character vector of left-wing candidates in the current race. The model can compensate institute errors against left-wing candidates in the last election.
+#' @param esquerda_eleicao_atual Character vector of left-wing candidates in the current race. If NULL, uses default candidates. The model can compensate institute errors against left-wing candidates in the last election.
 #' @param esquerda_eleicao_passada Name of the left-wing candidate in the previous election.
 #' @param eleicao_passada_primeiro_turno Date of the previous 1st round (e.g., "2/10/2022").
 #' @param eleicao_passada_segundo_turno Date of the previous 2nd round (e.g., "30/10/2022").
@@ -29,9 +24,8 @@
 #' @return A list of configuration parameters.
 #' @export
 #' @examples
-#' # Create custom filters and Stan settings
+#' # Create custom Stan settings
 #' cfg_custom <- configurar_agregador(
-#'   data_inicio = "2025-06-01",
 #'   stan_warmup = 100,
 #'   stan_sampling = 100
 #' )
@@ -39,16 +33,11 @@ configurar_agregador <- function(pesquisas = NULL,
                                  resultado_eleicao_passada = NULL,
                                  resultado_eleicao_atual = NULL,
                                  historico_pesquisas = NULL,
-                                 data_inicio = "01/01/2025",
-                                 data_fim = Sys.Date(),
-                                 cargo = "Presidente",
-                                 ambito = "Brasil",
-                                 cenario = "",
-                                 candidaturas_1t = c("Lula", "Fl\u00e1vio", "Tarc\u00edsio", "Ratinho Jr."),
-                                 candidaturas_2t = c("Lula", "Fl\u00e1vio", "Tarc\u00edsio", "Ratinho Jr.", "Bolsonaro"),
-                                 direita_eleicao_atual = c("Bolsonaro", "Fl\u00e1vio", "Tarc\u00edsio", "Caiado"),
+                                 candidaturas_1t = NULL,
+                                 candidaturas_2t = NULL,
+                                 direita_eleicao_atual = NULL,
                                  direita_eleicao_passada = "Bolsonaro",
-                                 esquerda_eleicao_atual = c("Lula", "Haddad"),
+                                 esquerda_eleicao_atual = NULL,
                                  esquerda_eleicao_passada = "Lula",
                                  eleicao_passada_primeiro_turno = "2/10/2022",
                                  eleicao_passada_segundo_turno = "30/10/2022",
@@ -80,12 +69,24 @@ configurar_agregador <- function(pesquisas = NULL,
 
   }
 
-  list(filtros = list(data_inicio = data_inicio,
-                      data_fim = data_fim,
-                      cargo = cargo,
-                      ambito = ambito,
-                      cenario = cenario),
-       pesquisas = pesquisas,
+  # Definir candidaturas sem precisar refazer documentação
+  if (is.null(candidaturas_1t)) {
+    candidaturas_1t <- c("Lula", "Fl\u00e1vio", "Tarc\u00edsio", "Ratinho Jr.")
+  }
+
+  if (is.null(candidaturas_2t)) {
+    candidaturas_2t <- c("Lula", "Fl\u00e1vio", "Tarc\u00edsio", "Ratinho Jr.", "Bolsonaro")
+  }
+
+  if (is.null(direita_eleicao_atual)) {
+    direita_eleicao_atual <- c("Bolsonaro", "Fl\u00e1vio", "Tarc\u00edsio", "Caiado")
+  }
+
+  if (is.null(esquerda_eleicao_atual)) {
+    esquerda_eleicao_atual <- c("Lula", "Haddad")
+  }
+
+  list(pesquisas = pesquisas,
        historico_pesquisas = historico_pesquisas,
        resultado_eleicao_passada = resultado_eleicao_passada,
        resultado_eleicao_atual = resultado_eleicao_atual,
