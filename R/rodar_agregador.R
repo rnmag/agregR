@@ -97,7 +97,7 @@
 #' @param ambito The geographical scope (e.g., "Brasil"). Current data only contains national polls, but the package supports expansion for state races.
 #' @param turno The election round (1 or 2).
 #' @param cenario The specific electoral scenario. Mandatory for second round.
-#' @param modelo The name of the model to run. Options: "Viés Relativo com Pesos" (default), "Viés Relativo sem Pesos", "Viés Empírico", "Retrospectivo" and "Naive".
+#' @param modelo The name of the model to run. Options: "Vi\u00e9s Relativo com Pesos" (default), "Vi\u00e9s Relativo sem Pesos", "Vi\u00e9s Emp\u00edrico", "Retrospectivo" and "Naive".
 #' @param config_agregador A list of configuration parameters created by `configurar_agregador()`. If NULL, uses defaults.
 #' @param config_prioris A list of model hyperparameters created by `configurar_prioris()`. If NULL, uses defaults based on `modelo`.
 #' @param salvar Logical. If TRUE, saves the results to disk.
