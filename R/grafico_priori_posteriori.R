@@ -18,7 +18,7 @@
 #'   # Prior vs Posterior plot for institute bias
 #'   grafico_priori_posteriori(
 #'     result,
-#'     tipo = "Viés",
+#'     tipo = "Vi\u00e9s",
 #'     candidaturas = c("Lula", "Bolsonaro"),
 #'     salvar = FALSE
 #'   )

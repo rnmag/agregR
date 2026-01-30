@@ -4,7 +4,7 @@
 #' @section Model Details:
 #' The aggregator supports five types of Bayesian state-space models, each with specific assumptions about institute bias and non-sampling errors:
 #'
-#' \strong{1. Viés Relativo com Pesos (Default)}
+#' \strong{1. Vi\u00e9s Relativo com Pesos (Default)}
 #' \itemize{
 #'   \item \strong{Assumption:} Institute biases are relative to the average of all institutes (latent "truth" is anchored to the consensus).
 #'   \item \strong{Bias (\eqn{\delta}):} Calculated relative to the mean bias of all institutes.
@@ -12,7 +12,7 @@
 #'   \item \strong{Use case:} Best for general forecasting when historical data is available.
 #' }
 #'
-#' \strong{2. Viés Relativo sem Pesos}
+#' \strong{2. Vi\u00e9s Relativo sem Pesos}
 #' \itemize{
 #'   \item \strong{Assumption:} Same as above, but treats all institutes as having equal potential quality a priori.
 #'   \item \strong{Bias (\eqn{\delta}):} Calculated relative to the mean bias.
@@ -20,7 +20,7 @@
 #'   \item \strong{Use case:} When historical data is unreliable or when a "fresh start" assumption is desired.
 #' }
 #'
-#' \strong{3. Viés Empírico}
+#' \strong{3. Vi\u00e9s Emp\u00edrico}
 #' \itemize{
 #'   \item \strong{Assumption:} Institute biases are anchored to their specific historical performance.
 #'   \item \strong{Bias (\eqn{\delta}):} Prior means are set to the bias observed in the previous election (directional error).
@@ -73,7 +73,7 @@
 #'
 #' \strong{Institute Bias (\eqn{\delta})}
 #' \itemize{
-#'   \item \code{delta_priori}: The mean expected bias for institutes. Defaults to 0, except on "Viés Empírico" (where it is anchored on past election results).
+#'   \item \code{delta_priori}: The mean expected bias for institutes. Defaults to 0, except on "Vi\u00e9s Emp\u00edrico" (where it is anchored on past election results).
 #'   \item \code{sd_delta_priori}: The standard deviation of the bias prior. Controls how much institutes are allowed to deviate from the mean bias.
 #'   \itemize{
 #'     \item \emph{Higher values:} Allow for larger, more variable biases across institutes.
@@ -119,7 +119,7 @@
 #'   resultados_custom <- rodar_agregador(
 #'     turno = 2,
 #'     cenario = "Lula vs Bolsonaro",
-#'     modelo = "Viés Relativo sem Pesos",
+#'     modelo = "Vi\u00e9s Relativo sem Pesos",
 #'     config_agregador = list(stan_chains = 1, stan_warmup = 200),
 #'     config_prioris = list(tau_priori = 0.02),
 #'     salvar = FALSE
