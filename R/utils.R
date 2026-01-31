@@ -1,5 +1,6 @@
 #' @param nome_digitado Character. Candidate name provided by user.
 #' @noRd
+#' @importFrom stringi stri_trans_general
 nome_robusto <- function(nome_digitado) {
   nomes_padronizados <- c("Lula",
                           "Bolsonaro",
@@ -27,7 +28,7 @@ nome_robusto <- function(nome_digitado) {
                              `Ratinho Jr.` = c("ratinho", "ratinho jr", "ratinho jr.", "ratinho junior"),
                              Renan = c("renan", "renan santos"))
 
-  nome_digitado_ascii <- iconv(tolower(nome_digitado), to = "ASCII//TRANSLIT")
+  nome_digitado_ascii <- stringi::stri_trans_general(tolower(nome_digitado), "Latin-ASCII")
 
   for (i in nomes_padronizados) {
     if (nome_digitado_ascii %in% nomes_alternativos[[i]]) {
@@ -63,19 +64,19 @@ formatar_lista <- function(x) {
 #' @param x Character.
 #' @noRd
 limpar_texto <- function(x) {
-  iconv(gsub(" ", "_", x), to = "ASCII//TRANSLIT")
+  stringi::stri_trans_general(gsub(" ", "_", x), "Latin-ASCII")
 }
 
 #' @param x Character.
 #' @noRd
 limpar_texto_minusculo <- function(x) {
-  iconv(tolower(gsub(" ", "_", x)), to = "ASCII//TRANSLIT")
+  stringi::stri_trans_general(tolower(gsub(" ", "_", x)), "Latin-ASCII")
 }
 
 #' @param items Character vector.
 #' @noRd
 colar_ascii <- function(items) {
-  iconv(paste0(items, collapse = "_"), to = "ASCII//TRANSLIT")
+  stringi::stri_trans_general(paste0(items, collapse = "_"), "Latin-ASCII")
 }
 
 #' @param dir_base Character. Base directory.
