@@ -48,7 +48,7 @@ tratar_bd_historico <- function(bd,
            # Selecionar candidaturas representativas da direita/esquerda
            nome_candidato %in% c(config_agregador$direita_eleicao_passada, config_agregador$esquerda_eleicao_passada)) |>
     # Última pesquisa de cada instituto antes do 1 e 2 turnos
-    group_by(instituto, turno) |>
+    group_by(instituto, turno, nome_candidato) |>
     filter(data == max(data)) |>
     ungroup() |>
     # Incorporar resultados da última eleição
@@ -63,8 +63,10 @@ tratar_bd_historico <- function(bd,
            ep = round(sqrt(percentual_pesquisa * (1 - percentual_pesquisa) / n_efetivo), 4),
            resultado = round(votos_recebidos / total_votos, 4),
            erro_total = percentual_pesquisa - resultado,
-           # Se o erro padrão é maior que o erro total, tau = 0
-           erro_nao_amostral = pmax(abs(erro_total) - ep, 0)) |>
+           # Se o erro total é maior que o erro padrão, somar variâncias. Supõe
+           # que erro amostral e erro não-amostral não são correlacionados, que
+           # é o cálculo mais conservador para a incerteza
+           erro_nao_amostral = if_else(abs(erro_total) > ep, sqrt(erro_total^2 - ep^2), 0)) |>
     select(data,
            turno,
            instituto,
