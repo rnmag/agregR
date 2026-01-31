@@ -156,19 +156,34 @@ rodar_agregador <- function(bd = NULL,
 
   }
 
-  # Configurar agregador (geral)
-  # Permite passar:
-  # 1. NULL (defaults)
-  # 2. Objeto completo (criado com configurar_agregador)
-  # 3. Lista de argumentos (que será passada para configurar_agregador)
+  # Arquivo de configuração do agregador
+  # Permite passar, em ordem:
+  # 1. NULL (default, usa configuração padrão)
+  # 2. Lista de argumentos a serem passados para configurar_agregador()
+  # 3. Objeto de configuração completo criado com configurar_agregador()
   if (is.null(config_agregador)) {
 
     config_agregador <- configurar_agregador()
 
   } else if (is.list(config_agregador) && !"stan" %in% names(config_agregador)) {
 
-    # Se for lista sem a estrutura final ('stan'), processar como argumentos
+    # Se for lista sem a estrutura de lista aninhada ('stan'), processar como
+    # argumentos a serem sobrescritos na função
     config_agregador <- do.call(configurar_agregador, config_agregador)
+
+  }
+
+  # Configurar prioris personalizadas
+  # Permite passar:
+  # 1. NULL (defult, usa prioris padrão)
+  # 2. Lista de argumentos a serem passados para configurar_prioris()
+  if (!is.null(config_prioris)) {
+
+    config_prioris <- modifyList(configurar_prioris(modelo), config_prioris)
+
+  } else {
+
+    config_prioris <- configurar_prioris(modelo)
 
   }
 
@@ -223,20 +238,6 @@ rodar_agregador <- function(bd = NULL,
 
   }
 
-  # Configurar prioris personalizadas
-  # Lógica paralela à do config_agregador:
-  # 1. NULL (padrão do modelo)
-  # 2. Lista de argumentos para sobrescrever o padrão
-  if (!is.null(config_prioris)) {
-
-    config_prioris <- modifyList(configurar_prioris(modelo), config_prioris)
-
-  } else {
-
-    config_prioris <- configurar_prioris(modelo)
-
-  }
-
   # Carregar as pesquisas atuais
   pesquisas <- tratar_bd_atual(bd,
                                filtro_inicio = data_inicio,
@@ -273,16 +274,38 @@ rodar_agregador <- function(bd = NULL,
   # 2. Iniciar simulações -----------------------------------------------------
 
   cli_alert_success("Base carregada e filtrada com sucesso!")
-  cli_alert_info("Iniciando {.val {config_agregador$stan$chains}} cadeia{?s} de {.val {config_agregador$stan$warmup + config_agregador$stan$sampling}} itera\u00e7\u00f5es para cada candidatura.")
-  cli_alert_info("H\u00e1 {.val {n_distinct(pesquisas$pesquisa_id)}} pesquisa{?s} na base entre {format(data_inicio, '%d/%m/%y')} e {format(data_fim, '%d/%m/%y')}.")
-  cli_alert_info("Se esses n\u00fameros parecerem incorretos, revise os argumentos e configura\u00e7\u00f5es da fun\u00e7\u00e3o.")
+
+  cli_alert_info(paste("Iniciando {.val {config_agregador$stan$chains}}",
+                       "cadeia{?s} de",
+                       "{.val {config_agregador$stan$warmup + config_agregador$stan$sampling}}",
+                       "itera\u00e7\u00f5es por candidatura."))
+
+  cli_alert_info(paste("H\u00e1 {.val {n_distinct(pesquisas$pesquisa_id)}}",
+                       "pesquisa{?s} na base entre",
+                       "{format(data_inicio, '%d/%m/%y')} e",
+                       "{format(data_fim, '%d/%m/%y')}."))
+
+  cli_alert_info(paste("Se esses n\u00fameros parecerem incorretos, revise os",
+                       "argumentos e configura\u00e7\u00f5es da fun\u00e7\u00e3o."))
 
   # Nome do arquivo Stan
   nome_stan <- limpar_texto_minusculo(modelo)
 
   # Compilar o modelo
-  stan_compilado <- instantiate::stan_package_model(name = nome_stan,
-                                                    package = "agregR")
+  # Verifica se estamos em modo de desenvolvimento (src/stan)
+  arquivo_stan_local <- file.path("src", "stan", paste0(nome_stan, ".stan"))
+
+  if (file.exists(arquivo_stan_local)) {
+
+    stan_compilado <- cmdstanr::cmdstan_model(arquivo_stan_local)
+
+    # Se não, usar modelo compilado na instalação do pacote
+  } else {
+
+    stan_compilado <- instantiate::stan_package_model(name = nome_stan,
+                                                      package = "agregR")
+
+  }
 
   # Iterar ajustar_modelo() para cada candidatura
   modelo_ajustado <- pesquisas |>
