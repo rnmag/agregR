@@ -156,8 +156,7 @@ rodar_agregador <- function(bd = NULL,
 
   }
 
-  # Arquivo de configuração do agregador
-  # Permite passar, em ordem:
+  # Tratamento da configuração do agregador. Permite passar, em ordem:
   # 1. NULL (default, usa configuração padrão)
   # 2. Lista de argumentos a serem passados para configurar_agregador()
   # 3. Objeto de configuração completo criado com configurar_agregador()
@@ -173,10 +172,10 @@ rodar_agregador <- function(bd = NULL,
 
   }
 
-  # Configurar prioris personalizadas
-  # Permite passar:
+  # Tratamento de prioris personalizadas. Permite passar:
   # 1. NULL (defult, usa prioris padrão)
   # 2. Lista de argumentos a serem passados para configurar_prioris()
+  # 3. Objeto de configuração completo criado com configurar_prioris()
   if (!is.null(config_prioris)) {
 
     config_prioris <- modifyList(configurar_prioris(modelo), config_prioris)

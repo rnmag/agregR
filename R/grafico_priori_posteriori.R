@@ -75,7 +75,7 @@ grafico_priori_posteriori <- function(bd,
   # Erro se tentar fazer gráfico de viés com modelo "Naive"
   if (tipo == "Vi\u00e9s" && bd$nome_modelo == "Naive") {
 
-    cli_abort("O gr\u00e1fico de vi\u00e9s n\u00e3o \u00e9 aplic\u00e1vel ao modelo 'Naive'.")
+    cli_abort("No modelo 'Naive' n\u00e3o existe vi\u00e9s. Tente tipo = 'Percentual'.")
 
   }
 

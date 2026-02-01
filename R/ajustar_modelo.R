@@ -145,7 +145,12 @@ ajustar_modelo <- function(bd,
     # brancos/nulos, pois a base histórica de pesquisas do Poder360 apenas inclui
     # as intenções de voto nominais.
 
-    cli_alert_warning("Este modelo depende dos resultados da elei\u00e7\u00e3o para funcionar corretamente. N\u00e3o \u00e9 \u00fatil durante a campanha, mas depois da elei\u00e7\u00e3o ele pode calcular vieses precisos e ajudar no diagn\u00f3stico dos outros modelos. Atualizaremos os dados assim que estiverem dispon\u00edveis.")
+    cli_alert_warning(paste("Para fazer a an\u00e1lise retrospectiva, este modelo",
+                            "depende dos resultados da elei\u00e7\u00e3o. Ele usa",
+                            "esses resultados para calcular vieses precisos, auxiliando",
+                            "o diagn\u00f3stico dos outros modelos."))
+
+    cli_alert_warning("Atualizaremos os dados assim que estiverem dispon\u00edveis.")
 
     # Usar ler_csv para flexibilidade (URL ou local/extdata)
     caminho_resultado_atual <- if (is.null(config_agregador$resultado_eleicao_atual)) "resultado_eleicao_atual.csv" else config_agregador$resultado_eleicao_atual
