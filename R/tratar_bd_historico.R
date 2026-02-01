@@ -66,7 +66,7 @@ tratar_bd_historico <- function(bd,
            # Se o erro total é maior que o erro padrão, somar variâncias. Supõe
            # que erro amostral e erro não-amostral não são correlacionados, que
            # é o cálculo mais conservador para a incerteza
-           erro_nao_amostral = if_else(abs(erro_total) > ep, sqrt(erro_total^2 - ep^2), 0)) |>
+           erro_nao_amostral = sqrt(pmax(erro_total^2 - ep^2, 0))) |>
     select(data,
            turno,
            instituto,
