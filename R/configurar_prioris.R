@@ -20,7 +20,7 @@ configurar_prioris <- function(nome = "Vi\u00e9s Relativo com Pesos", ...) {
 
   valores <- list(vies_relativo_sem_pesos = list(delta_priori = 0, sd_delta_priori = 0.02,
                                                  # gamma_priori = 0, sd_gamma_priori = 0.02,
-                                                 tau_priori = 0.01, sd_tau_priori = 0.02,
+                                                 tau_priori = 0.02, sd_tau_priori = 0.02,
                                                  mu_priori = 0.5, sd_mu_priori = 0.5,
                                                  eta_priori = 0.002, sd_eta_priori = 0.0001,
                                                  nu_priori = 0, sd_nu_priori = 0.001,
@@ -41,7 +41,7 @@ configurar_prioris <- function(nome = "Vi\u00e9s Relativo com Pesos", ...) {
                                        zeta_priori = 0, sd_zeta_priori = 0.00001),
                   retrospectivo = list(delta_priori = 0, sd_delta_priori = 0.02,
                                        # gamma_priori = 0, sd_gamma_priori = 0.02,
-                                       tau_priori = 0.01, sd_tau_priori = 0.02,
+                                       tau_priori = 0.02, sd_tau_priori = 0.02,
                                        mu_priori = 0.5, sd_mu_priori = 0.5,
                                        eta_priori = 0.002, sd_eta_priori = 0.0001,
                                        nu_priori = 0, sd_nu_priori = 0.001,
