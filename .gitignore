@@ -11,4 +11,5 @@ src/stan/**
 !src/stan/**/*.*
 src/stan/**/*.exe
 src/stan/**/*.EXE
+scripts_locais/
 *.dll

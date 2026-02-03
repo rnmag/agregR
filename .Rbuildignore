@@ -8,3 +8,5 @@
 ^\.Rproj\.user$
 ^NOTICE$
 ^LICENSE\.md$
+^README\.Rmd$
+^scripts_locais$
