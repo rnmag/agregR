@@ -179,7 +179,7 @@ component $\mu_t$ and a trend component $\nu_t$.
     deviation $\eta$.
 
 ```math
-\mu_t \sim N(\mu_{t-1} + \nu_{t-1}, \eta)
+\mu_t \sim N\left(\mu_{t-1} + \nu_{t-1}, \eta\right)
 ```
 
 2.  **Trend Dynamics:** The trend itself evolves as a random walk,
@@ -187,7 +187,7 @@ component $\mu_t$ and a trend component $\nu_t$.
     by trend volatility $\zeta$.
 
 ```math    
-\nu_t \sim N(\nu_{t-1}, \zeta)
+\nu_t \sim \left(\nu_{t-1}, \zeta\right)
 ```
 
 ### Likelihood
@@ -196,7 +196,11 @@ In the days in which polling data $i$ is published, the observed result
 $y_i$ from institute $j$ at time $t$ is modeled as:
 
 ```math
-y_{i} = \begin{bmatrix}1 & 0\end{bmatrix} \begin{bmatrix}\mu_{t(i)} \\ \nu_{t(i)}\end{bmatrix} + \delta_{j(i), k(i), p(i)} + \varepsilon_{i}
+y_{i} = 
+\begin{pmatrix}1 & 0\end{pmatrix} 
+\begin{pmatrix}\mu_{t(i)} \\ \nu_{t(i)}\end{pmatrix} + 
+\delta_{j(i), k(i), p(i)} + 
+\varepsilon_{i}
 ```
 
 where
@@ -204,24 +208,6 @@ where
 ```math
 \varepsilon_{i} \sim N\left(0, \sqrt{\sigma_{i}^2 + \tau_{j(i), k(i), p(i)}^2}\right) 
 ```
-
-and the latent state update is defined as:
-
-```math
-\begin{bmatrix}\mu_{t} \\ \nu_{t}\end{bmatrix} = \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix} +
-\begin{bmatrix}\mu_{t - 1} \\ \nu_{t - 1}\end{bmatrix}
-\begin{bmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{bmatrix}
-```
-
-where the volatility parameters follow hierarchical priors:
-
-```math
-\begin{aligned}
-\omega_{\mu, t} &\sim N(0, \eta), \quad \eta \sim N^+(\eta_{0}, \sigma_{\eta}) \\
-\omega_{\nu, t} &\sim N(0, \zeta), \quad \zeta \sim N^+(\zeta_{0}, \sigma_{\zeta})
-\end{aligned}
-```
-
 with subscripts mapping poll $i$ to its metadata:
 
 - $t(i)$: **Date** of publication.
@@ -229,6 +215,24 @@ with subscripts mapping poll $i$ to its metadata:
 - $k(i)$: **Election round** ($k \in \{1, 2\}$).
 - $p(i)$: Candidate’s **political alignment**
   ($p \in \{\text{left, right, center}\}$).
+
+and the latent state update is defined as:
+
+```math
+\begin{pmatrix}\mu_{t} \\ \nu_{t}\end{pmatrix} =
+\begin{pmatrix}1 & 1 \\ 0 & 1\end{pmatrix} +
+\begin{pmatrix}\mu_{t - 1} \\ \nu_{t - 1}\end{pmatrix}
+\begin{pmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{pmatrix}
+```
+
+where the volatility parameters follow hierarchical priors:
+
+```math
+\begin{aligned}
+\omega_{\mu, t} \sim N\left(0, \eta\right), \quad \eta \sim N^+\left(\eta_{0}, \sigma_{\eta}\right) \\
+\omega_{\nu, t} \sim N\left(0, \zeta\right), \quad \zeta \sim N^+\left(\zeta_{0}, \sigma_{\zeta}\right)
+\end{aligned}
+```
 
 The measurement model thus decomposes uncertainty into three distinct
 sources:
@@ -281,10 +285,10 @@ effects ($\delta$) and non-sampling error ($\tau$) estimation:
 
 | Model                                                    | House Effects Anchor ($\delta$)                               | Non-Sampling Error Prior ($\tau$)                                |
 |:---------------------------------------------------------|:--------------------------------------------------------------|:-----------------------------------------------------------------|
-| **Viés Relativo com Pesos** (*Weighted Relative Bias*)   | Consensus-based $(\sum \delta_j = 0)$                         | Institute-specific $\tau_{j,k,p}$ (prior $\leftarrow$ past RMSE) |
-| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus-based $(\sum \delta_j = 0)$                         | Global scalar $\tau$                                             |
+| **Viés Relativo com Pesos** (*Weighted Relative Bias*)   | Consensus-based $\left(\sum \delta_j = \right)$                         | Institute-specific $\tau_{j,k,p}$ (prior $\leftarrow$ past RMSE) |
+| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus-based $\left(\sum \delta_j = 0\right)$                         | Global scalar $\tau$                                             |
 | **Viés Empírico** (*Empirical Bias*)                     | Last election $\delta_{j,k,p}$ (prior $\leftarrow$ past bias) | Institute-specific $\tau_{j,k,p}$ (prior $\leftarrow$ past RMSE) |
-| **Retrospectivo** (*Retrospective*)                      | Actual election result ($\mu_T$)                              | Global scalar $\tau$                                             |
+| **Retrospectivo** (*Retrospective*)                      | Actual election result $\left(\mu_T\right)$                              | Global scalar $\tau$                                             |
 | **Naive**                                                | None (assumed zero)                                           | None (assumed zero)                                              |
 
 ### References
