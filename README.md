@@ -273,8 +273,10 @@ The latent state updates according to:
 where the volatility parameters follow hierarchical priors:
 
 ```math
+\begin{aligned}
 \omega_{\mu, t} \sim N\left(0, \eta\right), \quad \eta \sim N^+\left(\eta_{0}, \sigma_{\eta}\right) \\
 \omega_{\nu, t} \sim N\left(0, \zeta\right), \quad \zeta \sim N^+\left(\zeta_{0}, \sigma_{\zeta}\right)
+\end{aligned}
 ```
 
 The measurement model thus decomposes uncertainty into three distinct
