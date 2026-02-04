@@ -96,7 +96,7 @@ the raw polling data.
 grafico_agregador(results)
 ```
 
-![Main Aggregator Plot](man/figures/README-agregador-plot.png)
+![](man/figures/README-agregador-plot.png)
 
 #### 2. House Effects
 Visualizes the systematic bias for each institute, identifying outliers and
@@ -106,7 +106,7 @@ consistent directional skews.
 grafico_vies(results, candidaturas = c("Lula", "Tarcísio"))
 ```
 
-![Institute Bias Plot](man/figures/README-vies-plot.png)
+![](man/figures/README-vies-plot.png)
 
 #### 3. Bayesian Updating Check
 Visualizes how the data has informed the model by comparing Prior vs. Posterior
@@ -116,7 +116,7 @@ distributions for selected parameters.
 grafico_priori_posteriori(results, tipo = "Viés", candidaturas = c("Lula", "Tarcísio"))
 ```
 
-![Prior vs Posterior Plot](man/figures/README-prior-posterior-plot.png)
+![](man/figures/README-prior-posterior-plot.png)
 
 ### Advanced Configuration
 
@@ -175,18 +175,18 @@ $\mu_t$ and a trend component $\nu_t$.
 
 1.  **Level Dynamics:** The state at time $t$ is the previous state plus the trend,
     subject to stochastic level innovations with standard deviation $\eta$.
-    $$ \mu_t \sim N(\mu_{t-1} + \nu_{t-1}, \eta) $$
+    $$\mu_t \sim N(\mu_{t-1} + \nu_{t-1}, \eta)$$
 
 2.  **Trend Dynamics:** The trend itself evolves as a random walk, allowing the
     momentum of a campaign to shift over time, controlled by trend volatility $\zeta$.
-    $$ \nu_t \sim N(\nu_{t-1}, \zeta) $$
+    $$\nu_t \sim N(\nu_{t-1}, \zeta)$$
 
 ### Likelihood
 
 In the days in which polling data $i$ is published, the observed result $y_i$
 from institute $j$ at time $t$ is modeled as:
 
-$$ 
+$$
 \begin{aligned}
 y_{i} &= \begin{bmatrix}1 & 0\end{bmatrix}
 \begin{bmatrix}\mu_{t(i)} \\ \nu_{t(i)}\end{bmatrix}
@@ -207,9 +207,9 @@ and the latent state update is defined as:
 $$
 \begin{aligned}
 \begin{bmatrix}\mu_{t} \\ \nu_{t}\end{bmatrix}
-&= \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix}
+&= \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix} +
 \begin{bmatrix}\mu_{t - 1} \\ \nu_{t - 1}\end{bmatrix}
-+ \begin{bmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{bmatrix} \\[12pt]
+\begin{bmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{bmatrix} \\[12pt]
 \omega_{\mu, t} &\sim N(0, \eta), \quad
 \omega_{\nu, t} \sim N(0, \zeta)
 \end{aligned}

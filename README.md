@@ -95,11 +95,7 @@ overlaying the raw polling data.
 grafico_agregador(results)
 ```
 
-<figure>
-<img src="man/figures/README-agregador-plot.png"
-alt="Main Aggregator Plot" />
-<figcaption aria-hidden="true">Main Aggregator Plot</figcaption>
-</figure>
+![](man/figures/README-agregador-plot.png)
 
 #### 2. House Effects
 
@@ -110,10 +106,7 @@ and consistent directional skews.
 grafico_vies(results, candidaturas = c("Lula", "Tarcísio"))
 ```
 
-<figure>
-<img src="man/figures/README-vies-plot.png" alt="Institute Bias Plot" />
-<figcaption aria-hidden="true">Institute Bias Plot</figcaption>
-</figure>
+![](man/figures/README-vies-plot.png)
 
 #### 3. Bayesian Updating Check
 
@@ -124,11 +117,7 @@ vs. Posterior distributions for selected parameters.
 grafico_priori_posteriori(results, tipo = "Viés", candidaturas = c("Lula", "Tarcísio"))
 ```
 
-<figure>
-<img src="man/figures/README-prior-posterior-plot.png"
-alt="Prior vs Posterior Plot" />
-<figcaption aria-hidden="true">Prior vs Posterior Plot</figcaption>
-</figure>
+![](man/figures/README-prior-posterior-plot.png)
 
 ### Advanced Configuration
 
@@ -189,18 +178,18 @@ component $\mu_t$ and a trend component $\nu_t$.
 
 1.  **Level Dynamics:** The state at time $t$ is the previous state plus
     the trend, subject to stochastic level innovations with standard
-    deviation $\eta$. $$ \mu_t \sim N(\mu_{t-1} + \nu_{t-1}, \eta) $$
+    deviation $\eta$. $$\mu_t \sim N(\mu_{t-1} + \nu_{t-1}, \eta)$$
 
 2.  **Trend Dynamics:** The trend itself evolves as a random walk,
     allowing the momentum of a campaign to shift over time, controlled
-    by trend volatility $\zeta$. $$ \nu_t \sim N(\nu_{t-1}, \zeta) $$
+    by trend volatility $\zeta$. $$\nu_t \sim N(\nu_{t-1}, \zeta)$$
 
 ### Likelihood
 
 In the days in which polling data $i$ is published, the observed result
 $y_i$ from institute $j$ at time $t$ is modeled as:
 
-$$ 
+$$
 \begin{aligned}
 y_{i} &= \begin{bmatrix}1 & 0\end{bmatrix}
 \begin{bmatrix}\mu_{t(i)} \\ \nu_{t(i)}\end{bmatrix}
@@ -221,9 +210,9 @@ and the latent state update is defined as:
 $$
 \begin{aligned}
 \begin{bmatrix}\mu_{t} \\ \nu_{t}\end{bmatrix}
-&= \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix}
+&= \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix} +
 \begin{bmatrix}\mu_{t - 1} \\ \nu_{t - 1}\end{bmatrix}
-+ \begin{bmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{bmatrix} \\[12pt]
+\begin{bmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{bmatrix} \\[12pt]
 \omega_{\mu, t} &\sim N(0, \eta), \quad
 \omega_{\nu, t} \sim N(0, \zeta)
 \end{aligned}
