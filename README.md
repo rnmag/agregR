@@ -33,15 +33,15 @@ You can install the development version of `agregR` with:
 
 ``` r
 if (!require(pak)) install.packages("pak")
-pak("rnmag/agregR")
+pak::pak("rnmag/agregR")
 ```
 
 ### Dependencies
 
 `agregR` is built on [CmdStan](https://mc-stan.org/docs/cmdstan-guide/),
 the state-of-the-art backend for Stan. Since CmdStan is not available on
-CRAN [(and will likely never
-be)](https://discourse.mc-stan.org/t/what-is-the-difference-between-rstan-cmdstanr-and-bridgestan/39226/3),
+CRAN ([and will likely never
+be](https://discourse.mc-stan.org/t/what-is-the-difference-between-rstan-cmdstanr-and-bridgestan/39226/3)),
 it needs to be installed separately. This one-time setup yields
 substantial gains in compilation speed and sampling performance.
 
@@ -86,8 +86,8 @@ The package includes a suite of plots designed for public communication.
 
 #### 1. Voting Intentions
 
-Visualizes the posterior distribution of the true voting intention
-overlaying the raw polling data.
+Visualizes the estimated voting intention for each candidate overlaying the raw
+polling data.
 
 ``` r
 grafico_agregador(results)
@@ -135,6 +135,50 @@ results_custom <- rodar_agregador(
   config_prioris = list(sd_tau_priori = 0.01)
 )
 ```
+### Model Validation
+Every Stan model in `agregR` includes a `generated quantities` block, enabling
+Posterior Predictive Checks (PPC). By simulating $y_{rep}$ from the posterior
+distribution, users can verify the model's calibration against real-world
+observations. The example below demonstrates this using the `bayesplot` package:
+
+``` r
+library(bayesplot)
+
+# Setup
+cand  <- "Lula"
+modelo_cand <- results$modelo_bruto[[cand]]
+color_scheme_set("mix-brightblue-darkgray")
+
+# Observed data
+y <- results$votos_estimados |>
+  filter(!is.na(percentual_pesquisa) & candidatura == cand) |>
+  pull(percentual_pesquisa)
+
+# Simulated data
+y_rep <- modelo_cand$draws("perc_simulado", format = "matrix")
+
+# Prepare plot labels
+pesquisa_id <- results$votos_estimados |>
+  filter(!is.na(percentual_pesquisa) & candidatura == cand) |>
+  pull(pesquisa_id)
+
+# Plot observed vs simulated data
+ppc_intervals(y, y_rep, prob = 0.67, prob_outer = 0.95) +
+  scale_x_continuous(labels = pesquisa_id,
+                     breaks = seq_along((pesquisa_id))) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  labs(title = "Simulated vs Observed Data") +
+  xaxis_title(FALSE) +
+  coord_flip() +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", size = 18, hjust = .5),
+        panel.grid = element_blank(),
+        panel.grid.major.y = element_line(linetype = "dotted", color = "gray80"),
+        axis.text.y = element_text(size = 8),
+        legend.position = "top")
+```
+
+![](man/figures/README-ppc-plot.png)
 
 ## Methodology
 
@@ -159,12 +203,12 @@ Data collection is deliberately *unselective*. Instead of subjectively
 deciding which institutes produce high quality polls, we trust the
 models to separate the wheat from the chaff.
 
-Polls enter the model with adjustments to their sample size in order to
-avoid undue influence from polls with large nominal $n$. We calculate
-an *implicit* $n$ based on the published margin of error and compare it
-to the nominal $n$. We use the most conservative figure to compute
+Polls enter the model with checks to their sample size in order to
+avoid undue influence from institutes claiming inflated precision. We calculate
+an *implicit* $n$ derived from the published margin of error and compare it
+to the reported sample size. We use the most conservative figure to compute
 candidate-specific standard errors as a function of their support level,
-improving efficiency in lopsided races.
+improving estimation efficiency in lopsided races.
 
 Historical data is sourced from Poder360’s polling database, [available
 here](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
@@ -192,8 +236,9 @@ component $\mu_t$ and a trend component $\nu_t$.
 
 ### Likelihood
 
-In the days in which polling data $i$ is published, the observed result
-$y_i$ from institute $j$ at time $t$ is modeled as:
+In the days in which polling data $i$ is available, the observed result
+$y_i$ from institute $j$ at time $t$ is modeled as a function of $\mu_{t(i)}$
+and $\delta_{j(i), k(i), p(i)}$:
 
 ```math
 y_{i} = 
@@ -208,34 +253,32 @@ where
 ```math
 \varepsilon_{i} \sim N\left(0, \sqrt{\sigma_{i}^2 + \tau_{j(i), k(i), p(i)}^2}\right) 
 ```
-with subscripts mapping poll $i$ to its metadata:
+with subscripts mapping poll $i$ to relevant covariates:
 
-- $t(i)$: **Date** of publication.
+- $t(i)$: **Date** of fieldwork.
 - $j(i)$: **Polling institute** ($j \in \{1, \dots, J\}$).
 - $k(i)$: **Election round** ($k \in \{1, 2\}$).
 - $p(i)$: Candidate’s **political alignment**
-  ($p \in \{\text{left, right, center}\}$).
+  ($p \in \{\text{left, right, other}\}$).
 
-and the latent state update is defined as:
+The latent state updates according to:
 
 ```math
 \begin{pmatrix}\mu_{t} \\ \nu_{t}\end{pmatrix} =
-\begin{pmatrix}1 & 1 \\ 0 & 1\end{pmatrix} +
-\begin{pmatrix}\mu_{t - 1} \\ \nu_{t - 1}\end{pmatrix}
+\begin{pmatrix}1 & 1 \\ 0 & 1\end{pmatrix}
+\begin{pmatrix}\mu_{t - 1} \\ \nu_{t - 1}\end{pmatrix} +
 \begin{pmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{pmatrix}
 ```
 
 where the volatility parameters follow hierarchical priors:
 
 ```math
-\begin{aligned}
 \omega_{\mu, t} \sim N\left(0, \eta\right), \quad \eta \sim N^+\left(\eta_{0}, \sigma_{\eta}\right) \\
 \omega_{\nu, t} \sim N\left(0, \zeta\right), \quad \zeta \sim N^+\left(\zeta_{0}, \sigma_{\zeta}\right)
-\end{aligned}
 ```
 
 The measurement model thus decomposes uncertainty into three distinct
-sources:
+components:
 
 1.  **Sampling Error ($\sigma_{i}$):** The inherent uncertainty derived
     from the effective sample size of the poll $i$.
@@ -254,15 +297,15 @@ bias and precision parameters. Specific values for priors can be
 accessed (and modified) by the `configurar_prioris()` function.
 
 1.  **Bias Shrinkage:** House effects $\delta_{j,k,p}$ follow a
-    structured prior centered on a consensus anchor (sum-to-zero) or
-    historical alignment. This prevents individual polls from
+    structured prior centered either on a consensus anchor (sum-to-zero)
+    or on past performance. This prevents individual polls from
     disproportionately pulling the latent trend unless supported by
     cumulative evidence.
 2.  **Historical Precision:** Non-sampling errors $\tau_{j,k,p}$ use
-    past election performance as prior means. This “weighted” approach
-    allows the model to automatically down-weight institutes with
-    historically poor accuracy while maintaining the flexibility to
-    update these estimates based on current-cycle data.
+    past election Root Mean Square Error (RMSE) as prior means. This
+    “weighted” approach allows the model to automatically down-weight
+    institutes with historically poor accuracy while maintaining
+    the flexibility to update these estimates based on current-cycle data.
 3.  **Automated Regularization:** The hierarchical priors on $\eta$
     (level volatility) and $\zeta$ (trend volatility) govern the
     “stiffness” of the aggregator. This approach prevents over-fitting
@@ -283,15 +326,16 @@ effects ($\delta$) and non-sampling error ($\tau$) estimation:
   Square Error (RMSE) in the last election have their polls discounted
   in the posterior latent trend.
 
-| Model                                                    | House Effects Anchor ($\delta$)                               | Non-Sampling Error Prior ($\tau$)                                |
-|:---------------------------------------------------------|:--------------------------------------------------------------|:-----------------------------------------------------------------|
-| **Viés Relativo com Pesos** (*Weighted Relative Bias*)   | Consensus-based $\left(\sum \delta_j = \right)$                         | Institute-specific $\tau_{j,k,p}$ (prior $\leftarrow$ past RMSE) |
-| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus-based $\left(\sum \delta_j = 0\right)$                         | Global scalar $\tau$                                             |
-| **Viés Empírico** (*Empirical Bias*)                     | Last election $\delta_{j,k,p}$ (prior $\leftarrow$ past bias) | Institute-specific $\tau_{j,k,p}$ (prior $\leftarrow$ past RMSE) |
-| **Retrospectivo** (*Retrospective*)                      | Actual election result $\left(\mu_T\right)$                              | Global scalar $\tau$                                             |
-| **Naive**                                                | None (assumed zero)                                           | None (assumed zero)                                              |
+| Model | House Effects Anchor ($\delta$) | Non-Sampling Error Prior ($\tau$) |
+|:---|:---|:---|
+| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus-based $\left(\sum \delta_j = 0\right)$ | Institute-specific $\tau_{j,k,p}$ (prior $\leftarrow$ past RMSE) |
+| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus-based $\left(\sum \delta_j = 0\right)$ | Global scalar $\tau$ |
+| **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (prior $\leftarrow$ past bias) | Institute-specific $\tau_{j,k,p}$ (prior $\leftarrow$ past RMSE) |
+| **Retrospectivo** (*Retrospective*) | Actual election result $\left(\mu_T\right)$ | Global scalar $\tau$ |
+| **Naive** | None (assumed zero) | None (assumed zero) |
 
-### References
+
+## References
 
 - Heidemanns, H., Gelman, A., & Morris, G. (2020). *An Updated Dynamic
   Bayesian Forecasting Model for the 2020 Election*. Harvard Data
