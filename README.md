@@ -195,38 +195,30 @@ component $\mu_t$ and a trend component $\nu_t$.
 In the days in which polling data $i$ is published, the observed result
 $y_i$ from institute $j$ at time $t$ is modeled as:
 
-```math$
-\begin{aligned}
-y_{i} &= \begin{bmatrix}1 & 0\end{bmatrix} \begin{bmatrix}\mu_{t(i)} \\ \nu_{t(i)}\end{bmatrix} + \delta_{j(i), k(i), p(i)} + \varepsilon_{i}
-\end{aligned}
+```math
+y_{i} = \begin{bmatrix}1 & 0\end{bmatrix} \begin{bmatrix}\mu_{t(i)} \\ \nu_{t(i)}\end{bmatrix} + \delta_{j(i), k(i), p(i)} + \varepsilon_{i}
 ```
 
 where
 
 ```math
-\begin{aligned}
-\varepsilon_{i} &\sim N\left(0, \sqrt{\sigma_{i}^2 + \tau_{j(i), k(i), p(i)}^2}\right) 
-\end{aligned}
+\varepsilon_{i} \sim N\left(0, \sqrt{\sigma_{i}^2 + \tau_{j(i), k(i), p(i)}^2}\right) 
 ```
 
 and the latent state update is defined as:
 
 ```math
-\begin{aligned}
-\begin{bmatrix}\mu_{t} \\ \nu_{t}\end{bmatrix} &= \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix} +
+\begin{bmatrix}\mu_{t} \\ \nu_{t}\end{bmatrix} = \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix} +
 \begin{bmatrix}\mu_{t - 1} \\ \nu_{t - 1}\end{bmatrix}
-\begin{bmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{bmatrix} \\\\
-\omega_{\mu, t} &\sim N(0, \eta), \quad
-\omega_{\nu, t} \sim N(0, \zeta)
-\end{aligned}
+\begin{bmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{bmatrix}
 ```
 
 where the volatility parameters follow hierarchical priors:
 
 ```math
 \begin{aligned}
-\eta &\sim N^+(\eta_{0}, \sigma_{\eta}) \\
-\zeta &\sim N^+(\zeta_{0}, \sigma_{\zeta})
+\omega_{\mu, t} &\sim N(0, \eta), \quad \eta \sim N^+(\eta_{0}, \sigma_{\eta}) \\
+\omega_{\nu, t} &\sim N(0, \zeta), \quad \zeta \sim N^+(\zeta_{0}, \sigma_{\zeta})
 \end{aligned}
 ```
 
