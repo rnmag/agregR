@@ -1,11 +1,9 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # agregR <a href='https://github.com/rnmag/agregR/'><img src='man/figures/logo.png' align="right" height="150" /></a>
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/rnmag/agregR/workflows/CmdStan-R-CMD-check/badge.svg)](https://github.com/rnmag/agregR/actions)
+
 <!-- badges: end -->
 
 **An R package to estimate true voting intentions from disparate polling
@@ -162,7 +160,7 @@ deciding which institutes produce high quality polls, we trust the
 models to separate the wheat from the chaff.
 
 Polls enter the model with adjustments to their sample size in order to
-avoid undue influence from polls with large nominal $n$s. We calculate
+avoid undue influence from polls with large nominal $n$. We calculate
 an *implicit* $n$ based on the published margin of error and compare it
 to the nominal $n$. We use the most conservative figure to compute
 candidate-specific standard errors as a function of their support level,
@@ -178,11 +176,15 @@ component $\mu_t$ and a trend component $\nu_t$.
 
 1.  **Level Dynamics:** The state at time $t$ is the previous state plus
     the trend, subject to stochastic level innovations with standard
-    deviation $\eta$. $$\mu_t \sim N(\mu_{t-1} + \nu_{t-1}, \eta)$$
+    deviation $\eta$.
+
+$$\mu_t \sim N(\mu_{t-1} + \nu_{t-1}, \eta)$$
 
 2.  **Trend Dynamics:** The trend itself evolves as a random walk,
     allowing the momentum of a campaign to shift over time, controlled
-    by trend volatility $\zeta$. $$\nu_t \sim N(\nu_{t-1}, \zeta)$$
+    by trend volatility $\zeta$.
+    
+$$\nu_t \sim N(\nu_{t-1}, \zeta)$$
 
 ### Likelihood
 
@@ -191,9 +193,7 @@ $y_i$ from institute $j$ at time $t$ is modeled as:
 
 $$
 \begin{aligned}
-y_{i} &= \begin{bmatrix}1 & 0\end{bmatrix}
-\begin{bmatrix}\mu_{t(i)} \\ \nu_{t(i)}\end{bmatrix}
-+ \delta_{j(i), k(i), p(i)} + \varepsilon_{i}
+y_{i} &= \begin{bmatrix}1 & 0\end{bmatrix} \begin{bmatrix}\mu_{t(i)} \\ \nu_{t(i)}\end{bmatrix} + \delta_{j(i), k(i), p(i)} + \varepsilon_{i}
 \end{aligned}
 $$
 
@@ -209,10 +209,9 @@ and the latent state update is defined as:
 
 $$
 \begin{aligned}
-\begin{bmatrix}\mu_{t} \\ \nu_{t}\end{bmatrix}
-&= \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix} +
+\begin{bmatrix}\mu_{t} \\ \nu_{t}\end{bmatrix} &= \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix} +
 \begin{bmatrix}\mu_{t - 1} \\ \nu_{t - 1}\end{bmatrix}
-\begin{bmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{bmatrix} \\[12pt]
+\begin{bmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{bmatrix} \\\\
 \omega_{\mu, t} &\sim N(0, \eta), \quad
 \omega_{\nu, t} \sim N(0, \zeta)
 \end{aligned}
