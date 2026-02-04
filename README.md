@@ -6,7 +6,7 @@
 
 <!-- badges: end -->
 
-**An R package to estimate true voting intentions from disparate polling
+**An R package to estimate voting intentions by filtering disparate polling
 sources**
 
 As elections approach, Brazilian voters are confronted with a growing
@@ -139,7 +139,7 @@ results_custom <- rodar_agregador(
 Every Stan model in `agregR` includes a `generated quantities` block, enabling
 Posterior Predictive Checks (PPC). By simulating $y_{rep}$ from the posterior
 distribution, users can verify the model's calibration against real-world
-observations. The example below demonstrates this using the `bayesplot` package:
+data. The example below demonstrates this using the `bayesplot` package:
 
 ``` r
 library(bayesplot)
@@ -220,18 +220,18 @@ component $\mu_t$ and a trend component $\nu_t$.
 
 1.  **Level Dynamics:** The state at time $t$ is the previous state plus
     the trend, subject to stochastic level innovations with standard
-    deviation $\eta$.
+    deviation $\sigma_\eta$.
 
 ```math
-\mu_t \sim N\left(\mu_{t-1} + \nu_{t-1}, \eta\right)
+\mu_t \sim N\left(\mu_{t-1} + \nu_{t-1}, \sigma_\eta\right)
 ```
 
 2.  **Trend Dynamics:** The trend itself evolves as a random walk,
     allowing the momentum of a campaign to shift over time, controlled
-    by trend volatility $\zeta$.
+    by trend volatility $\sigma_\zeta$.
 
 ```math    
-\nu_t \sim \left(\nu_{t-1}, \zeta\right)
+\nu_t \sim N\left(\nu_{t-1}, \sigma_\zeta\right)
 ```
 
 ### Likelihood
@@ -267,19 +267,19 @@ The latent state updates according to:
 \begin{pmatrix}\mu_{t} \\ \nu_{t}\end{pmatrix} =
 \begin{pmatrix}1 & 1 \\ 0 & 1\end{pmatrix}
 \begin{pmatrix}\mu_{t - 1} \\ \nu_{t - 1}\end{pmatrix} +
-\begin{pmatrix}\omega_{\mu, t} \\ \omega_{\nu, t}\end{pmatrix}
+\begin{pmatrix}\eta_{t} \\ \zeta_{t}\end{pmatrix}
 ```
 
 where the volatility parameters follow hierarchical priors:
 
 ```math
 \begin{aligned}
-\omega_{\mu, t} \sim N\left(0, \eta\right), \quad \eta \sim N^+\left(\eta_{0}, \sigma_{\eta}\right) \\
-\omega_{\nu, t} \sim N\left(0, \zeta\right), \quad \zeta \sim N^+\left(\zeta_{0}, \sigma_{\zeta}\right)
+\eta_{t} \sim N\left(0, \sigma_\eta\right), \quad \sigma_\eta \sim N^+\left(\mu_{\sigma_\eta}, \sigma_{\sigma_\eta}\right) \\
+\zeta_{t} \sim N\left(0, \sigma_\zeta\right), \quad \sigma_\zeta \sim N^+\left(\mu_{\sigma_\zeta}, \sigma_{\sigma_\zeta}\right)
 \end{aligned}
 ```
 
-The measurement model thus decomposes uncertainty into three distinct
+In summary, the measurement model decomposes uncertainty into three distinct
 components:
 
 1.  **Sampling Error ($\sigma_{i}$):** The inherent uncertainty derived
@@ -290,7 +290,7 @@ components:
 3.  **Non-Sampling Error ($\tau_{j,k,p}$):** An additional variance term
     capturing errors extrinsic to sampling theory (e.g., design effects,
     non-ignorable non-response bias), also localized by institute $j$,
-    round $k$, and alignment $p$.
+    round $k$, and political alignment $p$.
 
 ### Hierarchical Priors & Regularization
 
@@ -308,8 +308,8 @@ accessed (and modified) by the `configurar_prioris()` function.
     “weighted” approach allows the model to automatically down-weight
     institutes with historically poor accuracy while maintaining
     the flexibility to update these estimates based on current-cycle data.
-3.  **Automated Regularization:** The hierarchical priors on $\eta$
-    (level volatility) and $\zeta$ (trend volatility) govern the
+3.  **Automated Regularization:** The hierarchical priors on $\sigma_\eta$
+    (level volatility) and $\sigma_\zeta$ (trend volatility) govern the
     “stiffness” of the aggregator. This approach prevents over-fitting
     to high-frequency noise while allowing the model to adapt when
     consistent evidence of a shift in public opinion emerges.
@@ -330,10 +330,10 @@ effects ($\delta$) and non-sampling error ($\tau$) estimation:
 
 | Model | House Effects Anchor ($\delta$) | Non-Sampling Error Prior ($\tau$) |
 |:---|:---|:---|
-| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus-based $\left(\sum \delta_j = 0\right)$ | Institute-specific $\tau_{j,k,p}$ (prior $\leftarrow$ past RMSE) |
-| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus-based $\left(\sum \delta_j = 0\right)$ | Global scalar $\tau$ |
-| **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (prior $\leftarrow$ past bias) | Institute-specific $\tau_{j,k,p}$ (prior $\leftarrow$ past RMSE) |
-| **Retrospectivo** (*Retrospective*) | Actual election result $\left(\mu_T\right)$ | Global scalar $\tau$ |
+| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus $\left(\sum \delta_j = 0\right)$ | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) |
+| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus $\left(\sum \delta_j = 0\right)$ | Scalar $\tau$ shared by all institutes |
+| **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (past bias $\rightarrow \delta$ prior) | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) |
+| **Retrospectivo** (*Retrospective*) | Actual election result $\left(\mu_T\right)$ | Scalar $\tau$ shared by all institutes |
 | **Naive** | None (assumed zero) | None (assumed zero) |
 
 
