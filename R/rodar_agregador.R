@@ -121,7 +121,7 @@
 #'     cenario = "Lula vs Bolsonaro",
 #'     modelo = "Vi\u00e9s Relativo sem Pesos",
 #'     config_agregador = list(stan_chains = 1, stan_warmup = 200),
-#'     config_prioris = list(tau_priori = 0.02),
+#'     config_prioris = list(tau_priori = 0.01),
 #'     salvar = FALSE
 #'   )
 #' }
