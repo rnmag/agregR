@@ -39,11 +39,11 @@ grafico_agregador <- function(bd,
 
   # 1. Configuração e validação -----------------------------------------------
 
+  # Temporariamente desativar showtext
+  showtext::showtext_auto(FALSE)
+
   # Identificar turno
   turno <- unique(na.omit(bd$votos_estimados$turno))
-
-  # Registrar fonte
-  registrar_fonte(config_grafico$graf_agregador$dpi)
 
   # Configurações que dependem do turno
   if (turno == 1) {
@@ -176,6 +176,9 @@ grafico_agregador <- function(bd,
 
     arquivo <- gerar_saida(file.path(dir_saida, config_grafico$dir_grafico), bd$nome_modelo, nome_arquivo)
 
+    # Registrar fonte antes de salvar
+    registrar_fonte(config_grafico$graf_agregador$dpi)
+
     ggsave(arquivo,
            p,
            device = agg_png,
@@ -187,6 +190,9 @@ grafico_agregador <- function(bd,
     cli_alert_success("Gr\u00e1fico salvo em {.file {arquivo}}")
 
   }
+
+  # Registrar fonte para exibição em tela
+  registrar_fonte(config_grafico$graf_agregador$dpi)
 
   return(p)
 

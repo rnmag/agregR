@@ -52,15 +52,15 @@ grafico_priori_posteriori <- function(bd,
 
   # 1. Configuração e validação -----------------------------------------------
 
+  # Temporariamente desativar showtext
+  showtext::showtext_auto(FALSE)
+
   # Identificar turno
   turno <- unique(na.omit(bd$votos_estimados$turno))
 
   # Padronizar nomes das candidaturas
   candidaturas <- map_chr(candidaturas,
                           nome_robusto)
-
-  # Registrar fonte
-  registrar_fonte(config_grafico$graf_agregador$dpi)
 
   # Definir parâmetro a ser extraído conforme o tipo selecionado
   parametro <- if (tipo == "Vi\u00e9s") "delta" else "mu"
@@ -256,6 +256,9 @@ grafico_priori_posteriori <- function(bd,
 
     arquivo <- gerar_saida(file.path(dir_saida, config_grafico$dir_grafico), bd$nome_modelo, nome_arquivo)
 
+    # Registrar fonte antes de salvar
+    registrar_fonte(config_grafico$graf_agregador$dpi)
+
     ggsave(arquivo,
            p,
            device = agg_png,
@@ -267,6 +270,9 @@ grafico_priori_posteriori <- function(bd,
     cli_alert_success("Gr\u00e1fico salvo em {.file {arquivo}}")
 
   }
+
+  # Registrar fonte para exibição em tela
+  registrar_fonte(config_grafico$graf_agregador$dpi)
 
   return(p)
 

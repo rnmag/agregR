@@ -23,7 +23,8 @@ Imports:
     ragg,
     sysfonts,
     showtext,
-    stringi
+    stringi,
+    grid
 Suggests:
     bayesplot,
     cmdstanr (>= 0.5.0)

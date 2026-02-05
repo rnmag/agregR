@@ -35,6 +35,7 @@
 #' @importFrom dplyr mutate filter distinct n_distinct
 #' @importFrom ggplot2 ggplot aes geom_vline scale_fill_manual scale_x_continuous labs theme_bw theme element_text position_dodge ggsave
 #' @importFrom ggdist stat_gradientinterval
+#' @importFrom grid linearGradient
 #' @importFrom stringr str_to_title
 #' @importFrom ragg agg_png
 grafico_vies <- function(bd,
@@ -46,12 +47,12 @@ grafico_vies <- function(bd,
 
   # 1. Configuração e validação -----------------------------------------------
 
+  # Temporariamente desativar showtext para permitir detecção de gradientes pelo ggdist
+  showtext::showtext_auto(FALSE)
+
   # Padronizar nomes das candidaturas
   candidaturas <- map_chr(candidaturas,
                           nome_robusto)
-
-  # Registrar fonte
-  registrar_fonte(config_grafico$graf_agregador$dpi)
 
   # Erro se objeto vier do modelo "Naive"
   if (bd$nome_modelo == "Naive") cli_abort("O gr\u00e1fico de vi\u00e9s n\u00e3o \u00e9 aplic\u00e1vel ao modelo 'Naive'.")
@@ -104,7 +105,8 @@ grafico_vies <- function(bd,
     ggplot(aes(y = instituto,
                x = valor_estimado,
                fill = candidatura)) +
-    stat_gradientinterval(position = position_dodge(width = 0.75)) +
+    stat_gradientinterval(position = position_dodge(width = 0.75),
+                          fill_type = "gradient") +
     geom_vline(xintercept = 0) +
     # Legenda
     scale_fill_manual(values = unlist(config_grafico$cores_candidaturas[candidaturas]),
@@ -151,6 +153,9 @@ grafico_vies <- function(bd,
 
     arquivo <- gerar_saida(file.path(dir_saida, config_grafico$dir_grafico), bd$nome_modelo, nome_arquivo)
 
+    # Registrar fonte antes de salvar
+    registrar_fonte(config_grafico$graf_agregador$dpi)
+
     ggsave(arquivo,
            p,
            device = agg_png,
@@ -162,6 +167,9 @@ grafico_vies <- function(bd,
     cli_alert_success("Gr\u00e1fico salvo em {.file {arquivo}}")
 
   }
+
+  # Registrar fonte para exibição em tela
+  registrar_fonte(config_grafico$graf_agregador$dpi)
 
   return(p)
 
