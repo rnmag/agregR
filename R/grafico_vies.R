@@ -50,12 +50,9 @@ grafico_vies <- function(bd,
   # Registrar fonte
   registrar_fonte(config_grafico$graf_agregador$dpi)
 
-  # Forçar ragg para gerar os gradientes
-  if (!("RaggDevice" %in% class(grDevices::dev.cur()))) {
-    # Create temporary file to ensure ragg device is active
-    temp_file <- tempfile(fileext = ".png")
-    ragg::agg_png(temp_file, width = 1, height = 1, res = 96)
-    grDevices::dev.off()
+  # Reforçar o uso da fonte correta para ragg
+  if (requireNamespace("systemfonts", quietly = TRUE)) {
+    systemfonts::reset_font_cache()
   }
 
   # Padronizar nomes das candidaturas
