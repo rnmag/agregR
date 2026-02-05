@@ -207,12 +207,14 @@ registrar_fonte <- function(dpi = 300) {
 
   # Registrar para ragg/systemfonts (não interfere com gradientes)
   if (requireNamespace("systemfonts", quietly = TRUE)) {
-    systemfonts::register_font(
-      name = "Fira Sans",
-      plain = fonte_regular,
-      bold = fonte_negrito,
-      italic = fonte_italico
-    )
+    if (!("Fira Sans" %in% systemfonts::system_fonts()$family)) {
+      systemfonts::register_font(
+        name = "Fira Sans",
+        plain = fonte_regular,
+        bold = fonte_negrito,
+        italic = fonte_italico
+      )
+    }
   }
 
   # Registrar para sysfonts (para dispositivos gráficos mais antigos)
