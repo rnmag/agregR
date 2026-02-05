@@ -47,8 +47,8 @@ grafico_vies <- function(bd,
 
   # 1. Configuração e validação -----------------------------------------------
 
-  # Temporariamente desativar showtext para permitir detecção de gradientes pelo ggdist
-  showtext::showtext_auto(FALSE)
+  # Registrar fonte
+  registrar_fonte(config_grafico$graf_agregador$dpi)
 
   # Padronizar nomes das candidaturas
   candidaturas <- map_chr(candidaturas,
@@ -105,8 +105,7 @@ grafico_vies <- function(bd,
     ggplot(aes(y = instituto,
                x = valor_estimado,
                fill = candidatura)) +
-    stat_gradientinterval(position = position_dodge(width = 0.75),
-                          fill_type = "gradient") +
+    stat_gradientinterval(position = position_dodge(width = 0.75)) +
     geom_vline(xintercept = 0) +
     # Legenda
     scale_fill_manual(values = unlist(config_grafico$cores_candidaturas[candidaturas]),
@@ -153,9 +152,6 @@ grafico_vies <- function(bd,
 
     arquivo <- gerar_saida(file.path(dir_saida, config_grafico$dir_grafico), bd$nome_modelo, nome_arquivo)
 
-    # Registrar fonte antes de salvar
-    registrar_fonte(config_grafico$graf_agregador$dpi)
-
     ggsave(arquivo,
            p,
            device = agg_png,
@@ -167,9 +163,6 @@ grafico_vies <- function(bd,
     cli_alert_success("Gr\u00e1fico salvo em {.file {arquivo}}")
 
   }
-
-  # Registrar fonte para exibição em tela
-  registrar_fonte(config_grafico$graf_agregador$dpi)
 
   return(p)
 

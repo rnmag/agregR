@@ -191,32 +191,40 @@ ler_csv <- function(caminho, arquivo_local_fallback = NULL) {
 #' @noRd
 #' @importFrom sysfonts font_add font_families
 #' @importFrom showtext showtext_auto showtext_opts
-registrar_fonte <- function(dpi = 96) {
+registrar_fonte <- function(dpi = 300) {
 
   # Configurar DPI para o showtext
   showtext::showtext_opts(dpi = dpi)
-
-  # Checar se a fonte já está instalada sem avisos
-  if ("Fira Sans" %in% sysfonts::font_families()) {
-    showtext::showtext_auto()
-    return(invisible())
-  }
 
   # Localizar arquivos da fonte
   fonte_regular <- system.file("fonts", "FiraSans-Regular.ttf", package = "agregR")
   fonte_negrito <- system.file("fonts", "FiraSans-Bold.ttf", package = "agregR")
   fonte_italico <- system.file("fonts", "FiraSans-Italic.ttf", package = "agregR")
 
-  # Registrar a fonte
-  if (file.exists(fonte_regular) && file.exists(fonte_negrito) && file.exists(fonte_italico)) {
+  if (fonte_regular == "" || !file.exists(fonte_regular)) {
+    return(invisible())
+  }
+
+  # Registrar para ragg/systemfonts (não interfere com gradientes)
+  if (requireNamespace("systemfonts", quietly = TRUE)) {
+    systemfonts::register_font(
+      name = "Fira Sans",
+      plain = fonte_regular,
+      bold = fonte_negrito,
+      italic = fonte_italico
+    )
+  }
+
+  # Registrar para sysfonts (para dispositivos gráficos mais antigos)
+  if (!("Fira Sans" %in% sysfonts::font_families())) {
     sysfonts::font_add(family = "Fira Sans",
                        regular = fonte_regular,
                        italic = fonte_italico,
                        bold = fonte_negrito)
-
-    # Usar a fonte
-    showtext::showtext_auto()
   }
+
+  # Desligar o showtext_auto() para não quebrar o suporte a gradientes
+  showtext::showtext_auto(FALSE)
 }
 
 #' @importFrom stats setNames

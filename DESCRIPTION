@@ -24,7 +24,8 @@ Imports:
     sysfonts,
     showtext,
     stringi,
-    grid
+    grid,
+    systemfonts
 Suggests:
     bayesplot,
     cmdstanr (>= 0.5.0)
