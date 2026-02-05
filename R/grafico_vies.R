@@ -105,7 +105,8 @@ grafico_vies <- function(bd,
     ggplot(aes(y = instituto,
                x = valor_estimado,
                fill = candidatura)) +
-    stat_gradientinterval(position = position_dodge(width = 0.75)) +
+    stat_gradientinterval(position = position_dodge(width = 0.75),
+                          fill_type = "gradient") +
     geom_vline(xintercept = 0) +
     # Legenda
     scale_fill_manual(values = unlist(config_grafico$cores_candidaturas[candidaturas]),

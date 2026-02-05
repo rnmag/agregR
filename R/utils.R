@@ -225,13 +225,13 @@ registrar_fonte <- function(dpi = 300) {
                        bold = fonte_negrito)
   }
 
-  # Gestão do showtext_auto
-  # Durante o R CMD CHECK, precisamos do showtext ativo para evitar erros de fonte.
-  if (Sys.getenv("R_CHECK_RUNNING_EXAMPLES_") != "") {
+  # Durante o R CMD CHECK (_R_CHECK_...), precisamos do showtext ativo para evitar
+  # erros de "font not found" nos dispositivos PDF/PostScript padrão.
+  if (any(grepl("_R_CHECK_", names(Sys.getenv())))) {
     showtext::showtext_auto(TRUE)
   } else {
-    # Em sessões interativas, desligamos para permitir gradientes nativos.
-    # Dispositivos como ragg e unigd encontrarão a fonte via systemfonts.
+    # Em sessões interativas, desligamos para permitir gradientes nativos em
+    # dispositivos como ragg ou unigd, que encontram a fonte via systemfonts.
     showtext::showtext_auto(FALSE)
   }
 }
