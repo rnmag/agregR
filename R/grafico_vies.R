@@ -51,7 +51,7 @@ grafico_vies <- function(bd,
                           nome_robusto)
 
   # Registrar fonte
-  registrar_fonte()
+  registrar_fonte(config_grafico$graf_agregador$dpi)
 
   # Erro se objeto vier do modelo "Naive"
   if (bd$nome_modelo == "Naive") cli_abort("O gr\u00e1fico de vi\u00e9s n\u00e3o \u00e9 aplic\u00e1vel ao modelo 'Naive'.")

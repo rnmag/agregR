@@ -187,12 +187,20 @@ ler_csv <- function(caminho, arquivo_local_fallback = NULL) {
 
 }
 
+#' @param dpi Numeric. DPI for showtext (default: 96).
 #' @noRd
 #' @importFrom sysfonts font_add font_families
-#' @importFrom showtext showtext_auto
-registrar_fonte <- function() {
+#' @importFrom showtext showtext_auto showtext_opts
+registrar_fonte <- function(dpi = 96) {
+
+  # Configurar DPI para o showtext
+  showtext::showtext_opts(dpi = dpi)
+
   # Checar se a fonte já está instalada sem avisos
-  if ("Fira Sans" %in% sysfonts::font_families()) return(invisible())
+  if ("Fira Sans" %in% sysfonts::font_families()) {
+    showtext::showtext_auto()
+    return(invisible())
+  }
 
   # Localizar arquivos da fonte
   fonte_regular <- system.file("fonts", "FiraSans-Regular.ttf", package = "agregR")

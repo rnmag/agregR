@@ -60,7 +60,7 @@ grafico_priori_posteriori <- function(bd,
                           nome_robusto)
 
   # Registrar fonte
-  registrar_fonte()
+  registrar_fonte(config_grafico$graf_agregador$dpi)
 
   # Definir parâmetro a ser extraído conforme o tipo selecionado
   parametro <- if (tipo == "Vi\u00e9s") "delta" else "mu"

@@ -43,7 +43,7 @@ grafico_agregador <- function(bd,
   turno <- unique(na.omit(bd$votos_estimados$turno))
 
   # Registrar fonte
-  registrar_fonte()
+  registrar_fonte(config_grafico$graf_agregador$dpi)
 
   # Configurações que dependem do turno
   if (turno == 1) {
