@@ -7,9 +7,9 @@ inst/stan/**
 !inst/stan/**/*.*
 inst/stan/**/*.exe
 inst/stan/**/*.EXE
+resultados_agregador/
 src/stan/**
 !src/stan/**/*.*
 src/stan/**/*.exe
 src/stan/**/*.EXE
-scripts_locais/
 *.dll

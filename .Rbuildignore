@@ -6,7 +6,7 @@
 ^\.RData$
 ^\.Rhistory$
 ^\.Rproj\.user$
+^resultados_agregador$
 ^NOTICE$
 ^LICENSE\.md$
 ^README\.Rmd$
-^scripts_locais$
