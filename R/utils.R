@@ -187,7 +187,7 @@ ler_csv <- function(caminho, arquivo_local_fallback = NULL) {
 
 }
 
-#' @param dpi Numeric. DPI for showtext (default: 96).
+#' @param dpi Numeric. DPI for showtext (default: 300).
 #' @noRd
 #' @importFrom sysfonts font_add font_families
 #' @importFrom showtext showtext_auto showtext_opts
@@ -225,8 +225,15 @@ registrar_fonte <- function(dpi = 300) {
                        bold = fonte_negrito)
   }
 
-  # Desligar o showtext_auto() para não quebrar o suporte a gradientes
-  showtext::showtext_auto(FALSE)
+  # Gestão do showtext_auto
+  # Durante o R CMD CHECK, precisamos do showtext ativo para evitar erros de fonte.
+  if (Sys.getenv("R_CHECK_RUNNING_EXAMPLES_") != "") {
+    showtext::showtext_auto(TRUE)
+  } else {
+    # Em sessões interativas, desligamos para permitir gradientes nativos.
+    # Dispositivos como ragg e unigd encontrarão a fonte via systemfonts.
+    showtext::showtext_auto(FALSE)
+  }
 }
 
 #' @importFrom stats setNames
