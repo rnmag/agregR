@@ -50,6 +50,14 @@ grafico_vies <- function(bd,
   # Registrar fonte
   registrar_fonte(config_grafico$graf_agregador$dpi)
 
+  # Forçar ragg para gerar os gradientes
+  if (!("RaggDevice" %in% class(grDevices::dev.cur()))) {
+    # Create temporary file to ensure ragg device is active
+    temp_file <- tempfile(fileext = ".png")
+    ragg::agg_png(temp_file, width = 1, height = 1, res = 96)
+    grDevices::dev.off()
+  }
+
   # Padronizar nomes das candidaturas
   candidaturas <- map_chr(candidaturas,
                           nome_robusto)
@@ -105,8 +113,7 @@ grafico_vies <- function(bd,
     ggplot(aes(y = instituto,
                x = valor_estimado,
                fill = candidatura)) +
-    stat_gradientinterval(position = position_dodge(width = 0.75),
-                          fill_type = "gradient") +
+    stat_gradientinterval(position = position_dodge(width = 0.75)) +
     geom_vline(xintercept = 0) +
     # Legenda
     scale_fill_manual(values = unlist(config_grafico$cores_candidaturas[candidaturas]),
