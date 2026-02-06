@@ -191,6 +191,7 @@ ler_csv <- function(caminho, arquivo_local_fallback = NULL) {
 #' @noRd
 #' @importFrom sysfonts font_add font_families
 #' @importFrom showtext showtext_auto showtext_opts
+#' @importFrom systemfonts register_font
 registrar_fonte <- function(dpi = 300) {
 
   # Configurar DPI para o showtext
@@ -225,14 +226,17 @@ registrar_fonte <- function(dpi = 300) {
                        bold = fonte_negrito)
   }
 
-  # Durante o R CMD CHECK (_R_CHECK_...), precisamos do showtext ativo para evitar
-  # erros de "font not found" nos dispositivos PDF/PostScript padrão.
+  # Durante o R CMD CHECK (_R_CHECK_...), showtext ativo para evitar erros de
+  # "font not found" nos dispositivos PDF/PostScript padrão. Em sessões intera-
+  # tivas, desativar showtext para não interferir com gráficos. O ragg encontra
+  # a fonte automaticamente através do systemfonts::register_font() sem os e-
+  # feitos colaterais do showtext.
   if (any(grepl("_R_CHECK_", names(Sys.getenv())))) {
     showtext::showtext_auto(TRUE)
   } else {
-    # Em sessões interativas, desligamos para permitir gradientes nativos em
-    # dispositivos como ragg ou unigd, que encontram a fonte via systemfonts.
-    showtext::showtext_auto(FALSE)
+    if (showtext::showtext_auto()) {
+      showtext::showtext_auto(FALSE)
+    }
   }
 }
 

@@ -5,7 +5,10 @@ Version: 0.1.0
 Authors@R: person("Rafael N.", "Magalhães", email = "rnunesmagalhaes@gmail.com", role = c("aut", "cre"))
 Description: Implements Bayesian state-space models in Stan to aggregate Brazilian electoral polling data. Estimates latent voting intentions by accounting for house effects, non-sampling errors, and daily trends. Features specialized methods for retrospective analysis, bias adjustment based on past performance, and correction for asymmetric errors based on candidate political alignment.
 Depends:
-    R (>= 4.1.0)
+    R (>= 4.1.0),
+    ggplot2 (>= 3.4.0),
+    ggdist (>= 3.1.0),
+    grid
 Imports:
     instantiate,
     tibble,
@@ -15,16 +18,13 @@ Imports:
     readr,
     stringr,
     tidyselect,
-    ggplot2,
     scales,
     lubridate,
     cli,
-    ggdist,
     ragg,
     sysfonts,
     showtext,
     stringi,
-    grid,
     systemfonts
 Suggests:
     bayesplot,

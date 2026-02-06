@@ -50,11 +50,6 @@ grafico_vies <- function(bd,
   # Registrar fonte
   registrar_fonte(config_grafico$graf_agregador$dpi)
 
-  # Reforçar o uso da fonte correta para ragg
-  if (requireNamespace("systemfonts", quietly = TRUE)) {
-    systemfonts::reset_font_cache()
-  }
-
   # Padronizar nomes das candidaturas
   candidaturas <- map_chr(candidaturas,
                           nome_robusto)
