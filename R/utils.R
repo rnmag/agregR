@@ -194,7 +194,7 @@ ler_csv <- function(caminho, arquivo_local_fallback = NULL) {
 #' @importFrom systemfonts register_font
 registrar_fonte <- function(dpi = 300) {
 
-  # Configurar DPI para o showtext
+  # Configurar dpi para o showtext
   showtext::showtext_opts(dpi = dpi)
 
   # Localizar arquivos da fonte
@@ -209,12 +209,10 @@ registrar_fonte <- function(dpi = 300) {
   # Registrar para ragg/systemfonts (não interfere com gradientes)
   if (requireNamespace("systemfonts", quietly = TRUE)) {
     if (!("Fira Sans" %in% systemfonts::system_fonts()$family)) {
-      systemfonts::register_font(
-        name = "Fira Sans",
-        plain = fonte_regular,
-        bold = fonte_negrito,
-        italic = fonte_italico
-      )
+      systemfonts::register_font(name = "Fira Sans",
+                                 plain = fonte_regular,
+                                 bold = fonte_negrito,
+                                 italic = fonte_italico)
     }
   }
 
@@ -234,9 +232,7 @@ registrar_fonte <- function(dpi = 300) {
   if (any(grepl("_R_CHECK_", names(Sys.getenv())))) {
     showtext::showtext_auto(TRUE)
   } else {
-    if (showtext::showtext_auto()) {
-      showtext::showtext_auto(FALSE)
-    }
+    showtext::showtext_auto(FALSE)
   }
 }
 
