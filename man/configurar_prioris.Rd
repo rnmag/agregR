@@ -18,6 +18,56 @@ A list of model parameters.
 \description{
 Defines hyperparameters for the specific Bayesian models.
 }
+\section{Priors Details}{
+
+These hyperparameters control the strength of assumptions regarding institute bias,
+latent state evolution, and non-sampling errors.
+
+\strong{State Model - Level (\eqn{\mu})}
+\itemize{
+  \item \code{mu_priori}: Prior mean for the latent vote share at \eqn{t=1}.
+  \item \code{sd_mu_priori}: Prior uncertainty for the initial latent vote.
+  \item \code{eta_priori}: Prior mean for the level volatility (\eqn{\sigma_\eta}).
+  \item \code{sd_eta_priori}: Prior uncertainty for the level volatility.
+  \itemize{
+     \item \emph{Higher values (eta):} The latent vote (\eqn{\mu}) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".
+     \item \emph{Lower values (eta):} The model assumes the public opinion level is more stable over time, resulting in smoother curves.
+  }
+}
+
+\strong{State Model - Trend (\eqn{\nu})}
+\itemize{
+  \item \code{nu_priori}: Prior mean for the initial trend (daily growth rate).
+  \item \code{sd_nu_priori}: Prior uncertainty for the initial trend.
+  \item \code{zeta_priori}: Prior mean for the trend volatility (\eqn{\sigma_\zeta}).
+  \item \code{sd_zeta_priori}: Prior uncertainty for the trend volatility.
+  \itemize{
+     \item \emph{Higher values (zeta):} The trend (\eqn{\nu}) can change direction or magnitude rapidly (accelerations/decelerations).
+     \item \emph{Lower values (zeta):} The trend is assumed to be more constant over time (more linear evolution).
+  }
+}
+
+\strong{Institute Bias (\eqn{\delta})}
+\itemize{
+  \item \code{delta_priori}: Mean expected bias for institutes. Default is 0, except in "Viés Empírico" where it is anchored on past performance.
+  \item \code{sd_delta_priori}: Scale of the bias prior. 
+  \itemize{
+    \item \emph{Higher values:} Allow for larger, more variable biases across institutes.
+    \item \emph{Lower values:} Constrain institutes to have similar biases (shrinkage toward the anchor).
+  }
+}
+
+\strong{Non-Sampling Error (\eqn{\tau})}
+\itemize{
+  \item \code{tau_priori}: Mean expected magnitude of errors not explained by sampling or house effects. In weighted models, this is replaced by the empirical RMSE from past elections.
+  \item \code{sd_tau_priori}: Prior uncertainty for non-sampling error.
+  \itemize{
+    \item \emph{Higher values:} The model treats polls as less precise, widening the credible intervals of the latent state.
+    \item \emph{Lower values:} The model trusts polling precision more, leading to tighter intervals and potentially more sensitivity to outliers.
+  }
+}
+}
+
 \examples{
 # Get default parameters for the "Naive" model
 naive_params <- configurar_prioris(nome = "Naive")
