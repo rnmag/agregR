@@ -127,14 +127,14 @@ data {
   // --- Modelo de estado: dinâmica de nível ---
   real<lower=0, upper=1> mu_priori;                 // priori para votos latentes
   real<lower=0> sd_mu_priori;                       // desvio padrão da priori para mu
-  real<lower=0> eta_priori;                         // priori para a volatilidade do nível
-  real<lower=0> sd_eta_priori;                      // desvio padrão para a volatilidade do nível
+  real<lower=0> omega_eta_priori;                   // priori para a volatilidade do nível
+  real<lower=0> sd_omega_eta_priori;                // desvio padrão para a volatilidade do nível
   //
   // --- Modelo de estado: dinâmica de tendência ---
   real<lower=0> nu_priori;                          // priori para a tendência inicial
   real<lower=0> sd_nu_priori;                       // desvio padrão da priori para nu
-  real<lower=0> zeta_priori;                        // priori para volatilidade da tendência
-  real<lower=0> sd_zeta_priori;                     // desvio padrão para a volatilidade da tendência
+  real<lower=0> omega_zeta_priori;                  // priori para volatilidade da tendência
+  real<lower=0> sd_omega_zeta_priori;               // desvio padrão para a volatilidade da tendência
   //
   // ---------------------------- Dados observados ----------------------------
   vector<lower=0, upper=1>[n_pesquisas] percentual; // valores das pesquisas
@@ -154,11 +154,11 @@ parameters {
 
   // Dinâmica de nível
   vector[total_dias] mu_raw;
-  real<lower=0> eta_raw;
+  real<lower=0> omega_eta_raw;
 
   // Dinâmica de tendência
   vector[total_dias] nu_raw;
-  real<lower=0> zeta_raw;
+  real<lower=0> omega_zeta_raw;
 }
 
 transformed parameters {
@@ -185,11 +185,11 @@ transformed parameters {
   // ---------------------------- Modelo de estado ----------------------------
   // Reconstrução da dinâmica de nível
   vector[total_dias] mu;
-  real<lower=0> eta = eta_priori + eta_raw * sd_eta_priori;
+  real<lower=0> eta = omega_eta_priori + omega_eta_raw * sd_omega_eta_priori;
 
   // Reconstrução da dinâmica de tendência
   vector[total_dias] nu;
-  real<lower=0> zeta = zeta_priori + zeta_raw * sd_zeta_priori;
+  real<lower=0> zeta = omega_zeta_priori + omega_zeta_raw * sd_omega_zeta_priori;
 
   // Inicialização (t = 1)
   nu[1] = nu_priori + nu_raw[1] * sd_nu_priori;
@@ -215,11 +215,11 @@ model {
 
   // Dinâmica de nível
   mu_raw ~ std_normal();
-  eta_raw ~ std_normal();
+  omega_eta_raw ~ std_normal();
 
   // Dinâmica de tendência
   nu_raw ~ std_normal();
-  zeta_raw ~ std_normal();
+  omega_zeta_raw ~ std_normal();
 
   // ------------------------- Verossimilhança --------------------------------
   // Combina erro amostral (sigma) com erro não-amostral (tau) geral

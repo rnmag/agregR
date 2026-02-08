@@ -9,8 +9,8 @@
 #' \itemize{
 #'   \item \code{mu_priori}: Prior mean for the latent vote share at \eqn{t=1}.
 #'   \item \code{sd_mu_priori}: Prior uncertainty for the initial latent vote.
-#'   \item \code{eta_priori}: Prior mean for the level volatility (\eqn{\sigma_\eta}).
-#'   \item \code{sd_eta_priori}: Prior uncertainty for the level volatility.
+#'   \item \code{omega_eta_priori}: Prior mean for the level volatility (\eqn{\sigma_\eta}).
+#'   \item \code{sd_omega_eta_priori}: Prior uncertainty for the level volatility.
 #'   \itemize{
 #'      \item \emph{Higher values (eta):} The latent vote (\eqn{\mu}) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".
 #'      \item \emph{Lower values (eta):} The model assumes the public opinion level is more stable over time, resulting in smoother curves.
@@ -21,8 +21,8 @@
 #' \itemize{
 #'   \item \code{nu_priori}: Prior mean for the initial trend (daily growth rate).
 #'   \item \code{sd_nu_priori}: Prior uncertainty for the initial trend.
-#'   \item \code{zeta_priori}: Prior mean for the trend volatility (\eqn{\sigma_\zeta}).
-#'   \item \code{sd_zeta_priori}: Prior uncertainty for the trend volatility.
+#'   \item \code{omega_zeta_priori}: Prior mean for the trend volatility (\eqn{\sigma_\zeta}).
+#'   \item \code{sd_omega_zeta_priori}: Prior uncertainty for the trend volatility.
 #'   \itemize{
 #'      \item \emph{Higher values (zeta):} The trend (\eqn{\nu}) can change direction or magnitude rapidly (accelerations/decelerations).
 #'      \item \emph{Lower values (zeta):} The trend is assumed to be more constant over time (more linear evolution).
@@ -69,32 +69,32 @@ configurar_prioris <- function(nome = "Vi\u00e9s Relativo com Pesos", ...) {
                                                  # gamma_priori = 0, sd_gamma_priori = 0.02,
                                                  tau_priori = 0.02, sd_tau_priori = 0.02,
                                                  mu_priori = 0.5, sd_mu_priori = 0.5,
-                                                 eta_priori = 0.002, sd_eta_priori = 0.0001,
+                                                 omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001,
                                                  nu_priori = 0, sd_nu_priori = 0.001,
-                                                 zeta_priori = 0, sd_zeta_priori = 0.00001),
+                                                 omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001),
                   vies_relativo_com_pesos = list(delta_priori = 0, sd_delta_priori = 0.02,
                                                  # gamma_priori = 0, sd_gamma_priori = 0.02,
                                                  sd_tau_priori = 0.02,
                                                  mu_priori = 0.5, sd_mu_priori = 0.5,
-                                                 eta_priori = 0.002, sd_eta_priori = 0.0001,
+                                                 omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001,
                                                  nu_priori = 0, sd_nu_priori = 0.001,
-                                                 zeta_priori = 0, sd_zeta_priori = 0.00001),
+                                                 omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001),
                   vies_empirico = list(sd_delta_priori = 0.02,
                                        # gamma_priori = 0, sd_gamma_priori = 0.02,
                                        sd_tau_priori = 0.02,
                                        mu_priori = 0.5, sd_mu_priori = 0.5,
-                                       eta_priori = 0.002, sd_eta_priori = 0.0001,
+                                       omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001,
                                        nu_priori = 0, sd_nu_priori = 0.001,
-                                       zeta_priori = 0, sd_zeta_priori = 0.00001),
+                                       omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001),
                   retrospectivo = list(delta_priori = 0, sd_delta_priori = 0.02,
                                        # gamma_priori = 0, sd_gamma_priori = 0.02,
                                        tau_priori = 0.02, sd_tau_priori = 0.02,
                                        mu_priori = 0.5, sd_mu_priori = 0.5,
-                                       eta_priori = 0.002, sd_eta_priori = 0.0001,
+                                       omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001,
                                        nu_priori = 0, sd_nu_priori = 0.001,
-                                       zeta_priori = 0, sd_zeta_priori = 0.00001),
+                                       omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001),
                   naive = list(mu_priori = 0.5, sd_mu_priori = 0.5,
-                               eta_priori = 0.002, sd_eta_priori = 0.0001))
+                               omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001))
 
   if (!nome_convertido %in% names(valores)) {
 

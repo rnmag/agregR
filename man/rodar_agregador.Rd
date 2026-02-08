@@ -104,8 +104,8 @@ These priors control the strength of assumptions about institute bias, state evo
 \itemize{
   \item \code{mu_priori}: The prior mean for the initial latent vote share. Default is 0.5 (50\%).
   \item \code{sd_mu_priori}: The standard deviation for the initial latent vote.
-  \item \code{eta_priori}: The expected volatility (standard deviation) of the daily change in the latent vote share (\eqn{\eta}).
-  \item \code{sd_eta_priori}: The uncertainty around the level volatility.
+  \item \code{omega_eta_priori}: The expected volatility (standard deviation) of the daily change in the latent vote share (\eqn{\eta}).
+  \item \code{sd_omega_eta_priori}: The uncertainty around the level volatility.
   \itemize{
      \item \emph{Higher values (eta):} The latent vote (\eqn{\mu}) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".
      \item \emph{Lower values (eta):} The model assumes the public opinion level is more stable over time, resulting in smoother curves.
@@ -116,8 +116,8 @@ These priors control the strength of assumptions about institute bias, state evo
 \itemize{
   \item \code{nu_priori}: The prior mean for the initial trend (daily growth rate). Default is 0.
   \item \code{sd_nu_priori}: The uncertainty around the initial trend.
-  \item \code{zeta_priori}: The expected volatility of the trend itself (\eqn{\zeta}). Controls how much the growth rate can change daily.
-  \item \code{sd_zeta_priori}: The uncertainty around the trend volatility.
+  \item \code{omega_zeta_priori}: The expected volatility of the trend itself (\eqn{\zeta}). Controls how much the growth rate can change daily.
+  \item \code{sd_omega_zeta_priori}: The uncertainty around the trend volatility.
   \itemize{
      \item \emph{Higher values (zeta):} The trend (\eqn{\nu}) can change direction or magnitude rapidly (accelerations/decelerations).
      \item \emph{Lower values (zeta):} The trend is assumed to be more constant over time (more linear evolution).
