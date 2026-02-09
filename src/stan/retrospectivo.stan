@@ -215,7 +215,7 @@ transformed parameters {
   }
 
   // Resultado final da eleição
-  nu[total_dias] = nu[total_dias - 1] + nu_raw[total_dias] * zeta;
+  nu[total_dias] = nu[total_dias - 1] + nu_raw[total_dias] * omega_zeta;
   mu[total_dias] = resultado_final;
 }
 
