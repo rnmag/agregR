@@ -41,8 +41,8 @@
 // Nos dias em que não há pesquisas publicadas, a estimativa evolui por meio de
 // um *state model* com 2 componentes:
 //
-// Dinámica de nível:     mu[t] ~ N(mu[t-1] + nu[t-1], eta)
-// Dinâmica de tendência: nu[t] ~ N(nu[t-1], zeta)
+// Dinámica de nível:     mu[t] ~ N(mu[t-1] + nu[t-1], omega_eta)
+// Dinâmica de tendência: nu[t] ~ N(nu[t-1], omega_zeta)
 //
 // Em outras palavras, o estado latente da intenção de votos segue o nível do
 // dia anterior acrescido da tendência capturada pelo modelo.
@@ -190,11 +190,11 @@ transformed parameters {
   // ---------------------------- Modelo de estado ----------------------------
   // Reconstrução da dinâmica de nível
   vector[total_dias] mu;
-  real<lower=0> eta = omega_eta_priori + omega_eta_raw * sd_omega_eta_priori;
+  real<lower=0> omega_eta = omega_eta_priori + omega_eta_raw * sd_omega_eta_priori;
 
   // Reconstrução da dinâmica de tendência
   vector[total_dias] nu;
-  real<lower=0> zeta = omega_zeta_priori + omega_zeta_raw * sd_omega_zeta_priori;
+  real<lower=0> omega_zeta = omega_zeta_priori + omega_zeta_raw * sd_omega_zeta_priori;
 
   // Inicialização (t = 1)
   nu[1] = nu_priori + nu_raw[1] * sd_nu_priori;
@@ -202,8 +202,8 @@ transformed parameters {
 
   // Evolução do estado
   for (t in 2:total_dias) {
-    nu[t] = nu[t - 1] + nu_raw[t] * zeta;
-    mu[t] = mu[t - 1] + nu[t - 1] + mu_raw[t] * eta;
+    nu[t] = nu[t - 1] + nu_raw[t] * omega_zeta;
+    mu[t] = mu[t - 1] + nu[t - 1] + mu_raw[t] * omega_eta;
   }
 }
 

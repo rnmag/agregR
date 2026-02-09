@@ -8,9 +8,9 @@
 //
 // Nos dias em que não há pesquisas publicadas, a intenção de votos de cada
 // candidatura é modelada como uma variável latente (mu) que evolui diariamente
-// com choques aleatórios (eta):
+// com choques aleatórios (omega_eta):
 //
-// mu[t] ~ N(mu[t-1], eta)
+// mu[t] ~ N(mu[t-1], omega_eta)
 //
 // Quando uma pesquisa é publicada, o modelo a trata como uma informação incon-
 // troversa sobre o estado real da variável latente. A única fonte de incerteza
@@ -60,14 +60,14 @@ parameters {
 transformed parameters {
   // ---------------------------- Modelo de estado ----------------------------
   vector[total_dias] mu;
-  real<lower=0> eta = omega_eta_priori + omega_eta_raw * sd_omega_eta_priori;
+  real<lower=0> omega_eta = omega_eta_priori + omega_eta_raw * sd_omega_eta_priori;
 
   // Inicialização (t = 1)
   mu[1] = mu_priori + mu_raw[1] * sd_mu_priori;
 
   // Evolução do estado
   for (t in 2:total_dias) {
-    mu[t] = mu[t - 1] + mu_raw[t] * eta;
+    mu[t] = mu[t - 1] + mu_raw[t] * omega_eta;
   }
 }
 
