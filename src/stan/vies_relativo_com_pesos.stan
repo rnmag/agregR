@@ -155,7 +155,7 @@ parameters {
   // vector[n_metodologias] vies_metodologia_raw;
   
   // Erro não-amostral
-  real<lower=0> tau_raw;
+  vector[n_institutos] tau_raw;
 
   // Dinâmica de nível
   vector[total_dias] mu_raw;
