@@ -290,21 +290,8 @@ rodar_agregador <- function(bd = NULL,
   # Nome do arquivo Stan
   nome_stan <- limpar_texto_minusculo(modelo)
 
-  # Compilar o modelo
-  # Verifica se estamos em modo de desenvolvimento (src/stan)
-  arquivo_stan_local <- file.path("src", "stan", paste0(nome_stan, ".stan"))
-
-  if (file.exists(arquivo_stan_local)) {
-
-    stan_compilado <- cmdstanr::cmdstan_model(arquivo_stan_local)
-
-    # Se não, usar modelo compilado na instalação do pacote
-  } else {
-
-    stan_compilado <- instantiate::stan_package_model(name = nome_stan,
-                                                      package = "agregR")
-
-  }
+  stan_compilado <- instantiate::stan_package_model(name = nome_stan,
+                                                    package = "agregR")
 
   # Iterar ajustar_modelo() para cada candidatura
   modelo_ajustado <- pesquisas |>
