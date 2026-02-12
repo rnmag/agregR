@@ -14,11 +14,11 @@ grafico_agregador(
 )
 }
 \arguments{
-\item{bd}{The results object returned by `rodar_agregador`.}
+\item{bd}{The results object returned by [rodar_agregador()].}
 
 \item{salvar}{Logical. If TRUE, saves the plot to disk.}
 
-\item{config_grafico}{A list of graphic parameters created by `configurar_grafico()`.}
+\item{config_grafico}{A list of graphic parameters created by [configurar_grafico()].}
 
 \item{dir_saida}{Output directory for the saved plot if `salvar = TRUE`.}
 
