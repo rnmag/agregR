@@ -43,53 +43,68 @@
 #' }
 #'
 #' @section Priors Details:
-#' The `config_prioris` argument allows customization of the model's hyperparameters. Default values can be found at `configurar_prioris()`.
+#' The `config_prioris` argument allows customization of the model's hyperparameters with the `configurar_prioris()` function.
 #'
-#' These priors control the strength of assumptions about institute bias, state evolution, and non-sampling errors.
+#' These hyperparameters control the strength of assumptions regarding latent
+#' state evolution, institute bias, and non-sampling errors.
+#'
+#' Variable names refer to the model notation described in https://github.com/rnmag/agregR#conceptual-framework
+#'
+#' Recommended reading: https://github.com/stan-dev/stan/wiki/prior-choice-recommendations
 #'
 #' \strong{State Model - Level (\eqn{\mu})}
 #' \itemize{
-#'   \item \code{mu_priori}: The prior mean for the initial latent vote share. Default is 0.5 (50\%).
-#'   \item \code{sd_mu_priori}: The standard deviation for the initial latent vote.
-#'   \item \code{omega_eta_priori}: The expected volatility (standard deviation) of the daily change in the latent vote share (\eqn{\eta}).
-#'   \item \code{sd_omega_eta_priori}: The uncertainty around the level volatility.
+#'   \item \code{mu_priori}: Prior mean for the latent vote share at \eqn{t=1}.
+#'   \item \code{sd_mu_priori}: Prior uncertainty for the initial latent vote.
 #'   \itemize{
-#'      \item \emph{Higher values (eta):} The latent vote (\eqn{\mu}) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".
-#'      \item \emph{Lower values (eta):} The model assumes the public opinion level is more stable over time, resulting in smoother curves.
+#'      \item \emph{Default values}: \eqn{\mu} starts with a flat prior of N(.5, .5), allowing data to quickly dominate inference.
+#'   }
+#'   \item \code{omega_eta_priori}: Prior mean for the level volatility (\eqn{\omega_\eta}).
+#'   \item \code{sd_omega_eta_priori}: Prior uncertainty for the level volatility.
+#'   \itemize{
+#'      \item \emph{Default values}: With \code{omega_eta_priori = 0.002} and \code{sd_omega_eta_priori = 0.0001}, the model assumes a **baseline drift** of approx. \eqn{\pm 2} percentage points over a month (\eqn{1.96 \times \sqrt{30} \times 0.002 \approx 0.02}).
+#'      \item \emph{Higher values}: The latent vote (\eqn{\mu}) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".
+#'      \item \emph{Lower values}: The model assumes the public opinion level is more stable over time, resulting in smoother curves.
 #'   }
 #' }
 #'
 #' \strong{State Model - Trend (\eqn{\nu})}
 #' \itemize{
-#'   \item \code{nu_priori}: The prior mean for the initial trend (daily growth rate). Default is 0.
-#'   \item \code{sd_nu_priori}: The uncertainty around the initial trend.
-#'   \item \code{omega_zeta_priori}: The expected volatility of the trend itself (\eqn{\zeta}). Controls how much the growth rate can change daily.
-#'   \item \code{sd_omega_zeta_priori}: The uncertainty around the trend volatility.
+#'   \item \code{nu_priori}: Prior mean for the initial trend (daily growth rate).
+#'   \item \code{sd_nu_priori}: Prior uncertainty for the initial trend.
 #'   \itemize{
-#'      \item \emph{Higher values (zeta):} The trend (\eqn{\nu}) can change direction or magnitude rapidly (accelerations/decelerations).
-#'      \item \emph{Lower values (zeta):} The trend is assumed to be more constant over time (more linear evolution).
+#'      \item \emph{Default values}: With \code{nu_priori = 0} and \code{sd_nu_priori = 0.001}, the model expects an initial trend within \eqn{\pm 0.2} percentage points per day (\eqn{1.96 \times 0.001 \approx 0.002}).
+#'   }
+#'   \item \code{omega_zeta_priori}: Prior mean for the trend volatility (\eqn{\omega_\zeta}).
+#'   \item \code{sd_omega_zeta_priori}: Prior uncertainty for the trend volatility.
+#'   \itemize{
+#'      \item \emph{Default values}: With \code{omega_zeta_priori = 0} and \code{sd_omega_zeta_priori = 0.00001}, the model assumes a linear evolution, allowing the trend to shift rapidly (accelerations) only under strong evidence.
+#'      \item \emph{Higher values:} The trend (\eqn{\nu}) can change direction or magnitude rapidly.
+#'      \item \emph{Lower values:} The trend is assumed to be more constant over time (more linear evolution).
 #'   }
 #' }
 #'
 #' \strong{Institute Bias (\eqn{\delta})}
 #' \itemize{
-#'   \item \code{delta_priori}: The mean expected bias for institutes. Defaults to 0, except on "Vi\u00e9s Emp\u00edrico" (where it is anchored on past election results).
-#'   \item \code{sd_delta_priori}: The standard deviation of the bias prior. Controls how much institutes are allowed to deviate from the mean bias.
+#'   \item \code{delta_priori}: Mean expected bias for institutes. Default is 0, except in "Vi\u00e9s Emp\u00edrico" where it is anchored on past performance.
+#'   \item \code{sd_delta_priori}: Scale of the bias prior.
 #'   \itemize{
+#'     \item \emph{Default values}: With \code{delta_priori = 0} and \code{sd_delta_priori = 0.02}, the model assumes that 95\% of institutes have a bias within \eqn{\pm 4} percentage points (\eqn{1.96 \times 0.02 \approx 0.04}).
 #'     \item \emph{Higher values:} Allow for larger, more variable biases across institutes.
-#'     \item \emph{Lower values:} constrain institutes to have similar biases (shrinkage).
+#'     \item \emph{Lower values:} Constrain institutes to have similar biases (shrinkage toward the anchor).
 #'   }
 #' }
 #'
 #' \strong{Non-Sampling Error (\eqn{\tau})}
 #' \itemize{
-#'   \item \code{tau_priori}: The expected magnitude of non-sampling errors (errors not explained by sample size or bias). Default depends on whether the model is weighted.
-#'   \item \code{sd_tau_priori}: The uncertainty around the non-sampling error.
+#'   \item \code{tau_priori}: Mean expected magnitude of errors not explained by sampling or house effects. In weighted models, this is replaced by the empirical RMSE from past elections.
+#'   \item \code{sd_tau_priori}: Prior uncertainty for non-sampling error.
 #'   \itemize{
-#'     \item \emph{Higher values:} The model treats polls as less precise, widening the credible intervals of the final estimate.
+#'     \item \emph{Default values}: With \code{tau_priori = 0.02} and \code{sd_tau_priori = 0.02}, the model assumes a **baseline** of \eqn{\pm 4} percentage points of "noise" in each poll, allowing it to spread closer to \eqn{\pm 7} percentage points.
+#'     \item \emph{Higher values:} The model treats polls as less precise, widening the credible intervals of the latent state.
+#'     \item \emph{Lower values:} The model trusts polling precision more, leading to tighter intervals and potentially more sensitivity to outliers.
 #'   }
 #' }
-#'
 #' @param bd Dataframe or path to a CSV file containing poll data.
 #' @param data_inicio Start date for the analysis.
 #' @param data_fim End date for the analysis.
