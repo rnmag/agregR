@@ -222,7 +222,7 @@ as the GPS receiver:
     polling gaps, ensuring a continuous estimate even when data is sparse.
  3. **Joint Parameter Updating**: As new polls are published, it dynamically
     updates candidate support levels while simultaneously re-evaluating the
-    reliability and systematic bias of each institute.
+    reliability of each institute.
 
 ### Data
 
