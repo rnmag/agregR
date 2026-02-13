@@ -268,11 +268,14 @@ the trend $\nu_{t - 1, c}$, subject to stochastic level innovations $\eta_{t, c}
 The trend itself evolves as a random walk, allowing the momentum of the campaign
 to shift over time, controlled by trend innovations $\zeta_{t, c}$.
 
-$$
-\begin{pmatrix}\mu_{t, c} \\ \nu_{t, c}\end{pmatrix} =
-\begin{pmatrix}1 & 1 \\ 0 & 1\end{pmatrix}
-\begin{pmatrix}\mu_{t - 1, c} \\ \nu_{t - 1, c}\end{pmatrix} +
-\begin{pmatrix}\eta_{t, c} \\ \zeta_{t, c}\end{pmatrix}
+$$  \begin{pmatrix}\mu_{t, c} \\
+    \nu_{t, c}\end{pmatrix} =
+    \begin{pmatrix}1 & 1 \\
+    0 & 1\end{pmatrix}
+    \begin{pmatrix}\mu_{t - 1, c} \\
+    \nu_{t - 1, c}\end{pmatrix} +
+    \begin{pmatrix}\eta_{t, c} \\
+    \zeta_{t, c}\end{pmatrix}
 $$
 
 The volatility parameters govern the “stiffness” of the aggregator, where daily
@@ -290,12 +293,11 @@ When polling data $i$ for candidate $c$ is available, the observed result
 $y_{i, c}$ from institute $j$ at time $t$ is modeled as a function of the
 latent state $\mu_{t(i), c}$ and house effects $\delta_{j(i), k(i), p(c)}$:
 
-$$
-y_{i, c} = 
-\begin{pmatrix}1 & 0\end{pmatrix} 
-\begin{pmatrix}\mu_{t(i), c} \\ \nu_{t(i), c}\end{pmatrix} + 
-\delta_{j(i), k(i), p(c)} + 
-\varepsilon_{i, c}
+$$  y_{i, c} = \begin{pmatrix}1 & 0\end{pmatrix} 
+               \begin{pmatrix}\mu_{t(i), c} \\
+               \nu_{t(i), c}\end{pmatrix} + 
+               \delta_{j(i), k(i), p(c)} + 
+               \varepsilon_{i, c}
 $$
 
 where
