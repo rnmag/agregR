@@ -1,6 +1,7 @@
 url: https://rnmag.github.io/agregR/
 template:
   bootstrap: 5
-  light-switch: yes
-  bootswatch: flatly
-
+  bootswatch: sandstone
+  math-rendering: mathjax
+  bslib:
+    code_font: {google: "Fira Code"}
