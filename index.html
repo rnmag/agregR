@@ -6,9 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Bayesian State-Space Aggregation of Brazilian Electoral Polls • agregR</title>
-<script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Fira_Code-0.4.10/font.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Bayesian State-Space Aggregation of Brazilian Electoral Polls">
 <meta name="description" content="A set of dynamic measurement models to estimate latent vote shares from noisy polling sources. Features specialized methods for bias adjustment based on past performance and correction for asymmetric errors based on candidate political alignment.">
@@ -19,7 +31,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">agregR</a>
 
@@ -40,14 +52,6 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/rnmag/agregR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
-  </ul>
-</li>
       </ul>
 </div>
 
@@ -253,10 +257,10 @@
 <h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h3>
 <p>Data collection is deliberately <em>unselective</em>. Instead of subjectively deciding which institutes produce high quality polls, we trust the models to separate the wheat from the chaff.</p>
-<p>Polls enter the model with checks on their sample size in order to avoid undue influence from institutes claiming inflated precision. We calculate an <em>implied</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> derived from the published margin of error and compare it to the reported sample size. We use the most conservative figure <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mrow><mi>e</mi><mi>f</mi><mi>f</mi></mrow></msub><annotation encoding="application/x-tex">n_{eff}</annotation></semantics></math> to compute specific standard errors for each candidate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> according to their vote share <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mrow><mi>i</mi><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">v_{i, c}</annotation></semantics></math> in poll <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mrow><mi>i</mi><mo>,</mo><mi>c</mi></mrow></msub><mo>=</mo><mo>√</mo><mfrac><mrow><msub><mi>v</mi><mrow><mi>i</mi><mo>,</mo><mi>c</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>v</mi><mrow><mi>i</mi><mo>,</mo><mi>c</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msub><mi>n</mi><mrow><mi>e</mi><mi>f</mi><mi>f</mi><mrow><mo stretchy="true" form="prefix">[</mo><mi>i</mi><mo stretchy="true" form="postfix">]</mo></mrow></mrow></msub></mfrac></mrow><annotation encoding="application/x-tex">
+<p>Polls enter the model with checks on their sample size in order to avoid undue influence from institutes claiming inflated precision. We calculate an <em>implied</em> <span class="math inline">\(n\)</span> derived from the published margin of error and compare it to the reported sample size. We use the most conservative figure <span class="math inline">\(n_{eff}\)</span> to compute specific standard errors for each candidate <span class="math inline">\(c\)</span> according to their vote share <span class="math inline">\(v_{i, c}\)</span> in poll <span class="math inline">\(i\)</span>:</p>
+<p><span class="math display">\[
 \sigma_{i, c} = \sqrt\frac{v_{i, c}(1-v_{i, c})}{n_{eff[i]}}
-</annotation></semantics></math></p>
+\]</span></p>
 <p>Historical data is sourced from <a href="https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6" class="external-link">Poder360’s polling database</a>.</p>
 </div>
 <div class="section level3">
@@ -265,14 +269,14 @@
 <p>The methods implemented by <code>agregR</code> build on Jackman (2009, Chapter 9). They are variously known as state-space models (SSM), dynamic linear models (DLM) or Kalman filters and consist of two integrated components:</p>
 <ol style="list-style-type: decimal">
 <li>A <strong>state model</strong> that estimates the underlying trajectory of candidate support in the periods between polling releases.</li>
-<li>A <strong>measurement model</strong> that filters incoming observations and updates institute-specific biases. It decomposes uncertainty into sampling error (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>), house effects (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>), and an additional non-sampling error term (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>) inspired by Heidemanns, Gelman &amp; Morris (2020).</li>
+<li>A <strong>measurement model</strong> that filters incoming observations and updates institute-specific biases. It decomposes uncertainty into sampling error (<span class="math inline">\(\sigma\)</span>), house effects (<span class="math inline">\(\delta\)</span>), and an additional non-sampling error term (<span class="math inline">\(\tau\)</span>) inspired by Heidemanns, Gelman &amp; Morris (2020).</li>
 </ol>
 <div class="section level4">
 <h4 id="state-model">State Model<a class="anchor" aria-label="anchor" href="#state-model"></a>
 </h4>
-<p>The latent voting intention for each candidate updates daily according to a local linear trend. The evolution of the latent state through time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> for candidate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> is governed by the <strong>level component</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">\mu_{t, c}</annotation></semantics></math> and influenced by the <strong>trend component</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ν</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">\nu_{t, c}</annotation></semantics></math>.</p>
-<p>The level <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">\mu_{t, c}</annotation></semantics></math> is defined by the previous state <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">\mu_{t - 1, c}</annotation></semantics></math> plus the trend <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ν</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">\nu_{t - 1, c}</annotation></semantics></math>, subject to stochastic level innovations <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>η</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">\eta_{t, c}</annotation></semantics></math>. The trend itself evolves as a random walk, allowing the momentum of the campaign to shift over time, controlled by trend innovations <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ζ</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">\zeta_{t, c}</annotation></semantics></math>.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>μ</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>ν</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>μ</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>c</mi></mrow></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>ν</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>c</mi></mrow></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>η</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>ζ</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">  \begin{pmatrix}\mu_{t, c} \\
+<p>The latent voting intention for each candidate updates daily according to a local linear trend. The evolution of the latent state through time <span class="math inline">\(t\)</span> for candidate <span class="math inline">\(c\)</span> is governed by the <strong>level component</strong> <span class="math inline">\(\mu_{t, c}\)</span> and influenced by the <strong>trend component</strong> <span class="math inline">\(\nu_{t, c}\)</span>.</p>
+<p>The level <span class="math inline">\(\mu_{t, c}\)</span> is defined by the previous state <span class="math inline">\(\mu_{t - 1, c}\)</span> plus the trend <span class="math inline">\(\nu_{t - 1, c}\)</span>, subject to stochastic level innovations <span class="math inline">\(\eta_{t, c}\)</span>. The trend itself evolves as a random walk, allowing the momentum of the campaign to shift over time, controlled by trend innovations <span class="math inline">\(\zeta_{t, c}\)</span>.</p>
+<p><span class="math display">\[  \begin{pmatrix}\mu_{t, c} \\
     \nu_{t, c}\end{pmatrix} =
     \begin{pmatrix}1 &amp; 1 \\
     0 &amp; 1\end{pmatrix}
@@ -280,60 +284,60 @@
     \nu_{t - 1, c}\end{pmatrix} +
     \begin{pmatrix}\eta_{t, c} \\
     \zeta_{t, c}\end{pmatrix}
-</annotation></semantics></math></p>
-<p>The volatility parameters govern the “stiffness” of the aggregator, where daily innovations <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>η</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">\eta_{t, c}</annotation></semantics></math> are regularized by a candidate-specific scale <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mrow><mi>η</mi><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">\omega_{\eta, c}</annotation></semantics></math>. Pooling accross the time series prevents over-fitting to noise while allowing the model to adapt when consistent evidence of a shift in public opinion emerges.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>η</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>∼</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>ω</mi><mrow><mi>η</mi><mo>,</mo><mi>c</mi></mrow><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>ζ</mi><mrow><mi>t</mi><mo>,</mo><mi>c</mi></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>∼</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>ω</mi><mrow><mi>ζ</mi><mo>,</mo><mi>c</mi></mrow><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">  \begin{align}
+\]</span></p>
+<p>The volatility parameters govern the “stiffness” of the aggregator, where daily innovations <span class="math inline">\(\eta_{t, c}\)</span> are regularized by a candidate-specific scale <span class="math inline">\(\omega_{\eta, c}\)</span>. Pooling accross the time series prevents over-fitting to noise while allowing the model to adapt when consistent evidence of a shift in public opinion emerges.</p>
+<p><span class="math display">\[  \begin{align}
     \eta_{t, c} &amp;\sim N\left(0, \omega^2_{\eta, c}\right) \\
     \zeta_{t, c} &amp;\sim N\left(0, \omega^2_{\zeta, c}\right)
     \end{align}
-</annotation></semantics></math></p>
+\]</span></p>
 </div>
 <div class="section level4">
 <h4 id="measurement-model">Measurement Model<a class="anchor" aria-label="anchor" href="#measurement-model"></a>
 </h4>
-<p>When polling data <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> for candidate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> is available, the observed result <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">y_{i, c}</annotation></semantics></math> from institute <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math> at time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> is modeled as a function of the latent state <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mrow><mi>t</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">\mu_{t(i), c}</annotation></semantics></math> and house effects <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mrow><mi>j</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>k</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><annotation encoding="application/x-tex">\delta_{j(i), k(i), p(c)}</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>c</mi></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>μ</mi><mrow><mi>t</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>c</mi></mrow></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>ν</mi><mrow><mi>t</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>c</mi></mrow></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>δ</mi><mrow><mi>j</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>k</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><mo>+</mo><msub><mi>ε</mi><mrow><mi>i</mi><mo>,</mo><mi>c</mi></mrow></msub></mrow><annotation encoding="application/x-tex">  y_{i, c} = \begin{pmatrix}1 &amp; 0\end{pmatrix}
+<p>When polling data <span class="math inline">\(i\)</span> for candidate <span class="math inline">\(c\)</span> is available, the observed result <span class="math inline">\(y_{i, c}\)</span> from institute <span class="math inline">\(j\)</span> at time <span class="math inline">\(t\)</span> is modeled as a function of the latent state <span class="math inline">\(\mu_{t(i), c}\)</span> and house effects <span class="math inline">\(\delta_{j(i), k(i), p(c)}\)</span>:</p>
+<p><span class="math display">\[  y_{i, c} = \begin{pmatrix}1 &amp; 0\end{pmatrix}
                \begin{pmatrix}\mu_{t(i), c} \\
                \nu_{t(i), c}\end{pmatrix} +
                \delta_{j(i), k(i), p(c)} +
                \varepsilon_{i, c}
-</annotation></semantics></math></p>
+\]</span></p>
 <p>where</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ε</mi><mrow><mi>i</mi><mo>,</mo><mi>c</mi></mrow></msub><mo>∼</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msqrt><mrow><msubsup><mi>σ</mi><mrow><mi>i</mi><mo>,</mo><mi>c</mi></mrow><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>τ</mi><mrow><mi>j</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>k</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></msubsup></mrow></msqrt><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">\[
 \varepsilon_{i, c} \sim N\left(0, \sqrt{\sigma_{i, c}^2 + \tau_{j(i), k(i), p(c)}^2}\right)
-</annotation></semantics></math></p>
-<p>with subscripts linking poll <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> and candidate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> to relevant covariates:</p>
+\]</span></p>
+<p>with subscripts linking poll <span class="math inline">\(i\)</span> and candidate <span class="math inline">\(c\)</span> to relevant covariates:</p>
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">t(i)</annotation></semantics></math>: <strong>Date</strong> of fieldwork (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>T</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">t \in \{1, \dots, T\}</annotation></semantics></math>).</li>
+<span class="math inline">\(t(i)\)</span>: <strong>Date</strong> of fieldwork (<span class="math inline">\(t \in \{1, \dots, T\}\)</span>).</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">j(i)</annotation></semantics></math>: <strong>Polling institute</strong> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>J</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">j \in \{1, \dots, J\}</annotation></semantics></math>).</li>
+<span class="math inline">\(j(i)\)</span>: <strong>Polling institute</strong> (<span class="math inline">\(j \in \{1, \dots, J\}\)</span>).</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">k(i)</annotation></semantics></math>: <strong>Election round</strong> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">k \in \{1, 2\}</annotation></semantics></math>).</li>
+<span class="math inline">\(k(i)\)</span>: <strong>Election round</strong> (<span class="math inline">\(k \in \{1, 2\}\)</span>).</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">p(c)</annotation></semantics></math>: <strong>Political alignment</strong> for candidate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mtext mathvariant="normal">left, right, other</mtext><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">p \in \{\text{left, right, other}\}</annotation></semantics></math>).</li>
+<span class="math inline">\(p(c)\)</span>: <strong>Political alignment</strong> for candidate <span class="math inline">\(c\)</span> (<span class="math inline">\(p \in \{\text{left, right, other}\}\)</span>).</li>
 </ul>
-<p>Critically, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> represents a theoretical lower bound of uncertainty, whereas <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> captures the excess empirical variance required to account for the data’s observed dispersion.</p>
+<p>Critically, <span class="math inline">\(\sigma\)</span> represents a theoretical lower bound of uncertainty, whereas <span class="math inline">\(\tau\)</span> captures the excess empirical variance required to account for the data’s observed dispersion.</p>
 <p>In summary, the measurement model identifies three sources of uncertainty for polls:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Sampling Error (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>σ</mi><mrow><mi>i</mi><mo>,</mo><mi>c</mi></mrow></msub><annotation encoding="application/x-tex">\sigma_{i, c}</annotation></semantics></math>)</strong>: The inherent uncertainty derived from the effective sample size of the poll <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> and the support level for candidate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>.</li>
+<strong>Sampling Error (<span class="math inline">\(\sigma_{i, c}\)</span>)</strong>: The inherent uncertainty derived from the effective sample size of the poll <span class="math inline">\(i\)</span> and the support level for candidate <span class="math inline">\(c\)</span>.</li>
 <li>
-<strong>House Effects (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>p</mi></mrow></msub><annotation encoding="application/x-tex">\delta_{j,k,p}</annotation></semantics></math>)</strong>: A systematic deviation specific to institute <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>, conditional on the election round <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> and the candidate’s political alignment <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>.</li>
+<strong>House Effects (<span class="math inline">\(\delta_{j,k,p}\)</span>)</strong>: A systematic deviation specific to institute <span class="math inline">\(j\)</span>, conditional on the election round <span class="math inline">\(k\)</span> and the candidate’s political alignment <span class="math inline">\(p\)</span>.</li>
 <li>
-<strong>Non-Sampling Error (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>p</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{j,k,p}</annotation></semantics></math>)</strong>: An additional error parameter capturing uncertainty extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by institute <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>, round <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>, and political alignment <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>.</li>
+<strong>Non-Sampling Error (<span class="math inline">\(\tau_{j,k,p}\)</span>)</strong>: An additional error parameter capturing uncertainty extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by institute <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span>, and political alignment <span class="math inline">\(p\)</span>.</li>
 </ol>
 </div>
 </div>
 <div class="section level3">
 <h3 id="models-overview">Models Overview<a class="anchor" aria-label="anchor" href="#models-overview"></a>
 </h3>
-<p>Based on the methods described above, <code>agregR</code> offers a set of specialized models that differ in their assumptions regarding house effects (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>) and non-sampling error (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>) estimation:</p>
+<p>Based on the methods described above, <code>agregR</code> offers a set of specialized models that differ in their assumptions regarding house effects (<span class="math inline">\(\delta\)</span>) and non-sampling error (<span class="math inline">\(\tau\)</span>) estimation:</p>
 <ul>
 <li>
-<strong>Anchoring</strong>: Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math> are not jointly identified, house effects <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>p</mi></mrow></msub><annotation encoding="application/x-tex">\delta_{j,k,p}</annotation></semantics></math> follow a hierarchical prior centered either on a consensus anchor (sum-to-zero) or on historical/actual electoral results. This prevents individual polls from disproportionately pulling the latent trend unless supported by cumulative evidence.</li>
+<strong>Anchoring</strong>: Since <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\delta\)</span> are not jointly identified, house effects <span class="math inline">\(\delta_{j,k,p}\)</span> follow a hierarchical prior centered either on a consensus anchor (sum-to-zero) or on historical/actual electoral results. This prevents individual polls from disproportionately pulling the latent trend unless supported by cumulative evidence.</li>
 <li>
-<strong>Weighting</strong>: Models using localized non-sampling errors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>p</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{j,k,p}</annotation></semantics></math> as prior means effectively perform automated weighting. This approach penalizes institutes with higher Root Mean Square Error (RMSE) in the last election while maintaining the flexibility to update its estimates based on current-cycle data.</li>
+<strong>Weighting</strong>: Models using localized non-sampling errors <span class="math inline">\(\tau_{j,k,p}\)</span> as prior means effectively perform automated weighting. This approach penalizes institutes with higher Root Mean Square Error (RMSE) in the last election while maintaining the flexibility to update its estimates based on current-cycle data.</li>
 </ul>
 <p>Specific values for priors can be accessed (and modified) by the <code><a href="reference/configurar_prioris.html">configurar_prioris()</a></code> function, and details are available in the function’s documentation: <code><a href="reference/configurar_prioris.html">?configurar_prioris</a></code>.</p>
 <table class="table">
@@ -344,36 +348,36 @@
 </colgroup>
 <thead><tr class="header">
 <th align="left">Model</th>
-<th align="left">House Effects Anchor (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>)</th>
-<th align="left">Non-Sampling Error Prior (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>)</th>
+<th align="left">House Effects Anchor (<span class="math inline">\(\delta\)</span>)</th>
+<th align="left">Non-Sampling Error Prior (<span class="math inline">\(\tau\)</span>)</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left">
 <strong>Viés Relativo com Pesos</strong> (<em>Weighted Relative Bias</em>)</td>
-<td align="left">Consensus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>δ</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>p</mi></mrow></msub><mo>=</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\left(\sum_j \delta_{j, k, p} = 0\right)</annotation></semantics></math>
+<td align="left">Consensus <span class="math inline">\(\left(\sum_j \delta_{j, k, p} = 0\right)\)</span>
 </td>
-<td align="left">Last election <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>p</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{j,k,p}</annotation></semantics></math> (past RMSE <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo><mi>τ</mi></mrow><annotation encoding="application/x-tex">\rightarrow \tau</annotation></semantics></math> prior)</td>
+<td align="left">Last election <span class="math inline">\(\tau_{j,k,p}\)</span> (past RMSE <span class="math inline">\(\rightarrow \tau\)</span> prior)</td>
 </tr>
 <tr class="even">
 <td align="left">
 <strong>Viés Relativo sem Pesos</strong> (<em>Unweighted Relative Bias</em>)</td>
-<td align="left">Consensus <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>δ</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>p</mi></mrow></msub><mo>=</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\left(\sum_j \delta_{j, k, p} = 0\right)</annotation></semantics></math>
+<td align="left">Consensus <span class="math inline">\(\left(\sum_j \delta_{j, k, p} = 0\right)\)</span>
 </td>
-<td align="left">Global <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> shared by all institutes</td>
+<td align="left">Global <span class="math inline">\(\tau\)</span> shared by all institutes</td>
 </tr>
 <tr class="odd">
 <td align="left">
 <strong>Viés Empírico</strong> (<em>Empirical Bias</em>)</td>
-<td align="left">Last election <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>p</mi></mrow></msub><annotation encoding="application/x-tex">\delta_{j,k,p}</annotation></semantics></math> (past bias <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo><mi>δ</mi></mrow><annotation encoding="application/x-tex">\rightarrow \delta</annotation></semantics></math> prior)</td>
-<td align="left">Last election <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>p</mi></mrow></msub><annotation encoding="application/x-tex">\tau_{j,k,p}</annotation></semantics></math> (past RMSE <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo><mi>τ</mi></mrow><annotation encoding="application/x-tex">\rightarrow \tau</annotation></semantics></math> prior)</td>
+<td align="left">Last election <span class="math inline">\(\delta_{j,k,p}\)</span> (past bias <span class="math inline">\(\rightarrow \delta\)</span> prior)</td>
+<td align="left">Last election <span class="math inline">\(\tau_{j,k,p}\)</span> (past RMSE <span class="math inline">\(\rightarrow \tau\)</span> prior)</td>
 </tr>
 <tr class="even">
 <td align="left">
 <strong>Retrospectivo</strong> (<em>Retrospective</em>)</td>
-<td align="left">Actual election result <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>μ</mi><mi>T</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\left(\mu_T\right)</annotation></semantics></math>
+<td align="left">Actual election result <span class="math inline">\(\left(\mu_T\right)\)</span>
 </td>
-<td align="left">Global <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> shared by all institutes</td>
+<td align="left">Global <span class="math inline">\(\tau\)</span> shared by all institutes</td>
 </tr>
 <tr class="odd">
 <td align="left"><strong>Naive</strong></td>
@@ -390,7 +394,7 @@
 <div class="section level3">
 <h3 id="posterior-predictive-checks">Posterior Predictive Checks<a class="anchor" aria-label="anchor" href="#posterior-predictive-checks"></a>
 </h3>
-<p>Every Stan model in <code>agregR</code> includes a <code>generated quantities</code> block, enabling Posterior Predictive Checks (PPC). By simulating <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>r</mi><mi>e</mi><mi>p</mi></mrow></msub><annotation encoding="application/x-tex">y_{rep}</annotation></semantics></math> from the posterior distribution, users can verify the model’s calibration against real-world data. The example below demonstrates this using the <code>bayesplot</code> package.</p>
+<p>Every Stan model in <code>agregR</code> includes a <code>generated quantities</code> block, enabling Posterior Predictive Checks (PPC). By simulating <span class="math inline">\(y_{rep}\)</span> from the posterior distribution, users can verify the model’s calibration against real-world data. The example below demonstrates this using the <code>bayesplot</code> package.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/bayesplot/" class="external-link">bayesplot</a></span><span class="op">)</span></span>
 <span></span>

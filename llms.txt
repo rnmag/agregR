@@ -238,12 +238,13 @@ models to separate the wheat from the chaff.
 
 Polls enter the model with checks on their sample size in order to avoid
 undue influence from institutes claiming inflated precision. We
-calculate an *implied* $n$ derived from the published margin of error
+calculate an *implied* \\n\\ derived from the published margin of error
 and compare it to the reported sample size. We use the most conservative
-figure $n_{eff}$ to compute specific standard errors for each candidate
-$c$ according to their vote share $v_{i,c}$ in poll $i$:
+figure \\n\_{eff}\\ to compute specific standard errors for each
+candidate \\c\\ according to their vote share \\v\_{i, c}\\ in poll
+\\i\\:
 
-$$\sigma_{i,c} = \left. \sqrt{}\frac{v_{i,c}\left( 1 - v_{i,c} \right)}{n_{eff{\lbrack i\rbrack}}} \right.$$
+\\ \sigma\_{i, c} = \sqrt\frac{v\_{i, c}(1-v\_{i, c})}{n\_{eff\[i\]}} \\
 
 Historical data is sourced from [Poder360’s polling
 database](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
@@ -258,133 +259,122 @@ models (DLM) or Kalman filters and consist of two integrated components:
     candidate support in the periods between polling releases.
 2.  A **measurement model** that filters incoming observations and
     updates institute-specific biases. It decomposes uncertainty into
-    sampling error ($\sigma$), house effects ($\delta$), and an
-    additional non-sampling error term ($\tau$) inspired by Heidemanns,
-    Gelman & Morris (2020).
+    sampling error (\\\sigma\\), house effects (\\\delta\\), and an
+    additional non-sampling error term (\\\tau\\) inspired by
+    Heidemanns, Gelman & Morris (2020).
 
 #### State Model
 
 The latent voting intention for each candidate updates daily according
 to a local linear trend. The evolution of the latent state through time
-$t$ for candidate $c$ is governed by the **level component** $\mu_{t,c}$
-and influenced by the **trend component** $\nu_{t,c}$.
+\\t\\ for candidate \\c\\ is governed by the **level component**
+\\\mu\_{t, c}\\ and influenced by the **trend component** \\\nu\_{t,
+c}\\.
 
-The level $\mu_{t,c}$ is defined by the previous state $\mu_{t - 1,c}$
-plus the trend $\nu_{t - 1,c}$, subject to stochastic level innovations
-$\eta_{t,c}$. The trend itself evolves as a random walk, allowing the
-momentum of the campaign to shift over time, controlled by trend
-innovations $\zeta_{t,c}$.
+The level \\\mu\_{t, c}\\ is defined by the previous state \\\mu\_{t -
+1, c}\\ plus the trend \\\nu\_{t - 1, c}\\, subject to stochastic level
+innovations \\\eta\_{t, c}\\. The trend itself evolves as a random walk,
+allowing the momentum of the campaign to shift over time, controlled by
+trend innovations \\\zeta\_{t, c}\\.
 
-$$\begin{pmatrix}
-\mu_{t,c} \\
-\nu_{t,c}
-\end{pmatrix} = \begin{pmatrix}
-1 & 1 \\
-0 & 1
-\end{pmatrix}\begin{pmatrix}
-\mu_{t - 1,c} \\
-\nu_{t - 1,c}
-\end{pmatrix} + \begin{pmatrix}
-\eta_{t,c} \\
-\zeta_{t,c}
-\end{pmatrix}$$
+\\ \begin{pmatrix}\mu\_{t, c} \\ \nu\_{t, c}\end{pmatrix} =
+\begin{pmatrix}1 & 1 \\ 0 & 1\end{pmatrix} \begin{pmatrix}\mu\_{t - 1,
+c} \\ \nu\_{t - 1, c}\end{pmatrix} + \begin{pmatrix}\eta\_{t, c} \\
+\zeta\_{t, c}\end{pmatrix} \\
 
 The volatility parameters govern the “stiffness” of the aggregator,
-where daily innovations $\eta_{t,c}$ are regularized by a
-candidate-specific scale $\omega_{\eta,c}$. Pooling accross the time
+where daily innovations \\\eta\_{t, c}\\ are regularized by a
+candidate-specific scale \\\omega\_{\eta, c}\\. Pooling accross the time
 series prevents over-fitting to noise while allowing the model to adapt
 when consistent evidence of a shift in public opinion emerges.
 
-$$\begin{aligned}
-\eta_{t,c} & {\sim N\left( 0,\omega_{\eta,c}^{2} \right)} \\
-\zeta_{t,c} & {\sim N\left( 0,\omega_{\zeta,c}^{2} \right)}
-\end{aligned}$$
+\\ \begin{align} \eta\_{t, c} &\sim N\left(0, \omega^2\_{\eta, c}\right)
+\\ \zeta\_{t, c} &\sim N\left(0, \omega^2\_{\zeta, c}\right) \end{align}
+\\
 
 #### Measurement Model
 
-When polling data $i$ for candidate $c$ is available, the observed
-result $y_{i,c}$ from institute $j$ at time $t$ is modeled as a function
-of the latent state $\mu_{t{(i)},c}$ and house effects
-$\delta_{j{(i)},k{(i)},p{(c)}}$:
+When polling data \\i\\ for candidate \\c\\ is available, the observed
+result \\y\_{i, c}\\ from institute \\j\\ at time \\t\\ is modeled as a
+function of the latent state \\\mu\_{t(i), c}\\ and house effects
+\\\delta\_{j(i), k(i), p(c)}\\:
 
-$$y_{i,c} = \begin{pmatrix}
-1 & 0
-\end{pmatrix}\begin{pmatrix}
-\mu_{t{(i)},c} \\
-\nu_{t{(i)},c}
-\end{pmatrix} + \delta_{j{(i)},k{(i)},p{(c)}} + \varepsilon_{i,c}$$
+\\ y\_{i, c} = \begin{pmatrix}1 & 0\end{pmatrix}
+\begin{pmatrix}\mu\_{t(i), c} \\ \nu\_{t(i), c}\end{pmatrix} +
+\delta\_{j(i), k(i), p(c)} + \varepsilon\_{i, c} \\
 
 where
 
-$$\varepsilon_{i,c} \sim N\left( 0,\sqrt{\sigma_{i,c}^{2} + \tau_{j{(i)},k{(i)},p{(c)}}^{2}} \right)$$
+\\ \varepsilon\_{i, c} \sim N\left(0, \sqrt{\sigma\_{i, c}^2 +
+\tau\_{j(i), k(i), p(c)}^2}\right) \\
 
-with subscripts linking poll $i$ and candidate $c$ to relevant
+with subscripts linking poll \\i\\ and candidate \\c\\ to relevant
 covariates:
 
-- $t(i)$: **Date** of fieldwork ($t \in \{ 1,\ldots,T\}$).
-- $j(i)$: **Polling institute** ($j \in \{ 1,\ldots,J\}$).
-- $k(i)$: **Election round** ($k \in \{ 1,2\}$).
-- $p(c)$: **Political alignment** for candidate $c$
-  ($p \in \{\text{left, right, other}\}$).
+- \\t(i)\\: **Date** of fieldwork (\\t \in \\1, \dots, T\\\\).
+- \\j(i)\\: **Polling institute** (\\j \in \\1, \dots, J\\\\).
+- \\k(i)\\: **Election round** (\\k \in \\1, 2\\\\).
+- \\p(c)\\: **Political alignment** for candidate \\c\\ (\\p \in
+  \\\text{left, right, other}\\\\).
 
-Critically, $\sigma$ represents a theoretical lower bound of
-uncertainty, whereas $\tau$ captures the excess empirical variance
+Critically, \\\sigma\\ represents a theoretical lower bound of
+uncertainty, whereas \\\tau\\ captures the excess empirical variance
 required to account for the data’s observed dispersion.
 
 In summary, the measurement model identifies three sources of
 uncertainty for polls:
 
-1.  **Sampling Error ($\sigma_{i,c}$)**: The inherent uncertainty
-    derived from the effective sample size of the poll $i$ and the
-    support level for candidate $c$.
-2.  **House Effects ($\delta_{j,k,p}$)**: A systematic deviation
-    specific to institute $j$, conditional on the election round $k$ and
-    the candidate’s political alignment $p$.
-3.  **Non-Sampling Error ($\tau_{j,k,p}$)**: An additional error
+1.  **Sampling Error (\\\sigma\_{i, c}\\)**: The inherent uncertainty
+    derived from the effective sample size of the poll \\i\\ and the
+    support level for candidate \\c\\.
+2.  **House Effects (\\\delta\_{j,k,p}\\)**: A systematic deviation
+    specific to institute \\j\\, conditional on the election round \\k\\
+    and the candidate’s political alignment \\p\\.
+3.  **Non-Sampling Error (\\\tau\_{j,k,p}\\)**: An additional error
     parameter capturing uncertainty extrinsic to random sampling (e.g.,
     design effects, non-ignorable non-response bias), also localized by
-    institute $j$, round $k$, and political alignment $p$.
+    institute \\j\\, round \\k\\, and political alignment \\p\\.
 
 ### Models Overview
 
 Based on the methods described above, `agregR` offers a set of
 specialized models that differ in their assumptions regarding house
-effects ($\delta$) and non-sampling error ($\tau$) estimation:
+effects (\\\delta\\) and non-sampling error (\\\tau\\) estimation:
 
-- **Anchoring**: Since $\mu$ and $\delta$ are not jointly identified,
-  house effects $\delta_{j,k,p}$ follow a hierarchical prior centered
-  either on a consensus anchor (sum-to-zero) or on historical/actual
-  electoral results. This prevents individual polls from
-  disproportionately pulling the latent trend unless supported by
+- **Anchoring**: Since \\\mu\\ and \\\delta\\ are not jointly
+  identified, house effects \\\delta\_{j,k,p}\\ follow a hierarchical
+  prior centered either on a consensus anchor (sum-to-zero) or on
+  historical/actual electoral results. This prevents individual polls
+  from disproportionately pulling the latent trend unless supported by
   cumulative evidence.
 - **Weighting**: Models using localized non-sampling errors
-  $\tau_{j,k,p}$ as prior means effectively perform automated weighting.
-  This approach penalizes institutes with higher Root Mean Square Error
-  (RMSE) in the last election while maintaining the flexibility to
-  update its estimates based on current-cycle data.
+  \\\tau\_{j,k,p}\\ as prior means effectively perform automated
+  weighting. This approach penalizes institutes with higher Root Mean
+  Square Error (RMSE) in the last election while maintaining the
+  flexibility to update its estimates based on current-cycle data.
 
 Specific values for priors can be accessed (and modified) by the
 [`configurar_prioris()`](https://rnmag.github.io/agregR/reference/configurar_prioris.md)
 function, and details are available in the function’s documentation:
 [`?configurar_prioris`](https://rnmag.github.io/agregR/reference/configurar_prioris.md).
 
-| Model                                                    | House Effects Anchor ($\delta$)                                                     | Non-Sampling Error Prior ($\tau$)                                               |
-|:---------------------------------------------------------|:------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------|
-| **Viés Relativo com Pesos** (*Weighted Relative Bias*)   | Consensus $\left( \sum_{j}\delta_{j,k,p} = 0 \right)$                               | Last election $\tau_{j,k,p}$ (past RMSE $\left. \rightarrow\tau \right.$ prior) |
-| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus $\left( \sum_{j}\delta_{j,k,p} = 0 \right)$                               | Global $\tau$ shared by all institutes                                          |
-| **Viés Empírico** (*Empirical Bias*)                     | Last election $\delta_{j,k,p}$ (past bias $\left. \rightarrow\delta \right.$ prior) | Last election $\tau_{j,k,p}$ (past RMSE $\left. \rightarrow\tau \right.$ prior) |
-| **Retrospectivo** (*Retrospective*)                      | Actual election result $\left( \mu_{T} \right)$                                     | Global $\tau$ shared by all institutes                                          |
-| **Naive**                                                | None                                                                                | None                                                                            |
+| Model                                                    | House Effects Anchor (\\\delta\\)                                          | Non-Sampling Error Prior (\\\tau\\)                                    |
+|:---------------------------------------------------------|:---------------------------------------------------------------------------|:-----------------------------------------------------------------------|
+| **Viés Relativo com Pesos** (*Weighted Relative Bias*)   | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\                    | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) |
+| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\                    | Global \\\tau\\ shared by all institutes                               |
+| **Viés Empírico** (*Empirical Bias*)                     | Last election \\\delta\_{j,k,p}\\ (past bias \\\rightarrow \delta\\ prior) | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) |
+| **Retrospectivo** (*Retrospective*)                      | Actual election result \\\left(\mu_T\right)\\                              | Global \\\tau\\ shared by all institutes                               |
+| **Naive**                                                | None                                                                       | None                                                                   |
 
 ## Model Validation
 
 ### Posterior Predictive Checks
 
 Every Stan model in `agregR` includes a `generated quantities` block,
-enabling Posterior Predictive Checks (PPC). By simulating $y_{rep}$ from
-the posterior distribution, users can verify the model’s calibration
-against real-world data. The example below demonstrates this using the
-`bayesplot` package.
+enabling Posterior Predictive Checks (PPC). By simulating \\y\_{rep}\\
+from the posterior distribution, users can verify the model’s
+calibration against real-world data. The example below demonstrates this
+using the `bayesplot` package.
 
 ``` r
 library(bayesplot)
