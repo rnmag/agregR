@@ -295,7 +295,8 @@ candidate-specific scale $\omega_{\eta,c}$. Pooling accross the time
 series prevents over-fitting to noise while allowing the model to adapt
 when consistent evidence of a shift in public opinion emerges.
 
-$$\eta_{t,c} \sim N\left( 0,\omega_{\eta,c}^{2} \right),\quad\zeta_{t,c} \sim N\left( 0,\omega_{\zeta,c}^{2} \right)$$
+\$\$ \eta\_{t, c} \sim N\left(0, \omega^2\_{\eta, c}\right) \\
+\zeta\_{t, c} \sim N\left(0, \omega^2\_{\zeta, c}\right) \$\$
 
 #### Measurement Model
 
