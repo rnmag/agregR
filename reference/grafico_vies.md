@@ -19,7 +19,7 @@ grafico_vies(
 
 - bd:
 
-  The results object returned by \[rodar_agregador()\].
+  The results object returned by \`rodar_agregador\`.
 
 - candidaturas:
 
@@ -31,7 +31,7 @@ grafico_vies(
 
 - config_grafico:
 
-  A list of graphic parameters created by \[configurar_grafico()\].
+  A list of graphic parameters created by \`configurar_grafico()\`.
 
 - dir_saida:
 

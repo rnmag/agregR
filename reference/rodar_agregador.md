@@ -63,11 +63,11 @@ rodar_agregador(
 - config_agregador:
 
   A list of configuration parameters created by
-  \[configurar_agregador()\]. If NULL, uses defaults.
+  \`configurar_agregador()\`. If NULL, uses defaults.
 
 - config_prioris:
 
-  A list of model hyperparameters created by \[configurar_prioris()\].
+  A list of model hyperparameters created by \`configurar_prioris()\`.
   If NULL, uses defaults based on \`modelo\`.
 
 - salvar:
@@ -155,7 +155,7 @@ with specific assumptions about institute bias and non-sampling errors:
 ## Priors Details
 
 The \`config_prioris\` argument allows customization of the model's
-hyperparameters with the \[configurar_prioris()\] function.
+hyperparameters with the \`configurar_prioris()\` function.
 
 These hyperparameters control the strength of assumptions regarding
 latent state evolution, institute bias, and non-sampling errors.

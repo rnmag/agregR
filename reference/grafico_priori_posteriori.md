@@ -22,7 +22,7 @@ grafico_priori_posteriori(
 
 - bd:
 
-  The results object returned by \[rodar_agregador()\].
+  The results object returned by \`rodar_agregador\`.
 
 - candidaturas:
 
@@ -40,15 +40,15 @@ grafico_priori_posteriori(
 - config_agregador:
 
   A list of configuration parameters created by
-  \[configurar_agregador()\].
+  \`configurar_agregador()\`.
 
 - config_grafico:
 
-  A list of graphic parameters created by \[configurar_grafico()\].
+  A list of graphic parameters created by \`configurar_grafico()\`.
 
 - config_prioris:
 
-  A list of model hyperparameters created by \[configurar_prioris()\].
+  A list of model hyperparameters created by \`configurar_prioris()\`.
   If NULL, defaults are used based on \`bd\$nome_modelo\`.
 
 - dir_saida:
