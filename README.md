@@ -283,7 +283,7 @@ innovations $\eta_{t, c}$ are regularized by a candidate-specific scale $\omega_
 Pooling accross the time series prevents over-fitting to noise while allowing
 the model to adapt when consistent evidence of a shift in public opinion emerges.
 
-$$  \eta_{t, c} \sim N\left(0, \omega^2_{\eta, c}\right) \\ 
+$$  \eta_{t, c} \sim N\left(0, \omega^2_{\eta, c}\right) \\
     \zeta_{t, c} \sim N\left(0, \omega^2_{\zeta, c}\right)
 $$
 
