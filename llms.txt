@@ -243,9 +243,7 @@ and compare it to the reported sample size. We use the most conservative
 figure $n_{eff}$ to compute specific standard errors for each candidate
 $c$ according to their vote share $v_{i,c}$ in poll $i$:
 
-``` math
-\sigma_{i, c} = \sqrt\frac{v_{i, c}(1-v_{i, c})}{n_{eff[i]}}
-```
+$$\sigma_{i,c} = \left. \sqrt{}\frac{v_{i,c}\left( 1 - v_{i,c} \right)}{n_{eff{\lbrack i\rbrack}}} \right.$$
 
 Historical data is sourced from [Poder360’s polling
 database](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
@@ -277,12 +275,19 @@ $\eta_{t,c}$. The trend itself evolves as a random walk, allowing the
 momentum of the campaign to shift over time, controlled by trend
 innovations $\zeta_{t,c}$.
 
-``` math
-\begin{pmatrix}\mu_{t, c} \\ \nu_{t, c}\end{pmatrix} =
-\begin{pmatrix}1 & 1 \\ 0 & 1\end{pmatrix}
-\begin{pmatrix}\mu_{t - 1, c} \\ \nu_{t - 1, c}\end{pmatrix} +
-\begin{pmatrix}\eta_{t, c} \\ \zeta_{t, c}\end{pmatrix}
-```
+$$\begin{pmatrix}
+\mu_{t,c} \\
+\nu_{t,c}
+\end{pmatrix} = \begin{pmatrix}
+1 & 1 \\
+0 & 1
+\end{pmatrix}\begin{pmatrix}
+\mu_{t - 1,c} \\
+\nu_{t - 1,c}
+\end{pmatrix} + \begin{pmatrix}
+\eta_{t,c} \\
+\zeta_{t,c}
+\end{pmatrix}$$
 
 The volatility parameters govern the “stiffness” of the aggregator,
 where daily innovations $\eta_{t,c}$ are regularized by a
@@ -290,12 +295,7 @@ candidate-specific scale $\omega_{\eta,c}$. Pooling accross the time
 series prevents over-fitting to noise while allowing the model to adapt
 when consistent evidence of a shift in public opinion emerges.
 
-``` math
-\begin{aligned}
-\eta_{t, c} \sim N\left(0, \omega^2_{\eta, c}\right) \\
-\zeta_{t, c} \sim N\left(0, \omega^2_{\zeta, c}\right)
-\end{aligned}
-```
+$$\eta_{t,c} \sim N\left( 0,\omega_{\eta,c}^{2} \right),\quad\zeta_{t,c} \sim N\left( 0,\omega_{\zeta,c}^{2} \right)$$
 
 #### Measurement Model
 
@@ -304,19 +304,16 @@ result $y_{i,c}$ from institute $j$ at time $t$ is modeled as a function
 of the latent state $\mu_{t{(i)},c}$ and house effects
 $\delta_{j{(i)},k{(i)},p{(c)}}$:
 
-``` math
-y_{i, c} =
-\begin{pmatrix}1 & 0\end{pmatrix}
-\begin{pmatrix}\mu_{t(i), c} \\ \nu_{t(i), c}\end{pmatrix} +
-\delta_{j(i), k(i), p(c)} +
-\varepsilon_{i, c}
-```
+$$y_{i,c} = \begin{pmatrix}
+1 & 0
+\end{pmatrix}\begin{pmatrix}
+\mu_{t{(i)},c} \\
+\nu_{t{(i)},c}
+\end{pmatrix} + \delta_{j{(i)},k{(i)},p{(c)}} + \varepsilon_{i,c}$$
 
 where
 
-``` math
-\varepsilon_{i, c} \sim N\left(0, \sqrt{\sigma_{i, c}^2 + \tau_{j(i), k(i), p(c)}^2}\right) 
-```
+$$\varepsilon_{i,c} \sim N\left( 0,\sqrt{\sigma_{i,c}^{2} + \tau_{j{(i)},k{(i)},p{(c)}}^{2}} \right)$$
 
 with subscripts linking poll $i$ and candidate $c$ to relevant
 covariates:
