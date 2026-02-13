@@ -305,12 +305,24 @@ rodar_agregador <- function(bd = NULL,
   # Nome do arquivo Stan
   nome_stan <- limpar_texto_minusculo(modelo)
 
-  stan_compilado <- instantiate::stan_package_model(name = nome_stan,
-                                                    package = "agregR")
+  # Carregar o modelo Stan. Tentamos primeiro o modelo pré-compilado do pacote
+  # (interação esperada). Se falhar (durante desenvolvimento ou R CMD CHECK),
+  # tentamos compilar do código-fonte.
+  stan_compilado <- tryCatch({
+    instantiate::stan_package_model(name = nome_stan, package = "agregR")
+  }, error = function(e) NULL)
 
-  # Rodar compile() para o pkgdown
-  if (!stan_compilado$has_exe()) {
+  if (!inherits(stan_compilado, "CmdStanModel")) {
+    stan_compilado <- instantiate::stan_package_model(name = nome_stan)
+  }
+
+  # Garantir que o modelo está compilado (especialmente para pkgdown/CHECK)
+  if (inherits(stan_compilado, "CmdStanModel") && !stan_compilado$has_exe()) {
     stan_compilado$compile(quiet = TRUE)
+  }
+
+  if (!inherits(stan_compilado, "CmdStanModel")) {
+    cli_abort("N\u00e3o foi poss\u00edvel carregar o modelo Stan: {.val {nome_stan}}")
   }
 
   # Iterar ajustar_modelo() para cada candidatura
