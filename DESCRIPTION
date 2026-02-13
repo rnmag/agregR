@@ -1,9 +1,14 @@
-Package: agregR
+Encoding: UTF-8
 Type: Package
-Title: Bayesian State-Space Aggregation of Brazilian Electoral Polls
-Version: 1.0.1
+Package: agregR
 Authors@R: person("Rafael N.", "Magalhães", email = "rnunesmagalhaes@gmail.com", role = c("aut", "cre"))
-Description: Implements Bayesian state-space models in Stan to aggregate Brazilian electoral polling data. Estimates latent voting intentions by accounting for house effects, non-sampling errors, and daily trends. Features specialized methods for retrospective analysis, bias adjustment based on past performance, and correction for asymmetric errors based on candidate political alignment.
+URL: https://rnmag.github.io/agregR/, https://github.com/rnmag/agregR
+Title: Bayesian State-Space Aggregation of Brazilian Electoral Polls
+Description: A set of dynamic measurement models to estimate latent vote shares
+    from noisy polling sources. Features specialized methods for bias adjustment
+    based on past performance and correction for asymmetric errors based on
+    candidate political alignment.
+Version: 1.0.1
 Depends:
     R (>= 4.1.0),
     ggdist (>= 3.1.0)
@@ -35,4 +40,3 @@ SystemRequirements: CmdStan (https://mc-stan.org/users/interfaces/cmdstan)
 LazyData: true
 RoxygenNote: 7.3.3
 License: MIT + file LICENSE
-Encoding: UTF-8

@@ -1,0 +1,5 @@
+url: https://rnmag.github.io/agregR/
+template:
+  bootstrap: 5
+  light-switch: true
+  bootswatch: Flatly

@@ -13,3 +13,4 @@ src/stan/**
 src/stan/**/*.exe
 src/stan/**/*.EXE
 *.dll
+docs

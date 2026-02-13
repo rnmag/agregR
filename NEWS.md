@@ -3,13 +3,16 @@
 # agregR 1.0.1
 
 * Fix tau vector in weighted models
-* Handling of non-ascii characters
+* Improved handling of non-ascii characters
+* Improved documentation for prior defaults
+* Internal links in documentation
+* Package website
 
 # agregR 1.0.0
 
-* First public version
-* Adds past election data
-* Adds stan models with different assumptions for house effects and non-sampling error
+* First public release
+* Past election data
+* Stan models with different assumptions for house effects and non-sampling error
 * Models compile on installation
 * Convert YAML into configuration functions
 
