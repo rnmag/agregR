@@ -15,15 +15,15 @@ grafico_vies(
 )
 }
 \arguments{
-\item{bd}{The results object returned by `rodar_agregador`.}
+\item{bd}{The results object returned by \code{\link[=rodar_agregador]{rodar_agregador()}}.}
 
 \item{candidaturas}{A character vector of candidate names to include in the plot.}
 
 \item{salvar}{Logical. If TRUE, saves the plot to disk.}
 
-\item{config_grafico}{A list of graphic parameters created by `configurar_grafico()`.}
+\item{config_grafico}{A list of graphic parameters created by \code{\link[=configurar_grafico]{configurar_grafico()}}.}
 
-\item{dir_saida}{Output directory for the saved plot if `salvar = TRUE`.}
+\item{dir_saida}{Output directory for the saved plot if \code{salvar = TRUE}.}
 
 \item{...}{Additional arguments.}
 }

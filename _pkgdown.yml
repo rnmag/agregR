@@ -1,7 +1,9 @@
 url: https://rnmag.github.io/agregR/
 template:
   bootstrap: 5
-  bootswatch: sandstone
+  bootswatch: flatly
   math-rendering: mathjax
   bslib:
+    base_font: {google: "Fira Sans"}
+    heading_font: {google: "Jost"}
     code_font: {google: "Fira Code"}

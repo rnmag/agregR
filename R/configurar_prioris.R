@@ -5,7 +5,7 @@
 #' These hyperparameters control the strength of assumptions regarding latent
 #' state evolution, institute bias, and non-sampling errors.
 #'
-#' Variable names refer to the model notation described in \url{https://github.com/rnmag/agregR#conceptual-framework}
+#' Variable names refer to the model notation described in \url{https://rnmag.github.io/agregR/index.html#conceptual-framework}
 #'
 #' Recommended reading: \url{https://github.com/stan-dev/stan/wiki/prior-choice-recommendations}
 #'

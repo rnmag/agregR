@@ -37,13 +37,13 @@ rodar_agregador(
 
 \item{modelo}{The name of the model to run. Options: "Viés Relativo com Pesos" (default), "Viés Relativo sem Pesos", "Viés Empírico", "Retrospectivo" and "Naive".}
 
-\item{config_agregador}{A list of configuration parameters created by `configurar_agregador()`. If NULL, uses defaults.}
+\item{config_agregador}{A list of configuration parameters created by \code{\link[=configurar_agregador]{configurar_agregador()}}. If NULL, uses defaults.}
 
-\item{config_prioris}{A list of model hyperparameters created by `configurar_prioris()`. If NULL, uses defaults based on `modelo`.}
+\item{config_prioris}{A list of model hyperparameters created by \code{\link[=configurar_prioris]{configurar_prioris()}}. If NULL, uses defaults based on \code{modelo}.}
 
 \item{salvar}{Logical. If TRUE, saves the results to disk.}
 
-\item{dir_saida}{Output directory for saved files if `salvar = TRUE`.}
+\item{dir_saida}{Output directory for saved files if \code{salvar = TRUE}.}
 }
 \value{
 A list containing the model name, estimated votes, institute bias, and the raw model object.
@@ -57,106 +57,106 @@ The aggregator supports five types of Bayesian state-space models, each with spe
 
 \strong{1. Viés Relativo com Pesos (Default)}
 \itemize{
-  \item \strong{Assumption:} Institute biases are relative to the average of all institutes (latent "truth" is anchored to the consensus).
-  \item \strong{Bias (\eqn{\delta}):} Calculated relative to the mean bias of all institutes.
-  \item \strong{Weights:} Uses past election performance to weight the non-sampling error (\eqn{\tau}). Institutes with larger historical errors have less influence on the current estimate.
-  \item \strong{Use case:} Best for general forecasting when historical data is available.
+\item \strong{Assumption:} Institute biases are relative to the average of all institutes (latent "truth" is anchored to the consensus).
+\item \strong{Bias (\eqn{\delta}):} Calculated relative to the mean bias of all institutes.
+\item \strong{Weights:} Uses past election performance to weight the non-sampling error (\eqn{\tau}). Institutes with larger historical errors have less influence on the current estimate.
+\item \strong{Use case:} Best for general forecasting when historical data is available.
 }
 
 \strong{2. Viés Relativo sem Pesos}
 \itemize{
-  \item \strong{Assumption:} Same as above, but treats all institutes as having equal potential quality a priori.
-  \item \strong{Bias (\eqn{\delta}):} Calculated relative to the mean bias.
-  \item \strong{Weights:} None. All institutes share the same prior for non-sampling error (\eqn{\tau}).
-  \item \strong{Use case:} When historical data is unreliable or when a "fresh start" assumption is desired.
+\item \strong{Assumption:} Same as above, but treats all institutes as having equal potential quality a priori.
+\item \strong{Bias (\eqn{\delta}):} Calculated relative to the mean bias.
+\item \strong{Weights:} None. All institutes share the same prior for non-sampling error (\eqn{\tau}).
+\item \strong{Use case:} When historical data is unreliable or when a "fresh start" assumption is desired.
 }
 
 \strong{3. Viés Empírico}
 \itemize{
-  \item \strong{Assumption:} Institute biases are anchored to their specific historical performance.
-  \item \strong{Bias (\eqn{\delta}):} Prior means are set to the bias observed in the previous election (directional error).
-  \item \strong{Weights:} Uses past performance for non-sampling error (\eqn{\tau}), similar to the "Com Pesos" model.
-  \item \strong{Use case:} When institutes are expected to repeat their specific past directional errors (e.g., consistently underestimating a specific wing).
+\item \strong{Assumption:} Institute biases are anchored to their specific historical performance.
+\item \strong{Bias (\eqn{\delta}):} Prior means are set to the bias observed in the previous election (directional error).
+\item \strong{Weights:} Uses past performance for non-sampling error (\eqn{\tau}), similar to the "Com Pesos" model.
+\item \strong{Use case:} When institutes are expected to repeat their specific past directional errors (e.g., consistently underestimating a specific wing).
 }
 
 \strong{4. Retrospectivo}
 \itemize{
-  \item \strong{Assumption:} The true election result is known and used as the final anchor for the state-space model.
-  \item \strong{Method:} Runs the model "backwards" or constrained by the final result to estimate the true path of public opinion.
-  \item \strong{Use case:} Post-election analysis to diagnose institute performance and calculate accurate biases for future calibration.
+\item \strong{Assumption:} The true election result is known and used as the final anchor for the state-space model.
+\item \strong{Method:} Runs the model "backwards" or constrained by the final result to estimate the true path of public opinion.
+\item \strong{Use case:} Post-election analysis to diagnose institute performance and calculate accurate biases for future calibration.
 }
 
 \strong{5. Naive}
 \itemize{
-  \item \strong{Assumption:} Polls have no bias and no non-sampling error.
-  \item \strong{Method:} A random walk model where the only source of uncertainty is the sampling error (\eqn{\sigma}).
-  \item \strong{Use case:} Baseline comparison. Assumes "polls are perfect" within their margin of error.
+\item \strong{Assumption:} Polls have no bias and no non-sampling error.
+\item \strong{Method:} A random walk model where the only source of uncertainty is the sampling error (\eqn{\sigma}).
+\item \strong{Use case:} Baseline comparison. Assumes "polls are perfect" within their margin of error.
 }
 }
 
 \section{Priors Details}{
 
-The `config_prioris` argument allows customization of the model's hyperparameters with the `configurar_prioris()` function.
+The \code{config_prioris} argument allows customization of the model's hyperparameters with the \code{\link[=configurar_prioris]{configurar_prioris()}} function.
 
 These hyperparameters control the strength of assumptions regarding latent
 state evolution, institute bias, and non-sampling errors.
 
-Variable names refer to the model notation described in \url{https://github.com/rnmag/agregR#conceptual-framework}
+Variable names refer to the model notation described in \url{https://rnmag.github.io/agregR/index.html#conceptual-framework}
 
 Recommended reading: \url{https://github.com/stan-dev/stan/wiki/prior-choice-recommendations}
 
 \strong{State Model - Level (\eqn{\mu})}
 \itemize{
-  \item \code{mu_priori}: Prior mean for the latent vote share at \eqn{t=1}.
-  \item \code{sd_mu_priori}: Prior uncertainty for the initial latent vote.
-  \itemize{
-     \item \emph{Default values}: \eqn{\mu} starts with a flat prior of N(.5, .5), allowing data to quickly dominate inference.
-  }
-  \item \code{omega_eta_priori}: Prior mean for the level volatility (\eqn{\omega_\eta}).
-  \item \code{sd_omega_eta_priori}: Prior uncertainty for the level volatility.
-  \itemize{
-     \item \emph{Default values}: With \code{omega_eta_priori = 0.002} and \code{sd_omega_eta_priori = 0.0001}, the model assumes a **baseline drift** of approx. \eqn{\pm 2} percentage points over a month (\eqn{1.96 \times \sqrt{30} \times 0.002 \approx 0.02}).
-     \item \emph{Higher values}: The latent vote (\eqn{\mu}) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".
-     \item \emph{Lower values}: The model assumes the public opinion level is more stable over time, resulting in smoother curves.
-  }
+\item \code{mu_priori}: Prior mean for the latent vote share at \eqn{t=1}.
+\item \code{sd_mu_priori}: Prior uncertainty for the initial latent vote.
+\itemize{
+\item \emph{Default values}: \eqn{\mu} starts with a flat prior of N(0.5, 0.5), allowing data to quickly dominate inference.
+}
+\item \code{omega_eta_priori}: Prior mean for the level volatility (\eqn{\omega_\eta}).
+\item \code{sd_omega_eta_priori}: Prior uncertainty for the level volatility.
+\itemize{
+\item \emph{Default values}: With \code{omega_eta_priori = 0.002} and \code{sd_omega_eta_priori = 0.0001}, the model assumes a \strong{baseline drift} of approx. \eqn{\pm 2} percentage points over a month (\eqn{1.96 \times \sqrt{30} \times 0.002 \approx 0.02}).
+\item \emph{Higher values}: The latent vote (\eqn{\mu}) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".
+\item \emph{Lower values}: The model assumes the public opinion level is more stable over time, resulting in smoother curves.
+}
 }
 
 \strong{State Model - Trend (\eqn{\nu})}
 \itemize{
-  \item \code{nu_priori}: Prior mean for the initial trend (daily growth rate).
-  \item \code{sd_nu_priori}: Prior uncertainty for the initial trend.
-  \itemize{
-     \item \emph{Default values}: With \code{nu_priori = 0} and \code{sd_nu_priori = 0.001}, the model expects an initial trend within \eqn{\pm 0.2} percentage points per day (\eqn{1.96 \times 0.001 \approx 0.002}).
-  }
-  \item \code{omega_zeta_priori}: Prior mean for the trend volatility (\eqn{\omega_\zeta}).
-  \item \code{sd_omega_zeta_priori}: Prior uncertainty for the trend volatility.
-  \itemize{
-     \item \emph{Default values}: With \code{omega_zeta_priori = 0} and \code{sd_omega_zeta_priori = 0.00001}, the model assumes a linear evolution, allowing the trend to shift rapidly (accelerations) only under strong evidence.
-     \item \emph{Higher values:} The trend (\eqn{\nu}) can change direction or magnitude rapidly.
-     \item \emph{Lower values:} The trend is assumed to be more constant over time (more linear evolution).
-  }
+\item \code{nu_priori}: Prior mean for the initial trend (daily growth rate).
+\item \code{sd_nu_priori}: Prior uncertainty for the initial trend.
+\itemize{
+\item \emph{Default values}: With \code{nu_priori = 0} and \code{sd_nu_priori = 0.001}, the model expects an initial trend within \eqn{\pm 0.2} percentage points per day (\eqn{1.96 \times 0.001 \approx 0.002}).
+}
+\item \code{omega_zeta_priori}: Prior mean for the trend volatility (\eqn{\omega_\zeta}).
+\item \code{sd_omega_zeta_priori}: Prior uncertainty for the trend volatility.
+\itemize{
+\item \emph{Default values}: With \code{omega_zeta_priori = 0} and \code{sd_omega_zeta_priori = 0.00001}, the model assumes a linear evolution, allowing the trend to shift rapidly (accelerations) only under strong evidence.
+\item \emph{Higher values:} The trend (\eqn{\nu}) can change direction or magnitude rapidly.
+\item \emph{Lower values:} The trend is assumed to be more constant over time (more linear evolution).
+}
 }
 
 \strong{Institute Bias (\eqn{\delta})}
 \itemize{
-  \item \code{delta_priori}: Mean expected bias for institutes. Default is 0, except in "Viés Empírico" where it is anchored on past performance.
-  \item \code{sd_delta_priori}: Scale of the bias prior.
-  \itemize{
-    \item \emph{Default values}: With \code{delta_priori = 0} and \code{sd_delta_priori = 0.02}, the model assumes that 95\% of institutes have a bias within \eqn{\pm 4} percentage points (\eqn{1.96 \times 0.02 \approx 0.04}).
-    \item \emph{Higher values:} Allow for larger, more variable biases across institutes.
-    \item \emph{Lower values:} Constrain institutes to have similar biases (shrinkage toward the anchor).
-  }
+\item \code{delta_priori}: Mean expected bias for institutes. Default is 0, except in "Viés Empírico" where it is anchored on past performance.
+\item \code{sd_delta_priori}: Scale of the bias prior.
+\itemize{
+\item \emph{Default values}: With \code{delta_priori = 0} and \code{sd_delta_priori = 0.02}, the model assumes that 95\% of institutes have a bias within \eqn{\pm 4} percentage points (\eqn{1.96 \times 0.02 \approx 0.04}).
+\item \emph{Higher values:} Allow for larger, more variable biases across institutes.
+\item \emph{Lower values:} Constrain institutes to have similar biases (shrinkage toward the anchor).
+}
 }
 
 \strong{Non-Sampling Error (\eqn{\tau})}
 \itemize{
-  \item \code{tau_priori}: Mean expected magnitude of errors not explained by sampling or house effects. In weighted models, this is replaced by the empirical RMSE from past elections.
-  \item \code{sd_tau_priori}: Prior uncertainty for non-sampling error.
-  \itemize{
-    \item \emph{Default values}: With \code{tau_priori = 0.02} and \code{sd_tau_priori = 0.02}, the model assumes a **baseline** of \eqn{\pm 4} percentage points of "noise" in each poll, allowing it to spread closer to \eqn{\pm 7} percentage points.
-    \item \emph{Higher values:} The model treats polls as less precise, widening the credible intervals of the latent state.
-    \item \emph{Lower values:} The model trusts polling precision more, leading to tighter intervals and potentially more sensitivity to outliers.
-  }
+\item \code{tau_priori}: Mean expected magnitude of errors not explained by sampling or house effects. In weighted models, this is replaced by the empirical RMSE from past elections.
+\item \code{sd_tau_priori}: Prior uncertainty for non-sampling error.
+\itemize{
+\item \emph{Default values}: With \code{tau_priori = 0.02} and \code{sd_tau_priori = 0.02}, the model assumes a \strong{baseline} of \eqn{\pm 4} percentage points of "noise" in each poll, allowing it to spread closer to \eqn{\pm 7} percentage points.
+\item \emph{Higher values:} The model treats polls as less precise, widening the credible intervals of the latent state.
+\item \emph{Lower values:} The model trusts polling precision more, leading to tighter intervals and potentially more sensitivity to outliers.
+}
 }
 }
 

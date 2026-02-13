@@ -1,9 +1,9 @@
 #' @encoding UTF-8
 #' @title Plot Aggregator Results
 #' @description Generates a plot of the aggregated poll results over time.
-#' @param bd The results object returned by `rodar_agregador`.
+#' @param bd The results object returned by [rodar_agregador()].
 #' @param salvar Logical. If TRUE, saves the plot to disk.
-#' @param config_grafico A list of graphic parameters created by `configurar_grafico()`.
+#' @param config_grafico A list of graphic parameters created by [configurar_grafico()].
 #' @param dir_saida Output directory for the saved plot if `salvar = TRUE`.
 #' @param ... Additional arguments.
 #' @return A ggplot2 object.
