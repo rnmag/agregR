@@ -5,5 +5,5 @@ template:
   math-rendering: mathjax
   bslib:
     base_font: {google: "Fira Sans"}
-    heading_font: {google: "Jost"}
+    heading_font: {google: "Fira Sans"}
     code_font: {google: "Fira Code"}
