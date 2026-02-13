@@ -355,7 +355,7 @@ Specific values for priors can be accessed (and modified) by the
 `configurar_prioris()` function, and details are available in the function's
 documentation: `?configurar_prioris`.
 
-| Model | House Effects Anchor ($\delta$) | Non-Sampling Error Prior ($\tau$) |
+| Model | House Effects Anchor ($\delta$) | Non-Sampling Error ($\tau$) |
 |:---|:---|:---|
 | **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) |
 | **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Global $\tau$ shared by all institutes |
