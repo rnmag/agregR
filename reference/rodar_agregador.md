@@ -1,0 +1,311 @@
+# Run Poll Aggregator
+
+Main function to run the state-space model for poll aggregation.
+
+## Usage
+
+``` r
+rodar_agregador(
+  bd = NULL,
+  data_inicio = "01/01/2025",
+  data_fim = Sys.Date(),
+  cargo = "Presidente",
+  ambito = "Brasil",
+  cenario = NULL,
+  turno,
+  modelo = "Viés Relativo com Pesos",
+  config_agregador = NULL,
+  config_prioris = NULL,
+  salvar = FALSE,
+  dir_saida = "."
+)
+```
+
+## Arguments
+
+- bd:
+
+  Dataframe or path to a CSV file containing poll data.
+
+- data_inicio:
+
+  Start date for the analysis.
+
+- data_fim:
+
+  End date for the analysis.
+
+- cargo:
+
+  The office/position being contested (e.g., "Presidente"). Current data
+  only contains presidential polls, but the package supports expansion
+  for other offices.
+
+- ambito:
+
+  The geographical scope (e.g., "Brasil"). Current data only contains
+  national polls, but the package supports expansion for state races.
+
+- cenario:
+
+  The specific electoral scenario. Mandatory for second round.
+
+- turno:
+
+  The election round (1 or 2).
+
+- modelo:
+
+  The name of the model to run. Options: "Viés Relativo com Pesos"
+  (default), "Viés Relativo sem Pesos", "Viés Empírico", "Retrospectivo"
+  and "Naive".
+
+- config_agregador:
+
+  A list of configuration parameters created by
+  \[configurar_agregador()\]. If NULL, uses defaults.
+
+- config_prioris:
+
+  A list of model hyperparameters created by \[configurar_prioris()\].
+  If NULL, uses defaults based on \`modelo\`.
+
+- salvar:
+
+  Logical. If TRUE, saves the results to disk.
+
+- dir_saida:
+
+  Output directory for saved files if \`salvar = TRUE\`.
+
+## Value
+
+A list containing the model name, estimated votes, institute bias, and
+the raw model object.
+
+## Model Details
+
+The aggregator supports five types of Bayesian state-space models, each
+with specific assumptions about institute bias and non-sampling errors:
+
+**1. Viés Relativo com Pesos (Default)**
+
+- **Assumption:** Institute biases are relative to the average of all
+  institutes (latent "truth" is anchored to the consensus).
+
+- **Bias (\\\delta\\):** Calculated relative to the mean bias of all
+  institutes.
+
+- **Weights:** Uses past election performance to weight the non-sampling
+  error (\\\tau\\). Institutes with larger historical errors have less
+  influence on the current estimate.
+
+- **Use case:** Best for general forecasting when historical data is
+  available.
+
+**2. Viés Relativo sem Pesos**
+
+- **Assumption:** Same as above, but treats all institutes as having
+  equal potential quality a priori.
+
+- **Bias (\\\delta\\):** Calculated relative to the mean bias.
+
+- **Weights:** None. All institutes share the same prior for
+  non-sampling error (\\\tau\\).
+
+- **Use case:** When historical data is unreliable or when a "fresh
+  start" assumption is desired.
+
+**3. Viés Empírico**
+
+- **Assumption:** Institute biases are anchored to their specific
+  historical performance.
+
+- **Bias (\\\delta\\):** Prior means are set to the bias observed in the
+  previous election (directional error).
+
+- **Weights:** Uses past performance for non-sampling error (\\\tau\\),
+  similar to the "Com Pesos" model.
+
+- **Use case:** When institutes are expected to repeat their specific
+  past directional errors (e.g., consistently underestimating a specific
+  wing).
+
+**4. Retrospectivo**
+
+- **Assumption:** The true election result is known and used as the
+  final anchor for the state-space model.
+
+- **Method:** Runs the model "backwards" or constrained by the final
+  result to estimate the true path of public opinion.
+
+- **Use case:** Post-election analysis to diagnose institute performance
+  and calculate accurate biases for future calibration.
+
+**5. Naive**
+
+- **Assumption:** Polls have no bias and no non-sampling error.
+
+- **Method:** A random walk model where the only source of uncertainty
+  is the sampling error (\\\sigma\\).
+
+- **Use case:** Baseline comparison. Assumes "polls are perfect" within
+  their margin of error.
+
+## Priors Details
+
+The \`config_prioris\` argument allows customization of the model's
+hyperparameters with the \[configurar_prioris()\] function.
+
+These hyperparameters control the strength of assumptions regarding
+latent state evolution, institute bias, and non-sampling errors.
+
+Variable names refer to the model notation described in
+<https://github.com/rnmag/agregR#conceptual-framework>
+
+Recommended reading:
+<https://github.com/stan-dev/stan/wiki/prior-choice-recommendations>
+
+**State Model - Level (\\\mu\\)**
+
+- `mu_priori`: Prior mean for the latent vote share at \\t=1\\.
+
+- `sd_mu_priori`: Prior uncertainty for the initial latent vote.
+
+  - *Default values*: \\\mu\\ starts with a flat prior of N(.5, .5),
+    allowing data to quickly dominate inference.
+
+- `omega_eta_priori`: Prior mean for the level volatility
+  (\\\omega\_\eta\\).
+
+- `sd_omega_eta_priori`: Prior uncertainty for the level volatility.
+
+  - *Default values*: With `omega_eta_priori = 0.002` and
+    `sd_omega_eta_priori = 0.0001`, the model assumes a \*\*baseline
+    drift\*\* of approx. \\\pm 2\\ percentage points over a month
+    (\\1.96 \times \sqrt{30} \times 0.002 \approx 0.02\\).
+
+  - *Higher values*: The latent vote (\\\mu\\) can jump more from one
+    day to the next. The model adapts more quickly to new polls but
+    becomes more "jittery".
+
+  - *Lower values*: The model assumes the public opinion level is more
+    stable over time, resulting in smoother curves.
+
+**State Model - Trend (\\\nu\\)**
+
+- `nu_priori`: Prior mean for the initial trend (daily growth rate).
+
+- `sd_nu_priori`: Prior uncertainty for the initial trend.
+
+  - *Default values*: With `nu_priori = 0` and `sd_nu_priori = 0.001`,
+    the model expects an initial trend within \\\pm 0.2\\ percentage
+    points per day (\\1.96 \times 0.001 \approx 0.002\\).
+
+- `omega_zeta_priori`: Prior mean for the trend volatility
+  (\\\omega\_\zeta\\).
+
+- `sd_omega_zeta_priori`: Prior uncertainty for the trend volatility.
+
+  - *Default values*: With `omega_zeta_priori = 0` and
+    `sd_omega_zeta_priori = 0.00001`, the model assumes a linear
+    evolution, allowing the trend to shift rapidly (accelerations) only
+    under strong evidence.
+
+  - *Higher values:* The trend (\\\nu\\) can change direction or
+    magnitude rapidly.
+
+  - *Lower values:* The trend is assumed to be more constant over time
+    (more linear evolution).
+
+**Institute Bias (\\\delta\\)**
+
+- `delta_priori`: Mean expected bias for institutes. Default is 0,
+  except in "Viés Empírico" where it is anchored on past performance.
+
+- `sd_delta_priori`: Scale of the bias prior.
+
+  - *Default values*: With `delta_priori = 0` and
+    `sd_delta_priori = 0.02`, the model assumes that 95% of institutes
+    have a bias within \\\pm 4\\ percentage points (\\1.96 \times 0.02
+    \approx 0.04\\).
+
+  - *Higher values:* Allow for larger, more variable biases across
+    institutes.
+
+  - *Lower values:* Constrain institutes to have similar biases
+    (shrinkage toward the anchor).
+
+**Non-Sampling Error (\\\tau\\)**
+
+- `tau_priori`: Mean expected magnitude of errors not explained by
+  sampling or house effects. In weighted models, this is replaced by the
+  empirical RMSE from past elections.
+
+- `sd_tau_priori`: Prior uncertainty for non-sampling error.
+
+  - *Default values*: With `tau_priori = 0.02` and
+    `sd_tau_priori = 0.02`, the model assumes a \*\*baseline\*\* of
+    \\\pm 4\\ percentage points of "noise" in each poll, allowing it to
+    spread closer to \\\pm 7\\ percentage points.
+
+  - *Higher values:* The model treats polls as less precise, widening
+    the credible intervals of the latent state.
+
+  - *Lower values:* The model trusts polling precision more, leading to
+    tighter intervals and potentially more sensitivity to outliers.
+
+## Examples
+
+``` r
+# Running the default model for a second round scenario
+if (instantiate::stan_cmdstan_exists()) {
+  resultados <- rodar_agregador(
+    turno = 2,
+    cenario = "Lula vs Bolsonaro",
+    salvar = FALSE
+  )
+}
+#> 
+#> ── Simulações do Segundo Turno ─────────────────────────────────────────────────
+#> ✔ Base carregada e filtrada com sucesso!
+#> ℹ Iniciando 4 cadeias de 1000 iterações por candidatura.
+#> ℹ Há 30 pesquisas na base entre 01/01/25 e 13/02/26.
+#> ℹ Se esses números parecerem incorretos, revise os argumentos e configurações da função.
+#> 
+#> ── Estimando intenção de votos para: "Bolsonaro" ──
+#> 
+#> Error in mutate(nest(group_by(filter(pesquisas, turno == !!turno & candidatura %in%     candidaturas), candidatura)), modelos = map2(data, candidatura,     ajustar_modelo, turno = !!turno, data_inicio = data_inicio,     data_fim = data_fim, modelo = modelo, stan_compilado = stan_compilado,     config_agregador = config_agregador, config_prioris = config_prioris),     votos_estimados = map(modelos, "votos_estimados"), vies_institutos = map(modelos,         "vies_institutos"), modelo_bruto = map(modelos, "modelo_bruto")): ℹ In argument: `modelos = map2(...)`.
+#> ℹ In group 1: `candidatura = "Bolsonaro"`.
+#> Caused by error in `map2()`:
+#> ℹ In index: 1.
+#> Caused by error:
+#> ! Model not compiled. Try running the compile() method first.
+
+# Tuning Stan, changing the model and altering specific priors
+if (instantiate::stan_cmdstan_exists()) {
+  resultados_custom <- rodar_agregador(
+    turno = 2,
+    cenario = "Lula vs Bolsonaro",
+    modelo = "Viés Relativo sem Pesos",
+    config_agregador = list(stan_chains = 1, stan_warmup = 200),
+    config_prioris = list(tau_priori = 0.01),
+    salvar = FALSE
+  )
+}
+#> 
+#> ── Simulações do Segundo Turno ─────────────────────────────────────────────────
+#> ✔ Base carregada e filtrada com sucesso!
+#> ℹ Iniciando 1 cadeia de 700 iterações por candidatura.
+#> ℹ Há 30 pesquisas na base entre 01/01/25 e 13/02/26.
+#> ℹ Se esses números parecerem incorretos, revise os argumentos e configurações da função.
+#> 
+#> ── Estimando intenção de votos para: "Bolsonaro" ──
+#> 
+#> Error in mutate(nest(group_by(filter(pesquisas, turno == !!turno & candidatura %in%     candidaturas), candidatura)), modelos = map2(data, candidatura,     ajustar_modelo, turno = !!turno, data_inicio = data_inicio,     data_fim = data_fim, modelo = modelo, stan_compilado = stan_compilado,     config_agregador = config_agregador, config_prioris = config_prioris),     votos_estimados = map(modelos, "votos_estimados"), vies_institutos = map(modelos,         "vies_institutos"), modelo_bruto = map(modelos, "modelo_bruto")): ℹ In argument: `modelos = map2(...)`.
+#> ℹ In group 1: `candidatura = "Bolsonaro"`.
+#> Caused by error in `map2()`:
+#> ℹ In index: 1.
+#> Caused by error:
+#> ! Model not compiled. Try running the compile() method first.
+```
