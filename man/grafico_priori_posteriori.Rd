@@ -17,7 +17,7 @@ grafico_priori_posteriori(
 )
 }
 \arguments{
-\item{bd}{The results object returned by [rodar_agregador()].}
+\item{bd}{The results object returned by `rodar_agregador`.}
 
 \item{candidaturas}{A character vector of candidate names to include in the plot.}
 
@@ -25,11 +25,11 @@ grafico_priori_posteriori(
 
 \item{salvar}{Logical. If TRUE, saves the plot to disk.}
 
-\item{config_agregador}{A list of configuration parameters created by [configurar_agregador()].}
+\item{config_agregador}{A list of configuration parameters created by `configurar_agregador()`.}
 
-\item{config_grafico}{A list of graphic parameters created by [configurar_grafico()].}
+\item{config_grafico}{A list of graphic parameters created by `configurar_grafico()`.}
 
-\item{config_prioris}{A list of model hyperparameters created by [configurar_prioris()]. If NULL, defaults are used based on `bd$nome_modelo`.}
+\item{config_prioris}{A list of model hyperparameters created by `configurar_prioris()`. If NULL, defaults are used based on `bd$nome_modelo`.}
 
 \item{dir_saida}{Output directory for the saved plot if `salvar = TRUE`.}
 }

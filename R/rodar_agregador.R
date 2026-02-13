@@ -43,14 +43,14 @@
 #' }
 #'
 #' @section Priors Details:
-#' The `config_prioris` argument allows customization of the model's hyperparameters with the [configurar_prioris()] function.
+#' The `config_prioris` argument allows customization of the model's hyperparameters with the `configurar_prioris()` function.
 #'
 #' These hyperparameters control the strength of assumptions regarding latent
 #' state evolution, institute bias, and non-sampling errors.
 #'
-#' Variable names refer to the model notation described in \url{https://github.com/rnmag/agregR#conceptual-framework}
+#' Variable names refer to the model notation described in https://github.com/rnmag/agregR#conceptual-framework
 #'
-#' Recommended reading: \url{https://github.com/stan-dev/stan/wiki/prior-choice-recommendations}
+#' Recommended reading: https://github.com/stan-dev/stan/wiki/prior-choice-recommendations
 #'
 #' \strong{State Model - Level (\eqn{\mu})}
 #' \itemize{
@@ -113,8 +113,8 @@
 #' @param turno The election round (1 or 2).
 #' @param cenario The specific electoral scenario. Mandatory for second round.
 #' @param modelo The name of the model to run. Options: "Vi\u00e9s Relativo com Pesos" (default), "Vi\u00e9s Relativo sem Pesos", "Vi\u00e9s Emp\u00edrico", "Retrospectivo" and "Naive".
-#' @param config_agregador A list of configuration parameters created by [configurar_agregador()]. If NULL, uses defaults.
-#' @param config_prioris A list of model hyperparameters created by [configurar_prioris()]. If NULL, uses defaults based on `modelo`.
+#' @param config_agregador A list of configuration parameters created by `configurar_agregador()`. If NULL, uses defaults.
+#' @param config_prioris A list of model hyperparameters created by `configurar_prioris()`. If NULL, uses defaults based on `modelo`.
 #' @param salvar Logical. If TRUE, saves the results to disk.
 #' @param dir_saida Output directory for saved files if `salvar = TRUE`.
 #' @return A list containing the model name, estimated votes, institute bias, and the raw model object.

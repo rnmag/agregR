@@ -37,9 +37,9 @@ rodar_agregador(
 
 \item{modelo}{The name of the model to run. Options: "Viés Relativo com Pesos" (default), "Viés Relativo sem Pesos", "Viés Empírico", "Retrospectivo" and "Naive".}
 
-\item{config_agregador}{A list of configuration parameters created by [configurar_agregador()]. If NULL, uses defaults.}
+\item{config_agregador}{A list of configuration parameters created by `configurar_agregador()`. If NULL, uses defaults.}
 
-\item{config_prioris}{A list of model hyperparameters created by [configurar_prioris()]. If NULL, uses defaults based on `modelo`.}
+\item{config_prioris}{A list of model hyperparameters created by `configurar_prioris()`. If NULL, uses defaults based on `modelo`.}
 
 \item{salvar}{Logical. If TRUE, saves the results to disk.}
 
@@ -96,7 +96,7 @@ The aggregator supports five types of Bayesian state-space models, each with spe
 
 \section{Priors Details}{
 
-The `config_prioris` argument allows customization of the model's hyperparameters with the [configurar_prioris()] function.
+The `config_prioris` argument allows customization of the model's hyperparameters with the `configurar_prioris()` function.
 
 These hyperparameters control the strength of assumptions regarding latent
 state evolution, institute bias, and non-sampling errors.

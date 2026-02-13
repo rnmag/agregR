@@ -1,10 +1,10 @@
 #' @encoding UTF-8
 #' @title Plot Institute Bias
 #' @description Generates a plot visualizing the bias of polling institutes.
-#' @param bd The results object returned by [rodar_agregador()].
+#' @param bd The results object returned by `rodar_agregador`.
 #' @param candidaturas A character vector of candidate names to include in the plot.
 #' @param salvar Logical. If TRUE, saves the plot to disk.
-#' @param config_grafico A list of graphic parameters created by [configurar_grafico()].
+#' @param config_grafico A list of graphic parameters created by `configurar_grafico()`.
 #' @param dir_saida Output directory for the saved plot if `salvar = TRUE`.
 #' @param ... Additional arguments.
 #' @return A ggplot2 object.

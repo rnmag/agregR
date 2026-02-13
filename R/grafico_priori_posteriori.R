@@ -1,13 +1,13 @@
 #' @encoding UTF-8
 #' @title Plot Prior vs Posterior
 #' @description Generates a plot comparing prior and posterior distributions for candidates or bias.
-#' @param bd The results object returned by [rodar_agregador()].
+#' @param bd The results object returned by `rodar_agregador`.
 #' @param candidaturas A character vector of candidate names to include in the plot.
 #' @param tipo The type of da to plot: "Vi\u00e9s" (for institute bias) or "Percentual" (for candidate voting share).
 #' @param salvar Logical. If TRUE, saves the plot to disk.
-#' @param config_agregador A list of configuration parameters created by [configurar_agregador()].
-#' @param config_grafico A list of graphic parameters created by [configurar_grafico()].
-#' @param config_prioris A list of model hyperparameters created by [configurar_prioris()]. If NULL, defaults are used based on `bd$nome_modelo`.
+#' @param config_agregador A list of configuration parameters created by `configurar_agregador()`.
+#' @param config_grafico A list of graphic parameters created by `configurar_grafico()`.
+#' @param config_prioris A list of model hyperparameters created by `configurar_prioris()`. If NULL, defaults are used based on `bd$nome_modelo`.
 #' @param dir_saida Output directory for the saved plot if `salvar = TRUE`.
 #' @return A ggplot2 object.
 #' @export
