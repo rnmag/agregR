@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Fira_Code-0.4.10/font.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Plot Aggregator Results — grafico_agregador"><meta name="description" content="Generates a plot of the aggregated poll results over time."><meta property="og:description" content="Generates a plot of the aggregated poll results over time."><meta property="og:image" content="https://rnmag.github.io/agregR/logo.png"></head><body>
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Fira_Sans-0.4.10/font.css" rel="stylesheet"><link href="../deps/Fira_Code-0.4.10/font.css" rel="stylesheet"><link href="../deps/Jost-0.4.10/font.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Plot Aggregator Results — grafico_agregador"><meta name="description" content="Generates a plot of the aggregated poll results over time."><meta property="og:description" content="Generates a plot of the aggregated poll results over time."><meta property="og:image" content="https://rnmag.github.io/agregR/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -58,7 +58,7 @@
 
 
 <dl><dt id="arg-bd">bd<a class="anchor" aria-label="anchor" href="#arg-bd"></a></dt>
-<dd><p>The results object returned by `rodar_agregador`.</p></dd>
+<dd><p>The results object returned by <code><a href="rodar_agregador.html">rodar_agregador()</a></code>.</p></dd>
 
 
 <dt id="arg-salvar">salvar<a class="anchor" aria-label="anchor" href="#arg-salvar"></a></dt>
@@ -66,11 +66,11 @@
 
 
 <dt id="arg-config-grafico">config_grafico<a class="anchor" aria-label="anchor" href="#arg-config-grafico"></a></dt>
-<dd><p>A list of graphic parameters created by `configurar_grafico()`.</p></dd>
+<dd><p>A list of graphic parameters created by <code><a href="configurar_grafico.html">configurar_grafico()</a></code>.</p></dd>
 
 
 <dt id="arg-dir-saida">dir_saida<a class="anchor" aria-label="anchor" href="#arg-dir-saida"></a></dt>
-<dd><p>Output directory for the saved plot if `salvar = TRUE`.</p></dd>
+<dd><p>Output directory for the saved plot if <code>salvar = TRUE</code>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -106,15 +106,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Iniciando <span style="color: #0000BB;">4</span> cadeias de <span style="color: #0000BB;">1000</span> iterações por candidatura.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Há <span style="color: #0000BB;">30</span> pesquisas na base entre 01/01/25 e 13/02/26.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Se esses números parecerem incorretos, revise os argumentos e configurações da função.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Estimando intenção de votos para: </span><span style="color: #0000BB; font-weight: bold;">"Bolsonaro"</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mutate(nest(group_by(filter(pesquisas, turno == !!turno &amp; candidatura %in%     candidaturas), candidatura)), modelos = map2(data, candidatura,     ajustar_modelo, turno = !!turno, data_inicio = data_inicio,     data_fim = data_fim, modelo = modelo, stan_compilado = stan_compilado,     config_agregador = config_agregador, config_prioris = config_prioris),     votos_estimados = map(modelos, "votos_estimados"), vies_institutos = map(modelos,         "vies_institutos"), modelo_bruto = map(modelos, "modelo_bruto")):</span> <span style="color: #00BBBB;">ℹ</span> In argument: `modelos = map2(...)`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In group 1: `candidatura = "Bolsonaro"`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `map2()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Model not compiled. Try running the compile() method first.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in stan_compilado$has_exe():</span> attempt to apply non-function</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

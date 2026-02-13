@@ -22,7 +22,8 @@ grafico_priori_posteriori(
 
 - bd:
 
-  The results object returned by \`rodar_agregador\`.
+  The results object returned by
+  [`rodar_agregador()`](https://rnmag.github.io/agregR/reference/rodar_agregador.md).
 
 - candidaturas:
 
@@ -40,20 +41,21 @@ grafico_priori_posteriori(
 - config_agregador:
 
   A list of configuration parameters created by
-  \`configurar_agregador()\`.
+  [`configurar_agregador()`](https://rnmag.github.io/agregR/reference/configurar_agregador.md).
 
 - config_grafico:
 
-  A list of graphic parameters created by \`configurar_grafico()\`.
+  A list of graphic parameters created by
+  [`configurar_grafico()`](https://rnmag.github.io/agregR/reference/configurar_grafico.md).
 
 - config_prioris:
 
-  A list of model hyperparameters created by \`configurar_prioris()\`.
-  If NULL, defaults are used based on \`bd\$nome_modelo\`.
+  A list of model hyperparameters created by
+  [`configurar_prioris()`](https://rnmag.github.io/agregR/reference/configurar_prioris.md).
 
 - dir_saida:
 
-  Output directory for the saved plot if \`salvar = TRUE\`.
+  Output directory for the saved plot if `salvar = TRUE`.
 
 ## Value
 
@@ -89,13 +91,5 @@ if (instantiate::stan_cmdstan_exists()) {
 #> ℹ Iniciando 4 cadeias de 1000 iterações por candidatura.
 #> ℹ Há 30 pesquisas na base entre 01/01/25 e 13/02/26.
 #> ℹ Se esses números parecerem incorretos, revise os argumentos e configurações da função.
-#> 
-#> ── Estimando intenção de votos para: "Bolsonaro" ──
-#> 
-#> Error in mutate(nest(group_by(filter(pesquisas, turno == !!turno & candidatura %in%     candidaturas), candidatura)), modelos = map2(data, candidatura,     ajustar_modelo, turno = !!turno, data_inicio = data_inicio,     data_fim = data_fim, modelo = modelo, stan_compilado = stan_compilado,     config_agregador = config_agregador, config_prioris = config_prioris),     votos_estimados = map(modelos, "votos_estimados"), vies_institutos = map(modelos,         "vies_institutos"), modelo_bruto = map(modelos, "modelo_bruto")): ℹ In argument: `modelos = map2(...)`.
-#> ℹ In group 1: `candidatura = "Bolsonaro"`.
-#> Caused by error in `map2()`:
-#> ℹ In index: 1.
-#> Caused by error:
-#> ! Model not compiled. Try running the compile() method first.
+#> Error in stan_compilado$has_exe(): attempt to apply non-function
 ```

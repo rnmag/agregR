@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Fira_Code-0.4.10/font.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Configuration for Statistical Models — configurar_prioris"><meta name="description" content="Defines hyperparameters for the specific Bayesian models."><meta property="og:description" content="Defines hyperparameters for the specific Bayesian models."><meta property="og:image" content="https://rnmag.github.io/agregR/logo.png"></head><body>
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Fira_Sans-0.4.10/font.css" rel="stylesheet"><link href="../deps/Fira_Code-0.4.10/font.css" rel="stylesheet"><link href="../deps/Jost-0.4.10/font.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Configuration for Statistical Models — configurar_prioris"><meta name="description" content="Defines hyperparameters for the specific Bayesian models."><meta property="og:description" content="Defines hyperparameters for the specific Bayesian models."><meta property="og:image" content="https://rnmag.github.io/agregR/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -56,7 +56,7 @@
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Named arguments to override default hyperparameters (e.g., `sd_tau_priori = 0.05`).</p></dd>
+<dd><p>Named arguments to override default hyperparameters (e.g., <code>sd_tau_priori = 0.05</code>).</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -69,13 +69,13 @@
 
 <p>These hyperparameters control the strength of assumptions regarding latent
 state evolution, institute bias, and non-sampling errors.</p>
-<p>Variable names refer to the model notation described in <a href="https://github.com/rnmag/agregR#conceptual-framework" class="external-link">https://github.com/rnmag/agregR#conceptual-framework</a></p>
+<p>Variable names refer to the model notation described in <a href="https://rnmag.github.io/agregR/index.html#conceptual-framework">https://rnmag.github.io/agregR/index.html#conceptual-framework</a></p>
 <p>Recommended reading: <a href="https://github.com/stan-dev/stan/wiki/prior-choice-recommendations" class="external-link">https://github.com/stan-dev/stan/wiki/prior-choice-recommendations</a></p>
 <p><strong>State Model - Level (\(\mu\))</strong></p><ul><li><p><code>mu_priori</code>: Prior mean for the latent vote share at \(t=1\).</p></li>
-<li><p><code>sd_mu_priori</code>: Prior uncertainty for the initial latent vote.</p><ul><li><p><em>Default values</em>: \(\mu\) starts with a flat prior of N(.5, .5), allowing data to quickly dominate inference.</p></li>
+<li><p><code>sd_mu_priori</code>: Prior uncertainty for the initial latent vote.</p><ul><li><p><em>Default values</em>: \(\mu\) starts with a flat prior of N(0.5, 0.5), allowing data to quickly dominate inference.</p></li>
 </ul></li>
 <li><p><code>omega_eta_priori</code>: Prior mean for the level volatility (\(\omega_\eta\)).</p></li>
-<li><p><code>sd_omega_eta_priori</code>: Prior uncertainty for the level volatility.</p><ul><li><p><em>Default values</em>: With <code>omega_eta_priori = 0.002</code> and <code>sd_omega_eta_priori = 0.0001</code>, the model assumes a **baseline drift** of approx. \(\pm 2\) percentage points over a month (\(1.96 \times \sqrt{30} \times 0.002 \approx 0.02\)).</p></li>
+<li><p><code>sd_omega_eta_priori</code>: Prior uncertainty for the level volatility.</p><ul><li><p><em>Default values</em>: With <code>omega_eta_priori = 0.002</code> and <code>sd_omega_eta_priori = 0.0001</code>, the model assumes a <strong>baseline drift</strong> of approx. \(\pm 2\) percentage points over a month (\(1.96 \times \sqrt{30} \times 0.002 \approx 0.02\)).</p></li>
 <li><p><em>Higher values</em>: The latent vote (\(\mu\)) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".</p></li>
 <li><p><em>Lower values</em>: The model assumes the public opinion level is more stable over time, resulting in smoother curves.</p></li>
 </ul></li>
@@ -93,7 +93,7 @@ state evolution, institute bias, and non-sampling errors.</p>
 <li><p><em>Lower values:</em> Constrain institutes to have similar biases (shrinkage toward the anchor).</p></li>
 </ul></li>
 </ul><p><strong>Non-Sampling Error (\(\tau\))</strong></p><ul><li><p><code>tau_priori</code>: Mean expected magnitude of errors not explained by sampling or house effects. In weighted models, this is replaced by the empirical RMSE from past elections.</p></li>
-<li><p><code>sd_tau_priori</code>: Prior uncertainty for non-sampling error.</p><ul><li><p><em>Default values</em>: With <code>tau_priori = 0.02</code> and <code>sd_tau_priori = 0.02</code>, the model assumes a **baseline** of \(\pm 4\) percentage points of "noise" in each poll, allowing it to spread closer to \(\pm 7\) percentage points.</p></li>
+<li><p><code>sd_tau_priori</code>: Prior uncertainty for non-sampling error.</p><ul><li><p><em>Default values</em>: With <code>tau_priori = 0.02</code> and <code>sd_tau_priori = 0.02</code>, the model assumes a <strong>baseline</strong> of \(\pm 4\) percentage points of "noise" in each poll, allowing it to spread closer to \(\pm 7\) percentage points.</p></li>
 <li><p><em>Higher values:</em> The model treats polls as less precise, widening the credible intervals of the latent state.</p></li>
 <li><p><em>Lower values:</em> The model trusts polling precision more, leading to tighter intervals and potentially more sensitivity to outliers.</p></li>
 </ul></li>

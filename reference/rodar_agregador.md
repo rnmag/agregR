@@ -63,12 +63,14 @@ rodar_agregador(
 - config_agregador:
 
   A list of configuration parameters created by
-  \`configurar_agregador()\`. If NULL, uses defaults.
+  [`configurar_agregador()`](https://rnmag.github.io/agregR/reference/configurar_agregador.md).
+  If NULL, uses defaults.
 
 - config_prioris:
 
-  A list of model hyperparameters created by \`configurar_prioris()\`.
-  If NULL, uses defaults based on \`modelo\`.
+  A list of model hyperparameters created by
+  [`configurar_prioris()`](https://rnmag.github.io/agregR/reference/configurar_prioris.md).
+  If NULL, uses defaults based on `modelo`.
 
 - salvar:
 
@@ -76,7 +78,7 @@ rodar_agregador(
 
 - dir_saida:
 
-  Output directory for saved files if \`salvar = TRUE\`.
+  Output directory for saved files if `salvar = TRUE`.
 
 ## Value
 
@@ -154,14 +156,16 @@ with specific assumptions about institute bias and non-sampling errors:
 
 ## Priors Details
 
-The \`config_prioris\` argument allows customization of the model's
-hyperparameters with the \`configurar_prioris()\` function.
+The `config_prioris` argument allows customization of the model's
+hyperparameters with the
+[`configurar_prioris()`](https://rnmag.github.io/agregR/reference/configurar_prioris.md)
+function.
 
 These hyperparameters control the strength of assumptions regarding
 latent state evolution, institute bias, and non-sampling errors.
 
 Variable names refer to the model notation described in
-<https://github.com/rnmag/agregR#conceptual-framework>
+<https://rnmag.github.io/agregR/index.html#conceptual-framework>
 
 Recommended reading:
 <https://github.com/stan-dev/stan/wiki/prior-choice-recommendations>
@@ -172,7 +176,7 @@ Recommended reading:
 
 - `sd_mu_priori`: Prior uncertainty for the initial latent vote.
 
-  - *Default values*: \\\mu\\ starts with a flat prior of N(.5, .5),
+  - *Default values*: \\\mu\\ starts with a flat prior of N(0.5, 0.5),
     allowing data to quickly dominate inference.
 
 - `omega_eta_priori`: Prior mean for the level volatility
@@ -181,9 +185,9 @@ Recommended reading:
 - `sd_omega_eta_priori`: Prior uncertainty for the level volatility.
 
   - *Default values*: With `omega_eta_priori = 0.002` and
-    `sd_omega_eta_priori = 0.0001`, the model assumes a \*\*baseline
-    drift\*\* of approx. \\\pm 2\\ percentage points over a month
-    (\\1.96 \times \sqrt{30} \times 0.002 \approx 0.02\\).
+    `sd_omega_eta_priori = 0.0001`, the model assumes a **baseline
+    drift** of approx. \\\pm 2\\ percentage points over a month (\\1.96
+    \times \sqrt{30} \times 0.002 \approx 0.02\\).
 
   - *Higher values*: The latent vote (\\\mu\\) can jump more from one
     day to the next. The model adapts more quickly to new polls but
@@ -245,9 +249,9 @@ Recommended reading:
 - `sd_tau_priori`: Prior uncertainty for non-sampling error.
 
   - *Default values*: With `tau_priori = 0.02` and
-    `sd_tau_priori = 0.02`, the model assumes a \*\*baseline\*\* of
-    \\\pm 4\\ percentage points of "noise" in each poll, allowing it to
-    spread closer to \\\pm 7\\ percentage points.
+    `sd_tau_priori = 0.02`, the model assumes a **baseline** of \\\pm
+    4\\ percentage points of "noise" in each poll, allowing it to spread
+    closer to \\\pm 7\\ percentage points.
 
   - *Higher values:* The model treats polls as less precise, widening
     the credible intervals of the latent state.
@@ -272,15 +276,7 @@ if (instantiate::stan_cmdstan_exists()) {
 #> ℹ Iniciando 4 cadeias de 1000 iterações por candidatura.
 #> ℹ Há 30 pesquisas na base entre 01/01/25 e 13/02/26.
 #> ℹ Se esses números parecerem incorretos, revise os argumentos e configurações da função.
-#> 
-#> ── Estimando intenção de votos para: "Bolsonaro" ──
-#> 
-#> Error in mutate(nest(group_by(filter(pesquisas, turno == !!turno & candidatura %in%     candidaturas), candidatura)), modelos = map2(data, candidatura,     ajustar_modelo, turno = !!turno, data_inicio = data_inicio,     data_fim = data_fim, modelo = modelo, stan_compilado = stan_compilado,     config_agregador = config_agregador, config_prioris = config_prioris),     votos_estimados = map(modelos, "votos_estimados"), vies_institutos = map(modelos,         "vies_institutos"), modelo_bruto = map(modelos, "modelo_bruto")): ℹ In argument: `modelos = map2(...)`.
-#> ℹ In group 1: `candidatura = "Bolsonaro"`.
-#> Caused by error in `map2()`:
-#> ℹ In index: 1.
-#> Caused by error:
-#> ! Model not compiled. Try running the compile() method first.
+#> Error in stan_compilado$has_exe(): attempt to apply non-function
 
 # Tuning Stan, changing the model and altering specific priors
 if (instantiate::stan_cmdstan_exists()) {
@@ -299,13 +295,5 @@ if (instantiate::stan_cmdstan_exists()) {
 #> ℹ Iniciando 1 cadeia de 700 iterações por candidatura.
 #> ℹ Há 30 pesquisas na base entre 01/01/25 e 13/02/26.
 #> ℹ Se esses números parecerem incorretos, revise os argumentos e configurações da função.
-#> 
-#> ── Estimando intenção de votos para: "Bolsonaro" ──
-#> 
-#> Error in mutate(nest(group_by(filter(pesquisas, turno == !!turno & candidatura %in%     candidaturas), candidatura)), modelos = map2(data, candidatura,     ajustar_modelo, turno = !!turno, data_inicio = data_inicio,     data_fim = data_fim, modelo = modelo, stan_compilado = stan_compilado,     config_agregador = config_agregador, config_prioris = config_prioris),     votos_estimados = map(modelos, "votos_estimados"), vies_institutos = map(modelos,         "vies_institutos"), modelo_bruto = map(modelos, "modelo_bruto")): ℹ In argument: `modelos = map2(...)`.
-#> ℹ In group 1: `candidatura = "Bolsonaro"`.
-#> Caused by error in `map2()`:
-#> ℹ In index: 1.
-#> Caused by error:
-#> ! Model not compiled. Try running the compile() method first.
+#> Error in stan_compilado$has_exe(): attempt to apply non-function
 ```

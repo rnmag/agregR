@@ -18,7 +18,7 @@ configurar_prioris(nome = "Viés Relativo com Pesos", ...)
 - ...:
 
   Named arguments to override default hyperparameters (e.g.,
-  \`sd_tau_priori = 0.05\`).
+  `sd_tau_priori = 0.05`).
 
 ## Value
 
@@ -30,7 +30,7 @@ These hyperparameters control the strength of assumptions regarding
 latent state evolution, institute bias, and non-sampling errors.
 
 Variable names refer to the model notation described in
-<https://github.com/rnmag/agregR#conceptual-framework>
+<https://rnmag.github.io/agregR/index.html#conceptual-framework>
 
 Recommended reading:
 <https://github.com/stan-dev/stan/wiki/prior-choice-recommendations>
@@ -41,7 +41,7 @@ Recommended reading:
 
 - `sd_mu_priori`: Prior uncertainty for the initial latent vote.
 
-  - *Default values*: \\\mu\\ starts with a flat prior of N(.5, .5),
+  - *Default values*: \\\mu\\ starts with a flat prior of N(0.5, 0.5),
     allowing data to quickly dominate inference.
 
 - `omega_eta_priori`: Prior mean for the level volatility
@@ -50,9 +50,9 @@ Recommended reading:
 - `sd_omega_eta_priori`: Prior uncertainty for the level volatility.
 
   - *Default values*: With `omega_eta_priori = 0.002` and
-    `sd_omega_eta_priori = 0.0001`, the model assumes a \*\*baseline
-    drift\*\* of approx. \\\pm 2\\ percentage points over a month
-    (\\1.96 \times \sqrt{30} \times 0.002 \approx 0.02\\).
+    `sd_omega_eta_priori = 0.0001`, the model assumes a **baseline
+    drift** of approx. \\\pm 2\\ percentage points over a month (\\1.96
+    \times \sqrt{30} \times 0.002 \approx 0.02\\).
 
   - *Higher values*: The latent vote (\\\mu\\) can jump more from one
     day to the next. The model adapts more quickly to new polls but
@@ -114,9 +114,9 @@ Recommended reading:
 - `sd_tau_priori`: Prior uncertainty for non-sampling error.
 
   - *Default values*: With `tau_priori = 0.02` and
-    `sd_tau_priori = 0.02`, the model assumes a \*\*baseline\*\* of
-    \\\pm 4\\ percentage points of "noise" in each poll, allowing it to
-    spread closer to \\\pm 7\\ percentage points.
+    `sd_tau_priori = 0.02`, the model assumes a **baseline** of \\\pm
+    4\\ percentage points of "noise" in each poll, allowing it to spread
+    closer to \\\pm 7\\ percentage points.
 
   - *Higher values:* The model treats polls as less precise, widening
     the credible intervals of the latent state.

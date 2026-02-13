@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Fira_Code-0.4.10/font.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Run Poll Aggregator — rodar_agregador"><meta name="description" content="Main function to run the state-space model for poll aggregation."><meta property="og:description" content="Main function to run the state-space model for poll aggregation."><meta property="og:image" content="https://rnmag.github.io/agregR/logo.png"></head><body>
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Fira_Sans-0.4.10/font.css" rel="stylesheet"><link href="../deps/Fira_Code-0.4.10/font.css" rel="stylesheet"><link href="../deps/Jost-0.4.10/font.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Run Poll Aggregator — rodar_agregador"><meta name="description" content="Main function to run the state-space model for poll aggregation."><meta property="og:description" content="Main function to run the state-space model for poll aggregation."><meta property="og:image" content="https://rnmag.github.io/agregR/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -97,11 +97,11 @@
 
 
 <dt id="arg-config-agregador">config_agregador<a class="anchor" aria-label="anchor" href="#arg-config-agregador"></a></dt>
-<dd><p>A list of configuration parameters created by `configurar_agregador()`. If NULL, uses defaults.</p></dd>
+<dd><p>A list of configuration parameters created by <code><a href="configurar_agregador.html">configurar_agregador()</a></code>. If NULL, uses defaults.</p></dd>
 
 
 <dt id="arg-config-prioris">config_prioris<a class="anchor" aria-label="anchor" href="#arg-config-prioris"></a></dt>
-<dd><p>A list of model hyperparameters created by `configurar_prioris()`. If NULL, uses defaults based on `modelo`.</p></dd>
+<dd><p>A list of model hyperparameters created by <code><a href="configurar_prioris.html">configurar_prioris()</a></code>. If NULL, uses defaults based on <code>modelo</code>.</p></dd>
 
 
 <dt id="arg-salvar">salvar<a class="anchor" aria-label="anchor" href="#arg-salvar"></a></dt>
@@ -109,7 +109,7 @@
 
 
 <dt id="arg-dir-saida">dir_saida<a class="anchor" aria-label="anchor" href="#arg-dir-saida"></a></dt>
-<dd><p>Output directory for saved files if `salvar = TRUE`.</p></dd>
+<dd><p>Output directory for saved files if <code>salvar = TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -144,16 +144,16 @@
     <h2 id="priors-details">Priors Details<a class="anchor" aria-label="anchor" href="#priors-details"></a></h2>
 
 
-<p>The `config_prioris` argument allows customization of the model's hyperparameters with the `configurar_prioris()` function.</p>
+<p>The <code>config_prioris</code> argument allows customization of the model's hyperparameters with the <code><a href="configurar_prioris.html">configurar_prioris()</a></code> function.</p>
 <p>These hyperparameters control the strength of assumptions regarding latent
 state evolution, institute bias, and non-sampling errors.</p>
-<p>Variable names refer to the model notation described in <a href="https://github.com/rnmag/agregR#conceptual-framework" class="external-link">https://github.com/rnmag/agregR#conceptual-framework</a></p>
+<p>Variable names refer to the model notation described in <a href="https://rnmag.github.io/agregR/index.html#conceptual-framework">https://rnmag.github.io/agregR/index.html#conceptual-framework</a></p>
 <p>Recommended reading: <a href="https://github.com/stan-dev/stan/wiki/prior-choice-recommendations" class="external-link">https://github.com/stan-dev/stan/wiki/prior-choice-recommendations</a></p>
 <p><strong>State Model - Level (\(\mu\))</strong></p><ul><li><p><code>mu_priori</code>: Prior mean for the latent vote share at \(t=1\).</p></li>
-<li><p><code>sd_mu_priori</code>: Prior uncertainty for the initial latent vote.</p><ul><li><p><em>Default values</em>: \(\mu\) starts with a flat prior of N(.5, .5), allowing data to quickly dominate inference.</p></li>
+<li><p><code>sd_mu_priori</code>: Prior uncertainty for the initial latent vote.</p><ul><li><p><em>Default values</em>: \(\mu\) starts with a flat prior of N(0.5, 0.5), allowing data to quickly dominate inference.</p></li>
 </ul></li>
 <li><p><code>omega_eta_priori</code>: Prior mean for the level volatility (\(\omega_\eta\)).</p></li>
-<li><p><code>sd_omega_eta_priori</code>: Prior uncertainty for the level volatility.</p><ul><li><p><em>Default values</em>: With <code>omega_eta_priori = 0.002</code> and <code>sd_omega_eta_priori = 0.0001</code>, the model assumes a **baseline drift** of approx. \(\pm 2\) percentage points over a month (\(1.96 \times \sqrt{30} \times 0.002 \approx 0.02\)).</p></li>
+<li><p><code>sd_omega_eta_priori</code>: Prior uncertainty for the level volatility.</p><ul><li><p><em>Default values</em>: With <code>omega_eta_priori = 0.002</code> and <code>sd_omega_eta_priori = 0.0001</code>, the model assumes a <strong>baseline drift</strong> of approx. \(\pm 2\) percentage points over a month (\(1.96 \times \sqrt{30} \times 0.002 \approx 0.02\)).</p></li>
 <li><p><em>Higher values</em>: The latent vote (\(\mu\)) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".</p></li>
 <li><p><em>Lower values</em>: The model assumes the public opinion level is more stable over time, resulting in smoother curves.</p></li>
 </ul></li>
@@ -171,7 +171,7 @@ state evolution, institute bias, and non-sampling errors.</p>
 <li><p><em>Lower values:</em> Constrain institutes to have similar biases (shrinkage toward the anchor).</p></li>
 </ul></li>
 </ul><p><strong>Non-Sampling Error (\(\tau\))</strong></p><ul><li><p><code>tau_priori</code>: Mean expected magnitude of errors not explained by sampling or house effects. In weighted models, this is replaced by the empirical RMSE from past elections.</p></li>
-<li><p><code>sd_tau_priori</code>: Prior uncertainty for non-sampling error.</p><ul><li><p><em>Default values</em>: With <code>tau_priori = 0.02</code> and <code>sd_tau_priori = 0.02</code>, the model assumes a **baseline** of \(\pm 4\) percentage points of "noise" in each poll, allowing it to spread closer to \(\pm 7\) percentage points.</p></li>
+<li><p><code>sd_tau_priori</code>: Prior uncertainty for non-sampling error.</p><ul><li><p><em>Default values</em>: With <code>tau_priori = 0.02</code> and <code>sd_tau_priori = 0.02</code>, the model assumes a <strong>baseline</strong> of \(\pm 4\) percentage points of "noise" in each poll, allowing it to spread closer to \(\pm 7\) percentage points.</p></li>
 <li><p><em>Higher values:</em> The model treats polls as less precise, widening the credible intervals of the latent state.</p></li>
 <li><p><em>Lower values:</em> The model trusts polling precision more, leading to tighter intervals and potentially more sensitivity to outliers.</p></li>
 </ul></li>
@@ -193,15 +193,7 @@ state evolution, institute bias, and non-sampling errors.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Iniciando <span style="color: #0000BB;">4</span> cadeias de <span style="color: #0000BB;">1000</span> iterações por candidatura.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Há <span style="color: #0000BB;">30</span> pesquisas na base entre 01/01/25 e 13/02/26.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Se esses números parecerem incorretos, revise os argumentos e configurações da função.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Estimando intenção de votos para: </span><span style="color: #0000BB; font-weight: bold;">"Bolsonaro"</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mutate(nest(group_by(filter(pesquisas, turno == !!turno &amp; candidatura %in%     candidaturas), candidatura)), modelos = map2(data, candidatura,     ajustar_modelo, turno = !!turno, data_inicio = data_inicio,     data_fim = data_fim, modelo = modelo, stan_compilado = stan_compilado,     config_agregador = config_agregador, config_prioris = config_prioris),     votos_estimados = map(modelos, "votos_estimados"), vies_institutos = map(modelos,         "vies_institutos"), modelo_bruto = map(modelos, "modelo_bruto")):</span> <span style="color: #00BBBB;">ℹ</span> In argument: `modelos = map2(...)`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In group 1: `candidatura = "Bolsonaro"`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `map2()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Model not compiled. Try running the compile() method first.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in stan_compilado$has_exe():</span> attempt to apply non-function</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Tuning Stan, changing the model and altering specific priors</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu">instantiate</span><span class="fu">::</span><span class="fu"><a href="https://wlandau.github.io/instantiate/reference/stan_cmdstan_exists.html" class="external-link">stan_cmdstan_exists</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
@@ -220,15 +212,7 @@ state evolution, institute bias, and non-sampling errors.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Iniciando <span style="color: #0000BB;">1</span> cadeia de <span style="color: #0000BB;">700</span> iterações por candidatura.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Há <span style="color: #0000BB;">30</span> pesquisas na base entre 01/01/25 e 13/02/26.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Se esses números parecerem incorretos, revise os argumentos e configurações da função.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Estimando intenção de votos para: </span><span style="color: #0000BB; font-weight: bold;">"Bolsonaro"</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mutate(nest(group_by(filter(pesquisas, turno == !!turno &amp; candidatura %in%     candidaturas), candidatura)), modelos = map2(data, candidatura,     ajustar_modelo, turno = !!turno, data_inicio = data_inicio,     data_fim = data_fim, modelo = modelo, stan_compilado = stan_compilado,     config_agregador = config_agregador, config_prioris = config_prioris),     votos_estimados = map(modelos, "votos_estimados"), vies_institutos = map(modelos,         "vies_institutos"), modelo_bruto = map(modelos, "modelo_bruto")):</span> <span style="color: #00BBBB;">ℹ</span> In argument: `modelos = map2(...)`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In group 1: `candidatura = "Bolsonaro"`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `map2()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Model not compiled. Try running the compile() method first.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in stan_compilado$has_exe():</span> attempt to apply non-function</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
