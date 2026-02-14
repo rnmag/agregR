@@ -10,7 +10,7 @@ test_that("rodar_agregador funciona para o modelo Naive (Smoke Test)", {
     candidaturas_1t = c("Lula", "Bolsonaro")
   )
 
-  res <- rodar_agregador(bd = pesquisas_minimas,
+  res <- rodar_agregador(bd = pesquisas_teste,
                          turno = 1,
                          modelo = "Naive",
                          config_agregador = cfg,

@@ -30,9 +30,12 @@ test_that("grafico_vies retorna um objeto ggplot", {
 
   bd_mock <- list(
     nome_modelo = "Vi\u00e9s Relativo sem Pesos",
-    vies_institutos = vies_mock
+    votos_estimados = pesquisas_minimas,
+    vies_institutos = vies_mock,
+    # Mock para passar na validação de candidaturas em grafico_vies
+    modelo_bruto = list(Lula = list())
   )
 
-  p <- grafico_vies(bd_mock, salvar = FALSE)
+  p <- grafico_vies(bd_mock, candidaturas = "Lula", salvar = FALSE)
   expect_s3_class(p, "ggplot")
 })
