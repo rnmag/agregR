@@ -225,10 +225,9 @@ registrar_fonte <- function(dpi = 300) {
   }
 
   # Durante o R CMD CHECK (_R_CHECK_...), showtext ativo para evitar erros de
-  # "font not found" nos dispositivos PDF/PostScript padrão. Em sessões intera-
-  # tivas, desativar showtext para não interferir com gráficos. O ragg encontra
-  # a fonte automaticamente através do systemfonts::register_font() sem os e-
-  # feitos colaterais do showtext.
+  # "font not found". Em sessões interativas, desativar showtext para não
+  # interferir com gráficos. O ragg encontra a fonte automaticamente por meio
+  # do systemfonts::register_font() sem os efeitos colaterais do showtext.
   if (any(grepl("_R_CHECK_", names(Sys.getenv())))) {
     showtext::showtext_auto(TRUE)
   } else {

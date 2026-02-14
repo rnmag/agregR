@@ -3,6 +3,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/rnmag/agregR/workflows/CmdStan-R-CMD-check/badge.svg)](https://github.com/rnmag/agregR/actions)
+[![Codecov test coverage](https://codecov.io/gh/rnmag/agregR/graph/badge.svg)](https://app.codecov.io/gh/rnmag/agregR)
 
 <!-- badges: end -->
 
