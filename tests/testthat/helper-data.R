@@ -31,13 +31,13 @@ pesquisas_minimas <- data.frame(
 # Pesqisas histórica
 historico_teste <- data.frame(
   ano = 2022,
-  cargo = "Presidente",
+  cargo = "presidente",
   instituto = "Datafolha",
   nome_candidato = "Lula",
   percentual = 48,
   data = as.Date("2022-10-01"),
   turno = 1,
-  sigla_uf = "BR",
+  sigla_uf = NA, # Deve ser NA para passar no filtro is.na(sigla_uf)
   quantidade_entrevistas = 2000,
   margem_mais = 2,
   margem_menos = 2,
@@ -49,7 +49,7 @@ resultados_teste <- data.frame(
   ano = 2022,
   cargo = "Presidente",
   turno = 1,
-  nome_candidato = "Lula",
+  nome = "Lula",
   votos_recebidos = 57259504,
   total_votos = 118229719,
   stringsAsFactors = FALSE
