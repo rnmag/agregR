@@ -25,15 +25,18 @@ test_that("grafico_vies retorna um objeto ggplot", {
     li = c(-0.02, -0.01),
     mediana = c(0.01, 0.02),
     ls = c(0.04, 0.05),
-    candidatura = "Lula"
+    candidatura = "Lula",
+    instituto_num = 1:2
   )
 
   bd_mock <- list(
     nome_modelo = "Vi\u00e9s Relativo sem Pesos",
     votos_estimados = pesquisas_minimas,
     vies_institutos = vies_mock,
-    # Mock para passar na validação de candidaturas em grafico_vies
-    modelo_bruto = list(Lula = list())
+    # Mock com colunas delta para passar no pivot_longer de extrair_amostras_post
+    modelo_bruto = list(Lula = data.frame(`delta[1]` = rnorm(100), 
+                                          `delta[2]` = rnorm(100),
+                                          check.names = FALSE))
   )
 
   p <- grafico_vies(bd_mock, candidaturas = "Lula", salvar = FALSE)

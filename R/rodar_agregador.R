@@ -340,10 +340,18 @@ rodar_agregador <- function(bd = NULL,
     select(candidatura, votos_estimados) |>
     unnest(votos_estimados)
 
-  # Resultado 2: viés dos institutos por candidatura
-  vies_institutos <- modelo_ajustado |>
-    select(candidatura, vies_institutos) |>
-    unnest(vies_institutos)
+  # Resultado 2: viés dos institutos por candidatura (NULL para modelo Naive)
+  if (modelo == "Naive") {
+
+    vies_institutos <- NULL
+
+  } else {
+
+    vies_institutos <- modelo_ajustado |>
+      select(candidatura, vies_institutos) |>
+      unnest(vies_institutos)
+
+  }
 
   # Resultado 3: viés das metodologias por candidatura
   # vies_metodologia <- modelo_ajustado |>
