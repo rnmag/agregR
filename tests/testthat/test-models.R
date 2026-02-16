@@ -1,6 +1,6 @@
 test_that("rodar_agregador valida requisitos e argumentos", {
   # 1. Validação de turno
-  expect_error(rodar_agregador(bd = pesquisas_teste, turno = 3), "definir o turno")
+  expect_error(rodar_agregador(bd = pesquisas_teste, turno = 3, cenario = "Primeiro turno"), "definir o turno")
 
   # 2. Validação de cenário 2º turno
   # Criar bd com turno 2

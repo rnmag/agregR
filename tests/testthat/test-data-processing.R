@@ -9,7 +9,7 @@ test_that("tratar_bd_atual filtra e calcula estatísticas corretamente", {
                         filtro_fim = as.Date("2025-12-31"),
                         filtro_cargo = "Presidente",
                         filtro_ambito = "Brasil",
-                        filtro_cenario = "Cenario 1")
+                        filtro_cenario = "Primeiro turno")
 
   expect_s3_class(df$dia, "Date")
   expect_true(all(df$percentual_pesquisa <= 1))
@@ -26,7 +26,7 @@ test_that("tratar_bd_atual filtra e calcula estatísticas corretamente", {
                                  filtro_fim = as.Date("2025-01-03"),
                                  filtro_cargo = "Presidente",
                                  filtro_ambito = "Brasil",
-                                 filtro_cenario = "Cenario 1")
+                                 filtro_cenario = "Primeiro turno")
   expect_equal(nrow(df_filtered), 4)
 })
 
@@ -60,7 +60,7 @@ test_that("tratar_bd_historico calcula erros corretamente e aceita diferentes in
                                  primeiro_turno = "2022-10-02",
                                  segundo_turno = "2022-10-30",
                                  config_agregador = cfg)
-  expect_equal(nrow(res_rds), 2)
+  expect_equal(nrow(res_rds), 4)
 
   # 4. Caso bd = caminho CSV
   tmp_csv <- tempfile(fileext = ".csv")
@@ -69,5 +69,5 @@ test_that("tratar_bd_historico calcula erros corretamente e aceita diferentes in
                                  primeiro_turno = "2022-10-02",
                                  segundo_turno = "2022-10-30",
                                  config_agregador = cfg)
-  expect_equal(nrow(res_csv), 2)
+  expect_equal(nrow(res_csv), 4)
 })

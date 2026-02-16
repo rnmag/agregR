@@ -43,14 +43,26 @@ test_that("ajustar_modelo prepara dados e delega ao Stan (Naive)", {
 
 test_that("ajustar_modelo lida com ramos de Viés Relativo e Empírico", {
   # Mock do resultado do Stan que inclui delta
-  mock_modelo_bruto <- list(
+  mock_modelo_bruto_3dias <- list(
     summary = function(var, ...) {
       if (var == "mu") {
         return(tibble::tibble(variable = paste0("mu[", 1:3, "]"), 
-                              `2.5%` = 0.44, `50%` = 0.45, `97.5%` = 0.46))
+                              `2.5%` = rep(0.44, 3), `50%` = rep(0.45, 3), `97.5%` = rep(0.46, 3)))
       } else if (var == "delta") {
         return(tibble::tibble(variable = paste0("delta[", 1:3, "]"), 
-                              `2.5%` = -0.01, `50%` = 0.01, `97.5%` = 0.02))
+                              `2.5%` = rep(-0.01, 3), `50%` = rep(0.01, 3), `97.5%` = rep(0.02, 3)))
+      }
+    }
+  )
+
+  mock_modelo_bruto_2dias <- list(
+    summary = function(var, ...) {
+      if (var == "mu") {
+        return(tibble::tibble(variable = paste0("mu[", 1:2, "]"), 
+                              `2.5%` = rep(0.44, 2), `50%` = rep(0.45, 2), `97.5%` = rep(0.46, 2)))
+      } else if (var == "delta") {
+        return(tibble::tibble(variable = paste0("delta[", 1:2, "]"), 
+                              `2.5%` = rep(-0.01, 2), `50%` = rep(0.01, 2), `97.5%` = rep(0.02, 2)))
       }
     }
   )
@@ -60,7 +72,7 @@ test_that("ajustar_modelo lida com ramos de Viés Relativo e Empírico", {
     sample = function(data, ...) {
       expect_true("n_institutos" %in% names(data))
       expect_true("delta_priori" %in% names(data))
-      return(mock_modelo_bruto)
+      return(mock_modelo_bruto_3dias)
     }
   )
 
@@ -82,7 +94,7 @@ test_that("ajustar_modelo lida com ramos de Viés Relativo e Empírico", {
   mock_stan_com_pesos <- list(
     sample = function(data, ...) {
       expect_true("emp_tau_priori" %in% names(data))
-      return(mock_modelo_bruto)
+      return(mock_modelo_bruto_2dias)
     }
   )
 
@@ -111,7 +123,7 @@ test_that("ajustar_modelo lida com ramos de Viés Relativo e Empírico", {
   mock_stan_empirico <- list(
     sample = function(data, ...) {
       expect_true("emp_delta_priori" %in% names(data))
-      return(mock_modelo_bruto)
+      return(mock_modelo_bruto_2dias)
     }
   )
 

@@ -6,10 +6,10 @@ test_that("grafico_priori_posteriori valida argumentos e modelos", {
   )
 
   # 1. Erro tipo inválido
-  expect_error(grafico_priori_posteriori(bd_naive, tipo = "Inexistente"), "deve ser 'Percentual' ou 'Vi\u00e9s'")
+  expect_error(grafico_priori_posteriori(bd_naive, candidaturas = "Lula", tipo = "Inexistente"), "deve ser 'Percentual' ou 'Vi\u00e9s'")
 
   # 2. Erro Viés no modelo Naive
-  expect_error(grafico_priori_posteriori(bd_naive, tipo = "Vi\u00e9s"), "modelo 'Naive' n\u00e3o existe vi\u00e9s")
+  expect_error(grafico_priori_posteriori(bd_naive, candidaturas = "Lula", tipo = "Vi\u00e9s"), "modelo 'Naive' n\u00e3o existe vi\u00e9s")
 
   # 3. Erro candidatura não encontrada
   bd_erro_cand <- list(
