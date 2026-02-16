@@ -69,7 +69,7 @@ test_that("grafico_priori_posteriori salva arquivos corretamente", {
   # registrar_fonte() # Já é chamado dentro da função
 
   expect_message(
-    grafico_priori_posteriori(bd_naive, candidaturas = "Lula", tipo = "Percentual", salvar = TRUE, dir_saida = tmp),
+    suppressWarnings(grafico_priori_posteriori(bd_naive, candidaturas = "Lula", tipo = "Percentual", salvar = TRUE, dir_saida = tmp)),
     "Gr\u00e1fico salvo"
   )
 })

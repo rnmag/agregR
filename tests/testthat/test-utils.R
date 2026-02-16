@@ -74,7 +74,7 @@ test_that("ler_csv lida com diversos inputs e formatos (linhas 125-186)", {
   expect_equal(res_comma$col1[1], 1.5)
 
   # Simulando URL que falha
-  expect_warning(ler_csv("https://url_inexistente_12345.csv", arquivo_local_fallback = tmp_comma), "internet")
+  expect_message(ler_csv("https://url_inexistente_12345.csv", arquivo_local_fallback = tmp_comma), "internet")
 
   # pesquisas_2026.csv deve existir no inst/extdata
   res_pkg <- ler_csv("pesquisas_2026.csv")

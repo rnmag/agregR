@@ -12,7 +12,7 @@ pesquisas_teste <- data.frame(
   metodologia = c("Presencial", "Presencial", "Telefônica", "Telefônica", "Online", "Online"),
   ambito = c("Brasil", "Brasil", "Brasil", "Brasil", "Brasil", "Brasil"),
   cargo = c("Presidente", "Presidente", "Presidente", "Presidente", "Presidente", "Presidente"),
-  cenario = c("Cenario 1", "Cenario 1", "Cenario 1", "Cenario 1", "Cenario 1", "Cenario 1"),
+  cenario = c("Primeiro turno", "Primeiro turno", "Primeiro turno", "Primeiro turno", "Primeiro turno", "Primeiro turno"),
   stringsAsFactors = FALSE
 )
 

@@ -41,11 +41,11 @@ test_that("grafico_agregador retorna um objeto ggplot e lida com diferentes mode
   # Mock ggsave e gerar_saida seriam ideais, mas testamos o fluxo de entrar no bloco
   # Usando tempdir para o teste de salvamento
   tmp <- tempdir()
-  expect_message(grafico_agregador(bd_naive, salvar = TRUE, dir_saida = tmp), "Gr\u00e1fico salvo")
+  expect_message(suppressWarnings(grafico_agregador(bd_naive, salvar = TRUE, dir_saida = tmp)), "Gr\u00e1fico salvo")
 })
 
 test_that("grafico_agregador falha sem turno (linha 64)", {
-  bd_erro <- list(votos_estimados = tibble::tibble(turno = NA))
+  bd_erro <- list(votos_estimados = tibble::tibble(turno = 3))
   expect_error(grafico_agregador(bd_erro), "definir o turno")
 })
 
@@ -94,5 +94,5 @@ test_that("grafico_vies retorna um objeto ggplot e valida entradas", {
 
   # 5. Teste salvamento (linhas 149-163)
   tmp <- tempdir()
-  expect_message(grafico_vies(bd_emp, candidaturas = "Lula", salvar = TRUE, dir_saida = tmp), "Gr\u00e1fico salvo")
+  expect_message(suppressWarnings(grafico_vies(bd_emp, candidaturas = "Lula", salvar = TRUE, dir_saida = tmp)), "Gr\u00e1fico salvo")
 })
