@@ -35,22 +35,20 @@ Generates a plot visualizing the bias of polling institutes.
 }
 \examples{
 if (instantiate::stan_cmdstan_exists()) {
-  result <- rodar_agregador(turno = 2, cenario = "Lula vs Bolsonaro", salvar = FALSE)
+  result <- rodar_agregador(turno = 2, cenario = "Lula vs Bolsonaro")
 
   # Standard bias plot
-  grafico_vies(
+  std_plot <- grafico_vies(
     result,
-    candidaturas = c("Lula", "Bolsonaro"),
-    salvar = FALSE
+    candidaturas = c("Lula", "Bolsonaro")
   )
 
   # Altering candidate colors
-  grafico_vies(
+  custom_plot <- grafico_vies(
     result,
     candidaturas = c("Lula", "Bolsonaro"),
-    salvar = FALSE,
     config_grafico = configurar_grafico(
-      cores_candidaturas = c(Lula = "darkred")
+      cores_candidaturas = c(Lula = "yellow")
     )
   )
 }

@@ -59,7 +59,7 @@ The aggregator supports five types of Bayesian state-space models, each with spe
 \itemize{
 \item \strong{Assumption:} Institute biases are relative to the average of all institutes (latent "truth" is anchored to the consensus).
 \item \strong{Bias (\eqn{\delta}):} Calculated relative to the mean bias of all institutes.
-\item \strong{Weights:} Uses past election performance to weight the non-sampling error (\eqn{\tau}). Institutes with larger historical errors have less influence on the current estimate.
+\item \strong{Weights (\eqn{\tau}):} Uses past election performance to weight the non-sampling error. Institutes with larger historical errors have less influence on the current estimate.
 \item \strong{Use case:} Best for general forecasting when historical data is available.
 }
 
@@ -67,15 +67,15 @@ The aggregator supports five types of Bayesian state-space models, each with spe
 \itemize{
 \item \strong{Assumption:} Same as above, but treats all institutes as having equal potential quality a priori.
 \item \strong{Bias (\eqn{\delta}):} Calculated relative to the mean bias.
-\item \strong{Weights:} None. All institutes share the same prior for non-sampling error (\eqn{\tau}).
+\item \strong{Weights (\eqn{\tau}):} None. All institutes share the same prior for non-sampling error.
 \item \strong{Use case:} When historical data is unreliable or when a "fresh start" assumption is desired.
 }
 
-\strong{3. Viés Empírico}
+\strong{3. Vi\u00e9s Emp\u00edrico}
 \itemize{
 \item \strong{Assumption:} Institute biases are anchored to their specific historical performance.
 \item \strong{Bias (\eqn{\delta}):} Prior means are set to the bias observed in the previous election (directional error).
-\item \strong{Weights:} Uses past performance for non-sampling error (\eqn{\tau}), similar to the "Com Pesos" model.
+\item \strong{Weights (\eqn{\tau}):} Uses past performance for non-sampling error, similar to the "Com Pesos" model.
 \item \strong{Use case:} When institutes are expected to repeat their specific past directional errors (e.g., consistently underestimating a specific wing).
 }
 
@@ -163,22 +163,15 @@ Recommended reading: \url{https://github.com/stan-dev/stan/wiki/prior-choice-rec
 \examples{
 # Running the default model for a second round scenario
 if (instantiate::stan_cmdstan_exists()) {
-  resultados <- rodar_agregador(
-    turno = 2,
-    cenario = "Lula vs Bolsonaro",
-    salvar = FALSE
-  )
-}
+  result <- rodar_agregador(turno = 2, cenario = "Lula vs Bolsonaro")
 
 # Tuning Stan, changing the model and altering specific priors
-if (instantiate::stan_cmdstan_exists()) {
-  resultados_custom <- rodar_agregador(
+  custom_result <- rodar_agregador(
     turno = 2,
     cenario = "Lula vs Bolsonaro",
     modelo = "Viés Relativo sem Pesos",
     config_agregador = list(stan_chains = 1, stan_warmup = 200),
-    config_prioris = list(tau_priori = 0.01),
-    salvar = FALSE
+    config_prioris = list(tau_priori = 0.01)
   )
 }
 }

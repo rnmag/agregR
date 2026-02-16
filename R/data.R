@@ -30,5 +30,5 @@
 #'   \item{tipo_voto}{Vote type (Total, Valid, etc.)}
 #'   \item{turno}{Election round (1 or 2)}
 #' }
-#' @source Poder360
+#' @source Poder360 via \href{https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6}{Base dos Dados}
 "historico_pesquisas_poder360"

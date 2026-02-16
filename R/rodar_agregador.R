@@ -8,7 +8,7 @@
 #' \itemize{
 #'   \item \strong{Assumption:} Institute biases are relative to the average of all institutes (latent "truth" is anchored to the consensus).
 #'   \item \strong{Bias (\eqn{\delta}):} Calculated relative to the mean bias of all institutes.
-#'   \item \strong{Weights:} Uses past election performance to weight the non-sampling error (\eqn{\tau}). Institutes with larger historical errors have less influence on the current estimate.
+#'   \item \strong{Weights (\eqn{\tau}):} Uses past election performance to weight the non-sampling error. Institutes with larger historical errors have less influence on the current estimate.
 #'   \item \strong{Use case:} Best for general forecasting when historical data is available.
 #' }
 #'
@@ -16,7 +16,7 @@
 #' \itemize{
 #'   \item \strong{Assumption:} Same as above, but treats all institutes as having equal potential quality a priori.
 #'   \item \strong{Bias (\eqn{\delta}):} Calculated relative to the mean bias.
-#'   \item \strong{Weights:} None. All institutes share the same prior for non-sampling error (\eqn{\tau}).
+#'   \item \strong{Weights (\eqn{\tau}):} None. All institutes share the same prior for non-sampling error.
 #'   \item \strong{Use case:} When historical data is unreliable or when a "fresh start" assumption is desired.
 #' }
 #'
@@ -24,7 +24,7 @@
 #' \itemize{
 #'   \item \strong{Assumption:} Institute biases are anchored to their specific historical performance.
 #'   \item \strong{Bias (\eqn{\delta}):} Prior means are set to the bias observed in the previous election (directional error).
-#'   \item \strong{Weights:} Uses past performance for non-sampling error (\eqn{\tau}), similar to the "Com Pesos" model.
+#'   \item \strong{Weights (\eqn{\tau}):} Uses past performance for non-sampling error, similar to the "Com Pesos" model.
 #'   \item \strong{Use case:} When institutes are expected to repeat their specific past directional errors (e.g., consistently underestimating a specific wing).
 #' }
 #'
@@ -57,7 +57,7 @@
 #'   \item \code{mu_priori}: Prior mean for the latent vote share at \eqn{t=1}.
 #'   \item \code{sd_mu_priori}: Prior uncertainty for the initial latent vote.
 #'   \itemize{
-#'      \item \emph{Default values}: \eqn{\mu} starts with a flat prior of N(.5, .5), allowing data to quickly dominate inference.
+#'      \item \emph{Default values}: \eqn{\mu} starts with a flat prior of N(0.5, 0.5), allowing data to quickly dominate inference.
 #'   }
 #'   \item \code{omega_eta_priori}: Prior mean for the level volatility (\eqn{\omega_\eta}).
 #'   \item \code{sd_omega_eta_priori}: Prior uncertainty for the level volatility.
@@ -122,22 +122,15 @@
 #' @examples
 #' # Running the default model for a second round scenario
 #' if (instantiate::stan_cmdstan_exists()) {
-#'   resultados <- rodar_agregador(
-#'     turno = 2,
-#'     cenario = "Lula vs Bolsonaro",
-#'     salvar = FALSE
-#'   )
-#' }
+#'   result <- rodar_agregador(turno = 2, cenario = "Lula vs Bolsonaro")
 #'
 #' # Tuning Stan, changing the model and altering specific priors
-#' if (instantiate::stan_cmdstan_exists()) {
-#'   resultados_custom <- rodar_agregador(
+#'   custom_result <- rodar_agregador(
 #'     turno = 2,
 #'     cenario = "Lula vs Bolsonaro",
 #'     modelo = "Vi\u00e9s Relativo sem Pesos",
 #'     config_agregador = list(stan_chains = 1, stan_warmup = 200),
-#'     config_prioris = list(tau_priori = 0.01),
-#'     salvar = FALSE
+#'     config_prioris = list(tau_priori = 0.01)
 #'   )
 #' }
 #' @importFrom cli cli_abort cli_h1 cli_alert_success cli_alert_info

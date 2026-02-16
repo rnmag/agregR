@@ -34,7 +34,7 @@ A data frame with columns:
 }
 }
 \source{
-Poder360
+Poder360 via \href{https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6}{Base dos Dados}
 }
 \usage{
 historico_pesquisas_poder360

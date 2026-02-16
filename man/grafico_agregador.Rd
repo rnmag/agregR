@@ -33,17 +33,16 @@ Generates a plot of the aggregated poll results over time.
 \examples{
 if (instantiate::stan_cmdstan_exists()) {
   # Generate results
-  result <- rodar_agregador(turno = 2, cenario = "Lula vs Bolsonaro", salvar = FALSE)
+  result <- rodar_agregador(turno = 2, cenario = "Lula vs Bolsonaro")
 
   # Standard plot
-  grafico_agregador(result, salvar = FALSE)
+  std_plot <- grafico_agregador(result)
 
   # Altering candidate colors
-  grafico_agregador(
+  custom_plot <- grafico_agregador(
     result,
-    salvar = FALSE,
     config_grafico = configurar_grafico(
-      cores_candidaturas = c(Lula = "darkred")
+      cores_candidaturas = c(Lula = "yellow")
     )
   )
 }

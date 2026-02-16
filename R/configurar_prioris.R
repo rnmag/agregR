@@ -14,7 +14,7 @@
 #'   \item \code{mu_priori}: Prior mean for the latent vote share at \eqn{t=1}.
 #'   \item \code{sd_mu_priori}: Prior uncertainty for the initial latent vote.
 #'   \itemize{
-#'      \item \emph{Default values}: \eqn{\mu} starts with a flat prior of N(.5, .5), allowing data to quickly dominate inference.
+#'      \item \emph{Default values}: \eqn{\mu} starts with a flat prior of N(0.5, 0.5), allowing data to quickly dominate inference.
 #'   }
 #'   \item \code{omega_eta_priori}: Prior mean for the level volatility (\eqn{\omega_\eta}).
 #'   \item \code{sd_omega_eta_priori}: Prior uncertainty for the level volatility.
