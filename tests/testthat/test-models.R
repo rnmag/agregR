@@ -12,7 +12,7 @@ test_that("rodar_agregador valida requisitos e argumentos", {
   expect_error(rodar_agregador(bd = bd_2t, turno = 2, cenario = NULL), "obrigat\u00f3rio")
 
   # 3. Validação de modelo
-  expect_error(rodar_agregador(bd = pesquisas_teste, turno = 1, modelo = "Modelo Fantasma"), "inv\u00e1lido")
+  expect_error(rodar_agregador(bd = pesquisas_teste, turno = 1, modelo = "Modelo Fantasma"), "Modelo n\u00e3o encontrado")
 })
 
 test_that("rodar_agregador lida com configurações customizadas", {
