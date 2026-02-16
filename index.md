@@ -28,7 +28,6 @@ specialized methods to account for:
 ## Table of Contents
 
 - [Installation](#installation)
-  - [Dependencies](#dependencies)
 - [Basic Usage](#basic-usage)
   - [Estimation](#estimation)
   - [Visualization](#visualization)
@@ -46,21 +45,16 @@ specialized methods to account for:
 
 ## Installation
 
-You can install the development version of `agregR` with:
-
-``` r
-if (!require(pak)) install.packages("pak")
-pak::pak("rnmag/agregR")
-```
-
-### Dependencies
-
 `agregR` is built on [CmdStan](https://mc-stan.org/docs/cmdstan-guide/),
 the state-of-the-art backend for Stan. Since CmdStan is not available on
 CRAN ([and will likely never
 be](https://discourse.mc-stan.org/t/what-is-the-difference-between-rstan-cmdstanr-and-bridgestan/39226/3)),
 it needs to be installed separately. This one-time setup yields
 substantial gains in compilation speed and sampling performance.
+
+We recommend following these installation steps in order:
+
+### 1. Install compiler
 
 **Windows** users must first install
 [RTools](https://cran.r-project.org/bin/windows/Rtools/) to enable C++
@@ -69,8 +63,10 @@ Tools](https://developer.apple.com/documentation/xcode/installing-the-command-li
 and **Linux** users should install the distribution-specific compiler
 (e.g. on Ubuntu: `sudo apt install build-essential`).
 
-After that, the most convenient way to install CmdStan is via the
-`cmdstanr` interface.
+### 2. Install CmdStan
+
+The most convenient way to install CmdStan is via the `cmdstanr`
+interface.
 
 ``` r
 # Install cmdstanr interface
@@ -80,11 +76,26 @@ install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOpt
 cmdstanr::install_cmdstan()
 ```
 
-Optional step: check if the toolchain is complete.
+**Optional**: make sure everything is in place.
 
 ``` r
-# Make sure everything is in place
 cmdstanr::check_cmdstan_toolchain()
+```
+
+### 3. Install agregR
+
+You can install the release version of `agregR` fom CRAN with:
+
+``` r
+install.packages("agregR", type = "source")
+```
+
+**Experimental**: the development (and possibly unstable) version of
+`agregR` can be installed with:
+
+``` r
+if (!require(pak)) install.packages("pak")
+pak::pak("rnmag/agregR")
 ```
 
 ## Basic Usage
@@ -246,8 +257,9 @@ candidate \\c\\ according to their vote share \\v\_{i, c}\\ in poll
 
 \\ \sigma\_{i, c} = \sqrt\frac{v\_{i, c}(1-v\_{i, c})}{n\_{eff\[i\]}} \\
 
-Historical data is sourced from [Poder360’s polling
-database](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
+Historical data is sourced from Poder360’s polling database via [Base
+dos
+Dados](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
 
 ### Conceptual Framework
 
@@ -355,8 +367,7 @@ effects (\\\delta\\) and non-sampling error (\\\tau\\) estimation:
 
 Specific values for priors can be accessed (and modified) by the
 [`configurar_prioris()`](https://rnmag.github.io/agregR/reference/configurar_prioris.md)
-function, and details are available in the function’s documentation:
-[`?configurar_prioris`](https://rnmag.github.io/agregR/reference/configurar_prioris.md).
+function, and details are available in the function’s documentation.
 
 | Model                                                    | House Effects Anchor (\\\delta\\)                                          | Non-Sampling Error (\\\tau\\)                                          |
 |:---------------------------------------------------------|:---------------------------------------------------------------------------|:-----------------------------------------------------------------------|
