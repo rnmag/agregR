@@ -36,12 +36,12 @@ test_that("grafico_priori_posteriori gera graficos de Percentual e Vi\u00e9s", {
   expect_s3_class(p_perc, "ggplot")
   expect_match(p_perc$labels$title, "Inten\u00e7\u00e3o de Votos")
 
-  # 2. Teste Vi\u00e9s (delta) - Modelo padrão
+  # 2. Teste Viés (delta) - Modelo padrão
   p_vies <- grafico_priori_posteriori(bd_base, candidaturas = "Lula", tipo = "Vi\u00e9s")
   expect_s3_class(p_vies, "ggplot")
   expect_match(p_vies$labels$title, "Vi\u00e9s dos Institutos")
 
-  # 3. Teste Vi\u00e9s - Modelo Empírico
+  # 3. Teste Viés - Modelo Empírico
   # Fornecer config com dados mock para evitar rede em calcular_prioris_empiricas
   cfg_emp <- configurar_agregador(
     historico_pesquisas = historico_teste,
@@ -66,8 +66,6 @@ test_that("grafico_priori_posteriori salva arquivos corretamente", {
 
   tmp <- tempdir()
   # Registrar fonte para evitar warnings no ggsave se a fonte não for encontrada
-  # registrar_fonte() # Já é chamado dentro da função
-
   expect_message(
     suppressWarnings(grafico_priori_posteriori(bd_naive, candidaturas = "Lula", tipo = "Percentual", salvar = TRUE, dir_saida = tmp)),
     "Gr\u00e1fico salvo"

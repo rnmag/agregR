@@ -98,7 +98,7 @@ test_that("ajustar_modelo lida com ramos de Viés Relativo e Empírico", {
     }
   )
 
-  # Crucial: passar dataframes para evitar chamadas de rede em ler_csv
+  # Passar dataframes para evitar ler_csv puxando da internet
   cfg_pesos <- configurar_agregador(
     historico_pesquisas = historico_teste, 
     resultado_eleicao_passada = resultados_teste,

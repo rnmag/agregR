@@ -25,7 +25,7 @@ test_that("limpar_texto funciona", {
   expect_equal(limpar_texto("Tarc\u00edsio"), "Tarcisio")
 })
 
-test_that("gerar_saida cria diretorios e retorna caminhos corretos (linhas 79-94)", {
+test_that("gerar_saida cria diretorios e retorna caminhos corretos", {
   tmp_base <- file.path(tempdir(), "test_outputs")
 
   # Caso 1: sem nome de arquivo
@@ -40,7 +40,7 @@ test_that("gerar_saida cria diretorios e retorna caminhos corretos (linhas 79-94
   unlink(tmp_base, recursive = TRUE)
 })
 
-test_that("cenarios_disponiveis filtra cenarios corretamente (linhas 99-106)", {
+test_that("cenarios_disponiveis filtra cenarios corretamente", {
   bd_cenarios <- data.frame(
     turno = c(1, 2, 2),
     cenario = c("T1", "Cenário A", "Cenário B"),
@@ -52,7 +52,7 @@ test_that("cenarios_disponiveis filtra cenarios corretamente (linhas 99-106)", {
   expect_true(all(c("Cenário A", "Cenário B") %in% res))
 })
 
-test_that("ler_csv lida com diversos inputs e formatos (linhas 125-186)", {
+test_that("ler_csv lida com diversos inputs e formatos", {
   # 1. Dataframe
   df <- data.frame(a = 1)
   expect_equal(ler_csv(df), df)
@@ -80,14 +80,12 @@ test_that("ler_csv lida com diversos inputs e formatos (linhas 125-186)", {
   res_pkg <- ler_csv("pesquisas_2026.csv")
   expect_s3_class(res_pkg, "data.frame")
 
-  # 6. Erro fatal (linha 186)
+  # 6. Erro fatal
   expect_error(ler_csv("arquivo_que_nao_existe_mesmo.csv"), "configura\u00e7\u00e3o")
 })
 
-test_that("registrar_fonte lida com fontes ausentes (linha 206)", {
+test_that("registrar_fonte lida com fontes ausentes", {
   # Simular cenário onde fonte_regular não existe
   # Como a função usa system.file(), se não passarmos nada que exista ela deve retornar invisible()
-  # Nota: registrar_fonte não tem parâmetros para forçar erro, mas o código
-  # interno lida com o retorno de "" do system.file()
   expect_silent(registrar_fonte())
 })

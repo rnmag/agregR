@@ -22,10 +22,6 @@ test_that("calcular_prioris_empiricas atribui erros corretamente", {
   # 2. Caso Direita
   priors_bolsonaro <- calcular_prioris_empiricas("Bolsonaro", 1, c("Datafolha"), cfg)
   expect_equal(nrow(priors_bolsonaro), 1)
-  # Como Bolsonaro não está no historico_teste (que só tem Lula), deve vir NA e ser imputado com a média (que também será NA se não houver ninguém)
-  # No meu helper-data.R, historico_teste só tem Lula.
-  
-  # Vamos ajustar o helper-data.R para ter Bolsonaro também no historico_teste para testar melhor
 })
 
 test_that("calcular_prioris_empiricas lida com candidatos sem histórico", {
@@ -33,7 +29,7 @@ test_that("calcular_prioris_empiricas lida com candidatos sem histórico", {
     historico_pesquisas = historico_teste,
     resultado_eleicao_passada = resultados_teste
   )
-  
+
   # Candidato que não é nem direita nem esquerda na config
   priors_outro <- calcular_prioris_empiricas("Candidato Gen\u00e9rico", 1, c("Datafolha"), cfg)
   expect_equal(nrow(priors_outro), 1)

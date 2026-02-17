@@ -122,7 +122,11 @@
 #' @examples
 #' # Running the default model for a second round scenario
 #' if (instantiate::stan_cmdstan_exists()) {
-#'   result <- rodar_agregador(data_inicio = "01/01/2025", turno = 2, cenario = "Lula vs Bolsonaro")
+#'   result <- rodar_agregador(
+#'     data_inicio = "01/01/2025",
+#'     turno = 2,
+#'     cenario = "Lula vs Bolsonaro"
+#'   )
 #'
 #' # Tuning Stan, changing the model and altering specific priors
 #'   custom_result <- rodar_agregador(

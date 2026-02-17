@@ -11,7 +11,11 @@
 #' @export
 #' @examples
 #' if (instantiate::stan_cmdstan_exists()) {
-#'   result <- rodar_agregador(data_inicio = "01/01/2025", turno = 2, cenario = "Lula vs Bolsonaro")
+#'   result <- rodar_agregador(
+#'     data_inicio = "01/01/2025",
+#'     turno = 2,
+#'     cenario = "Lula vs Bolsonaro"
+#'   )
 #'
 #'   # Standard bias plot
 #'   std_plot <- grafico_vies(

@@ -4,7 +4,7 @@ test_that("configurar_agregador aceita parâmetros customizados", {
   expect_equal(cfg$stan$warmup, 100)
   expect_type(cfg, "list")
   expect_true(grepl("http", cfg$pesquisas))
-  
+
   # Testar candidaturas customizadas
   cfg_cand <- configurar_agregador(candidaturas_1t = c("Teste1", "Teste2"))
   expect_equal(cfg_cand$candidaturas_1t, c("Teste1", "Teste2"))

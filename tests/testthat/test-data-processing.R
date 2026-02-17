@@ -16,10 +16,10 @@ test_that("tratar_bd_atual filtra e calcula estatísticas corretamente", {
   expect_true(all(df$ep > 0))
   expect_equal(nrow(df), 6)
   expect_true("n_efetivo" %in% names(df))
-  
+
   # Verificar imputação de metodologia
   expect_equal(df$metodologia[df$instituto == "Datafolha"][1], "Presencial")
-  
+
   # Testar filtro de data
   df_filtered <- tratar_bd_atual(pesquisas_teste, 
                                  filtro_inicio = as.Date("2025-01-02"),
