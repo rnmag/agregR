@@ -13,7 +13,7 @@
 #' @export
 #' @examples
 #' if (instantiate::stan_cmdstan_exists()) {
-#'   result <- rodar_agregador(turno = 2, cenario = "Lula vs Bolsonaro")
+#'   result <- rodar_agregador(data_inicio = "01/01/2025", turno = 2, cenario = "Lula vs Bolsonaro")
 #'
 #'   # Prior vs Posterior plot for institute bias
 #'   std_plot <- grafico_priori_posteriori(

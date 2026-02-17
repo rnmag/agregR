@@ -1,18 +1,21 @@
 test_that("rodar_agregador valida requisitos e argumentos", {
-  # 1. Validação de turno
-  expect_error(rodar_agregador(bd = pesquisas_teste, turno = 3, cenario = "Primeiro turno"), "definir o turno")
+  # 1. Validação de data_inicio
+  expect_error(rodar_agregador(bd = pesquisas_teste, turno = 1), "obrigat\u00f3rio")
 
-  # 2. Validação de cenário 2º turno
+  # 2. Validação de turno
+  expect_error(rodar_agregador(bd = pesquisas_teste, data_inicio = "01/01/2025", turno = 3, cenario = "Primeiro turno"), "definir o turno")
+
+  # 3. Validação de cenário 2º turno
   # Criar bd com turno 2
   bd_2t <- pesquisas_teste
   bd_2t$turno <- 2
   bd_2t$cenario <- "Lula vs Bolsonaro"
 
-  expect_error(rodar_agregador(bd = bd_2t, turno = 2, cenario = "Inexistente"), "Cen\u00e1rio inv\u00e1lido")
-  expect_error(rodar_agregador(bd = bd_2t, turno = 2, cenario = NULL), "obrigat\u00f3rio")
+  expect_error(rodar_agregador(bd = bd_2t, data_inicio = "01/01/2025", turno = 2, cenario = "Inexistente"), "Cen\u00e1rio inv\u00e1lido")
+  expect_error(rodar_agregador(bd = bd_2t, data_inicio = "01/01/2025", turno = 2, cenario = NULL), "obrigat\u00f3rio")
 
-  # 3. Validação de modelo
-  expect_error(rodar_agregador(bd = pesquisas_teste, turno = 1, modelo = "Modelo Fantasma"), "Modelo n\u00e3o encontrado")
+  # 4. Validação de modelo
+  expect_error(rodar_agregador(bd = pesquisas_teste, data_inicio = "01/01/2025", turno = 1, modelo = "Modelo Fantasma"), "Modelo n\u00e3o encontrado")
 })
 
 test_that("rodar_agregador lida com configurações customizadas", {
@@ -46,6 +49,7 @@ test_that("rodar_agregador funciona para o modelo Naive (Smoke Test)", {
   )
 
   res <- rodar_agregador(bd = pesquisas_teste,
+                         data_inicio = "01/01/2025",
                          turno = 1,
                          modelo = "Naive",
                          config_agregador = cfg,
@@ -71,6 +75,7 @@ test_that("rodar_agregador salva resultados corretamente", {
 
   # Testar salvamento
   res <- rodar_agregador(bd = pesquisas_teste[pesquisas_teste$candidatura == "Lula", ],
+                         data_inicio = "01/01/2025",
                          turno = 1,
                          modelo = "Naive",
                          config_agregador = cfg,

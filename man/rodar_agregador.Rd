@@ -7,7 +7,7 @@
 \usage{
 rodar_agregador(
   bd = NULL,
-  data_inicio = "01/01/2025",
+  data_inicio = NULL,
   data_fim = Sys.Date(),
   cargo = "Presidente",
   ambito = "Brasil",
@@ -23,7 +23,7 @@ rodar_agregador(
 \arguments{
 \item{bd}{Dataframe or path to a CSV file containing poll data.}
 
-\item{data_inicio}{Start date for the analysis.}
+\item{data_inicio}{Start date for the analysis (mandatory).}
 
 \item{data_fim}{End date for the analysis.}
 
@@ -71,7 +71,7 @@ The aggregator supports five types of Bayesian state-space models, each with spe
 \item \strong{Use case:} When historical data is unreliable or when a "fresh start" assumption is desired.
 }
 
-\strong{3. Vi\u00e9s Emp\u00edrico}
+\strong{3. Viés Empírico}
 \itemize{
 \item \strong{Assumption:} Institute biases are anchored to their specific historical performance.
 \item \strong{Bias (\eqn{\delta}):} Prior means are set to the bias observed in the previous election (directional error).
@@ -163,10 +163,11 @@ Recommended reading: \url{https://github.com/stan-dev/stan/wiki/prior-choice-rec
 \examples{
 # Running the default model for a second round scenario
 if (instantiate::stan_cmdstan_exists()) {
-  result <- rodar_agregador(turno = 2, cenario = "Lula vs Bolsonaro")
+  result <- rodar_agregador(data_inicio = "01/01/2025", turno = 2, cenario = "Lula vs Bolsonaro")
 
 # Tuning Stan, changing the model and altering specific priors
   custom_result <- rodar_agregador(
+    data_inicio = "01/01/2025",
     turno = 2,
     cenario = "Lula vs Bolsonaro",
     modelo = "Viés Relativo sem Pesos",

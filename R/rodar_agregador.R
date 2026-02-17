@@ -106,7 +106,7 @@
 #'   }
 #' }
 #' @param bd Dataframe or path to a CSV file containing poll data.
-#' @param data_inicio Start date for the analysis.
+#' @param data_inicio Start date for the analysis (mandatory).
 #' @param data_fim End date for the analysis.
 #' @param cargo The office/position being contested (e.g., "Presidente"). Current data only contains presidential polls, but the package supports expansion for other offices.
 #' @param ambito The geographical scope (e.g., "Brasil"). Current data only contains national polls, but the package supports expansion for state races.
@@ -122,10 +122,11 @@
 #' @examples
 #' # Running the default model for a second round scenario
 #' if (instantiate::stan_cmdstan_exists()) {
-#'   result <- rodar_agregador(turno = 2, cenario = "Lula vs Bolsonaro")
+#'   result <- rodar_agregador(data_inicio = "01/01/2025", turno = 2, cenario = "Lula vs Bolsonaro")
 #'
 #' # Tuning Stan, changing the model and altering specific priors
 #'   custom_result <- rodar_agregador(
+#'     data_inicio = "01/01/2025",
 #'     turno = 2,
 #'     cenario = "Lula vs Bolsonaro",
 #'     modelo = "Vi\u00e9s Relativo sem Pesos",
@@ -141,7 +142,7 @@
 #' @importFrom instantiate stan_package_model
 #' @importFrom utils modifyList
 rodar_agregador <- function(bd = NULL,
-                            data_inicio = "01/01/2025",
+                            data_inicio = NULL,
                             data_fim = Sys.Date(),
                             cargo = "Presidente",
                             ambito = "Brasil",
@@ -198,6 +199,13 @@ rodar_agregador <- function(bd = NULL,
   if (is.null(bd)) {
 
     bd <- config_agregador$pesquisas
+
+  }
+
+  # Validar data de início
+  if (is.null(data_inicio)) {
+
+    cli_abort("O argumento {.arg data_inicio} \u00e9 obrigat\u00f3rio. Use o formato 'DD/MM/AAAA'.")
 
   }
 
