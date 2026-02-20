@@ -332,6 +332,15 @@ Critically, $\sigma$ represents a theoretical lower bound of uncertainty, wherea
 $\tau$ captures the excess empirical variance required to account for the data's
 observed dispersion.
 
+This Normal likelihood is a convenient approximation for competitive candidates
+whose support levels are not close to the boundaries (0% or 100%). When compared
+to a full Multinomial implementation with Cholesky-factorized covariance based
+on Stoetzer et al. (2019), the Normal approximation yields nearly identical
+inferences for the leading candidates, but is significantly faster to sample and
+more robust to divergent transitions, facilitating the high sampling efficiency
+and stability demonstrated in the [Model Validation](#model-validation)
+section.
+
 In summary, the measurement model identifies three sources of uncertainty for
 polls:
 
@@ -480,3 +489,5 @@ ggplot(modelo_cand$summary(), aes(x = ess_bulk, y = rhat)) +
 - Stan Development Team. (2025). *Stan User’s Guide, Version 2.38
   (Efficiency Tuning: Reparametrization)*. Retrieved from
   <https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section>
+- Stoetzer, L. F., et al. (2019). *Forecasting Elections in Multiparty Systems:
+  A Bayesian Approach Combining Polls and Fundamentals*. Political Analysis.
