@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/rnmag/agregR/blob/v1.0.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/rnmag/agregR/blob/main/DESCRIPTION)
 
 Magalhães R (2026). *agregR: Bayesian State-Space Aggregation of
 Brazilian Electoral Polls*. R package version 1.0.1,

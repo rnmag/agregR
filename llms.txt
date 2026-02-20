@@ -334,6 +334,16 @@ Critically, \\\sigma\\ represents a theoretical lower bound of
 uncertainty, whereas \\\tau\\ captures the excess empirical variance
 required to account for the data’s observed dispersion.
 
+This Normal likelihood is a convenient approximation for competitive
+candidates whose support levels are not close to the boundaries (0% or
+100%). When compared to a full Multinomial implementation with
+Cholesky-factorized covariance based on Stoetzer et al. (2019), the
+Normal approximation yields nearly identical inferences for the leading
+candidates, but is significantly faster to sample and more robust to
+divergent transitions, facilitating the high sampling efficiency and
+stability demonstrated in the [Model Validation](#model-validation)
+section.
+
 In summary, the measurement model identifies three sources of
 uncertainty for polls:
 
@@ -355,7 +365,7 @@ specialized models that differ in their assumptions regarding house
 effects (\\\delta\\) and non-sampling error (\\\tau\\) estimation:
 
 - **Anchoring**: Since \\\mu\\ and \\\delta\\ are not jointly
-  identified, house effects \\\delta\_{j,k,p}\\ follow a hierarchical
+  identified, house effects \\\delta\_{j,k,p}\\ follow a regularizing
   prior centered either on a consensus anchor (sum-to-zero) or on
   historical/actual electoral results. This prevents individual polls
   from disproportionately pulling the latent trend unless supported by
@@ -366,10 +376,6 @@ effects (\\\delta\\) and non-sampling error (\\\tau\\) estimation:
   Square Error (RMSE) in the last election while maintaining the
   flexibility to update its estimates based on current-cycle data.
 
-Specific values for priors can be accessed (and modified) by the
-[`configurar_prioris()`](https://rnmag.github.io/agregR/reference/configurar_prioris.md)
-function, and details are available in the function’s documentation.
-
 | Model                                                    | House Effects Anchor (\\\delta\\)                                          | Non-Sampling Error (\\\tau\\)                                          |
 |:---------------------------------------------------------|:---------------------------------------------------------------------------|:-----------------------------------------------------------------------|
 | **Viés Relativo com Pesos** (*Weighted Relative Bias*)   | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\                    | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) |
@@ -377,6 +383,20 @@ function, and details are available in the function’s documentation.
 | **Viés Empírico** (*Empirical Bias*)                     | Last election \\\delta\_{j,k,p}\\ (past bias \\\rightarrow \delta\\ prior) | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) |
 | **Retrospectivo** (*Retrospective*)                      | Actual election result \\\left(\mu_T\right)\\                              | Global \\\tau\\ shared by all institutes                               |
 | **Naive**                                                | None                                                                       | None                                                                   |
+
+Brazilian election campaigns often exhibit extreme data sparsity in
+their early stages. In such low-information environments, fully
+hierarchical models struggle to identify group-level variances, often
+leading to pathological behavior (e.g., complete shrinkage) or
+convergence failures.
+
+Anchoring the scales for \\\delta\\ and \\\tau\\ keeps the models robust
+and identifiable throughout the entire cycle, transitioning gracefully
+from a prior-dominated regime to a data-dominated one as the volume of
+polling increases. Specific values for priors can be accessed (and
+modified) by the
+[`configurar_prioris()`](https://rnmag.github.io/agregR/reference/configurar_prioris.md)
+function, and details are available in the function’s documentation.
 
 ## Model Validation
 
@@ -485,6 +505,9 @@ ggplot(modelo_cand$summary(), aes(x = ess_bulk, y = rhat)) +
 - Stan Development Team. (2025). *Stan User’s Guide, Version 2.38
   (Efficiency Tuning: Reparametrization)*. Retrieved from
   <https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section>
+- Stoetzer, L. F., et al. (2019). *Forecasting Elections in Multiparty
+  Systems: A Bayesian Approach Combining Polls and Fundamentals*.
+  Political Analysis.
 
 # Package index
 
