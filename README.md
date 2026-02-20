@@ -362,7 +362,7 @@ specialized models that differ in their assumptions regarding house
 effects ($\delta$) and non-sampling error ($\tau$) estimation:
 
 - **Anchoring**: Since $\mu$ and $\delta$ are not jointly identified, house
-  effects $\delta_{j,k,p}$ follow a hierarchical prior centered either on a
+  effects $\delta_{j,k,p}$ follow a regularizing prior centered either on a
   consensus anchor (sum-to-zero) or on historical/actual electoral results.
   This prevents individual polls from disproportionately pulling the latent
   trend unless supported by cumulative evidence.
@@ -372,10 +372,6 @@ effects ($\delta$) and non-sampling error ($\tau$) estimation:
   election while maintaining the flexibility to update its estimates based
   on current-cycle data.
 
-Specific values for priors can be accessed (and modified) by the
-`configurar_prioris()` function, and details are available in the function's
-documentation.
-
 | Model | House Effects Anchor ($\delta$) | Non-Sampling Error ($\tau$) |
 |:---|:---|:---|
 | **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) |
@@ -383,6 +379,17 @@ documentation.
 | **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (past bias $\rightarrow \delta$ prior) | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) |
 | **Retrospectivo** (*Retrospective*) | Actual election result $\left(\mu_T\right)$ | Global $\tau$ shared by all institutes |
 | **Naive** | None | None |
+
+Brazilian election campaigns often exhibit extreme data sparsity in their early
+stages. In such low-information environments, fully hierarchical models struggle
+to identify group-level variances, often leading to pathological behavior
+(e.g., complete shrinkage) or convergence failures.
+
+Anchoring the scales for $\delta$ and $\tau$ keeps the models robust and identifiable
+throughout the entire cycle, transitioning gracefully from a prior-dominated regime
+to a data-dominated one as the volume of polling increases. Specific values for
+priors can be accessed (and modified) by the `configurar_prioris()` function,
+and details are available in the function's documentation.
 
 ## Model Validation
 
