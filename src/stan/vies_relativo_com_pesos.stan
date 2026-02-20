@@ -175,7 +175,7 @@ transformed parameters {
   // 5. Transformação para Simplex (mu)
   // Recupera as proporções reais de voto para output e verossimilhança
   // mu[t] = softmax([alpha[t], 0])
-  simplex[n_candidatos] mu[total_dias];
+  array[total_dias] simplex[n_candidatos] mu;
   
   for(t in 1:total_dias) {
     vector[n_candidatos] temp;

@@ -91,7 +91,7 @@ transformed parameters {
     alpha[t, ] = to_row_vector(to_vector(alpha[t-1, ]) + to_vector(nu[t-1, ]) + innovation_alpha);
   }
   
-  simplex[n_candidatos] mu[total_dias];
+  array[total_dias] simplex[n_candidatos] mu;
   
   for(t in 1:total_dias) {
     vector[n_candidatos] temp;

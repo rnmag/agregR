@@ -76,7 +76,7 @@ transformed parameters {
   }
   
   // 3. Transformação para Simplex (mu)
-  simplex[n_candidatos] mu[total_dias];
+  array[total_dias] simplex[n_candidatos] mu;
   
   for(t in 1:total_dias) {
     vector[n_candidatos] temp;
