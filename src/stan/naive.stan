@@ -1,87 +1,113 @@
 // ------------------------------- MODELO NAIVE -------------------------------
 //
+// Versão Multivariada (ALR + Multinomial)
+//
 // O modelo que acredita em todas as pesquisas. Para ele:
+// - Não existe viés de institutos (delta = 0)
+// - Não existe erro não-amostral extra (tau = 0)
 //
-// - Não existe viés de institutos
-// - As pesquisas só erram dentro da margem
-// - Os erros são simétricos para todos os campos políticos
+// O estado latente (alpha) evolui no espaço ALR como um Random Walk multivariado.
 //
-// Nos dias em que não há pesquisas publicadas, a intenção de votos de cada
-// candidatura é modelada como uma variável latente (mu) que evolui diariamente
-// com choques aleatórios (omega_eta):
-//
-// mu[t] ~ N(mu[t-1], omega_eta)
-//
-// Quando uma pesquisa é publicada, o modelo a trata como uma informação incon-
-// troversa sobre o estado real da variável latente. A única fonte de incerteza
-// é o erro amostral (sigma):
-//
-// percentual ~ N(mu[t], sigma)
-//
-// ----------------------------------------------------------------------------
-
-// ------------------------------- CONFIGURAÇÃO -------------------------------
-//
-// Este arquivo importa todas as prioris como variáveis no bloco de dados. Isso
-// permite experimentar diferentes inicializações sem a necessidade de recompi-
-// lar o código, facilitando a calibração dos hiperparâmetros.
-//
-// As prioris podem ser alteradas no arquivo de configuração do agregador.
+// alpha[t] ~ MultiNormal(alpha[t-1], Sigma_evo)
+// mu[t] = softmax([alpha[t], 0])
+// votos ~ Multinomial(mu[t], N)
 //
 // ----------------------------------------------------------------------------
 
 data {
   // -------------------------------- Índices ---------------------------------
-  //
-  int<lower=1> total_dias;                          // total de dias analisados
-  int<lower=1> n_pesquisas;                         // n de pesquisas
-  array[n_pesquisas] int<lower=1> n_dias;           // n de dias desde a primeira pesquisa
-  //
+  int<lower=1> total_dias;                          
+  int<lower=1> n_pesquisas;                         
+  int<lower=1> n_candidatos;                        
+  
+  array[n_pesquisas] int<lower=1> n_dias;           
+  
   // -------------------------------- Prioris ---------------------------------
-  //     https://github.com/stan-dev/stan/wiki/prior-choice-recommendations
-  //
-  real<lower=0, upper=1> mu_priori;                 // priori para votos latentes
-  real<lower=0> sd_mu_priori;                       // desvio padrão da priori para mu
-  real<lower=0> omega_eta_priori;                   // priori para a volatilidade do nível
-  real<lower=0> sd_omega_eta_priori;                // desvio padrão para a volatilidade do nível
-  //
+  
+  // --- Correlação (LKJ) ---
+  real<lower=0> lkj_corr_priori;                    
+  
+  // --- Modelo de estado: dinâmica de nível (ALR) ---
+  vector[n_candidatos-1] mu_priori;                 
+  vector<lower=0>[n_candidatos-1] sd_mu_priori;     
+  
+  real<lower=0> omega_eta_priori;                   
+  real<lower=0> sd_omega_eta_priori;                
+
   // ---------------------------- Dados observados ----------------------------
-  //
-  vector<lower=0, upper=1>[n_pesquisas] percentual; // valores das pesquisas
-  vector<lower=0>[n_pesquisas] sigma;               // erro padrão das pesquisas
+  array[n_pesquisas, n_candidatos] int votos; 
 }
 
 parameters {
-  // ----------------- Vars auxiliares para reparametrização ------------------
-  vector[total_dias] mu_raw;
-  real<lower=0> omega_eta_raw;
+  // ----------------- Vars latentes no espaço ALR (P-1) ----------------------
+  
+  // Dinâmica de nível (alpha) - Random Walk simples (sem tendência nu)
+  matrix[total_dias, n_candidatos-1] alpha_raw;
+  
+  // Escalas de volatilidade 
+  vector<lower=0>[n_candidatos-1] sigma_alpha_raw;
+  
+  // Matriz de Correlação
+  cholesky_factor_corr[n_candidatos-1] L_corr;
 }
 
 transformed parameters {
-  // ---------------------------- Modelo de estado ----------------------------
-  vector[total_dias] mu;
-  real<lower=0> omega_eta = omega_eta_priori + omega_eta_raw * sd_omega_eta_priori;
+  // ----------------------- Reconstrução de Parâmetros -----------------------
+  
+  // 1. Escalas de volatilidade
+  vector[n_candidatos-1] sigma_alpha;
+  sigma_alpha = omega_eta_priori + sigma_alpha_raw * sd_omega_eta_priori;
+  
+  // 2. Modelo de Estado (Evolução Temporal)
+  matrix[total_dias, n_candidatos-1] alpha; 
+  
+  // Inicialização (t=1)
+  for(p in 1:(n_candidatos-1)) {
+    alpha[1, p] = mu_priori[p] + alpha_raw[1, p] * sd_mu_priori[p];
+  }
 
-  // Inicialização (t = 1)
-  mu[1] = mu_priori + mu_raw[1] * sd_mu_priori;
+  // Matriz de covariância
+  matrix[n_candidatos-1, n_candidatos-1] L_Sigma_alpha = diag_pre_multiply(sigma_alpha, L_corr);
 
-  // Evolução do estado
+  // Evolução (t=2...T)
   for (t in 2:total_dias) {
-    mu[t] = mu[t - 1] + mu_raw[t] * omega_eta;
+    vector[n_candidatos-1] innovation = L_Sigma_alpha * to_vector(alpha_raw[t, ]);
+    alpha[t, ] = to_row_vector(to_vector(alpha[t-1, ]) + innovation);
+  }
+  
+  // 3. Transformação para Simplex (mu)
+  simplex[n_candidatos] mu[total_dias];
+  
+  for(t in 1:total_dias) {
+    vector[n_candidatos] temp;
+    temp[1:(n_candidatos-1)] = to_vector(alpha[t, ]);
+    temp[n_candidatos] = 0; 
+    mu[t] = softmax(temp);
   }
 }
 
 model {
-  // ------------------------ Prioris reparametrizadas ------------------------
-  mu_raw ~ std_normal();
-  omega_eta_raw ~ std_normal();
-
+  // ----------------------------- Prioris ------------------------------------
+  
+  L_corr ~ lkj_corr_cholesky(lkj_corr_priori);
+  
+  to_vector(alpha_raw) ~ std_normal();
+  sigma_alpha_raw      ~ std_normal();
+  
   // ------------------------- Verossimilhança --------------------------------
-  percentual ~ normal(mu[n_dias], sigma);
+  
+  for(i in 1:n_pesquisas) {
+    int d = n_dias[i];
+    votos[i] ~ multinomial(mu[d]);
+  }
 }
 
 generated quantities {
-  // Simulação para *Posterior Predictive Checks*
-  // Vetor sem limites pode gerar valores simulados abaixo de 0 ou acima de 1
-  vector[n_pesquisas] perc_simulado = to_vector(normal_rng(mu[n_dias], sigma));
+  array[n_pesquisas, n_candidatos] int votos_simulados;
+  
+  for(i in 1:n_pesquisas) {
+    int d = n_dias[i];
+    int N_total = sum(votos[i]);
+    votos_simulados[i] = multinomial_rng(mu[d], N_total);
+  }
 }

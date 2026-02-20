@@ -11,17 +11,15 @@
 #'
 #' \strong{State Model - Level (\eqn{\mu})}
 #' \itemize{
-#'   \item \code{mu_priori}: Prior mean for the latent vote share at \eqn{t=1}.
+#'   \item \code{mu_priori}: Prior mean for the latent vote share at \eqn{t=1}. Can be a vector for multivariate models (ALR space).
 #'   \item \code{sd_mu_priori}: Prior uncertainty for the initial latent vote.
 #'   \itemize{
-#'      \item \emph{Default values}: \eqn{\mu} starts with a flat prior of N(0.5, 0.5), allowing data to quickly dominate inference.
+#'      \item \emph{Default values}: \eqn{\mu} starts with a flat prior, allowing data to quickly dominate inference.
 #'   }
 #'   \item \code{omega_eta_priori}: Prior mean for the level volatility (\eqn{\omega_\eta}).
 #'   \item \code{sd_omega_eta_priori}: Prior uncertainty for the level volatility.
 #'   \itemize{
-#'      \item \emph{Default values}: With \code{omega_eta_priori = 0.002} and \code{sd_omega_eta_priori = 0.0001}, the model assumes a **baseline drift** of approx. \eqn{\pm 2} percentage points over a month (\eqn{1.96 \times \sqrt{30} \times 0.002 \approx 0.02}).
-#'      \item \emph{Higher values}: The latent vote (\eqn{\mu}) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".
-#'      \item \emph{Lower values}: The model assumes the public opinion level is more stable over time, resulting in smoother curves.
+#'      \item \emph{Default values}: With \code{omega_eta_priori = 0.002} and \code{sd_omega_eta_priori = 0.0001}, the model assumes a **baseline drift** of approx. \eqn{\pm 2} percentage points over a month.
 #'   }
 #' }
 #'
@@ -29,38 +27,28 @@
 #' \itemize{
 #'   \item \code{nu_priori}: Prior mean for the initial trend (daily growth rate).
 #'   \item \code{sd_nu_priori}: Prior uncertainty for the initial trend.
-#'   \itemize{
-#'      \item \emph{Default values}: With \code{nu_priori = 0} and \code{sd_nu_priori = 0.001}, the model expects an initial trend within \eqn{\pm 0.2} percentage points per day (\eqn{1.96 \times 0.001 \approx 0.002}).
-#'   }
 #'   \item \code{omega_zeta_priori}: Prior mean for the trend volatility (\eqn{\omega_\zeta}).
 #'   \item \code{sd_omega_zeta_priori}: Prior uncertainty for the trend volatility.
+#' }
+#' 
+#' \strong{Correlation (\eqn{\Sigma})}
+#' \itemize{
+#'   \item \code{lkj_corr_priori}: Shape parameter for the LKJ prior on the correlation matrix.
 #'   \itemize{
-#'      \item \emph{Default values}: With \code{omega_zeta_priori = 0} and \code{sd_omega_zeta_priori = 0.00001}, the model assumes a linear evolution, allowing the trend to shift rapidly (accelerations) only under strong evidence.
-#'      \item \emph{Higher values:} The trend (\eqn{\nu}) can change direction or magnitude rapidly.
-#'      \item \emph{Lower values:} The trend is assumed to be more constant over time (more linear evolution).
+#'      \item \emph{Default values}: 50. Higher values favor independence (diagonal matrix), lower values allow for stronger correlations between candidates.
 #'   }
 #' }
 #'
 #' \strong{Institute Bias (\eqn{\delta})}
 #' \itemize{
-#'   \item \code{delta_priori}: Mean expected bias for institutes. Default is 0, except in "Vi\u00e9s Emp\u00edrico" where it is anchored on past performance.
+#'   \item \code{delta_priori}: Mean expected bias for institutes.
 #'   \item \code{sd_delta_priori}: Scale of the bias prior.
-#'   \itemize{
-#'     \item \emph{Default values}: With \code{delta_priori = 0} and \code{sd_delta_priori = 0.02}, the model assumes that 95\% of institutes have a bias within \eqn{\pm 4} percentage points (\eqn{1.96 \times 0.02 \approx 0.04}).
-#'     \item \emph{Higher values:} Allow for larger, more variable biases across institutes.
-#'     \item \emph{Lower values:} Constrain institutes to have similar biases (shrinkage toward the anchor).
-#'   }
 #' }
 #'
 #' \strong{Non-Sampling Error (\eqn{\tau})}
 #' \itemize{
-#'   \item \code{tau_priori}: Mean expected magnitude of errors not explained by sampling or house effects. In weighted models, this is replaced by the empirical RMSE from past elections.
+#'   \item \code{tau_priori}: Mean expected magnitude of errors not explained by sampling or house effects.
 #'   \item \code{sd_tau_priori}: Prior uncertainty for non-sampling error.
-#'   \itemize{
-#'     \item \emph{Default values}: With \code{tau_priori = 0.02} and \code{sd_tau_priori = 0.02}, the model assumes a **baseline** of \eqn{\pm 4} percentage points of "noise" in each poll, allowing it to spread closer to \eqn{\pm 7} percentage points.
-#'     \item \emph{Higher values:} The model treats polls as less precise, widening the credible intervals of the latent state.
-#'     \item \emph{Lower values:} The model trusts polling precision more, leading to tighter intervals and potentially more sensitivity to outliers.
-#'   }
 #' }
 #' @param nome Name of the model. Options: "Vi\u00e9s Relativo com Pesos", "Vi\u00e9s Relativo sem Pesos", "Vi\u00e9s Emp\u00edrico", "Retrospectivo" and "Naive".
 #' @param ... Named arguments to override default hyperparameters (e.g., `sd_tau_priori = 0.05`).
@@ -82,17 +70,19 @@ configurar_prioris <- function(nome = "Vi\u00e9s Relativo com Pesos", ...) {
   valores <- list(vies_relativo_sem_pesos = list(delta_priori = 0, sd_delta_priori = 0.02,
                                                  # gamma_priori = 0, sd_gamma_priori = 0.02,
                                                  tau_priori = 0.02, sd_tau_priori = 0.02,
-                                                 mu_priori = 0.5, sd_mu_priori = 0.5,
+                                                 mu_priori = 0.0, sd_mu_priori = 1.0, # ALR space needs wider priors
                                                  omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001,
                                                  nu_priori = 0, sd_nu_priori = 0.001,
-                                                 omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001),
+                                                 omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001,
+                                                 lkj_corr_priori = 50),
                   vies_relativo_com_pesos = list(delta_priori = 0, sd_delta_priori = 0.02,
                                                  # gamma_priori = 0, sd_gamma_priori = 0.02,
                                                  sd_tau_priori = 0.02,
-                                                 mu_priori = 0.5, sd_mu_priori = 0.5,
+                                                 mu_priori = 0.0, sd_mu_priori = 1.0, # ALR space needs wider priors
                                                  omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001,
                                                  nu_priori = 0, sd_nu_priori = 0.001,
-                                                 omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001),
+                                                 omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001,
+                                                 lkj_corr_priori = 50),
                   vies_empirico = list(sd_delta_priori = 0.02,
                                        # gamma_priori = 0, sd_gamma_priori = 0.02,
                                        sd_tau_priori = 0.02,

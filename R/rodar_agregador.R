@@ -297,7 +297,7 @@ rodar_agregador <- function(bd = NULL,
   cli_alert_info(paste("Iniciando {.val {config_agregador$stan$chains}}",
                        "cadeia{?s} de",
                        "{.val {config_agregador$stan$warmup + config_agregador$stan$sampling}}",
-                       "itera\u00e7\u00f5es por candidatura."))
+                       "itera\u00e7\u00f5es (Modelo Multivariado)."))
 
   cli_alert_info(paste("H\u00e1 {.val {n_distinct(pesquisas$pesquisa_id)}}",
                        "pesquisa{?s} na base entre",
@@ -313,70 +313,46 @@ rodar_agregador <- function(bd = NULL,
   stan_compilado <- instantiate::stan_package_model(name = nome_stan,
                                                     package = "agregR")
 
-  # Iterar ajustar_modelo() para cada candidatura
-  modelo_ajustado <- pesquisas |>
-    filter(turno == !!turno & candidatura %in% candidaturas) |>
-    group_by(candidatura) |>
-    nest() |>
-    mutate(modelos = map2(data, candidatura,
-                          ajustar_modelo,
-                          turno = !!turno,
-                          data_inicio = data_inicio,
-                          data_fim = data_fim,
-                          modelo = modelo,
-                          stan_compilado = stan_compilado,
-                          config_agregador = config_agregador,
-                          config_prioris = config_prioris),
-           votos_estimados = map(modelos, "votos_estimados"),
-           vies_institutos = map(modelos, "vies_institutos"),
-           # vies_metodologia = map(modelos, "vies_metodologia"),
-           modelo_bruto = map(modelos, "modelo_bruto")) |>
-    select(candidatura,
-           votos_estimados,
-           vies_institutos,
-           # vies_metodologia,
-           modelo_bruto) |>
-    ungroup()
+  # Filtrar apenas candidaturas do turno selecionado
+  pesquisas_filtradas <- pesquisas |>
+    filter(turno == !!turno & candidatura %in% candidaturas)
+
+  # Ajustar modelo único para todas as candidaturas (Multivariado)
+  modelo_ajustado <- ajustar_modelo(
+    bd = pesquisas_filtradas,
+    turno = turno,
+    data_inicio = data_inicio,
+    data_fim = data_fim,
+    modelo = modelo,
+    stan_compilado = stan_compilado,
+    config_agregador = config_agregador,
+    config_prioris = config_prioris
+  )
 
   # 3. Extrair resultados -----------------------------------------------------
 
   # Resultado 1: base de dados com dados de pesquisas + estimativas diárias
-  votos_estimados <- modelo_ajustado |>
-    select(candidatura, votos_estimados) |>
-    unnest(votos_estimados)
+  votos_estimados <- modelo_ajustado$votos_estimados
 
-  # Resultado 2: viés dos institutos por candidatura (NULL para modelo Naive)
+  # Resultado 2: viés dos institutos (NULL para modelo Naive)
   if (modelo == "Naive") {
-
     vies_institutos <- NULL
-
   } else {
-
-    vies_institutos <- modelo_ajustado |>
-      select(candidatura, vies_institutos) |>
-      unnest(vies_institutos)
-
+    vies_institutos <- modelo_ajustado$vies_institutos
   }
 
-  # Resultado 3: viés das metodologias por candidatura
-  # vies_metodologia <- modelo_ajustado |>
-  #   select(candidatura, vies_metodologia) |>
-  #   unnest(vies_metodologia)
-
-  # Resultado 4: output completo para acesso a distribuições, diagnósticos, etc.
-  # Se salvar = FALSE, manter objeto na classe R6 (mais rápido, mas temporário)
+  # Resultado 4: output completo (agora único, não lista nomeada por candidato)
+  # Mas para manter compatibilidade com save, talvez seja bom envolver em lista?
+  # O código original salvava um RDS por candidato se 'salvar=TRUE'.
+  # Agora temos um único objeto Stan grande.
+  
   if (salvar) {
-
     cli_alert_info("Armazenando amostras posteriores...")
-    modelo_bruto <- setNames(map(modelo_ajustado$modelo_bruto,
-                                 ~ .x$draws(format = "df")),
-                             modelo_ajustado$candidatura)
-
+    # Converter para draw format se necessário, mas o objeto CmdStanMCMC já é robusto
+    # modelo_bruto <- modelo_ajustado$modelo_bruto$draws(format = "df")
+    modelo_bruto <- modelo_ajustado$modelo_bruto
   } else {
-
-    modelo_bruto <- setNames(modelo_ajustado$modelo_bruto,
-                             modelo_ajustado$candidatura)
-
+    modelo_bruto <- modelo_ajustado$modelo_bruto
   }
 
   # Juntar tudo
@@ -385,6 +361,7 @@ rodar_agregador <- function(bd = NULL,
                      vies_institutos = vies_institutos,
                      # vies_metodologia = vies_metodologia,
                      modelo_bruto = modelo_bruto)
+
 
   # 4. Salvar resultados em disco ---------------------------------------------
 
