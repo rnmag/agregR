@@ -14,3 +14,4 @@ src/stan/**/*.exe
 src/stan/**/*.EXE
 *.dll
 docs
+CRAN-SUBMISSION
