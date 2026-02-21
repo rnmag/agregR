@@ -121,7 +121,7 @@
 <div class="section level3">
 <h3 id="id_1-install-compiler">1. Install compiler<a class="anchor" aria-label="anchor" href="#id_1-install-compiler"></a>
 </h3>
-<p><strong>Windows</strong> users must first install <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">RTools</a> to enable C++ compilation. <strong>MacOS</strong> requires <a href="https://developer.apple.com/documentation/xcode/installing-the-command-line-tools/" class="external-link">Xcode Command Line Tools</a>, and <strong>Linux</strong> users should install the distribution-specific compiler (e.g. on Ubuntu: <code>sudo apt install build-essential</code>).</p>
+<p><strong>Windows</strong> users must first install <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">RTools</a> to enable C++ compilation. <strong>MacOS</strong> requires <a href="https://developer.apple.com/documentation/xcode/installing-the-command-line-tools/" class="external-link">Xcode Command Line Tools</a>, and <strong>Linux</strong> users should install the distribution-specific compiler (e.g., Ubuntu: <code>sudo apt install build-essential</code>).</p>
 </div>
 <div class="section level3">
 <h3 id="id_2-install-cmdstan">2. Install CmdStan<a class="anchor" aria-label="anchor" href="#id_2-install-cmdstan"></a>
@@ -140,7 +140,7 @@
 <div class="section level3">
 <h3 id="id_3-install-agregr">3. Install agregR<a class="anchor" aria-label="anchor" href="#id_3-install-agregr"></a>
 </h3>
-<p>You can install the release version of <code>agregR</code> fom CRAN with:</p>
+<p>You can install the release version of <code>agregR</code> from CRAN with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"agregR"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Experimental</strong>: the development (and possibly unstable) version of <code>agregR</code> can be installed with:</p>
@@ -160,7 +160,7 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rnmag.github.io/agregR/">agregR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Execute the aggregation pipeline for a 2nd round scenario</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rodar_agregador.html">rodar_agregador</a></span><span class="op">(</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rodar_agregador.html">rodar_agregador</a></span><span class="op">(</span></span>
 <span>  data_inicio <span class="op">=</span> <span class="st">"01/01/2025"</span>,</span>
 <span>  turno <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  cenario <span class="op">=</span> <span class="st">"Lula vs Tarcísio"</span>,</span>
@@ -168,13 +168,13 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Daily voting estimates + poll data in tidy format</span></span>
-<span><span class="va">results</span><span class="op">$</span><span class="va">votos_estimados</span></span>
+<span><span class="va">result</span><span class="op">$</span><span class="va">votos_estimados</span></span>
 <span></span>
 <span><span class="co"># House effects in tidy format</span></span>
-<span><span class="va">results</span><span class="op">$</span><span class="va">vies_institutos</span></span>
+<span><span class="va">result</span><span class="op">$</span><span class="va">vies_institutos</span></span>
 <span></span>
 <span><span class="co"># Raw model object</span></span>
-<span><span class="va">results</span><span class="op">$</span><span class="va">modelo_bruto</span></span></code></pre></div>
+<span><span class="va">result</span><span class="op">$</span><span class="va">modelo_bruto</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="visualization">Visualization<a class="anchor" aria-label="anchor" href="#visualization"></a>
@@ -185,7 +185,7 @@
 </h4>
 <p>Visualizes the estimated voting intention for each candidate overlaying the raw polling data.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_agregador.html">grafico_agregador</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_agregador.html">grafico_agregador</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-agregador-plot.png"></p>
 </div>
 <div class="section level4">
@@ -193,7 +193,7 @@
 </h4>
 <p>Visualizes the systematic bias for each institute, identifying outliers and consistent directional skews.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_vies.html">grafico_vies</a></span><span class="op">(</span><span class="va">results</span>, candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lula"</span>, <span class="st">"Tarcísio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_vies.html">grafico_vies</a></span><span class="op">(</span><span class="va">result</span>, candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lula"</span>, <span class="st">"Tarcísio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-vies-plot.png"></p>
 </div>
 <div class="section level4">
@@ -201,7 +201,7 @@
 </h4>
 <p>Visualizes how the data has informed the model by comparing prior vs. posterior distributions for selected parameters.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_priori_posteriori.html">grafico_priori_posteriori</a></span><span class="op">(</span><span class="va">results</span>, tipo <span class="op">=</span> <span class="st">"Viés"</span>, candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lula"</span>, <span class="st">"Tarcísio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_priori_posteriori.html">grafico_priori_posteriori</a></span><span class="op">(</span><span class="va">result</span>, tipo <span class="op">=</span> <span class="st">"Viés"</span>, candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lula"</span>, <span class="st">"Tarcísio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-prior-posterior-plot.png"></p>
 </div>
 </div>
@@ -211,7 +211,7 @@
 <p>The package offers configuration functions for fine-grained control over plots and models. Configuration values can be stored in new objects using the functions <code><a href="reference/configurar_agregador.html">configurar_agregador()</a></code>, <code><a href="reference/configurar_prioris.html">configurar_prioris()</a></code> and <code><a href="reference/configurar_grafico.html">configurar_grafico()</a></code>. Alternatively, they can be passed directly as lists to the appropriate arguments.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Config passed as list: longer run with tighter priors for non-sampling error</span></span>
-<span><span class="va">results_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rodar_agregador.html">rodar_agregador</a></span><span class="op">(</span></span>
+<span><span class="va">result_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rodar_agregador.html">rodar_agregador</a></span><span class="op">(</span></span>
 <span>  turno <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  cenario <span class="op">=</span> <span class="st">"Lula vs Tarcísio"</span>,</span>
 <span>  config_agregador <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>stan_chains <span class="op">=</span> <span class="fl">4</span>,</span>
@@ -222,7 +222,7 @@
 <span></span>
 <span><span class="co"># Config passed as function: custom color and custom symbols</span></span>
 <span><span class="fu"><a href="reference/grafico_agregador.html">grafico_agregador</a></span><span class="op">(</span></span>
-<span>  <span class="va">results</span>, </span>
+<span>  <span class="va">result</span>, </span>
 <span>  config_grafico <span class="op">=</span> <span class="fu"><a href="reference/configurar_grafico.html">configurar_grafico</a></span><span class="op">(</span></span>
 <span>    cores_candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tarcísio"</span> <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span>,</span>
 <span>    simbolos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Presencial"</span> <span class="op">=</span> <span class="fl">19</span>, <span class="st">"Online"</span> <span class="op">=</span> <span class="fl">2</span>, <span class="st">"Telefônica"</span> <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
@@ -232,7 +232,7 @@
 <span><span class="co"># Config passed as object: custom color</span></span>
 <span><span class="va">config_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/configurar_grafico.html">configurar_grafico</a></span><span class="op">(</span>cores_candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Lula <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/grafico_agregador.html">grafico_agregador</a></span><span class="op">(</span><span class="va">results</span>, config_grafico <span class="op">=</span> <span class="va">config_custom</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/grafico_agregador.html">grafico_agregador</a></span><span class="op">(</span><span class="va">result</span>, config_grafico <span class="op">=</span> <span class="va">config_custom</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -326,7 +326,7 @@
 <span class="math inline">\(p(c)\)</span>: <strong>Political alignment</strong> for candidate <span class="math inline">\(c\)</span> (<span class="math inline">\(p \in \{\text{left, right, other}\}\)</span>).</li>
 </ul>
 <p>Critically, <span class="math inline">\(\sigma\)</span> represents a theoretical lower bound of uncertainty, whereas <span class="math inline">\(\tau\)</span> captures the excess empirical variance required to account for the data’s observed dispersion.</p>
-<p>This Normal likelihood is a convenient approximation for competitive candidates whose support levels are not close to the boundaries (0% or 100%). When compared to a full Multinomial implementation with Cholesky-factorized covariance based on Stoetzer et al. (2019), the Normal approximation yields nearly identical inferences for the leading candidates, but is significantly faster to sample and more robust to divergent transitions, facilitating the high sampling efficiency and stability demonstrated in the <a href="#model-validation">Model Validation</a> section.</p>
+<p>The normal likelihood provides a convenient approximation for competitive candidates whose support levels do not approach the 0% or 100% boundaries. When compared to a full multinomial implementation with Cholesky-factorized covariance based on Stoetzer et al. (2019), the normal approximation yields nearly identical inferences for leading candidates while being significantly faster to sample and more robust to divergent transitions. These computational advantages drive the high sampling efficiency and stability detailed in the <a href="#model-validation">Model Validation</a> section.</p>
 <p>In summary, the measurement model identifies three sources of uncertainty for polls:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -394,7 +394,7 @@
 </tr>
 </tbody>
 </table>
-<p>Brazilian election campaigns often exhibit extreme data sparsity in their early stages. In such low-information environments, fully hierarchical models struggle to identify group-level variances, often leading to pathological behavior (e.g., complete shrinkage) or convergence failures.</p>
+<p>Early stages of election campaigns are frequently characterized by extreme data sparsity. In such low-information environments, fully hierarchical models struggle to identify group-level variances, often leading to pathological behavior (e.g., complete shrinkage) or convergence failures.</p>
 <p>Anchoring the scales for <span class="math inline">\(\delta\)</span> and <span class="math inline">\(\tau\)</span> keeps the models robust and identifiable throughout the entire cycle, transitioning gracefully from a prior-dominated regime to a data-dominated one as the volume of polling increases. Specific values for priors can be accessed (and modified) by the <code><a href="reference/configurar_prioris.html">configurar_prioris()</a></code> function, and details are available in the function’s documentation.</p>
 </div>
 </div>
@@ -410,11 +410,11 @@
 <span></span>
 <span><span class="co"># Setup</span></span>
 <span><span class="va">cand</span>  <span class="op">&lt;-</span> <span class="st">"Lula"</span></span>
-<span><span class="va">modelo_cand</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">modelo_bruto</span><span class="op">[[</span><span class="va">cand</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">modelo_cand</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">modelo_bruto</span><span class="op">[[</span><span class="va">cand</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-colors.html" class="external-link">color_scheme_set</a></span><span class="op">(</span><span class="st">"mix-brightblue-darkgray"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Observed data</span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">votos_estimados</span> <span class="op">|&gt;</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">votos_estimados</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">percentual_pesquisa</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">candidatura</span> <span class="op">==</span> <span class="va">cand</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">pull</span><span class="op">(</span><span class="va">percentual_pesquisa</span><span class="op">)</span></span>
 <span></span>
@@ -422,7 +422,7 @@
 <span><span class="va">y_rep</span> <span class="op">&lt;-</span> <span class="va">modelo_cand</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="st">"perc_simulado"</span>, format <span class="op">=</span> <span class="st">"matrix"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Prepare plot labels</span></span>
-<span><span class="va">pesquisa_id</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">votos_estimados</span> <span class="op">|&gt;</span></span>
+<span><span class="va">pesquisa_id</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">votos_estimados</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">percentual_pesquisa</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">candidatura</span> <span class="op">==</span> <span class="va">cand</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">pull</span><span class="op">(</span><span class="va">pesquisa_id</span><span class="op">)</span></span>
 <span></span>

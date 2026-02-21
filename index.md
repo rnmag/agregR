@@ -61,7 +61,7 @@ We recommend following these installation steps in order:
 compilation. **MacOS** requires [Xcode Command Line
 Tools](https://developer.apple.com/documentation/xcode/installing-the-command-line-tools/),
 and **Linux** users should install the distribution-specific compiler
-(e.g. on Ubuntu: `sudo apt install build-essential`).
+(e.g., Ubuntu: `sudo apt install build-essential`).
 
 ### 2. Install CmdStan
 
@@ -84,7 +84,7 @@ cmdstanr::check_cmdstan_toolchain()
 
 ### 3. Install agregR
 
-You can install the release version of `agregR` fom CRAN with:
+You can install the release version of `agregR` from CRAN with:
 
 ``` r
 install.packages("agregR", type = "source")
@@ -112,7 +112,7 @@ data frames for house effects and daily voting estimates.
 library(agregR)
 
 # Execute the aggregation pipeline for a 2nd round scenario
-results <- rodar_agregador(
+result <- rodar_agregador(
   data_inicio = "01/01/2025",
   turno = 2,
   cenario = "Lula vs Tarcísio",
@@ -120,13 +120,13 @@ results <- rodar_agregador(
 )
 
 # Daily voting estimates + poll data in tidy format
-results$votos_estimados
+result$votos_estimados
 
 # House effects in tidy format
-results$vies_institutos
+result$vies_institutos
 
 # Raw model object
-results$modelo_bruto
+result$modelo_bruto
 ```
 
 ### Visualization
@@ -139,7 +139,7 @@ Visualizes the estimated voting intention for each candidate overlaying
 the raw polling data.
 
 ``` r
-grafico_agregador(results)
+grafico_agregador(result)
 ```
 
 ![](reference/figures/README-agregador-plot.png)
@@ -150,7 +150,7 @@ Visualizes the systematic bias for each institute, identifying outliers
 and consistent directional skews.
 
 ``` r
-grafico_vies(results, candidaturas = c("Lula", "Tarcísio"))
+grafico_vies(result, candidaturas = c("Lula", "Tarcísio"))
 ```
 
 ![](reference/figures/README-vies-plot.png)
@@ -161,7 +161,7 @@ Visualizes how the data has informed the model by comparing prior
 vs. posterior distributions for selected parameters.
 
 ``` r
-grafico_priori_posteriori(results, tipo = "Viés", candidaturas = c("Lula", "Tarcísio"))
+grafico_priori_posteriori(result, tipo = "Viés", candidaturas = c("Lula", "Tarcísio"))
 ```
 
 ![](reference/figures/README-prior-posterior-plot.png)
@@ -180,7 +180,7 @@ arguments.
 
 ``` r
 # Config passed as list: longer run with tighter priors for non-sampling error
-results_custom <- rodar_agregador(
+result_custom <- rodar_agregador(
   turno = 2,
   cenario = "Lula vs Tarcísio",
   config_agregador = list(stan_chains = 4,
@@ -191,7 +191,7 @@ results_custom <- rodar_agregador(
 
 # Config passed as function: custom color and custom symbols
 grafico_agregador(
-  results, 
+  result, 
   config_grafico = configurar_grafico(
     cores_candidaturas = c("Tarcísio" = "yellow"),
     simbolos = c("Presencial" = 19, "Online" = 2, "Telefônica" = 4)
@@ -201,7 +201,7 @@ grafico_agregador(
 # Config passed as object: custom color
 config_custom <- configurar_grafico(cores_candidaturas = c(Lula = "green"))
 
-grafico_agregador(results, config_grafico = config_custom)
+grafico_agregador(result, config_grafico = config_custom)
 ```
 
 ## Methodology
@@ -334,15 +334,15 @@ Critically, \\\sigma\\ represents a theoretical lower bound of
 uncertainty, whereas \\\tau\\ captures the excess empirical variance
 required to account for the data’s observed dispersion.
 
-This Normal likelihood is a convenient approximation for competitive
-candidates whose support levels are not close to the boundaries (0% or
-100%). When compared to a full Multinomial implementation with
+The normal likelihood provides a convenient approximation for
+competitive candidates whose support levels do not approach the 0% or
+100% boundaries. When compared to a full multinomial implementation with
 Cholesky-factorized covariance based on Stoetzer et al. (2019), the
-Normal approximation yields nearly identical inferences for the leading
-candidates, but is significantly faster to sample and more robust to
-divergent transitions, facilitating the high sampling efficiency and
-stability demonstrated in the [Model Validation](#model-validation)
-section.
+normal approximation yields nearly identical inferences for leading
+candidates while being significantly faster to sample and more robust to
+divergent transitions. These computational advantages drive the high
+sampling efficiency and stability detailed in the [Model
+Validation](#model-validation) section.
 
 In summary, the measurement model identifies three sources of
 uncertainty for polls:
@@ -384,8 +384,8 @@ effects (\\\delta\\) and non-sampling error (\\\tau\\) estimation:
 | **Retrospectivo** (*Retrospective*)                      | Actual election result \\\left(\mu_T\right)\\                              | Global \\\tau\\ shared by all institutes                               |
 | **Naive**                                                | None                                                                       | None                                                                   |
 
-Brazilian election campaigns often exhibit extreme data sparsity in
-their early stages. In such low-information environments, fully
+Early stages of election campaigns are frequently characterized by
+extreme data sparsity. In such low-information environments, fully
 hierarchical models struggle to identify group-level variances, often
 leading to pathological behavior (e.g., complete shrinkage) or
 convergence failures.
@@ -413,11 +413,11 @@ library(bayesplot)
 
 # Setup
 cand  <- "Lula"
-modelo_cand <- results$modelo_bruto[[cand]]
+modelo_cand <- result$modelo_bruto[[cand]]
 color_scheme_set("mix-brightblue-darkgray")
 
 # Observed data
-y <- results$votos_estimados |>
+y <- result$votos_estimados |>
   filter(!is.na(percentual_pesquisa) & candidatura == cand) |>
   pull(percentual_pesquisa)
 
@@ -425,7 +425,7 @@ y <- results$votos_estimados |>
 y_rep <- modelo_cand$draws("perc_simulado", format = "matrix")
 
 # Prepare plot labels
-pesquisa_id <- results$votos_estimados |>
+pesquisa_id <- result$votos_estimados |>
   filter(!is.na(percentual_pesquisa) & candidatura == cand) |>
   pull(pesquisa_id)
 
