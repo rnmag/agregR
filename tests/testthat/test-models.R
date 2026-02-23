@@ -1,4 +1,7 @@
 test_that("rodar_agregador valida requisitos e argumentos", {
+  testthat::skip_if_not(instantiate::stan_cmdstan_exists())
+  skip_on_cran()
+
   # 1. Validação de data_inicio
   expect_error(rodar_agregador(bd = pesquisas_teste, turno = 1), "obrigat\u00f3rio")
 
@@ -19,6 +22,9 @@ test_that("rodar_agregador valida requisitos e argumentos", {
 })
 
 test_that("rodar_agregador lida com configurações customizadas", {
+  testthat::skip_if_not(instantiate::stan_cmdstan_exists())
+  skip_on_cran()
+
   # Mock do comportamento sem rodar Stan (interceptando antes da chamada do Stan)
   # Se passarmos um config_agregador que não é uma lista completa, ele chama configurar_agregador
   cfg_lista <- list(stan_chains = 1)
