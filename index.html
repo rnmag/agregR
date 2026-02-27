@@ -69,7 +69,7 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p><strong>Dynamic measurement models to estimate latent vote from noisy polling sources</strong></p>
+<p><strong>Bayesian State-Space Aggregation of Brazilian Presidential Polls</strong></p>
 <p>As presidential elections approach, Brazilian voters are confronted with a growing volume of conflicting polling data from various institutes, each employing distinct methodologies and sampling designs. <code>agregR</code> provides the public with a rigorous framework to process the surfeit of data and estimate the underlying level of support for each candidate.</p>
 <p>The package implements a set of Bayesian state-space models in <a href="https://mc-stan.org/" class="external-link">Stan</a> to aggregate and normalize polling data, extracting a stable signal from diverse, noisy, and possibly biased data sources. <code>agregR</code> is able to automatically down-weight institutes with historically poor accuracy while maintaining the flexibility to update their evaluation based on current-cycle performance. It also features specialized methods to account for:</p>
 <ul>
@@ -140,7 +140,7 @@
 <div class="section level3">
 <h3 id="id_3-install-agregr">3. Install agregR<a class="anchor" aria-label="anchor" href="#id_3-install-agregr"></a>
 </h3>
-<p>You can install the release version of <code>agregR</code> from CRAN with:</p>
+<p>(pending approval) You can install the release version of <code>agregR</code> from CRAN with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"agregR"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Experimental</strong>: the development (and possibly unstable) version of <code>agregR</code> can be installed with:</p>
@@ -326,7 +326,7 @@
 <span class="math inline">\(p(c)\)</span>: <strong>Political alignment</strong> for candidate <span class="math inline">\(c\)</span> (<span class="math inline">\(p \in \{\text{left, right, other}\}\)</span>).</li>
 </ul>
 <p>Critically, <span class="math inline">\(\sigma\)</span> represents a theoretical lower bound of uncertainty, whereas <span class="math inline">\(\tau\)</span> captures the excess empirical variance required to account for the data’s observed dispersion.</p>
-<p>The normal likelihood provides a convenient approximation for competitive candidates whose support levels do not approach the 0% or 100% boundaries. When compared to a full multinomial implementation with Cholesky-factorized covariance based on Stoetzer et al. (2019), the normal approximation yields nearly identical inferences for leading candidates while being significantly faster to sample and more robust to divergent transitions. These computational advantages drive the high sampling efficiency and stability detailed in the <a href="#model-validation">Model Validation</a> section.</p>
+<p>Computationally, the measurement model is designed to prioritize high sampling efficiency and stability, as detailed in the <a href="#model-validation">Model Validation</a> section. The normal likelihood provides a convenient approximation for leading candidates, whose support levels do not approach the 0% or 100% boundaries. When compared to a full multinomial implementation with Cholesky-factorized covariance based on Stoetzer et al. (2019), the normal approximation yields nearly identical inferences for competitive candidates while being significantly faster to sample and rarely producing divergent transitions.</p>
 <p>In summary, the measurement model identifies three sources of uncertainty for polls:</p>
 <ol style="list-style-type: decimal">
 <li>

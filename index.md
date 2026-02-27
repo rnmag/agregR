@@ -1,7 +1,6 @@
 # agregR
 
-**Dynamic measurement models to estimate latent vote from noisy polling
-sources**
+**Bayesian State-Space Aggregation of Brazilian Presidential Polls**
 
 As presidential elections approach, Brazilian voters are confronted with
 a growing volume of conflicting polling data from various institutes,
@@ -84,7 +83,8 @@ cmdstanr::check_cmdstan_toolchain()
 
 ### 3. Install agregR
 
-You can install the release version of `agregR` from CRAN with:
+(pending approval) You can install the release version of `agregR` from
+CRAN with:
 
 ``` r
 install.packages("agregR", type = "source")
@@ -334,15 +334,15 @@ Critically, \\\sigma\\ represents a theoretical lower bound of
 uncertainty, whereas \\\tau\\ captures the excess empirical variance
 required to account for the data’s observed dispersion.
 
-The normal likelihood provides a convenient approximation for
-competitive candidates whose support levels do not approach the 0% or
-100% boundaries. When compared to a full multinomial implementation with
-Cholesky-factorized covariance based on Stoetzer et al. (2019), the
-normal approximation yields nearly identical inferences for leading
-candidates while being significantly faster to sample and more robust to
-divergent transitions. These computational advantages drive the high
-sampling efficiency and stability detailed in the [Model
-Validation](#model-validation) section.
+Computationally, the measurement model is designed to prioritize high
+sampling efficiency and stability, as detailed in the [Model
+Validation](#model-validation) section. The normal likelihood provides a
+convenient approximation for leading candidates, whose support levels do
+not approach the 0% or 100% boundaries. When compared to a full
+multinomial implementation with Cholesky-factorized covariance based on
+Stoetzer et al. (2019), the normal approximation yields nearly identical
+inferences for competitive candidates while being significantly faster
+to sample and rarely producing divergent transitions.
 
 In summary, the measurement model identifies three sources of
 uncertainty for polls:
