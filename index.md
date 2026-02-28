@@ -335,25 +335,25 @@ uncertainty, whereas \\\tau\\ captures the excess empirical variance
 required to account for the data’s observed dispersion.
 
 Computationally, the measurement model is designed to prioritize high
-sampling efficiency and stability, as detailed in the [Model
-Validation](#model-validation) section. The normal likelihood provides a
-convenient approximation for leading candidates, whose support levels do
-not approach the 0% or 100% boundaries. When compared to a full
-multinomial implementation with Cholesky-factorized covariance based on
-Stoetzer et al. (2019), the normal approximation yields nearly identical
-inferences for competitive candidates while being significantly faster
-to sample and rarely producing divergent transitions.
+sampling efficiency and convergence stability (see [Model
+Validation](#model-validation)). The normal likelihood provides a
+convenient approximation of latent support for competitive candidates
+whose polling numbers do not approach the 0% boundary. Compared to the
+full multinomial implementation with Cholesky-factorized covariance
+proposed by Stoetzer et al. (2019), this normal approximation yields
+nearly identical inferences for leading candidates, samples
+significantly faster, and is far less prone to divergent transitions.
 
 In summary, the measurement model identifies three sources of
 uncertainty for polls:
 
-1.  **Sampling Error (\\\sigma\_{i, c}\\)**: The inherent uncertainty
+1.  **Sampling Error** (\\\sigma\_{i, c}\\): The inherent uncertainty
     derived from the effective sample size of the poll \\i\\ and the
     support level for candidate \\c\\.
-2.  **House Effects (\\\delta\_{j,k,p}\\)**: A systematic deviation
+2.  **House Effects** (\\\delta\_{j,k,p}\\): A systematic deviation
     specific to institute \\j\\, conditional on the election round \\k\\
     and the candidate’s political alignment \\p\\.
-3.  **Non-Sampling Error (\\\tau\_{j,k,p}\\)**: An additional error
+3.  **Non-Sampling Error** (\\\tau\_{j,k,p}\\): An additional error
     parameter capturing uncertainty extrinsic to random sampling (e.g.,
     design effects, non-ignorable non-response bias), also localized by
     institute \\j\\, round \\k\\, and political alignment \\p\\.
@@ -450,11 +450,12 @@ ppc_intervals(y, y_rep, prob = 0.67, prob_outer = 0.95) +
 ### Posterior Geometry
 
 Parameter distributions are standardized using Non-Centered
-Parametrization (NCP) (McElreath, 2020, Chapters 13–14). This flattens
-posterior geometry and addresses the “funnel” problem common in
-hierarchical models, significantly improving sampling efficiency and
-virtually eliminating divergent transitions in standard scenarios (Stan
-Development Team, 2025, Efficiency Tuning: Reparametrization).
+Parametrization (NCP) (Stan Development Team, [Efficiency Tuning:
+Reparametrization](https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section)).
+This flattens posterior geometry and addresses the “funnel” problem
+common in hierarchical models, significantly improving sampling
+efficiency and virtually eliminating divergent transitions in standard
+scenarios (Gabry et al., 2019).
 
 ``` r
 # Posterior geometry for selected mu and delta parameters
@@ -496,15 +497,20 @@ ggplot(modelo_cand$summary(), aes(x = ess_bulk, y = rhat)) +
 
 ## References
 
-- Heidemanns, H., Gelman, A., & Morris, G. (2020). *An Updated Dynamic
-  Bayesian Forecasting Model for the 2020 Election*. Harvard Data
-  Science Review.
-- Jackman, S. (2009). *Bayesian Analysis for the Social Sciences*.
-  Wiley.
-- McElreath, R. (2020). *Statistical Rethinking*. CRC Press.
-- Stan Development Team. (2025). *Stan User’s Guide, Version 2.38
-  (Efficiency Tuning: Reparametrization)*. Retrieved from
-  <https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section>
-- Stoetzer, L. F., et al. (2019). *Forecasting Elections in Multiparty
-  Systems: A Bayesian Approach Combining Polls and Fundamentals*.
-  Political Analysis.
+Gabry, J., Simpson, D., Vehtari, A., Betancourt, M., & Gelman, A.
+(2019). *Visualization in Bayesian Workflow*. Journal of the Royal
+Statistical Society Series A: Statistics in Society.
+
+Heidemanns, H., Gelman, A., & Morris, G. (2020). *An Updated Dynamic
+Bayesian Forecasting Model for the 2020 Election*. Harvard Data Science
+Review.
+
+Jackman, S. (2009). *Bayesian Analysis for the Social Sciences*. Wiley.
+
+Stan Development Team. *Stan User’s Guide (Efficiency Tuning:
+Reparametrization)*. Retrieved from
+<https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section>
+
+Stoetzer, L. F., et al. (2019). *Forecasting Elections in Multiparty
+Systems: A Bayesian Approach Combining Polls and Fundamentals*.
+Political Analysis.

@@ -326,15 +326,15 @@
 <span class="math inline">\(p(c)\)</span>: <strong>Political alignment</strong> for candidate <span class="math inline">\(c\)</span> (<span class="math inline">\(p \in \{\text{left, right, other}\}\)</span>).</li>
 </ul>
 <p>Critically, <span class="math inline">\(\sigma\)</span> represents a theoretical lower bound of uncertainty, whereas <span class="math inline">\(\tau\)</span> captures the excess empirical variance required to account for the data’s observed dispersion.</p>
-<p>Computationally, the measurement model is designed to prioritize high sampling efficiency and stability, as detailed in the <a href="#model-validation">Model Validation</a> section. The normal likelihood provides a convenient approximation for leading candidates, whose support levels do not approach the 0% or 100% boundaries. When compared to a full multinomial implementation with Cholesky-factorized covariance based on Stoetzer et al. (2019), the normal approximation yields nearly identical inferences for competitive candidates while being significantly faster to sample and rarely producing divergent transitions.</p>
+<p>Computationally, the measurement model is designed to prioritize high sampling efficiency and convergence stability (see <a href="#model-validation">Model Validation</a>). The normal likelihood provides a convenient approximation of latent support for competitive candidates whose polling numbers do not approach the 0% boundary. Compared to the full multinomial implementation with Cholesky-factorized covariance proposed by Stoetzer et al. (2019), this normal approximation yields nearly identical inferences for leading candidates, samples significantly faster, and is far less prone to divergent transitions.</p>
 <p>In summary, the measurement model identifies three sources of uncertainty for polls:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Sampling Error (<span class="math inline">\(\sigma_{i, c}\)</span>)</strong>: The inherent uncertainty derived from the effective sample size of the poll <span class="math inline">\(i\)</span> and the support level for candidate <span class="math inline">\(c\)</span>.</li>
+<strong>Sampling Error</strong> (<span class="math inline">\(\sigma_{i, c}\)</span>): The inherent uncertainty derived from the effective sample size of the poll <span class="math inline">\(i\)</span> and the support level for candidate <span class="math inline">\(c\)</span>.</li>
 <li>
-<strong>House Effects (<span class="math inline">\(\delta_{j,k,p}\)</span>)</strong>: A systematic deviation specific to institute <span class="math inline">\(j\)</span>, conditional on the election round <span class="math inline">\(k\)</span> and the candidate’s political alignment <span class="math inline">\(p\)</span>.</li>
+<strong>House Effects</strong> (<span class="math inline">\(\delta_{j,k,p}\)</span>): A systematic deviation specific to institute <span class="math inline">\(j\)</span>, conditional on the election round <span class="math inline">\(k\)</span> and the candidate’s political alignment <span class="math inline">\(p\)</span>.</li>
 <li>
-<strong>Non-Sampling Error (<span class="math inline">\(\tau_{j,k,p}\)</span>)</strong>: An additional error parameter capturing uncertainty extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by institute <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span>, and political alignment <span class="math inline">\(p\)</span>.</li>
+<strong>Non-Sampling Error</strong> (<span class="math inline">\(\tau_{j,k,p}\)</span>): An additional error parameter capturing uncertainty extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by institute <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span>, and political alignment <span class="math inline">\(p\)</span>.</li>
 </ol>
 </div>
 </div>
@@ -445,7 +445,7 @@
 <div class="section level3">
 <h3 id="posterior-geometry">Posterior Geometry<a class="anchor" aria-label="anchor" href="#posterior-geometry"></a>
 </h3>
-<p>Parameter distributions are standardized using Non-Centered Parametrization (NCP) (McElreath, 2020, Chapters 13–14). This flattens posterior geometry and addresses the “funnel” problem common in hierarchical models, significantly improving sampling efficiency and virtually eliminating divergent transitions in standard scenarios (Stan Development Team, 2025, Efficiency Tuning: Reparametrization).</p>
+<p>Parameter distributions are standardized using Non-Centered Parametrization (NCP) (Stan Development Team, <a href="https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section" class="external-link">Efficiency Tuning: Reparametrization</a>). This flattens posterior geometry and addresses the “funnel” problem common in hierarchical models, significantly improving sampling efficiency and virtually eliminating divergent transitions in standard scenarios (Gabry et al., 2019).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Posterior geometry for selected mu and delta parameters</span></span>
 <span><span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-scatterplots.html" class="external-link">mcmc_scatter</a></span><span class="op">(</span><span class="va">modelo_cand</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>,</span>
@@ -480,14 +480,11 @@
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<ul>
-<li>Heidemanns, H., Gelman, A., &amp; Morris, G. (2020). <em>An Updated Dynamic Bayesian Forecasting Model for the 2020 Election</em>. Harvard Data Science Review.</li>
-<li>Jackman, S. (2009). <em>Bayesian Analysis for the Social Sciences</em>. Wiley.</li>
-<li>McElreath, R. (2020). <em>Statistical Rethinking</em>. CRC Press.</li>
-<li>Stan Development Team. (2025). <em>Stan User’s Guide, Version 2.38 (Efficiency Tuning: Reparametrization)</em>. Retrieved from <a href="https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section" class="external-link uri">https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section</a>
-</li>
-<li>Stoetzer, L. F., et al. (2019). <em>Forecasting Elections in Multiparty Systems: A Bayesian Approach Combining Polls and Fundamentals</em>. Political Analysis.</li>
-</ul>
+<p>Gabry, J., Simpson, D., Vehtari, A., Betancourt, M., &amp; Gelman, A. (2019). <em>Visualization in Bayesian Workflow</em>. Journal of the Royal Statistical Society Series A: Statistics in Society.</p>
+<p>Heidemanns, H., Gelman, A., &amp; Morris, G. (2020). <em>An Updated Dynamic Bayesian Forecasting Model for the 2020 Election</em>. Harvard Data Science Review.</p>
+<p>Jackman, S. (2009). <em>Bayesian Analysis for the Social Sciences</em>. Wiley.</p>
+<p>Stan Development Team. <em>Stan User’s Guide (Efficiency Tuning: Reparametrization)</em>. Retrieved from <a href="https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section" class="external-link uri">https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section</a></p>
+<p>Stoetzer, L. F., et al. (2019). <em>Forecasting Elections in Multiparty Systems: A Bayesian Approach Combining Polls and Fundamentals</em>. Political Analysis.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
