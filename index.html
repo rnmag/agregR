@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Bayesian State-Space Aggregation of Brazilian Electoral Polls • agregR</title>
+<title>Bayesian State-Space Aggregation of Brazilian Presidential Polls • agregR</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -23,9 +23,9 @@
 <link href="deps/Fira_Code-0.4.10/font.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Bayesian State-Space Aggregation of Brazilian Electoral Polls">
-<meta name="description" content="A set of dynamic measurement models to estimate latent vote shares from noisy polling sources. Features specialized methods for bias adjustment based on past performance and correction for asymmetric errors based on candidate political alignment.">
-<meta property="og:description" content="A set of dynamic measurement models to estimate latent vote shares from noisy polling sources. Features specialized methods for bias adjustment based on past performance and correction for asymmetric errors based on candidate political alignment.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Bayesian State-Space Aggregation of Brazilian Presidential Polls">
+<meta name="description" content="A set of dynamic measurement models to estimate latent vote shares from noisy polling sources. The models build on Jackman (2009, ISBN: 9780470011546) and feature specialized methods for bias adjustment based on past performance and correction for asymmetric errors based on candidate political alignment.">
+<meta property="og:description" content="A set of dynamic measurement models to estimate latent vote shares from noisy polling sources. The models build on Jackman (2009, ISBN: 9780470011546) and feature specialized methods for bias adjustment based on past performance and correction for asymmetric errors based on candidate political alignment.">
 <meta property="og:image" content="https://rnmag.github.io/agregR/logo.png">
 </head>
 <body>
@@ -36,7 +36,7 @@
 
     <a class="navbar-brand me-2" href="index.html">agregR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -140,7 +140,7 @@
 <div class="section level3">
 <h3 id="id_3-install-agregr">3. Install agregR<a class="anchor" aria-label="anchor" href="#id_3-install-agregr"></a>
 </h3>
-<p>(pending approval) You can install the release version of <code>agregR</code> from CRAN with:</p>
+<p>You can install the release version of <code>agregR</code> from CRAN with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"agregR"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Experimental</strong>: the development (and possibly unstable) version of <code>agregR</code> can be installed with:</p>
@@ -325,7 +325,7 @@
 <li>
 <span class="math inline">\(p(c)\)</span>: <strong>Political alignment</strong> for candidate <span class="math inline">\(c\)</span> (<span class="math inline">\(p \in \{\text{left, right, other}\}\)</span>).</li>
 </ul>
-<p>Critically, <span class="math inline">\(\sigma\)</span> represents a theoretical lower bound of uncertainty, whereas <span class="math inline">\(\tau\)</span> captures the excess empirical variance required to account for the data’s observed dispersion.</p>
+<p>In the error term <span class="math inline">\(\varepsilon\)</span>, <span class="math inline">\(\sigma\)</span> represents a theoretical lower bound of uncertainty, whereas <span class="math inline">\(\tau\)</span> captures the excess empirical variance required to account for the data’s observed dispersion.</p>
 <p>Computationally, the measurement model is designed to prioritize high sampling efficiency and convergence stability (see <a href="#model-validation">Model Validation</a>). The normal likelihood provides a convenient approximation of latent support for competitive candidates whose polling numbers do not approach the 0% boundary. Compared to the full multinomial implementation with Cholesky-factorized covariance proposed by Stoetzer et al. (2019), this normal approximation yields nearly identical inferences for leading candidates, samples significantly faster, and is far less prone to divergent transitions.</p>
 <p>In summary, the measurement model identifies three sources of uncertainty for polls:</p>
 <ol style="list-style-type: decimal">
@@ -404,7 +404,7 @@
 <div class="section level3">
 <h3 id="posterior-predictive-checks">Posterior Predictive Checks<a class="anchor" aria-label="anchor" href="#posterior-predictive-checks"></a>
 </h3>
-<p>Every Stan model in <code>agregR</code> includes a <code>generated quantities</code> block, enabling Posterior Predictive Checks (PPC). By simulating <span class="math inline">\(y_{rep}\)</span> from the posterior distribution, users can verify the model’s calibration against real-world data. The example below demonstrates this using the <code>bayesplot</code> package.</p>
+<p>Every Stan model in <code>agregR</code> includes a <code>generated quantities</code> block, enabling Posterior Predictive Checks (PPC). By simulating <span class="math inline">\(y_{rep}\)</span> from the posterior distribution, users can verify the model’s calibration against real-world data (Gabry et al., 2019). The example below demonstrates this using the <code>bayesplot</code> package.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/bayesplot/" class="external-link">bayesplot</a></span><span class="op">)</span></span>
 <span></span>
@@ -445,7 +445,7 @@
 <div class="section level3">
 <h3 id="posterior-geometry">Posterior Geometry<a class="anchor" aria-label="anchor" href="#posterior-geometry"></a>
 </h3>
-<p>Parameter distributions are standardized using Non-Centered Parametrization (NCP) (Stan Development Team, <a href="https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section" class="external-link">Efficiency Tuning: Reparametrization</a>). This flattens posterior geometry and addresses the “funnel” problem common in hierarchical models, significantly improving sampling efficiency and virtually eliminating divergent transitions in standard scenarios (Gabry et al., 2019).</p>
+<p>Parameter distributions are standardized using Non-Centered Parametrization (NCP). This flattens posterior geometry and addresses the “funnel” problem common in hierarchical models, significantly improving sampling efficiency and virtually eliminating divergent transitions in standard scenarios (Stan Development Team, <a href="https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section" class="external-link">Efficiency Tuning: Reparametrization</a>).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Posterior geometry for selected mu and delta parameters</span></span>
 <span><span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-scatterplots.html" class="external-link">mcmc_scatter</a></span><span class="op">(</span><span class="va">modelo_cand</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>,</span>
