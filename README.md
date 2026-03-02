@@ -88,7 +88,7 @@ cmdstanr::check_cmdstan_toolchain()
 
 ### 3. Install agregR
 
-(pending approval) You can install the release version of `agregR` from CRAN with:
+You can install the release version of `agregR` from CRAN with:
 
 ``` r
 install.packages("agregR", type = "source")
@@ -327,9 +327,9 @@ with subscripts linking poll $i$ and candidate $c$ to relevant covariates:
 - $p(c)$: **Political alignment** for candidate $c$
   ($p \in \{\text{left, right, other}\}$).
 
-Critically, $\sigma$ represents a theoretical lower bound of uncertainty, whereas
-$\tau$ captures the excess empirical variance required to account for the data's
-observed dispersion.
+In the error term $\varepsilon$, $\sigma$ represents a theoretical lower bound
+of uncertainty, whereas $\tau$ captures the excess empirical variance required
+to account for the data's observed dispersion.
 
 Computationally, the measurement model is designed to prioritize high sampling
 efficiency and convergence stability (see [Model Validation](#model-validation)).
@@ -397,7 +397,8 @@ and details are available in the function's documentation.
 Every Stan model in `agregR` includes a `generated quantities` block, enabling
 Posterior Predictive Checks (PPC). By simulating $y_{rep}$ from the posterior
 distribution, users can verify the model's calibration against real-world
-data. The example below demonstrates this using the `bayesplot` package.
+data (Gabry et al., 2019). The example below demonstrates this using the
+`bayesplot` package.
 
 ``` r
 library(bayesplot)
@@ -440,11 +441,10 @@ ppc_intervals(y, y_rep, prob = 0.67, prob_outer = 0.95) +
 
 ### Posterior Geometry
 
-Parameter distributions are standardized using Non-Centered Parametrization (NCP)
-(Stan Development Team, [Efficiency Tuning: Reparametrization](<https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section>)).
+Parameter distributions are standardized using Non-Centered Parametrization (NCP).
 This flattens posterior geometry and addresses the “funnel” problem common in
 hierarchical models, significantly improving sampling efficiency and virtually
-eliminating divergent transitions in standard scenarios (Gabry et al., 2019).
+eliminating divergent transitions in standard scenarios (Stan Development Team, [Efficiency Tuning: Reparametrization](<https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section>)).
 
 ```r
 # Posterior geometry for selected mu and delta parameters
