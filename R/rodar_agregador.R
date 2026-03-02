@@ -156,7 +156,7 @@ rodar_agregador <- function(bd = NULL,
                             config_agregador = NULL,
                             config_prioris = NULL,
                             salvar = FALSE,
-                            dir_saida = ".") {
+                            dir_saida = NULL) {
 
   # 1. Configuração do modelo e validação -------------------------------------
 
@@ -389,6 +389,8 @@ rodar_agregador <- function(bd = NULL,
   # 4. Salvar resultados em disco ---------------------------------------------
 
   if (salvar) {
+
+    if (is.null(dir_saida)) cli_abort("O argumento {.arg dir_saida} deve ser informado quando {.arg salvar = TRUE}.")
 
     # Modelos brutos, cada candidatura em um arquivo separado
     # walk2(modelo_ajustado$candidatura, modelo_ajustado$modelo_bruto,

@@ -1,10 +1,8 @@
 ## Resubmission
 
-This is a resubmission. In this version I have updated unit tests to deal with
-an error related to the use of CmdStan.
+This is a resubmission. In response to the review notes I have:
 
-## R CMD check results
+- added method reference to the DESCRIPTION
+- fixed functions writing to getwd(). Now they explicitly ask for an output
+  directory if the user chooses to save results.
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.

@@ -50,7 +50,7 @@ grafico_priori_posteriori <- function(bd,
                                       config_agregador = configurar_agregador(),
                                       config_grafico = configurar_grafico(),
                                       config_prioris = configurar_prioris(bd$nome_modelo),
-                                      dir_saida = ".") {
+                                      dir_saida = NULL) {
 
   # 1. Configuração e validação -----------------------------------------------
 
@@ -249,6 +249,8 @@ grafico_priori_posteriori <- function(bd,
 
   # 5. Salvar resultados ------------------------------------------------------
   if (salvar) {
+
+    if (is.null(dir_saida)) cli_abort("O argumento {.arg dir_saida} deve ser informado quando {.arg salvar = TRUE}.")
 
     nome_arquivo <- paste0("Priori_posteriori_",
                            colar_ascii(tipo),

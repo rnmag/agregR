@@ -17,7 +17,7 @@ rodar_agregador(
   config_agregador = NULL,
   config_prioris = NULL,
   salvar = FALSE,
-  dir_saida = "."
+  dir_saida = NULL
 )
 }
 \arguments{

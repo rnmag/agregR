@@ -9,7 +9,7 @@ grafico_agregador(
   bd,
   salvar = FALSE,
   config_grafico = configurar_grafico(),
-  dir_saida = ".",
+  dir_saida = NULL,
   ...
 )
 }

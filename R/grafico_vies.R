@@ -44,7 +44,7 @@ grafico_vies <- function(bd,
                          candidaturas,
                          salvar = FALSE,
                          config_grafico = configurar_grafico(),
-                         dir_saida = ".",
+                         dir_saida = NULL,
                          ...) {
 
   # 1. Configuração e validação -----------------------------------------------
@@ -147,6 +147,8 @@ grafico_vies <- function(bd,
 
   # 4. Salvar resultados ------------------------------------------------------
   if (salvar) {
+
+    if (is.null(dir_saida)) cli_abort("O argumento {.arg dir_saida} deve ser informado quando {.arg salvar = TRUE}.")
 
     nome_arquivo <- paste0("Vies_Institutos_",
                            colar_ascii(candidaturas),

@@ -13,7 +13,7 @@ grafico_priori_posteriori(
   config_agregador = configurar_agregador(),
   config_grafico = configurar_grafico(),
   config_prioris = configurar_prioris(bd$nome_modelo),
-  dir_saida = "."
+  dir_saida = NULL
 )
 }
 \arguments{

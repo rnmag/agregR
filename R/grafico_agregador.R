@@ -36,7 +36,7 @@
 grafico_agregador <- function(bd,
                               salvar = FALSE,
                               config_grafico = configurar_grafico(),
-                              dir_saida = ".",
+                              dir_saida = NULL,
                               ...) {
 
   # 1. Configuração e validação -----------------------------------------------
@@ -175,6 +175,8 @@ grafico_agregador <- function(bd,
 
   # 3. Salvar resultados ------------------------------------------------------
   if (salvar) {
+
+    if (is.null(dir_saida)) cli_abort("O argumento {.arg dir_saida} deve ser informado quando {.arg salvar = TRUE}.")
 
     arquivo <- gerar_saida(file.path(dir_saida, config_grafico$dir_grafico), bd$nome_modelo, nome_arquivo)
 

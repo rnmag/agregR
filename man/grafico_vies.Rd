@@ -10,7 +10,7 @@ grafico_vies(
   candidaturas,
   salvar = FALSE,
   config_grafico = configurar_grafico(),
-  dir_saida = ".",
+  dir_saida = NULL,
   ...
 )
 }
