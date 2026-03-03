@@ -295,10 +295,11 @@ c} \\ \nu\_{t - 1, c}\end{pmatrix} + \begin{pmatrix}\eta\_{t, c} \\
 \zeta\_{t, c}\end{pmatrix} \\
 
 The volatility parameters govern the “stiffness” of the aggregator,
-where daily innovations \\\eta\_{t, c}\\ are regularized by a
-candidate-specific scale \\\omega\_{\eta, c}\\. Pooling accross the time
-series prevents over-fitting to noise while allowing the model to adapt
-when consistent evidence of a shift in public opinion emerges.
+where daily innovations \\\eta\_{t, c}\\ and \\\zeta\_{t, c}\\ are
+regularized by candidate-specific scales \\\omega\_{\eta, c}\\ and
+\\\omega\_{\zeta, c}\\, respectively. Pooling accross the time series
+prevents over-fitting to noise while allowing the model to adapt when
+consistent evidence of a shift in public opinion emerges.
 
 \\ \begin{align} \eta\_{t, c} &\sim N\left(0, \omega^2\_{\eta, c}\right)
 \\ \zeta\_{t, c} &\sim N\left(0, \omega^2\_{\zeta, c}\right) \end{align}
@@ -329,9 +330,9 @@ covariates:
 - \\p(c)\\: **Political alignment** for candidate \\c\\ (\\p \in
   \\\text{left, right, other}\\\\).
 
-In the error term \\\varepsilon\\, \\\sigma\\ represents a theoretical
-lower bound of uncertainty, whereas \\\tau\\ captures the excess
-empirical variance required to account for the data’s observed
+In the error term \\\varepsilon\\, \\\sigma\\ represents a lower bound
+of uncertainty from sampling theory, whereas \\\tau\\ captures the
+excess empirical variance required to account for the data’s observed
 dispersion.
 
 Computationally, the measurement model is designed to prioritize high

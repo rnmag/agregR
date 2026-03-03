@@ -293,7 +293,7 @@
     \begin{pmatrix}\eta_{t, c} \\
     \zeta_{t, c}\end{pmatrix}
 \]</span></p>
-<p>The volatility parameters govern the “stiffness” of the aggregator, where daily innovations <span class="math inline">\(\eta_{t, c}\)</span> are regularized by a candidate-specific scale <span class="math inline">\(\omega_{\eta, c}\)</span>. Pooling accross the time series prevents over-fitting to noise while allowing the model to adapt when consistent evidence of a shift in public opinion emerges.</p>
+<p>The volatility parameters govern the “stiffness” of the aggregator, where daily innovations <span class="math inline">\(\eta_{t, c}\)</span> and <span class="math inline">\(\zeta_{t, c}\)</span> are regularized by candidate-specific scales <span class="math inline">\(\omega_{\eta, c}\)</span> and <span class="math inline">\(\omega_{\zeta, c}\)</span>, respectively. Pooling accross the time series prevents over-fitting to noise while allowing the model to adapt when consistent evidence of a shift in public opinion emerges.</p>
 <p><span class="math display">\[  \begin{align}
     \eta_{t, c} &amp;\sim N\left(0, \omega^2_{\eta, c}\right) \\
     \zeta_{t, c} &amp;\sim N\left(0, \omega^2_{\zeta, c}\right)
@@ -325,7 +325,7 @@
 <li>
 <span class="math inline">\(p(c)\)</span>: <strong>Political alignment</strong> for candidate <span class="math inline">\(c\)</span> (<span class="math inline">\(p \in \{\text{left, right, other}\}\)</span>).</li>
 </ul>
-<p>In the error term <span class="math inline">\(\varepsilon\)</span>, <span class="math inline">\(\sigma\)</span> represents a theoretical lower bound of uncertainty, whereas <span class="math inline">\(\tau\)</span> captures the excess empirical variance required to account for the data’s observed dispersion.</p>
+<p>In the error term <span class="math inline">\(\varepsilon\)</span>, <span class="math inline">\(\sigma\)</span> represents a lower bound of uncertainty from sampling theory, whereas <span class="math inline">\(\tau\)</span> captures the excess empirical variance required to account for the data’s observed dispersion.</p>
 <p>Computationally, the measurement model is designed to prioritize high sampling efficiency and convergence stability (see <a href="#model-validation">Model Validation</a>). The normal likelihood provides a convenient approximation of latent support for competitive candidates whose polling numbers do not approach the 0% boundary. Compared to the full multinomial implementation with Cholesky-factorized covariance proposed by Stoetzer et al. (2019), this normal approximation yields nearly identical inferences for leading candidates, samples significantly faster, and is far less prone to divergent transitions.</p>
 <p>In summary, the measurement model identifies three sources of uncertainty for polls:</p>
 <ol style="list-style-type: decimal">
