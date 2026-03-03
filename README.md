@@ -290,9 +290,10 @@ $$  \begin{pmatrix}\mu_{t, c} \\
 $$
 
 The volatility parameters govern the “stiffness” of the aggregator, where daily
-innovations $\eta_{t, c}$ are regularized by a candidate-specific scale $\omega_{\eta, c}$.
-Pooling accross the time series prevents over-fitting to noise while allowing
-the model to adapt when consistent evidence of a shift in public opinion emerges.
+innovations $\eta_{t, c}$ and $\zeta_{t, c}$ are regularized by candidate-specific
+scales $\omega_{\eta, c}$ and $\omega_{\zeta, c}$, respectively. Pooling accross
+the time series prevents over-fitting to noise while allowing the model to adapt
+when consistent evidence of a shift in public opinion emerges.
 
 $$  \begin{align}
     \eta_{t, c} &\sim N\left(0, \omega^2_{\eta, c}\right) \\
@@ -327,8 +328,8 @@ with subscripts linking poll $i$ and candidate $c$ to relevant covariates:
 - $p(c)$: **Political alignment** for candidate $c$
   ($p \in \{\text{left, right, other}\}$).
 
-In the error term $\varepsilon$, $\sigma$ represents a theoretical lower bound
-of uncertainty, whereas $\tau$ captures the excess empirical variance required
+In the error term $\varepsilon$, $\sigma$ represents a lower bound of uncertainty
+from sampling theory, whereas $\tau$ captures the excess empirical variance required
 to account for the data's observed dispersion.
 
 Computationally, the measurement model is designed to prioritize high sampling
