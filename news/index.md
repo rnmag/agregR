@@ -1,6 +1,12 @@
 # Changelog
 
-## agregR (development version)
+## agregR 1.0.3
+
+CRAN release: 2026-03-06
+
+- First CRAN release
+- Remove default dir from function signatures to comply with CRAN
+  policies
 
 ## agregR 1.0.1
 
