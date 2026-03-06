@@ -1,4 +1,7 @@
-# agregR (development version)
+# agregR 1.0.3
+
+* First CRAN release
+* Remove default dir from function signatures to comply with CRAN policies
 
 # agregR 1.0.1
 
