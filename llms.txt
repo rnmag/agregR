@@ -366,10 +366,11 @@ specialized models that differ in their assumptions regarding house
 effects (\\\delta\\) and non-sampling error (\\\tau\\) estimation:
 
 - **Anchoring**: Since \\\mu\\ and \\\delta\\ are not jointly
-  identified, house effects \\\delta\_{j,k,p}\\ follow a regularizing
-  prior centered either on a consensus anchor (sum-to-zero) or on
-  historical/actual electoral results. This prevents individual polls
-  from disproportionately pulling the latent trend unless supported by
+  identifiable, house effects \\\delta\_{j,k,p}\\ follow a regularizing
+  prior centered either on a sum-to-zero constraint or on
+  historical/actual electoral results. Anchoring provides a reference
+  for estimates of the house effects and prevents individual polls from
+  disproportionately pulling the latent trend unless supported by
   cumulative evidence.
 - **Weighting**: Models using localized non-sampling errors
   \\\tau\_{j,k,p}\\ as prior means effectively perform automated

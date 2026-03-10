@@ -344,7 +344,7 @@
 <p>Based on the methods described above, <code>agregR</code> offers a set of specialized models that differ in their assumptions regarding house effects (<span class="math inline">\(\delta\)</span>) and non-sampling error (<span class="math inline">\(\tau\)</span>) estimation:</p>
 <ul>
 <li>
-<strong>Anchoring</strong>: Since <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\delta\)</span> are not jointly identified, house effects <span class="math inline">\(\delta_{j,k,p}\)</span> follow a regularizing prior centered either on a consensus anchor (sum-to-zero) or on historical/actual electoral results. This prevents individual polls from disproportionately pulling the latent trend unless supported by cumulative evidence.</li>
+<strong>Anchoring</strong>: Since <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\delta\)</span> are not jointly identifiable, house effects <span class="math inline">\(\delta_{j,k,p}\)</span> follow a regularizing prior centered either on a sum-to-zero constraint or on historical/actual electoral results. Anchoring provides a reference for estimates of the house effects and prevents individual polls from disproportionately pulling the latent trend unless supported by cumulative evidence.</li>
 <li>
 <strong>Weighting</strong>: Models using localized non-sampling errors <span class="math inline">\(\tau_{j,k,p}\)</span> as prior means effectively perform automated weighting. This approach penalizes institutes with higher Root Mean Square Error (RMSE) in the last election while maintaining the flexibility to update its estimates based on current-cycle data.</li>
 </ul>
@@ -522,8 +522,8 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=agregR" class="external-link"><img src="http://www.r-pkg.org/badges/version/agregR" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://github.com/rnmag/agregR/actions" class="external-link"><img src="https://github.com/rnmag/agregR/workflows/CmdStan-R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://app.codecov.io/gh/rnmag/agregR" class="external-link"><img src="https://codecov.io/gh/rnmag/agregR/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/rnmag/agregR/actions" class="external-link"><img src="https://github.com/rnmag/agregR/workflows/CmdStan-R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 
