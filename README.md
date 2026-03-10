@@ -3,8 +3,8 @@
 <!-- badges: start -->
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/agregR)](https://cran.r-project.org/package=agregR)
-[![R-CMD-check](https://github.com/rnmag/agregR/workflows/CmdStan-R-CMD-check/badge.svg)](https://github.com/rnmag/agregR/actions)
 [![Codecov test coverage](https://codecov.io/gh/rnmag/agregR/graph/badge.svg)](https://app.codecov.io/gh/rnmag/agregR)
+[![R-CMD-check](https://github.com/rnmag/agregR/workflows/CmdStan-R-CMD-check/badge.svg)](https://github.com/rnmag/agregR/actions)
 
 <!-- badges: end -->
 
@@ -362,11 +362,12 @@ Based on the methods described above, `agregR` offers a set of
 specialized models that differ in their assumptions regarding house
 effects ($\delta$) and non-sampling error ($\tau$) estimation:
 
-- **Anchoring**: Since $\mu$ and $\delta$ are not jointly identified, house
+- **Anchoring**: Since $\mu$ and $\delta$ are not jointly identifiable, house
   effects $\delta_{j,k,p}$ follow a regularizing prior centered either on a
-  consensus anchor (sum-to-zero) or on historical/actual electoral results.
-  This prevents individual polls from disproportionately pulling the latent
-  trend unless supported by cumulative evidence.
+  sum-to-zero constraint or on historical/actual electoral results. Anchoring
+  provides a reference for estimates of the house effects and prevents individual
+  polls from disproportionately pulling the latent trend unless supported by
+  cumulative evidence.
 - **Weighting**: Models using localized non-sampling errors $\tau_{j,k,p}$ 
   as prior means effectively perform automated weighting. This approach
   penalizes institutes with higher Root Mean Square Error (RMSE) in the last
