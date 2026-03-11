@@ -63,133 +63,15 @@ if (instantiate::stan_cmdstan_exists()) {
     )
   )
 }
-#> 
-#> ── Simulações do Segundo Turno ─────────────────────────────────────────────────
-#> ✔ Base carregada e filtrada com sucesso!
-#> ℹ Iniciando 4 cadeias de 1000 iterações por candidatura.
-#> ℹ Há 30 pesquisas na base entre 01/01/25 e 10/03/26.
-#> ℹ Se esses números parecerem incorretos, revise os argumentos e configurações da função.
-#> 
-#> ── Estimando intenção de votos para: "Bolsonaro" ──
-#> 
-#> Running MCMC with 4 parallel chains...
-#> 
-#> Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
-#> Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
-#> Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
-#> Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
-#> Chain 1 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-#> Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-#> Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-#> Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-#> Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-#> Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-#> Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-#> Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-#> Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-#> Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-#> Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-#> Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-#> Chain 4 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-#> Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-#> Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-#> Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-#> Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-#> Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-#> Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-#> Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-#> Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-#> Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-#> Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-#> Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-#> Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-#> Chain 4 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-#> Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-#> Chain 3 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-#> Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-#> Chain 3 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-#> Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-#> Chain 2 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-#> Chain 4 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-#> Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-#> Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-#> Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-#> Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-#> Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-#> Chain 1 finished in 17.7 seconds.
-#> Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-#> Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 3 finished in 18.6 seconds.
-#> Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 2 finished in 18.8 seconds.
-#> Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-#> Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 4 finished in 20.3 seconds.
-#> 
-#> All 4 chains finished successfully.
-#> Mean chain execution time: 18.8 seconds.
-#> Total execution time: 20.5 seconds.
-#> 
-#> ── Estimando intenção de votos para: "Lula" ──
-#> 
-#> Running MCMC with 4 parallel chains...
-#> 
-#> Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
-#> Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
-#> Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
-#> Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
-#> Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-#> Chain 1 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-#> Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-#> Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-#> Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-#> Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-#> Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-#> Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-#> Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-#> Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-#> Chain 4 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-#> Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-#> Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-#> Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-#> Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-#> Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-#> Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-#> Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-#> Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-#> Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-#> Chain 4 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-#> Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-#> Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-#> Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-#> Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-#> Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-#> Chain 4 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-#> Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-#> Chain 3 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-#> Chain 2 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-#> Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-#> Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-#> Chain 3 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-#> Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-#> Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-#> Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-#> Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-#> Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-#> Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-#> Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 4 finished in 16.3 seconds.
-#> Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-#> Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 2 finished in 17.0 seconds.
-#> Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 3 finished in 17.3 seconds.
-#> Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 1 finished in 17.3 seconds.
-#> 
-#> All 4 chains finished successfully.
-#> Mean chain execution time: 17.0 seconds.
-#> Total execution time: 17.4 seconds.
-#> 
+#> Warning: One or more parsing issues, call `problems()` on your data frame for details,
+#> e.g.:
+#>   dat <- vroom(...)
+#>   problems(dat)
+#> Warning: One or more parsing issues, call `problems()` on your data frame for details,
+#> e.g.:
+#>   dat <- vroom(...)
+#>   problems(dat)
+#> Error in mutate(ler_csv(bd), dia = dmy(dia), pesquisa_id = paste(instituto,     "-", dia), percentual_pesquisa = as.numeric(percentual_pesquisa)/100,     n_implicito = round(1.96^2 * 0.5 * 0.5/((margem_pesquisa/100)^2)),     n_efetivo = case_when(qtd_entrevistas > n_implicito ~ n_implicito,         TRUE ~ qtd_entrevistas), ep = round(sqrt(percentual_pesquisa *         (1 - percentual_pesquisa)/n_efetivo), 4), metodologia = case_when(!is.na(metodologia) ~         metodologia, instituto %in% c("FSB", "Ponteio", "Ideia Big Data",         "PoderData", "Ipespe", "Futura", "Ranking", "Gerp") ~         "Telefônica", instituto %in% c("Sensus", "MDA", "Quaest",         "Ipec", "Paraná Pesquisas", "Vox Populi", "Datafolha",         "Datatempo") ~ "Presencial", instituto %in% c("Atlas") ~         "Online", TRUE ~ "Desconhecida")): ℹ In argument: `n_efetivo = case_when(...)`.
+#> Caused by error in `case_when()`:
+#> ! Can't combine `..1 (right)` <double> and `..2 (right)` <character>.
 ```
