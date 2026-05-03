@@ -70,13 +70,13 @@
 
 <!-- badges: end -->
 <p><strong>Bayesian State-Space Aggregation of Brazilian Presidential Polls</strong></p>
-<p>As presidential elections approach, Brazilian voters are confronted with a growing volume of conflicting polling data from various institutes, each employing distinct methodologies and sampling designs. <code>agregR</code> provides the public with a rigorous framework to process the surfeit of data and estimate the underlying level of support for each candidate.</p>
-<p>The package implements a set of Bayesian state-space models in <a href="https://mc-stan.org/" class="external-link">Stan</a> to aggregate and normalize polling data, extracting a stable signal from diverse, noisy, and possibly biased data sources. <code>agregR</code> is able to automatically down-weight institutes with historically poor accuracy while maintaining the flexibility to update their evaluation based on current-cycle performance. It also features specialized methods to account for:</p>
+<p>As presidential elections approach, Brazilian voters are confronted with a growing volume of conflicting polling estimates, each employing distinct methodologies and sampling designs. <code>agregR</code> provides a rigorous framework to process this surfeit of data and uncover the underlying level of support for each candidate.</p>
+<p>The package implements a set of Bayesian state-space models in <a href="https://mc-stan.org/" class="external-link">Stan</a> to aggregate and normalize polling data, extracting a stable signal from diverse, noisy, and possibly biased data sources. It features methods to account for:</p>
 <ul>
-<li>House effects relative to the consensus</li>
-<li>House effects based on past election performance</li>
+<li>House effects relative to consensus</li>
+<li>Pollster performance in past elections</li>
 <li>Asymmetric accuracy based on candidates’ political alignment</li>
-<li>Institutes reporting inflated precision</li>
+<li>Polls reporting inflated precision</li>
 <li>Heterogeneous errors for round 1 and round 2 elections</li>
 <li>Non-sampling errors, such as design effects and non-ignorable non-response bias</li>
 </ul>
@@ -133,14 +133,14 @@
 <span></span>
 <span><span class="co"># Install CmdStan</span></span>
 <span><span class="fu">cmdstanr</span><span class="fu">::</span><span class="fu"><a href="https://mc-stan.org/cmdstanr/reference/install_cmdstan.html" class="external-link">install_cmdstan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Optional</strong>: make sure everything is in place.</p>
+<p>Make sure everything is in place.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cmdstanr</span><span class="fu">::</span><span class="fu"><a href="https://mc-stan.org/cmdstanr/reference/install_cmdstan.html" class="external-link">check_cmdstan_toolchain</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="id_3-install-agregr">3. Install agregR<a class="anchor" aria-label="anchor" href="#id_3-install-agregr"></a>
 </h3>
-<p>You can install the release version of <code>agregR</code> from CRAN with:</p>
+<p>You can install the stable version of <code>agregR</code> from CRAN with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"agregR"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Experimental</strong>: the development (and possibly unstable) version of <code>agregR</code> can be installed with:</p>
@@ -191,7 +191,7 @@
 <div class="section level4">
 <h4 id="id_2-house-effects">2. House Effects<a class="anchor" aria-label="anchor" href="#id_2-house-effects"></a>
 </h4>
-<p>Visualizes the systematic bias for each institute, identifying outliers and consistent directional skews.</p>
+<p>Visualizes the systematic bias for each institute, identifying consistent directional skews.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_vies.html">grafico_vies</a></span><span class="op">(</span><span class="va">result</span>, candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lula"</span>, <span class="st">"Tarcísio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-vies-plot.png"></p>
@@ -242,7 +242,7 @@
 <h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h3>
 <p>We are interested in performing inference on the <strong>latent state</strong> of public opinion: the dynamic, unobserved level of support for each candidate. Polls are periodic snapshots of this state, but the pictures are distorted and grainy.</p>
-<p>An apt analogy is a GPS receiver navigating an area with spotty connectivity. It receives sparse, conflicting pings from different satellites, each with its own uncertainty due to equipment miscalibration or inherent manufacturer bias. The system must achieve three objectives:</p>
+<p>An apt analogy is a GPS receiver navigating an area with spotty connectivity. It receives sparse, conflicting pings from different satellites, each with its own uncertainty due to corrupted data packages, equipment miscalibration or inherent manufacturer bias. The system must achieve three objectives:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>Data Reconciliation</strong>: It must filter the noise from competing sources to resolve a definitive vehicle position.</li>
@@ -251,21 +251,21 @@
 <li>
 <strong>Joint Parameter Updating</strong>: As new data arrives, the system must simultaneously update the vehicle’s position and re-evaluate the reliability of each satellite.</li>
 </ol>
-<p>Much like satellites, polling institutes are often miscalibrated. Their readings contain noise introduced by different sampling designs, weighting protocols, and question wording, among other factors. <code>agregR</code> shares the same objectives as the GPS receiver:</p>
+<p>Much like satellites, pollsters might be miscalibrated. Their readings contain noise introduced by different sampling designs, weighting protocols, and question wording, among other factors. <code>agregR</code> shares the same objectives as the GPS receiver:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>Data Reconciliation</strong>: It filters the noise from competing pollsters to isolate the latent state of candidate support.</li>
 <li>
-<strong>Path Estimation</strong>: It reconstructs the trajectory of public opinion during polling gaps, ensuring a continuous estimate even when data is sparse.</li>
+<strong>Path Estimation</strong>: It reconstructs the trajectory of public opinion during polling gaps, ensuring a continuous estimate even when data is unavailable.</li>
 <li>
-<strong>Joint Parameter Updating</strong>: As new polls are published, it dynamically updates candidate support levels while simultaneously re-evaluating the reliability of each institute.</li>
+<strong>Joint Parameter Updating</strong>: As new polls are published, it simultaneously updates candidate support levels and re-evaluates the reliability of each pollster.</li>
 </ol>
 </div>
 <div class="section level3">
 <h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h3>
-<p>Data collection is deliberately <em>unselective</em>. Instead of subjectively deciding which institutes produce high quality polls, we trust the models to separate the wheat from the chaff.</p>
-<p>Polls enter the model with checks on their sample size in order to avoid undue influence from institutes claiming inflated precision. We calculate an <em>implied</em> <span class="math inline">\(n\)</span> derived from the published margin of error and compare it to the reported sample size. We use the most conservative figure <span class="math inline">\(n_{eff}\)</span> to compute specific standard errors for each candidate <span class="math inline">\(c\)</span> according to their vote share <span class="math inline">\(v_{i, c}\)</span> in poll <span class="math inline">\(i\)</span>:</p>
+<p>Data collection is deliberately <em>unselective</em>. Instead of subjectively deciding which institutes produce high-quality polls, we trust the models to separate the wheat from the chaff.</p>
+<p>Polls enter the model with checks on their sample size in order to avoid undue influence from pollsters claiming inflated precision. We calculate an <em>implied</em> <span class="math inline">\(n\)</span> derived from the published margin of error and compare it to the reported sample size. We use the most conservative figure <span class="math inline">\(n_{eff}\)</span> to compute specific standard errors for each candidate <span class="math inline">\(c\)</span> according to their vote share <span class="math inline">\(v_{i, c}\)</span> in poll <span class="math inline">\(i\)</span>:</p>
 <p><span class="math display">\[
 \sigma_{i, c} = \sqrt\frac{v_{i, c}(1-v_{i, c})}{n_{eff[i]}}
 \]</span></p>
@@ -274,7 +274,7 @@
 <div class="section level3">
 <h3 id="conceptual-framework">Conceptual Framework<a class="anchor" aria-label="anchor" href="#conceptual-framework"></a>
 </h3>
-<p>The methods implemented by <code>agregR</code> build on Jackman (2009, Chapter 9). They are variously known as state-space models (SSM), dynamic linear models (DLM) or Kalman filters and consist of two integrated components:</p>
+<p>The methods implemented by <code>agregR</code> build on Jackman (2009). They are variously known as state-space models (SSM), dynamic linear models (DLM) or Kalman filters and consist of two integrated components:</p>
 <ol style="list-style-type: decimal">
 <li>A <strong>state model</strong> that estimates the underlying trajectory of candidate support in the periods between polling releases.</li>
 <li>A <strong>measurement model</strong> that filters incoming observations and updates institute-specific biases. It decomposes uncertainty into sampling error (<span class="math inline">\(\sigma\)</span>), house effects (<span class="math inline">\(\delta\)</span>), and an additional non-sampling error term (<span class="math inline">\(\tau\)</span>) inspired by Heidemanns, Gelman &amp; Morris (2020).</li>
@@ -283,7 +283,7 @@
 <h4 id="state-model">State Model<a class="anchor" aria-label="anchor" href="#state-model"></a>
 </h4>
 <p>The latent voting intention for each candidate updates daily according to a local linear trend. The evolution of the latent state through time <span class="math inline">\(t\)</span> for candidate <span class="math inline">\(c\)</span> is governed by the <strong>level component</strong> <span class="math inline">\(\mu_{t, c}\)</span> and influenced by the <strong>trend component</strong> <span class="math inline">\(\nu_{t, c}\)</span>.</p>
-<p>The level <span class="math inline">\(\mu_{t, c}\)</span> is defined by the previous state <span class="math inline">\(\mu_{t - 1, c}\)</span> plus the trend <span class="math inline">\(\nu_{t - 1, c}\)</span>, subject to stochastic level innovations <span class="math inline">\(\eta_{t, c}\)</span>. The trend itself evolves as a random walk, allowing the momentum of the campaign to shift over time, controlled by trend innovations <span class="math inline">\(\zeta_{t, c}\)</span>.</p>
+<p>The level <span class="math inline">\(\mu_{t, c}\)</span> is defined by the previous state <span class="math inline">\(\mu_{t - 1, c}\)</span> plus the trend <span class="math inline">\(\nu_{t - 1, c}\)</span>, subject to stochastic level innovations <span class="math inline">\(\eta_{t, c}\)</span>. The trend itself evolves as a random walk driven by innovations <span class="math inline">\(\zeta_{t, c}\)</span>.</p>
 <p><span class="math display">\[  \begin{pmatrix}\mu_{t, c} \\
     \nu_{t, c}\end{pmatrix} =
     \begin{pmatrix}1 &amp; 1 \\
@@ -293,7 +293,7 @@
     \begin{pmatrix}\eta_{t, c} \\
     \zeta_{t, c}\end{pmatrix}
 \]</span></p>
-<p>The volatility parameters govern the “stiffness” of the aggregator, where daily innovations <span class="math inline">\(\eta_{t, c}\)</span> and <span class="math inline">\(\zeta_{t, c}\)</span> are regularized by candidate-specific scales <span class="math inline">\(\omega_{\eta, c}\)</span> and <span class="math inline">\(\omega_{\zeta, c}\)</span>, respectively. Pooling accross the time series prevents over-fitting to noise while allowing the model to adapt when consistent evidence of a shift in public opinion emerges.</p>
+<p>The volatility parameters govern the “stiffness” of the aggregator, where daily innovations <span class="math inline">\(\eta_{t, c}\)</span> and <span class="math inline">\(\zeta_{t, c}\)</span> are regularized by candidate-specific scales <span class="math inline">\(\omega_{\eta, c}\)</span> and <span class="math inline">\(\omega_{\zeta, c}\)</span>, respectively. Pooling across the time series prevents the model from reacting to noise, but leaves room for adaptation when consistent evidence of a shift in public opinion emerges.</p>
 <p><span class="math display">\[  \begin{align}
     \eta_{t, c} &amp;\sim N\left(0, \omega^2_{\eta, c}\right) \\
     \zeta_{t, c} &amp;\sim N\left(0, \omega^2_{\zeta, c}\right)
@@ -303,7 +303,7 @@
 <div class="section level4">
 <h4 id="measurement-model">Measurement Model<a class="anchor" aria-label="anchor" href="#measurement-model"></a>
 </h4>
-<p>When polling data <span class="math inline">\(i\)</span> for candidate <span class="math inline">\(c\)</span> is available, the observed result <span class="math inline">\(y_{i, c}\)</span> from institute <span class="math inline">\(j\)</span> at time <span class="math inline">\(t\)</span> is modeled as a function of the latent state <span class="math inline">\(\mu_{t(i), c}\)</span> and house effects <span class="math inline">\(\delta_{j(i), k(i), p(c)}\)</span>:</p>
+<p>When polling data <span class="math inline">\(i\)</span> for candidate <span class="math inline">\(c\)</span> is available, the observed result <span class="math inline">\(y_{i, c}\)</span> from pollster <span class="math inline">\(j\)</span> at time <span class="math inline">\(t\)</span> is modeled as a function of the latent state <span class="math inline">\(\mu_{t(i), c}\)</span> and house effects <span class="math inline">\(\delta_{j(i), k(i), p(c)}\)</span>:</p>
 <p><span class="math display">\[  y_{i, c} = \begin{pmatrix}1 &amp; 0\end{pmatrix}
                \begin{pmatrix}\mu_{t(i), c} \\
                \nu_{t(i), c}\end{pmatrix} +
@@ -317,13 +317,13 @@
 <p>with subscripts linking poll <span class="math inline">\(i\)</span> and candidate <span class="math inline">\(c\)</span> to relevant covariates:</p>
 <ul>
 <li>
-<span class="math inline">\(t(i)\)</span>: <strong>Date</strong> of fieldwork (<span class="math inline">\(t \in \{1, \dots, T\}\)</span>).</li>
+<span class="math inline">\(t(i)\)</span>: Date of fieldwork</li>
 <li>
-<span class="math inline">\(j(i)\)</span>: <strong>Polling institute</strong> (<span class="math inline">\(j \in \{1, \dots, J\}\)</span>).</li>
+<span class="math inline">\(j(i)\)</span>: Polling institute</li>
 <li>
-<span class="math inline">\(k(i)\)</span>: <strong>Election round</strong> (<span class="math inline">\(k \in \{1, 2\}\)</span>).</li>
+<span class="math inline">\(k(i)\)</span>: Election round</li>
 <li>
-<span class="math inline">\(p(c)\)</span>: <strong>Political alignment</strong> for candidate <span class="math inline">\(c\)</span> (<span class="math inline">\(p \in \{\text{left, right, other}\}\)</span>).</li>
+<span class="math inline">\(p(c)\)</span>: Political alignment for candidate <span class="math inline">\(c\)</span> (<span class="math inline">\(p \in \{\text{left, right, other}\}\)</span>).</li>
 </ul>
 <p>In the error term <span class="math inline">\(\varepsilon\)</span>, <span class="math inline">\(\sigma\)</span> represents a lower bound of uncertainty from sampling theory, whereas <span class="math inline">\(\tau\)</span> captures the excess empirical variance required to account for the data’s observed dispersion.</p>
 <p>Computationally, the measurement model is designed to prioritize high sampling efficiency and convergence stability (see <a href="#model-validation">Model Validation</a>). The normal likelihood provides a convenient approximation of latent support for competitive candidates whose polling numbers do not approach the 0% boundary. Compared to the full multinomial implementation with Cholesky-factorized covariance proposed by Stoetzer et al. (2019), this normal approximation yields nearly identical inferences for leading candidates, samples significantly faster, and is far less prone to divergent transitions.</p>
@@ -332,9 +332,9 @@
 <li>
 <strong>Sampling Error</strong> (<span class="math inline">\(\sigma_{i, c}\)</span>): The inherent uncertainty derived from the effective sample size of the poll <span class="math inline">\(i\)</span> and the support level for candidate <span class="math inline">\(c\)</span>.</li>
 <li>
-<strong>House Effects</strong> (<span class="math inline">\(\delta_{j,k,p}\)</span>): A systematic deviation specific to institute <span class="math inline">\(j\)</span>, conditional on the election round <span class="math inline">\(k\)</span> and the candidate’s political alignment <span class="math inline">\(p\)</span>.</li>
+<strong>House Effects</strong> (<span class="math inline">\(\delta_{j,k,p}\)</span>): A systematic deviation specific to pollster <span class="math inline">\(j\)</span>, conditional on the election round <span class="math inline">\(k\)</span> and the candidate’s political alignment <span class="math inline">\(p\)</span>.</li>
 <li>
-<strong>Non-Sampling Error</strong> (<span class="math inline">\(\tau_{j,k,p}\)</span>): An additional error parameter capturing uncertainty extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by institute <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span>, and political alignment <span class="math inline">\(p\)</span>.</li>
+<strong>Non-Sampling Error</strong> (<span class="math inline">\(\tau_{j,k,p}\)</span>): An additional error parameter capturing uncertainty extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by pollster <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span>, and political alignment <span class="math inline">\(p\)</span>.</li>
 </ol>
 </div>
 </div>
@@ -344,58 +344,65 @@
 <p>Based on the methods described above, <code>agregR</code> offers a set of specialized models that differ in their assumptions regarding house effects (<span class="math inline">\(\delta\)</span>) and non-sampling error (<span class="math inline">\(\tau\)</span>) estimation:</p>
 <ul>
 <li>
-<strong>Anchoring</strong>: Since <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\delta\)</span> are not jointly identifiable, house effects <span class="math inline">\(\delta_{j,k,p}\)</span> follow a regularizing prior centered either on a sum-to-zero constraint or on historical/actual electoral results. Anchoring provides a reference for estimates of the house effects and prevents individual polls from disproportionately pulling the latent trend unless supported by cumulative evidence.</li>
+<strong>House Effects</strong>: Since <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\delta\)</span> are not jointly identifiable, house effects <span class="math inline">\(\delta_{j,k,p}\)</span> follow a regularizing prior centered either on a sum-to-zero constraint or on historical/actual electoral results. This anchor prevents individual polls from disproportionately pulling the latent trend unless supported by cumulative evidence.</li>
 <li>
-<strong>Weighting</strong>: Models using localized non-sampling errors <span class="math inline">\(\tau_{j,k,p}\)</span> as prior means effectively perform automated weighting. This approach penalizes institutes with higher Root Mean Square Error (RMSE) in the last election while maintaining the flexibility to update its estimates based on current-cycle data.</li>
+<strong>Non-Sampling Error</strong>: Models using localized non-sampling errors <span class="math inline">\(\tau_{j,k,p}\)</span> as prior means effectively perform <strong>automated weighting</strong>. This approach penalizes pollsters with higher Root Mean Square Error (RMSE) in the last election while maintaining the flexibility to update its estimates based on current-cycle data. Models employing a global <span class="math inline">\(\tau\)</span> give every pollster the same weight.</li>
 </ul>
 <table class="table">
 <colgroup>
-<col width="33%">
-<col width="33%">
-<col width="33%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th align="left">Model</th>
 <th align="left">House Effects Anchor (<span class="math inline">\(\delta\)</span>)</th>
 <th align="left">Non-Sampling Error (<span class="math inline">\(\tau\)</span>)</th>
+<th align="left">Use Case</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">
 <strong>Viés Relativo com Pesos</strong> (<em>Weighted Relative Bias</em>)</td>
 <td align="left">Consensus <span class="math inline">\(\left(\sum_j \delta_{j, k, p} = 0\right)\)</span>
 </td>
 <td align="left">Last election <span class="math inline">\(\tau_{j,k,p}\)</span> (past RMSE <span class="math inline">\(\rightarrow \tau\)</span> prior)</td>
+<td align="left">Balanced, past performance used only for weights</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">
 <strong>Viés Relativo sem Pesos</strong> (<em>Unweighted Relative Bias</em>)</td>
 <td align="left">Consensus <span class="math inline">\(\left(\sum_j \delta_{j, k, p} = 0\right)\)</span>
 </td>
-<td align="left">Global <span class="math inline">\(\tau\)</span> shared by all institutes</td>
+<td align="left">Global <span class="math inline">\(\tau\)</span> shared by all pollsters</td>
+<td align="left">No use of past performance data</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">
 <strong>Viés Empírico</strong> (<em>Empirical Bias</em>)</td>
 <td align="left">Last election <span class="math inline">\(\delta_{j,k,p}\)</span> (past bias <span class="math inline">\(\rightarrow \delta\)</span> prior)</td>
 <td align="left">Last election <span class="math inline">\(\tau_{j,k,p}\)</span> (past RMSE <span class="math inline">\(\rightarrow \tau\)</span> prior)</td>
+<td align="left">Large reliance on past performance data</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">
 <strong>Retrospectivo</strong> (<em>Retrospective</em>)</td>
 <td align="left">Actual election result <span class="math inline">\(\left(\mu_T\right)\)</span>
 </td>
-<td align="left">Global <span class="math inline">\(\tau\)</span> shared by all institutes</td>
+<td align="left">Global <span class="math inline">\(\tau\)</span> shared by all pollsters</td>
+<td align="left">Post-election diagnostics</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><strong>Naive</strong></td>
 <td align="left">None</td>
 <td align="left">None</td>
+<td align="left">Baseline model</td>
 </tr>
 </tbody>
 </table>
-<p>Early stages of election campaigns are frequently characterized by extreme data sparsity. In such low-information environments, fully hierarchical models struggle to identify group-level variances, often leading to pathological behavior (e.g., complete shrinkage) or convergence failures.</p>
-<p>Anchoring the scales for <span class="math inline">\(\delta\)</span> and <span class="math inline">\(\tau\)</span> keeps the models robust and identifiable throughout the entire cycle, transitioning gracefully from a prior-dominated regime to a data-dominated one as the volume of polling increases. Specific values for priors can be accessed (and modified) by the <code><a href="reference/configurar_prioris.html">configurar_prioris()</a></code> function, and details are available in the function’s documentation.</p>
+<p>Early stages of election campaigns are frequently characterized by extreme data sparsity. In such low-information environments, fully hierarchical models struggle to identify group-level variances, often leading to complete shrinkage or convergence failures.</p>
+<p>Anchoring the scale parameters for <span class="math inline">\(\delta\)</span> and <span class="math inline">\(\tau\)</span> keeps the models robust and identifiable throughout the entire cycle, transitioning gracefully from a prior-dominated regime to a data-dominated one as the volume of polling increases. Specific values for priors can be accessed (and modified) by the <code><a href="reference/configurar_prioris.html">configurar_prioris()</a></code> function, and details are available in its documentation.</p>
 </div>
 </div>
 <div class="section level2">
@@ -404,7 +411,7 @@
 <div class="section level3">
 <h3 id="posterior-predictive-checks">Posterior Predictive Checks<a class="anchor" aria-label="anchor" href="#posterior-predictive-checks"></a>
 </h3>
-<p>Every Stan model in <code>agregR</code> includes a <code>generated quantities</code> block, enabling Posterior Predictive Checks (PPC). By simulating <span class="math inline">\(y_{rep}\)</span> from the posterior distribution, users can verify the model’s calibration against real-world data (Gabry et al., 2019). The example below demonstrates this using the <code>bayesplot</code> package.</p>
+<p>Every Stan model in <code>agregR</code> includes a <code>generated quantities</code> block, enabling Posterior Predictive Checks. By simulating <span class="math inline">\(y_{rep}\)</span> from the posterior distribution, users can verify that the model accurately reflects the observed data (Gabry et al., 2019). The example below demonstrates this using the <code>bayesplot</code> package.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/bayesplot/" class="external-link">bayesplot</a></span><span class="op">)</span></span>
 <span></span>
@@ -445,7 +452,7 @@
 <div class="section level3">
 <h3 id="posterior-geometry">Posterior Geometry<a class="anchor" aria-label="anchor" href="#posterior-geometry"></a>
 </h3>
-<p>Parameter distributions are standardized using Non-Centered Parametrization (NCP). This flattens posterior geometry and addresses the “funnel” problem common in hierarchical models, significantly improving sampling efficiency and virtually eliminating divergent transitions in standard scenarios (Stan Development Team, <a href="https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section" class="external-link">Efficiency Tuning: Reparametrization</a>).</p>
+<p>Parameter distributions are standardized using Non-Centered Parametrization. This flattens posterior geometry and addresses the “funnel” problem common in hierarchical models, significantly improving sampling efficiency and virtually eliminating divergent transitions in standard scenarios (Stan Development Team, <a href="https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section" class="external-link">Efficiency Tuning: Reparametrization</a>).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Posterior geometry for selected mu and delta parameters</span></span>
 <span><span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-scatterplots.html" class="external-link">mcmc_scatter</a></span><span class="op">(</span><span class="va">modelo_cand</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>,</span>
