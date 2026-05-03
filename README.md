@@ -11,22 +11,19 @@
 **Bayesian State-Space Aggregation of Brazilian Presidential Polls**
 
 As presidential elections approach, Brazilian voters are confronted with a growing
-volume of conflicting polling data from various institutes, each
-employing distinct methodologies and sampling designs. `agregR` provides
-the public with a rigorous framework to process the surfeit of data and estimate
-the underlying level of support for each candidate.
+volume of conflicting polling estimates, each employing distinct methodologies and
+sampling designs. `agregR` provides a rigorous framework to process this surfeit
+of data and uncover the underlying level of support for each candidate.
 
 The package implements a set of Bayesian state-space models in
 [Stan](https://mc-stan.org/) to aggregate and normalize polling data, extracting
-a stable signal from diverse, noisy, and possibly biased data sources. `agregR`
-is able to automatically down-weight institutes with historically poor accuracy
-while maintaining the flexibility to update their evaluation based on current-cycle
-performance. It also features specialized methods to account for:
+a stable signal from diverse, noisy, and possibly biased data sources. It features
+methods to account for:
 
-- House effects relative to the consensus
-- House effects based on past election performance
+- House effects relative to consensus
+- Pollster performance in past elections
 - Asymmetric accuracy based on candidates’ political alignment
-- Institutes reporting inflated precision
+- Polls reporting inflated precision
 - Heterogeneous errors for round 1 and round 2 elections
 - Non-sampling errors, such as design effects and non-ignorable
   non-response bias
@@ -81,7 +78,7 @@ install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOpt
 cmdstanr::install_cmdstan()
 ```
 
-**Optional**: make sure everything is in place.
+Make sure everything is in place.
 
 ```r
 cmdstanr::check_cmdstan_toolchain()
@@ -89,7 +86,7 @@ cmdstanr::check_cmdstan_toolchain()
 
 ### 3. Install agregR
 
-You can install the release version of `agregR` from CRAN with:
+You can install the stable version of `agregR` from CRAN with:
 
 ``` r
 install.packages("agregR", type = "source")
@@ -149,8 +146,7 @@ grafico_agregador(result)
 
 #### 2. House Effects
 
-Visualizes the systematic bias for each institute, identifying outliers
-and consistent directional skews.
+Visualizes the systematic bias for each institute, identifying consistent directional skews.
 
 ``` r
 grafico_vies(result, candidaturas = c("Lula", "Tarcísio"))
@@ -213,8 +209,8 @@ snapshots of this state, but the pictures are distorted and grainy.
 
 An apt analogy is a GPS receiver navigating an area with spotty connectivity.
 It receives sparse, conflicting pings from different satellites, each with its
-own uncertainty due to equipment miscalibration or inherent manufacturer bias.
-The system must achieve three objectives:
+own uncertainty due to corrupted data packages, equipment miscalibration or
+inherent manufacturer bias. The system must achieve three objectives:
 
 1. **Data Reconciliation**: It must filter the noise from competing sources to
    resolve a definitive vehicle position.
@@ -223,7 +219,7 @@ The system must achieve three objectives:
 3. **Joint Parameter Updating**: As new data arrives, the system must simultaneously
    update the vehicle's position and re-evaluate the reliability of each satellite.
 
-Much like satellites, polling institutes are often miscalibrated. Their readings
+Much like satellites, pollsters might be miscalibrated. Their readings
 contain noise introduced by different sampling designs, weighting protocols,
 and question wording, among other factors. `agregR` shares the same objectives
 as the GPS receiver:
@@ -231,19 +227,18 @@ as the GPS receiver:
  1. **Data Reconciliation**: It filters the noise from competing pollsters to
     isolate the latent state of candidate support.
  2. **Path Estimation**: It reconstructs the trajectory of public opinion during
-    polling gaps, ensuring a continuous estimate even when data is sparse.
- 3. **Joint Parameter Updating**: As new polls are published, it dynamically
-    updates candidate support levels while simultaneously re-evaluating the
-    reliability of each institute.
+    polling gaps, ensuring a continuous estimate even when data is unavailable.
+ 3. **Joint Parameter Updating**: As new polls are published, it simultaneously
+    updates candidate support levels and re-evaluates the reliability of each pollster.
 
 ### Data
 
 Data collection is deliberately *unselective*. Instead of subjectively
-deciding which institutes produce high quality polls, we trust the
+deciding which institutes produce high-quality polls, we trust the
 models to separate the wheat from the chaff.
 
 Polls enter the model with checks on their sample size in order to
-avoid undue influence from institutes claiming inflated precision. We calculate
+avoid undue influence from pollsters claiming inflated precision. We calculate
 an *implied* $n$ derived from the published margin of error and compare it
 to the reported sample size. We use the most conservative figure $n_{eff}$ to
 compute specific standard errors for each candidate $c$ according to their
@@ -257,9 +252,9 @@ Historical data is sourced from Poder360’s polling database via [Base dos Dado
 
 ### Conceptual Framework
 
-The methods implemented by `agregR` build on Jackman (2009, Chapter 9). They
-are variously known as state-space models (SSM), dynamic linear models (DLM)
-or Kalman filters and consist of two integrated components:
+The methods implemented by `agregR` build on Jackman (2009). They are variously
+known as state-space models (SSM), dynamic linear models (DLM) or Kalman filters
+and consist of two integrated components:
 
 1. A **state model** that estimates the underlying trajectory of candidate
    support in the periods between polling releases.
@@ -277,8 +272,7 @@ influenced by the **trend component** $\nu_{t, c}$.
 
 The level $\mu_{t, c}$ is defined by the previous state $\mu_{t - 1, c}$ plus
 the trend $\nu_{t - 1, c}$, subject to stochastic level innovations $\eta_{t, c}$.
-The trend itself evolves as a random walk, allowing the momentum of the campaign
-to shift over time, controlled by trend innovations $\zeta_{t, c}$.
+The trend itself evolves as a random walk driven by innovations $\zeta_{t, c}$.
 
 $$  \begin{pmatrix}\mu_{t, c} \\
     \nu_{t, c}\end{pmatrix} =
@@ -292,9 +286,9 @@ $$
 
 The volatility parameters govern the “stiffness” of the aggregator, where daily
 innovations $\eta_{t, c}$ and $\zeta_{t, c}$ are regularized by candidate-specific
-scales $\omega_{\eta, c}$ and $\omega_{\zeta, c}$, respectively. Pooling accross
-the time series prevents over-fitting to noise while allowing the model to adapt
-when consistent evidence of a shift in public opinion emerges.
+scales $\omega_{\eta, c}$ and $\omega_{\zeta, c}$, respectively. Pooling across
+the time series prevents the model from reacting to noise, but leaves room for
+adaptation when consistent evidence of a shift in public opinion emerges.
 
 $$  \begin{align}
     \eta_{t, c} &\sim N\left(0, \omega^2_{\eta, c}\right) \\
@@ -305,7 +299,7 @@ $$
 #### Measurement Model
 
 When polling data $i$ for candidate $c$ is available, the observed result
-$y_{i, c}$ from institute $j$ at time $t$ is modeled as a function of the
+$y_{i, c}$ from pollster $j$ at time $t$ is modeled as a function of the
 latent state $\mu_{t(i), c}$ and house effects $\delta_{j(i), k(i), p(c)}$:
 
 $$  y_{i, c} = \begin{pmatrix}1 & 0\end{pmatrix} 
@@ -323,10 +317,10 @@ $$
 
 with subscripts linking poll $i$ and candidate $c$ to relevant covariates:
 
-- $t(i)$: **Date** of fieldwork ($t \in \{1, \dots, T\}$).
-- $j(i)$: **Polling institute** ($j \in \{1, \dots, J\}$).
-- $k(i)$: **Election round** ($k \in \{1, 2\}$).
-- $p(c)$: **Political alignment** for candidate $c$
+- $t(i)$: Date of fieldwork
+- $j(i)$: Polling institute
+- $k(i)$: Election round
+- $p(c)$: Political alignment for candidate $c$
   ($p \in \{\text{left, right, other}\}$).
 
 In the error term $\varepsilon$, $\sigma$ represents a lower bound of uncertainty
@@ -349,11 +343,11 @@ polls:
     from the effective sample size of the poll $i$ and the support level
     for candidate $c$.
 2.  **House Effects** ($\delta_{j,k,p}$): A systematic deviation
-    specific to institute $j$, conditional on the election round $k$ and
+    specific to pollster $j$, conditional on the election round $k$ and
     the candidate’s political alignment $p$.
 3.  **Non-Sampling Error** ($\tau_{j,k,p}$): An additional error parameter
     capturing uncertainty extrinsic to random sampling (e.g., design effects,
-    non-ignorable non-response bias), also localized by institute $j$,
+    non-ignorable non-response bias), also localized by pollster $j$,
     round $k$, and political alignment $p$.
 
 ### Models Overview
@@ -362,44 +356,44 @@ Based on the methods described above, `agregR` offers a set of
 specialized models that differ in their assumptions regarding house
 effects ($\delta$) and non-sampling error ($\tau$) estimation:
 
-- **Anchoring**: Since $\mu$ and $\delta$ are not jointly identifiable, house
+- **House Effects**: Since $\mu$ and $\delta$ are not jointly identifiable, house
   effects $\delta_{j,k,p}$ follow a regularizing prior centered either on a
-  sum-to-zero constraint or on historical/actual electoral results. Anchoring
-  provides a reference for estimates of the house effects and prevents individual
-  polls from disproportionately pulling the latent trend unless supported by
-  cumulative evidence.
-- **Weighting**: Models using localized non-sampling errors $\tau_{j,k,p}$ 
-  as prior means effectively perform automated weighting. This approach
-  penalizes institutes with higher Root Mean Square Error (RMSE) in the last
+  sum-to-zero constraint or on historical/actual electoral results. This anchor
+  prevents individual polls from disproportionately pulling the latent trend
+  unless supported by cumulative evidence.
+- **Non-Sampling Error**: Models using localized non-sampling errors $\tau_{j,k,p}$ 
+  as prior means effectively perform **automated weighting**. This approach
+  penalizes pollsters with higher Root Mean Square Error (RMSE) in the last
   election while maintaining the flexibility to update its estimates based
-  on current-cycle data.
+  on current-cycle data. Models employing a global $\tau$ give every pollster
+  the same weight.
 
-| Model | House Effects Anchor ($\delta$) | Non-Sampling Error ($\tau$) |
-|:---|:---|:---|
-| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) |
-| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Global $\tau$ shared by all institutes |
-| **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (past bias $\rightarrow \delta$ prior) | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) |
-| **Retrospectivo** (*Retrospective*) | Actual election result $\left(\mu_T\right)$ | Global $\tau$ shared by all institutes |
-| **Naive** | None | None |
+| Model | House Effects Anchor ($\delta$) | Non-Sampling Error ($\tau$) | Use Case
+|:---|:---|:---|:---|
+| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | Balanced, past performance used only for weights |
+| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Global $\tau$ shared by all pollsters | No use of past performance data |
+| **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (past bias $\rightarrow \delta$ prior) | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | Large reliance on past performance data |
+| **Retrospectivo** (*Retrospective*) | Actual election result $\left(\mu_T\right)$ | Global $\tau$ shared by all pollsters | Post-election diagnostics |
+| **Naive** | None | None | Baseline model |
 
 Early stages of election campaigns are frequently characterized by extreme
 data sparsity. In such low-information environments, fully hierarchical models
-struggle to identify group-level variances, often leading to pathological behavior
-(e.g., complete shrinkage) or convergence failures.
+struggle to identify group-level variances, often leading to complete shrinkage
+or convergence failures.
 
-Anchoring the scales for $\delta$ and $\tau$ keeps the models robust and identifiable
-throughout the entire cycle, transitioning gracefully from a prior-dominated regime
-to a data-dominated one as the volume of polling increases. Specific values for
-priors can be accessed (and modified) by the `configurar_prioris()` function,
-and details are available in the function's documentation.
+Anchoring the scale parameters for $\delta$ and $\tau$ keeps the models robust and
+identifiable throughout the entire cycle, transitioning gracefully from a
+prior-dominated regime to a data-dominated one as the volume of polling increases.
+Specific values for priors can be accessed (and modified) by the `configurar_prioris()`
+function, and details are available in its documentation.
 
 ## Model Validation
 
 ### Posterior Predictive Checks
 
 Every Stan model in `agregR` includes a `generated quantities` block, enabling
-Posterior Predictive Checks (PPC). By simulating $y_{rep}$ from the posterior
-distribution, users can verify the model's calibration against real-world
+Posterior Predictive Checks. By simulating $y_{rep}$ from the posterior
+distribution, users can verify that the model accurately reflects the observed
 data (Gabry et al., 2019). The example below demonstrates this using the
 `bayesplot` package.
 
@@ -444,7 +438,7 @@ ppc_intervals(y, y_rep, prob = 0.67, prob_outer = 0.95) +
 
 ### Posterior Geometry
 
-Parameter distributions are standardized using Non-Centered Parametrization (NCP).
+Parameter distributions are standardized using Non-Centered Parametrization.
 This flattens posterior geometry and addresses the “funnel” problem common in
 hierarchical models, significantly improving sampling efficiency and virtually
 eliminating divergent transitions in standard scenarios (Stan Development Team, [Efficiency Tuning: Reparametrization](<https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section>)).
