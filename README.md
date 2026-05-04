@@ -376,12 +376,12 @@ models that differ in their assumptions regarding house effects
   on current-cycle data. Models employing a global $\tau$ give every pollster
   equal weight.
 
-| Model | House Effects Anchor | Non-Sampling Error | Description |
+| Model | House Effects | Non-Sampling Error | Description |
 |:---|:---|:---|:---|
-| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | A balanced model that weighs pollsters by past performance and anchors bias to the current-cycle consensus |
-| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Global $\tau$ shared across pollsters | Relies entirely on current-cycle data without leveraging historical pollster performance |
-| **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (past bias $\rightarrow \delta$ prior) | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | Relies heavily on historical performance to determine both bias priors and weights |
-| **Retrospectivo** (*Retrospective*) | Actual election result $\left(\mu_T\right)$ | Global $\tau$ shared across pollsters | Anchored to observed result, useful for post-election diagnostics |
+| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | A balanced model that weighs pollsters by past performance and anchors biases to the current-cycle consensus |
+| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Global $\tau$ shared across pollsters | A "fresh-start" model that relies entirely on current-cycle data without leveraging historical pollster performance |
+| **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (past bias $\rightarrow \delta$ prior) | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | An empirical model that leans on historical performance to inform both bias priors and pollster weights |
+| **Retrospectivo** (*Retrospective*) | Actual election result $\left(\mu_T\right)$ | Global $\tau$ shared across pollsters | A "backward" model anchored to the ballot result, useful for post-election diagnostics |
 | **Naive** | None | None | Baseline model |
 
 ## Model Validation
