@@ -73,14 +73,14 @@ install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOpt
 cmdstanr::install_cmdstan()
 ```
 
-Optional: Make sure everything is in place.
+Optional: make sure everything is in place.
 
 ``` r
 
 cmdstanr::check_cmdstan_toolchain()
 ```
 
-### 3. Install agregR
+### 3. Install `agregR`
 
 You can install the stable version of `agregR` from CRAN with:
 
@@ -387,7 +387,7 @@ effects (\\\delta\\) and non-sampling error (\\\tau\\) estimation:
 
 | Model | House Effects Anchor | Non-Sampling Error | Use Case |
 |:---|:---|:---|:---|
-| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\ | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) | Balanced model, past pollster performance is used only for weights |
+| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\ | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) | Balanced model, past pollster performance is used only for weighting |
 | **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\ | Global \\\tau\\ shared by all pollsters | No use of past pollster performance, relies entirely on current-cycle data |
 | **Viés Empírico** (*Empirical Bias*) | Last election \\\delta\_{j,k,p}\\ (past bias \\\rightarrow \delta\\ prior) | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) | Large reliance on past pollster performance as informative prior |
 | **Retrospectivo** (*Retrospective*) | Actual election result \\\left(\mu_T\right)\\ | Global \\\tau\\ shared by all pollsters | Post-election diagnostics |
