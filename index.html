@@ -70,7 +70,7 @@
 
 <!-- badges: end -->
 <p><strong>Bayesian State-Space Aggregation of Brazilian Presidential Polls</strong></p>
-<p>As presidential elections approach, Brazilian voters are confronted with a growing volume of conflicting polling estimates, each employing distinct methodologies and sampling designs. <code>agregR</code> provides a rigorous framework to process this surfeit of data and uncover the underlying level of support for each candidate.</p>
+<p>As presidential elections approach, Brazilian voters are confronted with a growing volume of conflicting polling estimates, each employing distinct methodologies and sampling designs. <code>agregR</code> provides a rigorous framework to process the surfeit of data and uncover the underlying level of support for each candidate.</p>
 <p>The package implements a set of Bayesian state-space models in <a href="https://mc-stan.org/" class="external-link">Stan</a> to aggregate and normalize polling data, extracting a stable signal from diverse, noisy, and possibly biased data sources. It features methods to account for:</p>
 <ul>
 <li>House effects relative to consensus</li>
@@ -133,7 +133,7 @@
 <span></span>
 <span><span class="co"># Install CmdStan</span></span>
 <span><span class="fu">cmdstanr</span><span class="fu">::</span><span class="fu"><a href="https://mc-stan.org/cmdstanr/reference/install_cmdstan.html" class="external-link">install_cmdstan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Make sure everything is in place.</p>
+<p>Optional: Make sure everything is in place.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cmdstanr</span><span class="fu">::</span><span class="fu"><a href="https://mc-stan.org/cmdstanr/reference/install_cmdstan.html" class="external-link">check_cmdstan_toolchain</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -357,8 +357,8 @@
 </colgroup>
 <thead><tr>
 <th align="left">Model</th>
-<th align="left">House Effects Anchor (<span class="math inline">\(\delta\)</span>)</th>
-<th align="left">Non-Sampling Error (<span class="math inline">\(\tau\)</span>)</th>
+<th align="left">House Effects Anchor</th>
+<th align="left">Non-Sampling Error</th>
 <th align="left">Use Case</th>
 </tr></thead>
 <tbody>
@@ -368,7 +368,7 @@
 <td align="left">Consensus <span class="math inline">\(\left(\sum_j \delta_{j, k, p} = 0\right)\)</span>
 </td>
 <td align="left">Last election <span class="math inline">\(\tau_{j,k,p}\)</span> (past RMSE <span class="math inline">\(\rightarrow \tau\)</span> prior)</td>
-<td align="left">Balanced, past performance used only for weights</td>
+<td align="left">Balanced model, past pollster performance is used only for weights</td>
 </tr>
 <tr>
 <td align="left">
@@ -376,14 +376,14 @@
 <td align="left">Consensus <span class="math inline">\(\left(\sum_j \delta_{j, k, p} = 0\right)\)</span>
 </td>
 <td align="left">Global <span class="math inline">\(\tau\)</span> shared by all pollsters</td>
-<td align="left">No use of past performance data</td>
+<td align="left">No use of past pollster performance, relies entirely on current-cycle data</td>
 </tr>
 <tr>
 <td align="left">
 <strong>Viés Empírico</strong> (<em>Empirical Bias</em>)</td>
 <td align="left">Last election <span class="math inline">\(\delta_{j,k,p}\)</span> (past bias <span class="math inline">\(\rightarrow \delta\)</span> prior)</td>
 <td align="left">Last election <span class="math inline">\(\tau_{j,k,p}\)</span> (past RMSE <span class="math inline">\(\rightarrow \tau\)</span> prior)</td>
-<td align="left">Large reliance on past performance data</td>
+<td align="left">Large reliance on past pollster performance as informative prior</td>
 </tr>
 <tr>
 <td align="left">
