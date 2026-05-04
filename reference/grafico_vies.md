@@ -88,10 +88,10 @@ if (instantiate::stan_cmdstan_exists()) {
 #> Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
 #> Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
 #> Chain 1 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-#> Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 #> Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-#> Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+#> Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 #> Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+#> Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 #> Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 #> Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 #> Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
@@ -124,7 +124,7 @@ if (instantiate::stan_cmdstan_exists()) {
 #> Chain 3 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 #> Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 4 finished in 20.0 seconds.
+#> Chain 4 finished in 20.2 seconds.
 #> Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
 #> Chain 2 finished in 20.9 seconds.
@@ -132,12 +132,12 @@ if (instantiate::stan_cmdstan_exists()) {
 #> Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 1 finished in 23.7 seconds.
+#> Chain 1 finished in 23.9 seconds.
 #> Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
 #> Chain 3 finished in 24.4 seconds.
 #> 
 #> All 4 chains finished successfully.
-#> Mean chain execution time: 22.2 seconds.
+#> Mean chain execution time: 22.3 seconds.
 #> Total execution time: 24.5 seconds.
 #> 
 #> ── Estimando intenção de votos para: "Lula" ──
@@ -180,20 +180,20 @@ if (instantiate::stan_cmdstan_exists()) {
 #> Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 #> Chain 4 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 #> Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-#> Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 2 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+#> Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 3 finished in 17.6 seconds.
+#> Chain 3 finished in 17.7 seconds.
 #> Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 1 finished in 18.1 seconds.
 #> Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+#> Chain 1 finished in 18.2 seconds.
 #> Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 4 finished in 18.4 seconds.
+#> Chain 4 finished in 18.5 seconds.
 #> Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
 #> Chain 2 finished in 19.0 seconds.
 #> 

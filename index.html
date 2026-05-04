@@ -359,7 +359,7 @@
 </colgroup>
 <thead><tr>
 <th align="left">Model</th>
-<th align="left">House Effects Anchor</th>
+<th align="left">House Effects</th>
 <th align="left">Non-Sampling Error</th>
 <th align="left">Description</th>
 </tr></thead>
@@ -370,7 +370,7 @@
 <td align="left">Consensus <span class="math inline">\(\left(\sum_j \delta_{j, k, p} = 0\right)\)</span>
 </td>
 <td align="left">Last election <span class="math inline">\(\tau_{j,k,p}\)</span> (past RMSE <span class="math inline">\(\rightarrow \tau\)</span> prior)</td>
-<td align="left">A balanced model that weighs pollsters by past performance and anchors bias to the current-cycle consensus</td>
+<td align="left">A balanced model that weighs pollsters by past performance and anchors biases to the current-cycle consensus</td>
 </tr>
 <tr>
 <td align="left">
@@ -378,14 +378,14 @@
 <td align="left">Consensus <span class="math inline">\(\left(\sum_j \delta_{j, k, p} = 0\right)\)</span>
 </td>
 <td align="left">Global <span class="math inline">\(\tau\)</span> shared across pollsters</td>
-<td align="left">Relies entirely on current-cycle data without leveraging historical pollster performance</td>
+<td align="left">A “fresh-start” model that relies entirely on current-cycle data without leveraging historical pollster performance</td>
 </tr>
 <tr>
 <td align="left">
 <strong>Viés Empírico</strong> (<em>Empirical Bias</em>)</td>
 <td align="left">Last election <span class="math inline">\(\delta_{j,k,p}\)</span> (past bias <span class="math inline">\(\rightarrow \delta\)</span> prior)</td>
 <td align="left">Last election <span class="math inline">\(\tau_{j,k,p}\)</span> (past RMSE <span class="math inline">\(\rightarrow \tau\)</span> prior)</td>
-<td align="left">Relies heavily on historical performance to determine both bias priors and weights</td>
+<td align="left">An empirical model that leans on historical performance to inform both bias priors and pollster weights</td>
 </tr>
 <tr>
 <td align="left">
@@ -393,7 +393,7 @@
 <td align="left">Actual election result <span class="math inline">\(\left(\mu_T\right)\)</span>
 </td>
 <td align="left">Global <span class="math inline">\(\tau\)</span> shared across pollsters</td>
-<td align="left">Anchored to observed result, useful for post-election diagnostics</td>
+<td align="left">A “backward” model anchored to the ballot result, useful for post-election diagnostics</td>
 </tr>
 <tr>
 <td align="left"><strong>Naive</strong></td>
