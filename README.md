@@ -12,7 +12,7 @@
 
 As presidential elections approach, Brazilian voters are confronted with a growing
 volume of conflicting polling estimates, each employing distinct methodologies and
-sampling designs. `agregR` provides a rigorous framework to process this surfeit
+sampling designs. `agregR` provides a rigorous framework to process the surfeit
 of data and uncover the underlying level of support for each candidate.
 
 The package implements a set of Bayesian state-space models in
@@ -78,7 +78,7 @@ install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOpt
 cmdstanr::install_cmdstan()
 ```
 
-Make sure everything is in place.
+Optional: Make sure everything is in place.
 
 ```r
 cmdstanr::check_cmdstan_toolchain()
@@ -368,11 +368,11 @@ effects ($\delta$) and non-sampling error ($\tau$) estimation:
   on current-cycle data. Models employing a global $\tau$ give every pollster
   the same weight.
 
-| Model | House Effects Anchor ($\delta$) | Non-Sampling Error ($\tau$) | Use Case
+| Model | House Effects Anchor | Non-Sampling Error | Use Case |
 |:---|:---|:---|:---|
-| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | Balanced, past performance used only for weights |
-| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Global $\tau$ shared by all pollsters | No use of past performance data |
-| **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (past bias $\rightarrow \delta$ prior) | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | Large reliance on past performance data |
+| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | Balanced model, past pollster performance is used only for weights |
+| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Global $\tau$ shared by all pollsters | No use of past pollster performance, relies entirely on current-cycle data |
+| **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (past bias $\rightarrow \delta$ prior) | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | Large reliance on past pollster performance as informative prior |
 | **Retrospectivo** (*Retrospective*) | Actual election result $\left(\mu_T\right)$ | Global $\tau$ shared by all pollsters | Post-election diagnostics |
 | **Naive** | None | None | Baseline model |
 
