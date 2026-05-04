@@ -327,6 +327,15 @@ In the error term $\varepsilon$, $\sigma$ represents a lower bound of uncertaint
 from sampling theory, whereas $\tau$ captures the excess empirical variance required
 to account for the data's observed dispersion.
 
+Early stages of election campaigns are frequently characterized by data sparsity.
+In such low-information environments, partial pooling struggles to identify
+group-level variances, often leading to complete shrinkage or convergence failures.
+The scale parameters for $\delta$ and $\tau$ are anchored to keep the models robust
+and identifiable throughout the entire cycle, transitioning gracefully from a
+prior-dominated regime to a data-dominated one as the volume of polling increases.
+Specific values for priors can be modified by the `configurar_prioris()` function,
+and details are available in its documentation.
+
 Computationally, the measurement model is designed to prioritize high sampling
 efficiency and convergence stability (see [Model Validation](#model-validation)).
 The normal likelihood provides a convenient approximation of latent support for
@@ -336,56 +345,44 @@ proposed by Stoetzer et al. (2019), this normal approximation yields nearly
 identical inferences for leading candidates, samples significantly faster, and is
 far less prone to divergent transitions.
 
-In summary, the measurement model identifies three sources of uncertainty for
-polls:
+In summary, we are explicitly modeling three sources of support uncertainty in polls:
 
 1.  **Sampling Error** ($\sigma_{i, c}$): The inherent uncertainty derived
     from the effective sample size of the poll $i$ and the support level
     for candidate $c$.
-2.  **House Effects** ($\delta_{j,k,p}$): A systematic deviation
-    specific to pollster $j$, conditional on the election round $k$ and
-    the candidate’s political alignment $p$.
-3.  **Non-Sampling Error** ($\tau_{j,k,p}$): An additional error parameter
-    capturing uncertainty extrinsic to random sampling (e.g., design effects,
+2.  **House Effects** ($\delta_{j,k,p}$): A systematic bias specific
+    to pollster $j$, conditional on the election round $k$ and the
+    candidate’s political alignment $p$.
+4.  **Non-Sampling Error** ($\tau_{j,k,p}$): An additional error parameter
+    capturing noise extrinsic to random sampling (e.g., design effects,
     non-ignorable non-response bias), also localized by pollster $j$,
     round $k$, and political alignment $p$.
 
 ### Models Overview
 
 Based on the methods described above, `agregR` offers a set of
-specialized models that differ in their assumptions regarding house
-effects ($\delta$) and non-sampling error ($\tau$) estimation:
+models that differ in their assumptions regarding house effects
+($\delta$) and non-sampling error ($\tau$) estimation:
 
 - **House Effects**: Since $\mu$ and $\delta$ are not jointly identifiable, house
-  effects $\delta_{j,k,p}$ follow a regularizing prior centered either on a
-  sum-to-zero constraint or on historical/actual electoral results. This anchor
-  prevents individual polls from disproportionately pulling the latent trend
-  unless supported by cumulative evidence.
+  effects $\delta_{j,k,p}$ follow a regularizing prior centered either on the pollsters'
+  average or on electoral results. The anchor choice defines whether house effects
+  are interpreted as relative deviations from the current-cycle consensus or as biases
+  against observed data.
 - **Non-Sampling Error**: Models using localized non-sampling errors $\tau_{j,k,p}$ 
   as prior means effectively perform **automated weighting**. This approach
   penalizes pollsters with higher Root Mean Square Error (RMSE) in the last
   election while maintaining the flexibility to update its estimates based
   on current-cycle data. Models employing a global $\tau$ give every pollster
-  the same weight.
+  equal weight.
 
-| Model | House Effects Anchor | Non-Sampling Error | Use Case |
+| Model | House Effects Anchor | Non-Sampling Error | Description |
 |:---|:---|:---|:---|
-| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | Balanced model, past pollster performance is used only for weighting |
-| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Global $\tau$ shared by all pollsters | No use of past pollster performance, relies entirely on current-cycle data |
-| **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (past bias $\rightarrow \delta$ prior) | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | Large reliance on past pollster performance as informative prior |
-| **Retrospectivo** (*Retrospective*) | Actual election result $\left(\mu_T\right)$ | Global $\tau$ shared by all pollsters | Post-election diagnostics |
+| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | A balanced model that weights pollsters by past performance and anchors bias to the current-cycle consensus |
+| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus $\left(\sum_j \delta_{j, k, p} = 0\right)$ | Global $\tau$ shared across pollsters | Relies entirely on current-cycle data without leveraging historical pollster performance |
+| **Viés Empírico** (*Empirical Bias*) | Last election $\delta_{j,k,p}$ (past bias $\rightarrow \delta$ prior) | Last election $\tau_{j,k,p}$ (past RMSE $\rightarrow \tau$ prior) | Relies heavily on historical performance to determine both bias priors and weights |
+| **Retrospectivo** (*Retrospective*) | Actual election result $\left(\mu_T\right)$ | Global $\tau$ shared across pollsters | Anchored to observed result, useful for post-election diagnostics |
 | **Naive** | None | None | Baseline model |
-
-Early stages of election campaigns are frequently characterized by extreme
-data sparsity. In such low-information environments, fully hierarchical models
-struggle to identify group-level variances, often leading to complete shrinkage
-or convergence failures.
-
-Anchoring the scale parameters for $\delta$ and $\tau$ keeps the models robust and
-identifiable throughout the entire cycle, transitioning gracefully from a
-prior-dominated regime to a data-dominated one as the volume of polling increases.
-Specific values for priors can be accessed (and modified) by the `configurar_prioris()`
-function, and details are available in its documentation.
 
 ## Model Validation
 
