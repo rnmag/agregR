@@ -327,27 +327,28 @@
 <span class="math inline">\(p(c)\)</span>: Political alignment for candidate <span class="math inline">\(c\)</span> (<span class="math inline">\(p \in \{\text{left, right, other}\}\)</span>).</li>
 </ul>
 <p>In the error term <span class="math inline">\(\varepsilon\)</span>, <span class="math inline">\(\sigma\)</span> represents a lower bound of uncertainty from sampling theory, whereas <span class="math inline">\(\tau\)</span> captures the excess empirical variance required to account for the data’s observed dispersion.</p>
+<p>Early stages of election campaigns are frequently characterized by data sparsity. In such low-information environments, partial pooling struggles to identify group-level variances, often leading to complete shrinkage or convergence failures. The scale parameters for <span class="math inline">\(\delta\)</span> and <span class="math inline">\(\tau\)</span> are anchored to keep the models robust and identifiable throughout the entire cycle, transitioning gracefully from a prior-dominated regime to a data-dominated one as the volume of polling increases. Specific values for priors can be modified by the <code><a href="reference/configurar_prioris.html">configurar_prioris()</a></code> function, and details are available in its documentation.</p>
 <p>Computationally, the measurement model is designed to prioritize high sampling efficiency and convergence stability (see <a href="#model-validation">Model Validation</a>). The normal likelihood provides a convenient approximation of latent support for competitive candidates whose polling numbers do not approach the 0% boundary. Compared to the full multinomial implementation with Cholesky-factorized covariance proposed by Stoetzer et al. (2019), this normal approximation yields nearly identical inferences for leading candidates, samples significantly faster, and is far less prone to divergent transitions.</p>
-<p>In summary, the measurement model identifies three sources of uncertainty for polls:</p>
+<p>In summary, we are explicitly modeling three sources of support uncertainty in polls:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>Sampling Error</strong> (<span class="math inline">\(\sigma_{i, c}\)</span>): The inherent uncertainty derived from the effective sample size of the poll <span class="math inline">\(i\)</span> and the support level for candidate <span class="math inline">\(c\)</span>.</li>
 <li>
-<strong>House Effects</strong> (<span class="math inline">\(\delta_{j,k,p}\)</span>): A systematic deviation specific to pollster <span class="math inline">\(j\)</span>, conditional on the election round <span class="math inline">\(k\)</span> and the candidate’s political alignment <span class="math inline">\(p\)</span>.</li>
+<strong>House Effects</strong> (<span class="math inline">\(\delta_{j,k,p}\)</span>): A systematic bias specific to pollster <span class="math inline">\(j\)</span>, conditional on the election round <span class="math inline">\(k\)</span> and the candidate’s political alignment <span class="math inline">\(p\)</span>.</li>
 <li>
-<strong>Non-Sampling Error</strong> (<span class="math inline">\(\tau_{j,k,p}\)</span>): An additional error parameter capturing uncertainty extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by pollster <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span>, and political alignment <span class="math inline">\(p\)</span>.</li>
+<strong>Non-Sampling Error</strong> (<span class="math inline">\(\tau_{j,k,p}\)</span>): An additional error parameter capturing noise extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by pollster <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span>, and political alignment <span class="math inline">\(p\)</span>.</li>
 </ol>
 </div>
 </div>
 <div class="section level3">
 <h3 id="models-overview">Models Overview<a class="anchor" aria-label="anchor" href="#models-overview"></a>
 </h3>
-<p>Based on the methods described above, <code>agregR</code> offers a set of specialized models that differ in their assumptions regarding house effects (<span class="math inline">\(\delta\)</span>) and non-sampling error (<span class="math inline">\(\tau\)</span>) estimation:</p>
+<p>Based on the methods described above, <code>agregR</code> offers a set of models that differ in their assumptions regarding house effects (<span class="math inline">\(\delta\)</span>) and non-sampling error (<span class="math inline">\(\tau\)</span>) estimation:</p>
 <ul>
 <li>
-<strong>House Effects</strong>: Since <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\delta\)</span> are not jointly identifiable, house effects <span class="math inline">\(\delta_{j,k,p}\)</span> follow a regularizing prior centered either on a sum-to-zero constraint or on historical/actual electoral results. This anchor prevents individual polls from disproportionately pulling the latent trend unless supported by cumulative evidence.</li>
+<strong>House Effects</strong>: Since <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\delta\)</span> are not jointly identifiable, house effects <span class="math inline">\(\delta_{j,k,p}\)</span> follow a regularizing prior centered either on the pollsters’ average or on electoral results. The anchor choice defines whether house effects are interpreted as relative deviations from the current-cycle consensus or as biases against observed data.</li>
 <li>
-<strong>Non-Sampling Error</strong>: Models using localized non-sampling errors <span class="math inline">\(\tau_{j,k,p}\)</span> as prior means effectively perform <strong>automated weighting</strong>. This approach penalizes pollsters with higher Root Mean Square Error (RMSE) in the last election while maintaining the flexibility to update its estimates based on current-cycle data. Models employing a global <span class="math inline">\(\tau\)</span> give every pollster the same weight.</li>
+<strong>Non-Sampling Error</strong>: Models using localized non-sampling errors <span class="math inline">\(\tau_{j,k,p}\)</span> as prior means effectively perform <strong>automated weighting</strong>. This approach penalizes pollsters with higher Root Mean Square Error (RMSE) in the last election while maintaining the flexibility to update its estimates based on current-cycle data. Models employing a global <span class="math inline">\(\tau\)</span> give every pollster equal weight.</li>
 </ul>
 <table class="table">
 <colgroup>
@@ -360,7 +361,7 @@
 <th align="left">Model</th>
 <th align="left">House Effects Anchor</th>
 <th align="left">Non-Sampling Error</th>
-<th align="left">Use Case</th>
+<th align="left">Description</th>
 </tr></thead>
 <tbody>
 <tr>
@@ -369,30 +370,30 @@
 <td align="left">Consensus <span class="math inline">\(\left(\sum_j \delta_{j, k, p} = 0\right)\)</span>
 </td>
 <td align="left">Last election <span class="math inline">\(\tau_{j,k,p}\)</span> (past RMSE <span class="math inline">\(\rightarrow \tau\)</span> prior)</td>
-<td align="left">Balanced model, past pollster performance is used only for weighting</td>
+<td align="left">A balanced model that weights pollsters by past performance and anchors bias to the current-cycle consensus</td>
 </tr>
 <tr>
 <td align="left">
 <strong>Viés Relativo sem Pesos</strong> (<em>Unweighted Relative Bias</em>)</td>
 <td align="left">Consensus <span class="math inline">\(\left(\sum_j \delta_{j, k, p} = 0\right)\)</span>
 </td>
-<td align="left">Global <span class="math inline">\(\tau\)</span> shared by all pollsters</td>
-<td align="left">No use of past pollster performance, relies entirely on current-cycle data</td>
+<td align="left">Global <span class="math inline">\(\tau\)</span> shared across pollsters</td>
+<td align="left">Relies entirely on current-cycle data without leveraging historical pollster performance</td>
 </tr>
 <tr>
 <td align="left">
 <strong>Viés Empírico</strong> (<em>Empirical Bias</em>)</td>
 <td align="left">Last election <span class="math inline">\(\delta_{j,k,p}\)</span> (past bias <span class="math inline">\(\rightarrow \delta\)</span> prior)</td>
 <td align="left">Last election <span class="math inline">\(\tau_{j,k,p}\)</span> (past RMSE <span class="math inline">\(\rightarrow \tau\)</span> prior)</td>
-<td align="left">Large reliance on past pollster performance as informative prior</td>
+<td align="left">Relies heavily on historical performance to determine both bias priors and weights</td>
 </tr>
 <tr>
 <td align="left">
 <strong>Retrospectivo</strong> (<em>Retrospective</em>)</td>
 <td align="left">Actual election result <span class="math inline">\(\left(\mu_T\right)\)</span>
 </td>
-<td align="left">Global <span class="math inline">\(\tau\)</span> shared by all pollsters</td>
-<td align="left">Post-election diagnostics</td>
+<td align="left">Global <span class="math inline">\(\tau\)</span> shared across pollsters</td>
+<td align="left">Anchored to observed result, useful for post-election diagnostics</td>
 </tr>
 <tr>
 <td align="left"><strong>Naive</strong></td>
@@ -402,8 +403,6 @@
 </tr>
 </tbody>
 </table>
-<p>Early stages of election campaigns are frequently characterized by extreme data sparsity. In such low-information environments, fully hierarchical models struggle to identify group-level variances, often leading to complete shrinkage or convergence failures.</p>
-<p>Anchoring the scale parameters for <span class="math inline">\(\delta\)</span> and <span class="math inline">\(\tau\)</span> keeps the models robust and identifiable throughout the entire cycle, transitioning gracefully from a prior-dominated regime to a data-dominated one as the volume of polling increases. Specific values for priors can be accessed (and modified) by the <code><a href="reference/configurar_prioris.html">configurar_prioris()</a></code> function, and details are available in its documentation.</p>
 </div>
 </div>
 <div class="section level2">
