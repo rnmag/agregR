@@ -5,7 +5,7 @@
 As presidential elections approach, Brazilian voters are confronted with
 a growing volume of conflicting polling estimates, each employing
 distinct methodologies and sampling designs. `agregR` provides a
-rigorous framework to process the surfeit of data and uncover the
+rigorous framework to filter the surfeit of data and uncover the
 underlying level of support for each candidate.
 
 The package implements a set of Bayesian state-space models in
@@ -398,7 +398,7 @@ and non-sampling error (\\\tau\\) estimation:
 | Model | House Effects | Non-Sampling Error | Description |
 |:---|:---|:---|:---|
 | **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\ | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) | A balanced model that weighs pollsters by past performance and anchors biases to the current-cycle consensus |
-| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\ | Global \\\tau\\ shared across pollsters | A “fresh-start” model that relies entirely on current-cycle data without leveraging historical pollster performance |
+| **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\ | Global \\\tau\\ shared across pollsters | A “fresh-start” model that relies entirely on current-cycle data, without incorporating historical pollster performance |
 | **Viés Empírico** (*Empirical Bias*) | Last election \\\delta\_{j,k,p}\\ (past bias \\\rightarrow \delta\\ prior) | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) | An empirical model that leans on historical performance to inform both bias priors and pollster weights |
 | **Retrospectivo** (*Retrospective*) | Actual election result \\\left(\mu_T\right)\\ | Global \\\tau\\ shared across pollsters | A “backward” model anchored to the ballot result, useful for post-election diagnostics |
 | **Naive** | None | None | Baseline model |
