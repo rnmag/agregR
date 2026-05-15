@@ -338,17 +338,20 @@ covariates:
 
 In the error term \\\varepsilon\\, \\\sigma\\ represents a lower bound
 of uncertainty from sampling theory, whereas \\\tau\\ captures the
-excess empirical variance required to account for the data’s observed
-dispersion.
+excess empirical variance required to model overdispersion. This
+non-sampling error parameter accounts for the fact that published
+interval estimates sometimes entirely miss the election results, and can
+be used to downweight inaccurate pollsters (see [Models
+Overview](#models-overview)).
 
-Early stages of election campaigns are frequently characterized by data
-sparsity. In such low-information environments, partial pooling
-struggles to identify group-level variances, often leading to complete
-shrinkage or convergence failures. The scale parameters for \\\delta\\
-and \\\tau\\ are anchored to keep the models robust and identifiable
-throughout the entire cycle, transitioning gracefully from a
-prior-dominated regime to a data-dominated one as the volume of polling
-increases. Specific values for priors can be modified by the
+Early stages of election campaigns are frequently characterized by
+polling sparsity. Partial pooling often struggles to identify
+group-level variances in such low-information environments, leading to
+complete shrinkage or convergence failures. The scale parameters for
+\\\delta\\ and \\\tau\\ are anchored to keep the models robust and
+identifiable throughout the entire cycle, transitioning gracefully from
+a prior-dominated regime to a data-dominated one as the volume of
+polling increases. Specific values for priors can be modified by the
 [`configurar_prioris()`](https://rnmag.github.io/agregR/reference/configurar_prioris.md)
 function, and details are available in its documentation.
 
