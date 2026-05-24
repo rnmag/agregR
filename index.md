@@ -13,7 +13,7 @@ The package implements a set of Bayesian state-space models in
 extracting a stable signal from diverse, noisy, and possibly biased data
 sources. It features methods to account for:
 
-- House effects relative to consensus
+- House effects
 - Pollster performance in past elections
 - Asymmetric accuracy based on candidates’ political alignment
 - Polls reporting inflated precision
@@ -35,8 +35,9 @@ sources. It features methods to account for:
   - [Models Overview](#models-overview)
 - [Model Validation](#model-validation)
   - [Posterior Predictive Checks](#posterior-predictive-checks)
-  - [Posterior Geometry](#posterior-geometry)
-  - [Convergence](#convergence)
+  - [Posterior Geometry and
+    Convergence](#posterior-geometry-and-convergence)
+  - [Sampling Efficiency](#sampling-efficiency)
 - [References](#references)
 
 ## Installation
@@ -344,14 +345,11 @@ interval estimates sometimes entirely miss the election results, and can
 be used to downweight inaccurate pollsters (see [Models
 Overview](#models-overview)).
 
-Early stages of election campaigns are frequently characterized by
-polling sparsity. Partial pooling often struggles to identify
-group-level variances in such low-information environments, leading to
-complete shrinkage or convergence failures. The scale parameters for
-\\\delta\\ and \\\tau\\ are anchored to keep the models robust and
-identifiable throughout the entire cycle, transitioning gracefully from
-a prior-dominated regime to a data-dominated one as the volume of
-polling increases. Specific values for priors can be modified by the
+The scale parameters for \\\delta\\ and \\\tau\\ are calibrated to
+transition gracefully from a prior-dominated regime in the early stages
+of the campaign, when polling is sparse, to a data-dominated one as the
+volume of polling increases[^1]. Specific values for priors can be
+modified by the
 [`configurar_prioris()`](https://rnmag.github.io/agregR/reference/configurar_prioris.md)
 function, and details are available in its documentation.
 
@@ -360,10 +358,10 @@ sampling efficiency and convergence stability (see [Model
 Validation](#model-validation)). The normal likelihood provides a
 convenient approximation of latent support for competitive candidates
 whose polling numbers do not approach the 0% boundary. Compared to the
-full multinomial implementation with Cholesky-factorized covariance
-proposed by Stoetzer et al. (2019), this normal approximation yields
-nearly identical inferences for leading candidates, samples
-significantly faster, and is far less prone to divergent transitions.
+multinomial implementation proposed by Stoetzer et al. (2019), this
+normal approximation yields nearly identical inferences for leading
+candidates, samples significantly faster, and is far less prone to
+divergent transitions.
 
 In summary, we are explicitly modeling three sources of support
 uncertainty in polls:
@@ -400,7 +398,7 @@ and non-sampling error (\\\tau\\) estimation:
 
 | Model | House Effects | Non-Sampling Error | Description |
 |:---|:---|:---|:---|
-| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\ | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) | A balanced model that weighs pollsters by past performance and anchors biases to the current-cycle consensus |
+| **Viés Relativo com Pesos** (*Weighted Relative Bias*) | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\ | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) | A balanced model that weights pollsters by past performance and anchors biases to the current-cycle consensus |
 | **Viés Relativo sem Pesos** (*Unweighted Relative Bias*) | Consensus \\\left(\sum_j \delta\_{j, k, p} = 0\right)\\ | Global \\\tau\\ shared across pollsters | A “fresh-start” model that relies entirely on current-cycle data, without incorporating historical pollster performance |
 | **Viés Empírico** (*Empirical Bias*) | Last election \\\delta\_{j,k,p}\\ (past bias \\\rightarrow \delta\\ prior) | Last election \\\tau\_{j,k,p}\\ (past RMSE \\\rightarrow \tau\\ prior) | An empirical model that leans on historical performance to inform both bias priors and pollster weights |
 | **Retrospectivo** (*Retrospective*) | Actual election result \\\left(\mu_T\right)\\ | Global \\\tau\\ shared across pollsters | A “backward” model anchored to the ballot result, useful for post-election diagnostics |
@@ -411,10 +409,10 @@ and non-sampling error (\\\tau\\) estimation:
 ### Posterior Predictive Checks
 
 Every Stan model in `agregR` includes a `generated quantities` block,
-enabling Posterior Predictive Checks. By simulating \\y\_{rep}\\ from
-the posterior distribution, users can verify that the model accurately
-reflects the observed data (Gabry et al., 2019). The example below
-demonstrates this using the `bayesplot` package.
+enabling Posterior Predictive Checks. Users can verify that the model
+accurately reflects observed data by simulating poll values from the
+posterior distribution. The example below demonstrates this using the
+`bayesplot` package.
 
 ``` r
 
@@ -456,14 +454,15 @@ ppc_intervals(y, y_rep, prob = 0.67, prob_outer = 0.95) +
 
 ![](reference/figures/README-ppc-plot.png)
 
-### Posterior Geometry
+### Posterior Geometry and Convergence
 
 Parameter distributions are standardized using Non-Centered
-Parametrization. This flattens posterior geometry and addresses the
-“funnel” problem common in hierarchical models, significantly improving
-sampling efficiency and virtually eliminating divergent transitions in
-standard scenarios (Stan Development Team, [Efficiency Tuning:
+Parametrization (Stan Development Team, [Efficiency Tuning:
 Reparametrization](https://mc-stan.org/docs/stan-users-guide/efficiency-tuning.html#reparameterization.section)).
+This flattens posterior geometry and addresses the “funnel” problem
+common in hierarchical models (Gabry et al., 2019), significantly
+improving sampling efficiency and virtually eliminating divergent
+transitions in standard scenarios.
 
 ``` r
 
@@ -477,13 +476,13 @@ mcmc_scatter(modelo_cand$draws(),
 
 ![](reference/figures/README-mcmc-scatter.png)
 
-### Convergence
+### Sampling Efficiency
 
-The MCMC chains demonstrate robust convergence, with the following plot
-illustrating typical Effective Sample Size (ESS) and R-hat values.
-Notably, many parameters exhibit an ESS exceeding the nominal number of
-post-warmup iterations (blue line), a result of anti-correlated draws
-that further underscores high sampling efficiency.
+High sampling efficiency allows for fast models without sacrificing
+inference quality. Typical values for Effective Sample Size (ESS) and
+R-hat fall comfortably within recommended benchmarks. Notably, many
+parameters exhibit an ESS exceeding the nominal number of post-warmup
+iterations (blue line).
 
 ``` r
 
@@ -524,3 +523,9 @@ Reparametrization)*. Retrieved from
 Stoetzer, L. F., et al. (2019). *Forecasting Elections in Multiparty
 Systems: A Bayesian Approach Combining Polls and Fundamentals*.
 Political Analysis.
+
+[^1]: Partial pooling struggles to identify group-level variances in
+    such low-information environments as early campaigns, often leading
+    to complete shrinkage or convergence failures. Anchoring the scale
+    parameters keeps the models robust and reliable throughout the
+    entire cycle.
