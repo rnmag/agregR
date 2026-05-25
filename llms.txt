@@ -346,10 +346,10 @@ be used to downweight inaccurate pollsters (see [Models
 Overview](#models-overview)).
 
 The scale parameters for \\\delta\\ and \\\tau\\ are calibrated to
-transition gracefully from a prior-dominated regime in the early stages
-of the campaign, when polling is sparse, to a data-dominated one as the
-volume of polling increases[^1]. Specific values for priors can be
-modified by the
+address polling sparsity in the early stages of the election cycle,
+allowing the model to transition gracefully from a prior-dominated
+regime to a data-dominated one as the volume of polling increases[^1].
+Specific values for priors can be modified by the
 [`configurar_prioris()`](https://rnmag.github.io/agregR/reference/configurar_prioris.md)
 function, and details are available in its documentation.
 
@@ -525,8 +525,8 @@ Systems: A Bayesian Approach Combining Polls and Fundamentals*.
 Political Analysis.
 
 [^1]: Partial pooling struggles to identify group-level variances in
-    such low-information environments as early campaigns, often leading
-    to complete shrinkage or convergence failures. Anchoring the scale
+    low-information environments like early campaigns, often leading to
+    complete shrinkage or convergence failures. Anchoring the scale
     parameters keeps the models robust and reliable throughout the
     entire cycle.
 
