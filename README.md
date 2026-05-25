@@ -329,16 +329,16 @@ to model overdispersion. This non-sampling error parameter accounts for the fact
 that published interval estimates sometimes entirely miss the election results, and
 can be used to downweight inaccurate pollsters (see [Models Overview](#models-overview)).
 
-The scale parameters for $\delta$ and $\tau$ are calibrated to transition gracefully
-from a prior-dominated regime in the early stages of the campaign, when polling is
-sparse, to a data-dominated one as the volume of polling increases[^1]. Specific
-values for priors can be modified by the `configurar_prioris()` function, and details
-are available in its documentation.
+The scale parameters for $\delta$ and $\tau$ are calibrated to address polling sparsity
+in the early stages of the election cycle, allowing the model to transition gracefully
+from a prior-dominated regime to a data-dominated one as the volume of polling increases[^1].
+Specific values for priors can be modified by the `configurar_prioris()` function,
+and details are available in its documentation.
 
-[^1]: Partial pooling struggles to identify group-level variances in such low-information
-environments as early campaigns, often leading to complete shrinkage or convergence failures.
-Anchoring the scale parameters keeps the models robust and reliable throughout the
-entire cycle.
+[^1]: Partial pooling struggles to identify group-level variances in low-information
+environments like early campaigns, often leading to complete shrinkage or convergence
+failures. Anchoring the scale parameters keeps the models robust and reliable throughout
+the entire cycle.
 
 Computationally, the measurement model is designed to prioritize high sampling
 efficiency and convergence stability (see [Model Validation](#model-validation)).
