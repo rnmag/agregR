@@ -16,9 +16,8 @@ sampling designs. `agregR` provides a rigorous framework to filter the surfeit
 of data and uncover the underlying level of support for each candidate.
 
 The package implements a set of Bayesian state-space models in
-[Stan](https://mc-stan.org/) to aggregate and normalize polling data, extracting
-a stable signal from diverse, noisy, and possibly biased data sources. It features
-methods to account for:
+[Stan](https://mc-stan.org/) to normalize polling data from noisy and
+possibly biased data sources. It features methods to account for:
 
 - House effects
 - Pollster performance in past elections
