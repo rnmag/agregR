@@ -114,10 +114,10 @@ library(agregR)
 
 # Execute the aggregation pipeline for a 2nd round scenario
 result <- rodar_agregador(
-  data_inicio = "01/01/2025",
+  data_inicio = "01/06/2025",
   turno = 2,
   cenario = "Lula vs Flávio",
-  modelo = "Viés Empírico"
+  modelo = "Viés Relativo com Pesos"
 )
 
 # Daily voting estimates + poll data in tidy format
