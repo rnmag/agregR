@@ -129,7 +129,7 @@
 <p>The most convenient way to install CmdStan is via the <code>cmdstanr</code> interface.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install cmdstanr interface</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"cmdstanr"</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://mc-stan.org/r-packages/"</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"repos"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'cmdstanr'</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'https://stan-dev.r-universe.dev'</span>, <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Install CmdStan</span></span>
 <span><span class="fu">cmdstanr</span><span class="fu">::</span><span class="fu"><a href="https://mc-stan.org/cmdstanr/reference/install_cmdstan.html" class="external-link">install_cmdstan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -164,7 +164,7 @@
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rodar_agregador.html">rodar_agregador</a></span><span class="op">(</span></span>
 <span>  data_inicio <span class="op">=</span> <span class="st">"01/01/2025"</span>,</span>
 <span>  turno <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  cenario <span class="op">=</span> <span class="st">"Lula vs Tarcísio"</span>,</span>
+<span>  cenario <span class="op">=</span> <span class="st">"Lula vs Flávio"</span>,</span>
 <span>  modelo <span class="op">=</span> <span class="st">"Viés Empírico"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -194,7 +194,7 @@
 </h4>
 <p>Visualizes the systematic bias for each institute, identifying consistent directional skews.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_vies.html">grafico_vies</a></span><span class="op">(</span><span class="va">result</span>, candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lula"</span>, <span class="st">"Tarcísio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_vies.html">grafico_vies</a></span><span class="op">(</span><span class="va">result</span>, candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lula"</span>, <span class="st">"Flávio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-vies-plot.png"></p>
 </div>
 <div class="section level4">
@@ -202,7 +202,7 @@
 </h4>
 <p>Visualizes how the data has informed the model by comparing prior vs. posterior distributions for selected parameters.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_priori_posteriori.html">grafico_priori_posteriori</a></span><span class="op">(</span><span class="va">result</span>, tipo <span class="op">=</span> <span class="st">"Viés"</span>, candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lula"</span>, <span class="st">"Tarcísio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_priori_posteriori.html">grafico_priori_posteriori</a></span><span class="op">(</span><span class="va">result</span>, tipo <span class="op">=</span> <span class="st">"Viés"</span>, candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lula"</span>, <span class="st">"Flávio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-prior-posterior-plot.png"></p>
 </div>
 </div>
@@ -214,7 +214,7 @@
 <code class="sourceCode R"><span><span class="co"># Config passed as list: longer run with tighter priors for non-sampling error</span></span>
 <span><span class="va">result_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rodar_agregador.html">rodar_agregador</a></span><span class="op">(</span></span>
 <span>  turno <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  cenario <span class="op">=</span> <span class="st">"Lula vs Tarcísio"</span>,</span>
+<span>  cenario <span class="op">=</span> <span class="st">"Lula vs Flávio"</span>,</span>
 <span>  config_agregador <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>stan_chains <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>                          stan_iter <span class="op">=</span> <span class="fl">2000</span>,</span>
 <span>                          stan_warmup <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span>,</span>
@@ -225,7 +225,7 @@
 <span><span class="fu"><a href="reference/grafico_agregador.html">grafico_agregador</a></span><span class="op">(</span></span>
 <span>  <span class="va">result</span>, </span>
 <span>  config_grafico <span class="op">=</span> <span class="fu"><a href="reference/configurar_grafico.html">configurar_grafico</a></span><span class="op">(</span></span>
-<span>    cores_candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tarcísio"</span> <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span>,</span>
+<span>    cores_candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Flávio"</span> <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span>,</span>
 <span>    simbolos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Presencial"</span> <span class="op">=</span> <span class="fl">19</span>, <span class="st">"Online"</span> <span class="op">=</span> <span class="fl">2</span>, <span class="st">"Telefônica"</span> <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
