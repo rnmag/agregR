@@ -164,7 +164,7 @@ rodar_agregador <- function(bd = NULL,
   if (!requireNamespace("cmdstanr", quietly = TRUE)) {
 
     cli_abort(c("O pacote {.pkg cmdstanr} \u00e9 necess\u00e1rio para rodar esta fun\u00e7\u00e3o.",
-                "i" = "Instale-o com {.code install.packages('cmdstanr', repos = 'https://mc-stan.org/r-packages/')}.",
+                "i" = "Instale-o com {.code install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))}.",
                 "i" = "Ou consulte {.url https://mc-stan.org/cmdstanr/}."))
 
   }
