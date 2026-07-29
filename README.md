@@ -71,7 +71,7 @@ The most convenient way to install CmdStan is via the `cmdstanr` interface.
 
 ``` r
 # Install cmdstanr interface
-install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))
 
 # Install CmdStan
 cmdstanr::install_cmdstan()
@@ -114,7 +114,7 @@ library(agregR)
 result <- rodar_agregador(
   data_inicio = "01/01/2025",
   turno = 2,
-  cenario = "Lula vs Tarcísio",
+  cenario = "Lula vs Flávio",
   modelo = "Viés Empírico"
 )
 
@@ -148,7 +148,7 @@ grafico_agregador(result)
 Visualizes the systematic bias for each institute, identifying consistent directional skews.
 
 ``` r
-grafico_vies(result, candidaturas = c("Lula", "Tarcísio"))
+grafico_vies(result, candidaturas = c("Lula", "Flávio"))
 ```
 
 ![](man/figures/README-vies-plot.png)
@@ -159,7 +159,7 @@ Visualizes how the data has informed the model by comparing prior
 vs. posterior distributions for selected parameters.
 
 ``` r
-grafico_priori_posteriori(result, tipo = "Viés", candidaturas = c("Lula", "Tarcísio"))
+grafico_priori_posteriori(result, tipo = "Viés", candidaturas = c("Lula", "Flávio"))
 ```
 
 ![](man/figures/README-prior-posterior-plot.png)
@@ -176,7 +176,7 @@ to the appropriate arguments.
 # Config passed as list: longer run with tighter priors for non-sampling error
 result_custom <- rodar_agregador(
   turno = 2,
-  cenario = "Lula vs Tarcísio",
+  cenario = "Lula vs Flávio",
   config_agregador = list(stan_chains = 4,
                           stan_iter = 2000,
                           stan_warmup = 2000),
@@ -187,7 +187,7 @@ result_custom <- rodar_agregador(
 grafico_agregador(
   result, 
   config_grafico = configurar_grafico(
-    cores_candidaturas = c("Tarcísio" = "yellow"),
+    cores_candidaturas = c("Flávio" = "yellow"),
     simbolos = c("Presencial" = 19, "Online" = 2, "Telefônica" = 4)
   )
 )
