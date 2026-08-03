@@ -1,4 +1,4 @@
-# agregR <a href='https://github.com/rnmag/agregR/'><img src='man/figures/logo.png' align="right" height="160" /></a>
+# agregR <a href="https://github.com/rnmag/agregR/"><img src="man/figures/logo.png" align="right" height="160" /></a>
 
 <!-- badges: start -->
 
@@ -71,7 +71,7 @@ The most convenient way to install CmdStan is via the `cmdstanr` interface.
 
 ``` r
 # Install cmdstanr interface
-install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))
+install.packages("cmdstanr", repos = c("https://stan-dev.r-universe.dev", "https://cloud.r-project.org"))
 
 # Install CmdStan
 cmdstanr::install_cmdstan()
