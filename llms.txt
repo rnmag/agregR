@@ -67,7 +67,7 @@ interface.
 ``` r
 
 # Install cmdstanr interface
-install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))
+install.packages("cmdstanr", repos = c("https://stan-dev.r-universe.dev", "https://cloud.r-project.org"))
 
 # Install CmdStan
 cmdstanr::install_cmdstan()
