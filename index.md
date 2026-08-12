@@ -133,7 +133,8 @@ result$modelo_bruto
 ### Visualization
 
 The package includes a suite of plots designed for public communication.
-We strongly recommend RStudio users to [enable the AGG graphics
+
+We strongly recommend **RStudio** users to [enable the AGG graphics
 device](https://posit.co/blog/rstudio-v1-4-preview-little-things#render-plots-with-agg)
 in `Options -> General -> Graphics -> Backend`.
 
