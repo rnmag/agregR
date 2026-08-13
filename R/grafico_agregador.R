@@ -122,7 +122,8 @@ grafico_agregador <- function(bd,
               hjust = 0,
               nudge_x = 3, # rótulos 3 "dias" à direita da borda do gráfico
               show.legend = FALSE) +
-    coord_cartesian(clip = "off") + # percentuais podem passar a borda do gráfico
+    coord_cartesian(xlim = c(min(bd$votos_estimados$dia), max(bd$votos_estimados$dia)),
+                    clip = "off") + # percentuais podem passar a borda do gráfico
     # Legendas
     scale_fill_manual(values = unlist(config_grafico$cores_candidaturas)) +
     scale_colour_manual(values = unlist(config_grafico$cores_candidaturas)) +
@@ -134,7 +135,6 @@ grafico_agregador <- function(bd,
     scale_y_continuous(expand = expansion(mult = c(.02, .02)),
                        labels = scales::label_percent(1)) +
     scale_x_date(expand = expansion(mult = c(.025, 0)),
-                 limits = c(min(bd$votos_estimados$dia), max(bd$votos_estimados$dia)),
                  date_breaks = "1 month",
                  labels = \(x) {
                    if_else(is.na(lag(x)) | year(lag(x)) != year(x),
