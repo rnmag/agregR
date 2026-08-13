@@ -97,8 +97,8 @@ if (instantiate::stan_cmdstan_exists()) {
 #> Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 #> Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 #> Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-#> Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 #> Chain 3 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+#> Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 #> Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 #> Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 #> Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
@@ -112,24 +112,24 @@ if (instantiate::stan_cmdstan_exists()) {
 #> Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 3 finished in 23.0 seconds.
+#> Chain 3 finished in 17.7 seconds.
 #> Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+#> Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
+#> Chain 2 finished in 18.7 seconds.
 #> Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 #> Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-#> Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 2 finished in 25.3 seconds.
 #> Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 4 finished in 26.1 seconds.
+#> Chain 4 finished in 19.8 seconds.
 #> Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 #> Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 1 finished in 33.0 seconds.
+#> Chain 1 finished in 25.2 seconds.
 #> 
 #> All 4 chains finished successfully.
-#> Mean chain execution time: 26.8 seconds.
-#> Total execution time: 33.1 seconds.
+#> Mean chain execution time: 20.4 seconds.
+#> Total execution time: 25.3 seconds.
 #> 
 #> Error in geom_text_repel(data = slice_max(group_by(bd$votos_estimados,     candidatura), dia, n = 1, with_ties = FALSE), aes(label = percentual_estimado,     color = candidatura), size = 6, family = config_grafico$fonte,     fontface = "bold", direction = "y", segment.color = NA, hjust = -0.25,     show.legend = FALSE): could not find function "geom_text_repel"
 ```
