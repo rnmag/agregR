@@ -27,11 +27,12 @@ configurar_grafico <- function(fonte = "Fira Sans",
                                dir_grafico = "resultados_agregador/graficos") {
 
   # Valores originais
-  cores_padrao <- list(Lula = "#CF4446",
-                       Bolsonaro = "#446AAF",
+  cores_padrao <- list("Lula" = "#CF4446",
+                       "Bolsonaro" = "#446AAF",
                        "Fl\u00e1vio" = "#446AAF",
-                       "Tarc\u00edsio" = "#008564",
-                       `Ratinho Jr.` = "#9000C8")
+                       "Caiado" = "#008564",
+                       "Renan" = "#F7D13D",
+                       "Zema" = "#9000C8")
 
   simbolos_padrao <- list(Online = 3,
                           Presencial = 1,
