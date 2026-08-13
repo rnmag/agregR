@@ -121,7 +121,9 @@ grafico_agregador <- function(bd,
                     direction = "y",
                     segment.color = NA, # não desenhar linha de ligação entre rótulo e ponto
                     point.padding = NA, # rótulo próximo do fim da linha, sem padding
+                    box.padding = 0,
                     xlim = c(-Inf, Inf), # tirar limites do gráfico para incluir rótulos
+                    ylim = c(-Inf, Inf),
                     show.legend = FALSE) +
     coord_cartesian(xlim = c(min(bd$votos_estimados$dia), max(bd$votos_estimados$dia)),
                     clip = "off") + # ggplot não corta percentuais que passam a borda do gráfico
