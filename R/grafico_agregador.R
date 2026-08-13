@@ -111,7 +111,8 @@ grafico_agregador <- function(bd,
     geom_text_repel(data = bd$votos_estimados |>
                       group_by(candidatura) |>
                       slice_max(dia, n = 1, with_ties = FALSE),
-                    aes(label = percentual_estimado,
+                    aes(x = dia + 15, # rótulos 15 "dias" à direita da borda do gráfico
+                        label = percentual_estimado,
                         color = candidatura),
                     size = 6,
                     family = config_grafico$fonte,
@@ -119,8 +120,7 @@ grafico_agregador <- function(bd,
                     hjust = 0,
                     direction = "y",
                     segment.color = NA,
-                    xlim = c(as.Date(NA), as.Date(NA)), # tirar limites do gráfico para incluir rótulos
-                    nudge_x = 15, # rótulos 15 "dias" à direita da borda do gráfico
+                    xlim = c(-Inf, Inf), # tirar limites do gráfico para incluir rótulos
                     show.legend = FALSE) +
     coord_cartesian(xlim = c(min(bd$votos_estimados$dia), max(bd$votos_estimados$dia)),
                     clip = "off") + # ggplot não corta percentuais que passam a borda do gráfico
