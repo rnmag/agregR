@@ -78,7 +78,7 @@ grafico_agregador <- function(bd,
 
   } else if (bd$nome_modelo == "Vi\u00e9s Emp\u00edrico") {
 
-    subtitulo_grafico <- "Estimativas com compensação pelo erro dos institutos na elei\u00e7\u00e3o passada"
+    subtitulo_grafico <- "Estimativas com compensa\u00e7\u00e3o pelo erro dos institutos na elei\u00e7\u00e3o passada"
 
   } else if (bd$nome_modelo == "Retrospectivo") {
 
