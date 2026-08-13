@@ -95,9 +95,6 @@ grafico_agregador <- function(bd,
     ggplot(aes(x = dia,
                y = mediana)) +
     # Definição dos geoms
-    geom_line(aes(color = candidatura),
-              lineend = "round",
-              linewidth = 1.5) +
     geom_ribbon(aes(ymin = li,
                     ymax = ls,
                     fill = candidatura),
@@ -106,8 +103,11 @@ grafico_agregador <- function(bd,
                    color = candidatura,
                    shape = metodologia),
                size = 2,
-               alpha = .5,
+               alpha = .6,
                na.rm = TRUE) +
+    geom_line(aes(color = candidatura),
+              lineend = "round",
+              linewidth = 1.5) +
     geom_text_repel(data = bd$votos_estimados |>
                 group_by(candidatura) |>
                 slice_max(dia, n = 1, with_ties = FALSE),
@@ -117,8 +117,10 @@ grafico_agregador <- function(bd,
               family = config_grafico$fonte,
               fontface = "bold",
               direction = "y",
-              segment.color = NA, 
-              hjust = -.25,
+              segment.color = NA,
+              xlim = c(max(bd$votos_estimados$dia), NA), 
+              hjust = 0,
+              nudge_x = 3, # rótulos 3 "dias" à direita da borda do gráfico
               show.legend = FALSE) +
     coord_cartesian(clip = "off") + # percentuais podem passar a borda do gráfico
     # Legendas
