@@ -111,7 +111,7 @@ grafico_agregador <- function(bd,
     geom_text_repel(data = bd$votos_estimados |>
                       group_by(candidatura) |>
                       slice_max(dia, n = 1, with_ties = FALSE),
-                    aes(x = dia + 15, # rótulos 15 "dias" à direita da borda do gráfico
+                    aes(x = dia + 3, # rótulos 3 "dias" à direita da borda do gráfico
                         label = percentual_estimado,
                         color = candidatura),
                     size = 6,
