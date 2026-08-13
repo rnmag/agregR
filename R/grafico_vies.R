@@ -73,19 +73,19 @@ grafico_vies <- function(bd,
   # Rótulos dependentes do modelo
   if (bd$nome_modelo %in% c("Vi\u00e9s Relativo sem Pesos", "Vi\u00e9s Relativo com Pesos")) {
 
-    titulo_grafico <- "Vi\u00e9s Relativo dos Institutos"
-    subtitulo_grafico <- "Modelo ancorado na estimativa m\u00e9dia dos institutos"
-    rotulo_eixo_x <- "Vi\u00e9s em rela\u00e7\u00e3o \u00e0 m\u00e9dia dos institutos"
+    titulo_grafico <- "Vi\u00e9s Relativo"
+    subtitulo_grafico <- "Modelo ancorado no consenso dos institutos"
+    rotulo_eixo_x <- "Vi\u00e9s em rela\u00e7\u00e3o \u00e0 m\u00e9dia"
 
   } else if (bd$nome_modelo == "Vi\u00e9s Emp\u00edrico") {
 
-    titulo_grafico <- "Vi\u00e9s dos Institutos"
+    titulo_grafico <- "Vi\u00e9s"
     subtitulo_grafico <- "Modelo ancorado no desempenho dos institutos na elei\u00e7\u00e3o anterior"
     rotulo_eixo_x <- "Vi\u00e9s"
 
   } else if (bd$nome_modelo == "Retrospectivo") {
 
-    titulo_grafico <- "Vi\u00e9s dos Institutos"
+    titulo_grafico <- "Vi\u00e9s"
     subtitulo_grafico <- "Modelo ancorado no resultado final da elei\u00e7\u00e3o"
     rotulo_eixo_x <- "Vi\u00e9s"
 
