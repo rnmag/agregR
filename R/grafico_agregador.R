@@ -109,21 +109,21 @@ grafico_agregador <- function(bd,
               lineend = "round",
               linewidth = 1.5) +
     geom_text_repel(data = bd$votos_estimados |>
-                group_by(candidatura) |>
-                slice_max(dia, n = 1, with_ties = FALSE),
-              aes(label = percentual_estimado,
-                  color = candidatura),
-              size = 6,
-              family = config_grafico$fonte,
-              fontface = "bold",
-              direction = "y",
-              segment.color = NA,
-              xlim = c(max(bd$votos_estimados$dia), NA), 
-              hjust = 0,
-              nudge_x = 3, # rótulos 3 "dias" à direita da borda do gráfico
-              show.legend = FALSE) +
+                      group_by(candidatura) |>
+                      slice_max(dia, n = 1, with_ties = FALSE),
+                    aes(label = percentual_estimado,
+                        color = candidatura),
+                    size = 6,
+                    family = config_grafico$fonte,
+                    fontface = "bold",
+                    hjust = 0,
+                    direction = "y",
+                    segment.color = NA,
+                    xlim = c(as.Date(NA), as.Date(NA)), # tirar limites do gráfico para incluir rótulos
+                    nudge_x = 15, # rótulos 15 "dias" à direita da borda do gráfico
+                    show.legend = FALSE) +
     coord_cartesian(xlim = c(min(bd$votos_estimados$dia), max(bd$votos_estimados$dia)),
-                    clip = "off") + # percentuais podem passar a borda do gráfico
+                    clip = "off") + # ggplot não corta percentuais que passam a borda do gráfico
     # Legendas
     scale_fill_manual(values = unlist(config_grafico$cores_candidaturas)) +
     scale_colour_manual(values = unlist(config_grafico$cores_candidaturas)) +
