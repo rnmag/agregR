@@ -74,8 +74,8 @@ configurar_agregador <- function(pesquisas = NULL,
     candidaturas_1t <- c("Lula", "Fl\u00e1vio", "Caiado", "Renan", "Zema")
   }
 
-  if (is.null(candidaturas_2t)) {
-    candidaturas_2t <- c("Lula", "Fl\u00e1vio", "Caiado", "Renan", "Zema")
+  if (is.null(candidaturas_2t)) { # Bolsonaro fica só para rodar os exemplos do pacote
+    candidaturas_2t <- c("Bolsonaro", "Lula", "Fl\u00e1vio", "Caiado", "Renan", "Zema")
   }
 
   if (is.null(direita_eleicao_atual)) {
