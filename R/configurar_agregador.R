@@ -71,15 +71,15 @@ configurar_agregador <- function(pesquisas = NULL,
 
   # Definir candidaturas sem precisar refazer documentação
   if (is.null(candidaturas_1t)) {
-    candidaturas_1t <- c("Lula", "Fl\u00e1vio", "Tarc\u00edsio", "Ratinho Jr.")
+    candidaturas_1t <- c("Lula", "Fl\u00e1vio", "Caiado", "Renan", "Zema")
   }
 
   if (is.null(candidaturas_2t)) {
-    candidaturas_2t <- c("Lula", "Fl\u00e1vio", "Tarc\u00edsio", "Ratinho Jr.", "Bolsonaro")
+    candidaturas_2t <- c("Lula", "Fl\u00e1vio", "Caiado", "Renan", "Zema")
   }
 
   if (is.null(direita_eleicao_atual)) {
-    direita_eleicao_atual <- c("Bolsonaro", "Fl\u00e1vio", "Tarc\u00edsio", "Caiado")
+    direita_eleicao_atual <- c("Bolsonaro", "Fl\u00e1vio", "Caiado", "Renan", "Zema")
   }
 
   if (is.null(esquerda_eleicao_atual)) {
