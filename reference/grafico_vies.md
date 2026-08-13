@@ -125,20 +125,20 @@ if (instantiate::stan_cmdstan_exists()) {
 #> Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 1 finished in 24.2 seconds.
+#> Chain 1 finished in 23.3 seconds.
 #> Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 3 finished in 26.3 seconds.
 #> Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 4 finished in 26.4 seconds.
+#> Chain 3 finished in 25.1 seconds.
+#> Chain 4 finished in 25.1 seconds.
 #> Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 2 finished in 26.6 seconds.
+#> Chain 2 finished in 25.4 seconds.
 #> 
 #> All 4 chains finished successfully.
-#> Mean chain execution time: 25.9 seconds.
-#> Total execution time: 26.8 seconds.
+#> Mean chain execution time: 24.7 seconds.
+#> Total execution time: 25.5 seconds.
 #> 
 #> Error in grafico_vies(result, candidaturas = c("Lula", "Bolsonaro")): Candidatura "Bolsonaro" não encontrada nos resultados do modelo.
 ```
