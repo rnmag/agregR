@@ -33,6 +33,8 @@
 #' @importFrom stringr str_to_title
 #' @importFrom lubridate year month
 #' @importFrom ragg agg_png
+#' @importFrom ggrepel geom_text_repel
+
 grafico_agregador <- function(bd,
                               salvar = FALSE,
                               config_grafico = configurar_grafico(),
@@ -68,15 +70,15 @@ grafico_agregador <- function(bd,
   # Adaptar subtítulo ao modelo
   if (bd$nome_modelo == "Vi\u00e9s Relativo sem Pesos") {
 
-    subtitulo_grafico <- "Estimativa das inten\u00e7\u00f5es de voto ajustada pelo vi\u00e9s dos institutos"
+    subtitulo_grafico <- "Estimativas com ajustes para o vi\u00e9s dos institutos"
 
   } else if (bd$nome_modelo == "Vi\u00e9s Relativo com Pesos") {
 
-    subtitulo_grafico <- "Estimativa das inten\u00e7\u00f5es de voto ponderada pelo erro dos institutos na elei\u00e7\u00e3o passada"
+    subtitulo_grafico <- "Estimativas ponderadas pelo erro dos institutos na elei\u00e7\u00e3o passada"
 
   } else if (bd$nome_modelo == "Vi\u00e9s Emp\u00edrico") {
 
-    subtitulo_grafico <- "Estimativa das inten\u00e7\u00f5es de voto compensada pelo erro dos institutos na elei\u00e7\u00e3o passada"
+    subtitulo_grafico <- "Estimativas com compensação pelo erro dos institutos na elei\u00e7\u00e3o passada"
 
   } else if (bd$nome_modelo == "Retrospectivo") {
 
@@ -84,7 +86,7 @@ grafico_agregador <- function(bd,
 
   } else if (bd$nome_modelo == "Naive") {
 
-    subtitulo_grafico <- "Estimativa das inten\u00e7\u00f5es de voto sem ajustes"
+    subtitulo_grafico <- "Estimativa das inten\u00e7\u00f5es de voto"
 
   }
 
@@ -104,9 +106,9 @@ grafico_agregador <- function(bd,
                    color = candidatura,
                    shape = metodologia),
                size = 2,
-               alpha = .8,
+               alpha = .5,
                na.rm = TRUE) +
-    geom_text(data = bd$votos_estimados |>
+    geom_text_repel(data = bd$votos_estimados |>
                 group_by(candidatura) |>
                 slice_max(dia, n = 1, with_ties = FALSE),
               aes(label = percentual_estimado,
@@ -114,6 +116,8 @@ grafico_agregador <- function(bd,
               size = 6,
               family = config_grafico$fonte,
               fontface = "bold",
+              direction = "y",
+              segment.color = NA, 
               hjust = -.25,
               show.legend = FALSE) +
     coord_cartesian(clip = "off") + # percentuais podem passar a borda do gráfico
