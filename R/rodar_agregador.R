@@ -257,6 +257,21 @@ rodar_agregador <- function(bd = NULL,
 
   }
 
+  # Gatilho para liberar o modelo retrospectivo somente após tivermos os
+  # resultados das eleições
+  if (modelo == "Retrospectivo") {
+    
+    gatilho_retrospectivo <- ler_csv(config_agregador$resultado_eleicao_atual)
+    
+    # Verificar se  o arquivo de resutados oficiais está vazio
+    if (is.null(gatilho_retrospectivo) || nrow(gatilho_retrospectivo) == 0) {
+      cli_abort(c("O modelo Retrospectivo requer os resultados oficiais da elei\u00e7\u00e3o.", 
+                  "O pacote ser\u00e1 atualizado assim que os resultados forem disponibilizados."))
+
+    }
+
+  }
+
   # Carregar as pesquisas atuais
   pesquisas <- tratar_bd_atual(bd,
                                filtro_inicio = data_inicio,
