@@ -266,7 +266,7 @@ rodar_agregador <- function(bd = NULL,
     # Verificar se  o arquivo de resutados oficiais está vazio
     if (is.null(gatilho_retrospectivo) || nrow(gatilho_retrospectivo) == 0) {
       cli_abort(c("O modelo Retrospectivo requer os resultados oficiais da elei\u00e7\u00e3o.", 
-                  "O pacote ser\u00e1 atualizado assim que os resultados forem disponibilizados."))
+                  "O pacote ser\u00e1 atualizado assim que eles estiverem dispon\u00edveis."))
 
     }
 
