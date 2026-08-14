@@ -112,24 +112,24 @@ if (instantiate::stan_cmdstan_exists()) {
 #> Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-#> Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 #> Chain 4 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+#> Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 #> Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 2 finished in 24.5 seconds.
+#> Chain 2 finished in 24.6 seconds.
 #> Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 3 finished in 25.2 seconds.
+#> Chain 3 finished in 25.7 seconds.
 #> Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 1 finished in 27.9 seconds.
+#> Chain 1 finished in 28.2 seconds.
 #> Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 4 finished in 29.0 seconds.
+#> Chain 4 finished in 28.8 seconds.
 #> 
 #> All 4 chains finished successfully.
-#> Mean chain execution time: 26.7 seconds.
-#> Total execution time: 29.2 seconds.
+#> Mean chain execution time: 26.8 seconds.
+#> Total execution time: 29.0 seconds.
 #> 
 #> ── Estimando intenção de votos para: "Lula" ──
 #> 
@@ -179,17 +179,17 @@ if (instantiate::stan_cmdstan_exists()) {
 #> Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 #> Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 3 finished in 24.2 seconds.
+#> Chain 3 finished in 24.3 seconds.
 #> Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 2 finished in 24.8 seconds.
+#> Chain 2 finished in 24.7 seconds.
 #> Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 #> Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 4 finished in 25.1 seconds.
+#> Chain 4 finished in 25.4 seconds.
 #> Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-#> Chain 1 finished in 26.1 seconds.
+#> Chain 1 finished in 26.2 seconds.
 #> 
 #> All 4 chains finished successfully.
-#> Mean chain execution time: 25.0 seconds.
-#> Total execution time: 26.2 seconds.
+#> Mean chain execution time: 25.1 seconds.
+#> Total execution time: 26.3 seconds.
 #> 
 ```
