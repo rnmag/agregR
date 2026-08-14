@@ -120,7 +120,7 @@ grafico_agregador <- function(bd,
                     direction = "y",
                     segment.color = NA,
                     point.padding = NA,
-                    box.padding = 0,
+                    box.padding = 0.1, # distância entre rótulos
                     nudge_x = 7, # rótulos 7 "dias" à direita da borda do gráfico
                     xlim = c(-Inf, Inf), # tirar limites do gráfico para incluir rótulos
                     ylim = c(-Inf, Inf),
