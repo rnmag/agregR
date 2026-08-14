@@ -111,17 +111,17 @@ grafico_agregador <- function(bd,
     geom_text_repel(data = bd$votos_estimados |>
                       group_by(candidatura) |>
                       slice_max(dia, n = 1, with_ties = FALSE),
-                    aes(x = dia + 5, # rótulos 5 "dias" à direita da borda do gráfico
-                        label = percentual_estimado,
+                    aes(label = percentual_estimado,
                         color = candidatura),
                     size = 6,
                     family = config_grafico$fonte,
                     fontface = "bold",
                     hjust = 0,
                     direction = "y",
-                    segment.color = NA, # não desenhar linha de ligação entre rótulo e ponto
-                    point.padding = NA, # rótulo próximo do fim da linha, sem padding
+                    segment.color = NA,
+                    point.padding = NA,
                     box.padding = 0,
+                    nudge_x = 7, # rótulos 7 "dias" à direita da borda do gráfico
                     xlim = c(-Inf, Inf), # tirar limites do gráfico para incluir rótulos
                     ylim = c(-Inf, Inf),
                     show.legend = FALSE) +
