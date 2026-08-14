@@ -8,6 +8,8 @@
 
 <!-- badges: end -->
 
+🇧🇷 Até as eleições, os resultados do agregador podem ser acompanhados [nesta página](articles/agregador.html) 🇧🇷
+
 **Bayesian State-Space Aggregation of Brazilian Presidential Polls**
 
 As presidential elections approach, Brazilian voters are confronted with a growing

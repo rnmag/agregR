@@ -1,33 +1,69 @@
 ---
 title: "🇧🇷 Eleições 2026"
+output:
+  html_document:
+    code_folding: hide
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-```
 
-```{r setup}
 library(agregR)
+
 ```
 
-This article demonstrates how to run models automatically. 
-Whenever you push to the repository, GitHub Actions will compile this document and build the `pkgdown` site, evaluating all R chunks along the way.
+## Introdução
 
-## Running the Models
+À medida que as eleições presidenciais se aproximam, há um volume crescente de
+pesquisas eleitorais publicadas, cada uma empregando metodologias e desenhos
+amostrais distintos. O agregador emprega uma metodologia rigorosa para filtrar
+esse excesso de dados e identificar o nível subjacente de apoio a cada candidato.
+Trata-se de um conjunto de modelos bayesianos calibrados para normalizar os
+ruídos e viéses de cada instituto, incorporando fatores como o desempenho das
+pesquisas na eleição anterior e assimetria de precisão de acordo com o alinhamento
+político dos candidatos.
 
-You can add your code to run the models here:
+## Primeiro Turno
 
-```{r run-models, message=FALSE, warning=FALSE}
-# Replace this with your actual model running code
-# model_fit <- run_model(...)
-# summary(model_fit)
+```{r resultado_1t, message=FALSE, warning=FALSE}
+
+resultado_1t <- rodar_agregador(turno = 1,
+                                data_inicio = "01/01/2025",
+                                modelo = "Viés Relativo com Pesos")
+
 ```
 
-## Results
+```{r grafico_1t, fig.width = 30, fig.height = 20}
 
-```{r results}
-# Plot or summarize results here
+grafico_agregador(resultado_1t)
+
+```
+
+## Segundo Turno
+
+```{r resultado_2t, message=FALSE, warning=FALSE}
+
+resultado_2t <- rodar_agregador(turno = 2,
+                                data_inicio = "01/01/2025",
+                                cenario = "Lula vs Flávio",
+                                modelo = "Viés Relativo com Pesos")
+
+```
+
+```{r grafico_2t, fig.width = 30, fig.height = 20}
+
+grafico_agregador(resultado_2t)
+
+```
+
+## Viés dos Institutos
+
+```{r vies, fig.width = 30, fig.height = 34}
+
+grafico_vies(resultado_2t,
+             candidaturas = c("Lula", "Flávio"))
+
 ```
