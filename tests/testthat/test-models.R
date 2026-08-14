@@ -21,6 +21,22 @@ test_that("rodar_agregador valida requisitos e argumentos", {
   expect_error(rodar_agregador(bd = pesquisas_teste, data_inicio = "01/01/2025", turno = 1, modelo = "Modelo Fantasma"), "Modelo n\u00e3o encontrado")
 })
 
+test_that("rodar_agregador bloqueia modelo Retrospectivo sem dados oficiais", {
+  testthat::skip_if_not(instantiate::stan_cmdstan_exists())
+  skip_on_cran()
+
+  cfg_vazio <- configurar_agregador(resultado_eleicao_atual = data.frame())
+
+  expect_error(
+    rodar_agregador(bd = pesquisas_teste,
+                    data_inicio = "01/01/2025",
+                    turno = 1,
+                    modelo = "Retrospectivo",
+                    config_agregador = cfg_vazio),
+    "O modelo Retrospectivo requer os resultados oficiais"
+  )
+})
+
 test_that("rodar_agregador lida com configurações customizadas", {
   testthat::skip_if_not(instantiate::stan_cmdstan_exists())
   skip_on_cran()

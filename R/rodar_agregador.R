@@ -263,10 +263,11 @@ rodar_agregador <- function(bd = NULL,
     
     gatilho_retrospectivo <- ler_csv(config_agregador$resultado_eleicao_atual)
     
-    # Verificar se  o arquivo de resutados oficiais está vazio
+    # Verificar se o arquivo de resutados oficiais está vazio
     if (is.null(gatilho_retrospectivo) || nrow(gatilho_retrospectivo) == 0) {
+
       cli_abort(c("O modelo Retrospectivo requer os resultados oficiais da elei\u00e7\u00e3o.", 
-                  "O pacote ser\u00e1 atualizado assim que eles estiverem dispon\u00edveis."))
+                  "i" = "O pacote ser\u00e1 atualizado assim que eles estiverem dispon\u00edveis."))
 
     }
 
