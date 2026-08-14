@@ -7,3 +7,11 @@ template:
     base_font: {google: "Fira Sans"}
     heading_font: {google: "Fira Sans"}
     code_font: {google: "Fira Code"}
+navbar:
+  structure:
+    left:  [intro, reference, tutorials, news, models]
+    right: [search, github]
+  components:
+    models:
+      text: "🇧🇷 Eleições 2026"
+      href: articles/agregador.html
