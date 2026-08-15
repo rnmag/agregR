@@ -17,8 +17,6 @@ acordo com o alinhamento político dos candidatos.
 
 ## Primeiro Turno
 
-**Última pesquisa**:
-
 ![](agregador_files/figure-html/grafico_1t-1.png)
 
 ## Segundo Turno
