@@ -1,5 +1,5 @@
 ---
-title: "🇧🇷 Agregador Eleições 2026"
+title: "Agregador Eleições 2026"
 ---
 
 ```{r setup, include = FALSE}
@@ -12,9 +12,9 @@ library(agregR)
 
 ```
 
-Última atualização: `r format(Sys.Date(), "%d/%m/%Y")`
+**Última atualização: `r format(Sys.Date(), "%d/%m/%Y")`**
 
-## Introdução
+# Introdução
 
 À medida que as eleições presidenciais se aproximam, aumenta o número de
 pesquisas eleitorais divulgadas por diferentes institutos com resultados
@@ -34,10 +34,10 @@ para o R que pode ser [instalado](https://rnmag.github.io/agregR/index.html#inst
 gratuitamente. Fique à vontade para explorar os 10+ cenários disponíveis
 no banco de dados.
 
-## Visão Geral dos Modelos
+# Visão Geral dos Modelos
 
 `agregR` oferece 3[^1] modelos que se diferenciam pela importância atribuída ao
-desempenho dos institutos na última eleição. (a documentação do pacote oferece
+desempenho dos institutos na última eleição (a documentação do pacote oferece
 uma [exposição técnica detalhada](https://rnmag.github.io/agregR/index.html#methodology)):
 
 [^1]: O pacote contém mais 2 modelos com menor utilidade durante a campanha:
@@ -61,7 +61,7 @@ Embora os modelos com dados históricos pareçam preferíveis, é importante lem
 que desempenhos passados podem não se repetir, e institutos podem adaptar suas
 metodologias entre uma eleição e outra. Os modelos se complementam.
 
-## Viés Relativo com Pesos
+# Viés Relativo com Pesos
 
 ```{r modelo-vies-relativo-com-pesos-1t, include = FALSE}
 
@@ -71,7 +71,7 @@ resultado_1t <- rodar_agregador(turno = 1,
 
 ```
 
-```{r grafico-vies-relativo-com-pesos-1t, echo = FALSE, dpi=230, out.width="100%"}
+```{r grafico-vies-relativo-com-pesos-1t, echo = FALSE, dpi=225, out.width="100%"}
 
 grafico_agregador(resultado_1t)
 
@@ -86,20 +86,91 @@ resultado_2t <- rodar_agregador(turno = 2,
 
 ```
 
-```{r grafico-vies-relativo-com-pesos-2t, echo = FALSE, dpi=230, out.width="100%"}
+```{r grafico-vies-relativo-com-pesos-2t, echo = FALSE, dpi=225, out.width="100%"}
 
 grafico_agregador(resultado_2t)
 
 ```
 
-```{r institutos-vies-relativo-com-pesos, echo = FALSE, fig.height=8, dpi=220, out.width="100%"}
+```{r institutos-vies-relativo-com-pesos, echo = FALSE, fig.height=8, dpi=210, out.width="100%"}
 
 grafico_vies(resultado_2t,
              candidaturas = c("Lula", "Flávio"))
 
 ```
 
-## Viés Relativo sem Pesos
+# Viés Relativo sem Pesos
 
+```{r modelo-vies-relativo-sem-pesos-1t, include = FALSE}
 
-## Viés Empírico
+resultado_1t <- rodar_agregador(turno = 1,
+                                data_inicio = "01/01/2025",
+                                modelo = "Viés Relativo sem Pesos")
+
+```
+
+```{r grafico-vies-relativo-sem-pesos-1t, echo = FALSE, dpi=225, out.width="100%"}
+
+grafico_agregador(resultado_1t)
+
+```
+
+```{r modelo-vies-relativo-sem-pesos-2t, include = FALSE}
+
+resultado_2t <- rodar_agregador(turno = 2,
+                                data_inicio = "01/01/2025",
+                                cenario = "Lula vs Flávio",
+                                modelo = "Viés Relativo sem Pesos")
+
+```
+
+```{r grafico-vies-relativo-sem-pesos-2t, echo = FALSE, dpi=225, out.width="100%"}
+
+grafico_agregador(resultado_2t)
+
+```
+
+```{r institutos-vies-relativo-sem-pesos, echo = FALSE, fig.height=8, dpi=210, out.width="100%"}
+
+grafico_vies(resultado_2t,
+             candidaturas = c("Lula", "Flávio"))
+
+```
+
+# Viés Empírico
+
+```{r modelo-vies-empirico-1t, include = FALSE}
+
+resultado_1t <- rodar_agregador(turno = 1,
+                                data_inicio = "01/01/2025",
+                                modelo = "Viés Empírico")
+
+```
+
+```{r grafico-vies-empirico-1t, echo = FALSE, dpi=225, out.width="100%"}
+
+grafico_agregador(resultado_1t)
+
+```
+
+```{r modelo-vies-empirico-2t, include = FALSE}
+
+resultado_2t <- rodar_agregador(turno = 2,
+                                data_inicio = "01/01/2025",
+                                cenario = "Lula vs Flávio",
+                                modelo = "Viés Empírico")
+
+```
+
+```{r grafico-vies-empirico-2t, echo = FALSE, dpi=225, out.width="100%"}
+
+grafico_agregador(resultado_2t)
+
+```
+
+```{r institutos-vies-empirico, echo = FALSE, fig.height=8, dpi=210, out.width="100%"}
+
+grafico_vies(resultado_2t,
+             candidaturas = c("Lula", "Flávio"))
+
+```
