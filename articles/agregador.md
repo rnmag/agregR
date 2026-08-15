@@ -1,4 +1,4 @@
-# 🇧🇷 Eleições 2026
+# 🇧🇷 Agregador - Eleições 2026
 
 ## Introdução
 
@@ -15,6 +15,12 @@ acordo com o alinhamento político dos candidatos.
 
 ## Primeiro Turno
 
+![](agregador_files/figure-html/grafico_1t-1.png)
+
 ## Segundo Turno
 
+![](agregador_files/figure-html/grafico_2t-1.png)
+
 ## Viés dos Institutos
+
+![](agregador_files/figure-html/vies-1.png)

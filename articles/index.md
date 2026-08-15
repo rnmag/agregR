@@ -2,5 +2,5 @@
 
 ### All vignettes
 
-- [🇧🇷 Eleições
+- [🇧🇷 Agregador - Eleições
   2026](https://rnmag.github.io/agregR/articles/agregador.md):
