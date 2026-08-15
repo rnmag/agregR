@@ -1,8 +1,5 @@
 ---
 title: "🇧🇷 Eleições 2026"
-output:
-  html_document:
-    code_folding: hide
 ---
 
 ```{r setup, include = FALSE}
@@ -21,6 +18,7 @@ library(agregR)
 pesquisas eleitorais publicadas, cada uma empregando metodologias e desenhos
 amostrais distintos. O agregador emprega uma metodologia rigorosa para filtrar
 esse excesso de dados e identificar o nível subjacente de apoio a cada candidato.
+
 Trata-se de um conjunto de modelos bayesianos calibrados para normalizar os
 ruídos e viéses de cada instituto, incorporando fatores como o desempenho das
 pesquisas na eleição anterior e assimetria de precisão de acordo com o alinhamento
@@ -28,7 +26,7 @@ político dos candidatos.
 
 ## Primeiro Turno
 
-```{r resultado_1t, message=FALSE, warning=FALSE}
+```{r resultado_1t, include = FALSE}
 
 resultado_1t <- rodar_agregador(turno = 1,
                                 data_inicio = "01/01/2025",
@@ -36,7 +34,7 @@ resultado_1t <- rodar_agregador(turno = 1,
 
 ```
 
-```{r grafico_1t, fig.width = 30, fig.height = 20}
+```{r grafico_1t, include = FALSE}
 
 grafico_agregador(resultado_1t)
 
@@ -44,7 +42,7 @@ grafico_agregador(resultado_1t)
 
 ## Segundo Turno
 
-```{r resultado_2t, message=FALSE, warning=FALSE}
+```{r resultado_2t, include = FALSE}
 
 resultado_2t <- rodar_agregador(turno = 2,
                                 data_inicio = "01/01/2025",
@@ -53,7 +51,7 @@ resultado_2t <- rodar_agregador(turno = 2,
 
 ```
 
-```{r grafico_2t, fig.width = 30, fig.height = 20}
+```{r grafico_2t, include = FALSE}
 
 grafico_agregador(resultado_2t)
 
@@ -61,7 +59,7 @@ grafico_agregador(resultado_2t)
 
 ## Viés dos Institutos
 
-```{r vies, fig.width = 30, fig.height = 34}
+```{r vies, include = FALSE}
 
 grafico_vies(resultado_2t,
              candidaturas = c("Lula", "Flávio"))

@@ -8,7 +8,7 @@
 
 <!-- badges: end -->
 
-🇧🇷 Até as eleições, os resultados do agregador podem ser acompanhados [nesta página](articles/agregador.html) 🇧🇷
+🇧🇷 **Novidade**: acompanhe os resultados atualizados do agregador [nesta página](articles/agregador.html)
 
 **Bayesian State-Space Aggregation of Brazilian Presidential Polls**
 
