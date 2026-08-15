@@ -1,9 +1,10 @@
 # agregR
 
-**Bayesian State-Space Aggregation of Brazilian Presidential Polls**
+🇧🇷 **Novidade**:
+[acompanhe](https://rnmag.github.io/agregR/articles/agregador.md) os
+resultados atualizados do agregador 🇧🇷
 
-🇧🇷 **Novidade**: acompanhe os resultados atualizados do agregador [nesta
-página](https://rnmag.github.io/agregR/articles/agregador.md)
+**Bayesian State-Space Aggregation of Brazilian Presidential Polls**
 
 As presidential elections approach, Brazilian voters are confronted with
 a growing volume of conflicting polling estimates, each employing

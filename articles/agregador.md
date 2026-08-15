@@ -1,5 +1,7 @@
 # 🇧🇷 Agregador - Eleições 2026
 
+*Atualizado em: 15/08/2026*
+
 ## Introdução
 
 À medida que as eleições presidenciais se aproximam, há um volume
@@ -14,6 +16,8 @@ desempenho das pesquisas na eleição anterior e assimetria de precisão de
 acordo com o alinhamento político dos candidatos.
 
 ## Primeiro Turno
+
+**Última pesquisa**:
 
 ![](agregador_files/figure-html/grafico_1t-1.png)
 
