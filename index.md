@@ -1,7 +1,7 @@
 # agregR
 
-🇧🇷 Até as eleições, os resultados do agregador podem ser acompanhados
-[nesta página](https://rnmag.github.io/agregR/articles/agregador.md) 🇧🇷
+🇧🇷 **Novidade**: acompanhe os resultados atualizados do agregador [nesta
+página](https://rnmag.github.io/agregR/articles/agregador.md)
 
 **Bayesian State-Space Aggregation of Brazilian Presidential Polls**
 
