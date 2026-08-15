@@ -8,9 +8,9 @@
 
 <!-- badges: end -->
 
-**Bayesian State-Space Aggregation of Brazilian Presidential Polls**
+🇧🇷 **Novidade**: [acompanhe](articles/agregador.html) os resultados atualizados do agregador 🇧🇷
 
-🇧🇷 **Novidade**: acompanhe os resultados atualizados do agregador [nesta página](articles/agregador.html)
+**Bayesian State-Space Aggregation of Brazilian Presidential Polls**
 
 As presidential elections approach, Brazilian voters are confronted with a growing
 volume of conflicting polling estimates, each employing distinct methodologies and

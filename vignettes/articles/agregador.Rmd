@@ -12,6 +12,8 @@ library(agregR)
 
 ```
 
+*Atualizado em: `r format(Sys.Date(), "%d/%m/%Y") `*
+
 ## Introdução
 
 À medida que as eleições presidenciais se aproximam, há um volume crescente de
@@ -34,7 +36,9 @@ resultado_1t <- rodar_agregador(turno = 1,
 
 ```
 
-```{r grafico_1t, echo = FALSE}
+**Última pesquisa**: `r resultado_1t$data_ultima_pesquisa`
+
+```{r grafico_1t, echo = FALSE dpi=320}
 
 grafico_agregador(resultado_1t)
 
@@ -51,7 +55,7 @@ resultado_2t <- rodar_agregador(turno = 2,
 
 ```
 
-```{r grafico_2t, echo = FALSE}
+```{r grafico_2t, echo = FALSE dpi=320}
 
 grafico_agregador(resultado_2t)
 
@@ -59,7 +63,7 @@ grafico_agregador(resultado_2t)
 
 ## Viés dos Institutos
 
-```{r vies, echo = FALSE}
+```{r vies, echo = FALSE fig.height=8 dpi=320}
 
 grafico_vies(resultado_2t,
              candidaturas = c("Lula", "Flávio"))
