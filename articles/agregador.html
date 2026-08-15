@@ -73,35 +73,78 @@
 
     
     
-<p><strong>Atualizado em 15/08/2026</strong></p>
+<p>Última atualização: 15/08/2026</p>
 <div class="section level2">
 <h2 id="introdução">Introdução<a class="anchor" aria-label="anchor" href="#introdu%C3%A7%C3%A3o"></a>
 </h2>
-<p>À medida que as eleições presidenciais se aproximam, há um volume
-crescente de pesquisas eleitorais publicadas, cada uma empregando
-metodologias e desenhos amostrais distintos. O agregador emprega uma
-metodologia rigorosa para filtrar esse excesso de dados e identificar o
-nível subjacente de apoio a cada candidato.</p>
-<p>Trata-se de um conjunto de modelos bayesianos calibrados para
-normalizar os ruídos e viéses de cada instituto, incorporando fatores
-como o desempenho das pesquisas na eleição anterior e assimetria de
-precisão de acordo com o alinhamento político dos candidatos.</p>
+<p>À medida que as eleições presidenciais se aproximam, aumenta o número
+de pesquisas eleitorais divulgadas por diferentes institutos com
+resultados divergentes. <code>agregR</code> emprega uma <a href="https://rnmag.github.io/agregR/index.html#methodology">metodologia</a>
+rigorosa para tratar esses números e estimar o nível de apoio subjacente
+a cada candidato. O pacote modela:</p>
+<ul>
+<li>Vieses dos institutos em relação ao consenso</li>
+<li>Vieses de acordo com o alinhamento político dos candidatos</li>
+<li>Desempenhos no 1º e 2º turnos de 2022</li>
+<li>Margens de erro incoerentes com o tamanho da amostra</li>
+<li>Erros não-amostrais (para além da margem de erro)</li>
+</ul>
+<p>Esta página apresenta os resultados para os cenários eleitorais mais
+prováveis, mas <code>agregR</code> é um pacote de <a href="https://github.com/rnmag/agregR" class="external-link">código aberto</a> para o R que
+pode ser <a href="https://rnmag.github.io/agregR/index.html#installation">instalado</a>
+gratuitamente. Fique à vontade para explorar os 10+ cenários disponíveis
+no banco de dados.</p>
 </div>
 <div class="section level2">
-<h2 id="primeiro-turno">Primeiro Turno<a class="anchor" aria-label="anchor" href="#primeiro-turno"></a>
+<h2 id="visão-geral-dos-modelos">Visão Geral dos Modelos<a class="anchor" aria-label="anchor" href="#vis%C3%A3o-geral-dos-modelos"></a>
 </h2>
-<p><img src="agregador_files/figure-html/grafico_1t-1.png" class="r-plt" alt="" width="100%"></p>
+<p><code>agregR</code> oferece 3<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;O pacote contém mais 2 modelos com menor utilidade
+durante a campanha: o modelo &lt;strong&gt;Retrospectivo&lt;/strong&gt; usa o
+resultado real da eleição para calcular retrospectivamente vieses e
+trajetórias para cada candidato, enquanto o modelo
+&lt;strong&gt;Naive&lt;/strong&gt; é oferecido como uma curiosidade, pois não modela
+nenhum viés e é equivalente a tirar uma média simples das pesquisas.&lt;/p&gt;"><sup>1</sup></a> modelos que se diferenciam pela importância
+atribuída ao desempenho dos institutos na última eleição. (a
+documentação do pacote oferece uma <a href="https://rnmag.github.io/agregR/index.html#methodology">exposição
+técnica detalhada</a>):</p>
+<ul>
+<li>
+<strong>Viés Relativo com Pesos</strong>: o modelo mais equilibrado.
+Atribui pesos aos institutos de acordo com o desempenho na última
+eleição, mas não dá nenhuma compensação aos candidatos.</li>
+<li>
+<strong>Viés Relativo sem Pesos</strong>: o modelo tábula rasa. Não
+usa qualquer informação sobre o desempenho dos institutos na última
+eleição, calculando vieses puramente com base nas pesquisas deste ciclo
+eleitoral.</li>
+<li>
+<strong>Viés Empírico</strong>: o modelo mais vinculado ao passado.
+Além de atribuir pesos aos institutos de acordo com o desempenho na
+última eleição, também compensa (ou desconta) os candidatos com
+alinhamentos políticos mais prejudicados (ou beneficiados) por cada
+instituto.</li>
+</ul>
+<p>Embora os modelos com dados históricos pareçam preferíveis, é
+importante lembrar que desempenhos passados podem não se repetir, e
+institutos podem adaptar suas metodologias entre uma eleição e outra. Os
+modelos se complementam.</p>
 </div>
 <div class="section level2">
-<h2 id="segundo-turno">Segundo Turno<a class="anchor" aria-label="anchor" href="#segundo-turno"></a>
+<h2 id="viés-relativo-com-pesos">Viés Relativo com Pesos<a class="anchor" aria-label="anchor" href="#vi%C3%A9s-relativo-com-pesos"></a>
 </h2>
-<p><img src="agregador_files/figure-html/grafico_2t-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="agregador_files/figure-html/grafico-vies-relativo-com-pesos-2t-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
 <div class="section level2">
-<h2 id="viés-dos-institutos">Viés dos Institutos<a class="anchor" aria-label="anchor" href="#vi%C3%A9s-dos-institutos"></a>
+<h2 id="viés-relativo-sem-pesos">Viés Relativo sem Pesos<a class="anchor" aria-label="anchor" href="#vi%C3%A9s-relativo-sem-pesos"></a>
 </h2>
-<p><img src="agregador_files/figure-html/vies-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
+<div class="section level2">
+<h2 id="viés-empírico">Viés Empírico<a class="anchor" aria-label="anchor" href="#vi%C3%A9s-emp%C3%ADrico"></a>
+</h2>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
