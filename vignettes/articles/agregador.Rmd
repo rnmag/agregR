@@ -12,23 +12,58 @@ library(agregR)
 
 ```
 
-**Atualizado em `r format(Sys.Date(), "%d/%m/%Y") `**
+Última atualização: `r format(Sys.Date(), "%d/%m/%Y")`
 
 ## Introdução
 
-À medida que as eleições presidenciais se aproximam, há um volume crescente de
-pesquisas eleitorais publicadas, cada uma empregando metodologias e desenhos
-amostrais distintos. O agregador emprega uma metodologia rigorosa para filtrar
-esse excesso de dados e identificar o nível subjacente de apoio a cada candidato.
+À medida que as eleições presidenciais se aproximam, aumenta o número de
+pesquisas eleitorais divulgadas por diferentes institutos com resultados
+divergentes. `agregR` emprega uma [metodologia](https://rnmag.github.io/agregR/index.html#methodology)
+rigorosa para tratar esses números e estimar o nível de apoio subjacente a
+cada candidato. O pacote modela:
 
-Trata-se de um conjunto de modelos bayesianos calibrados para normalizar os
-ruídos e viéses de cada instituto, incorporando fatores como o desempenho das
-pesquisas na eleição anterior e assimetria de precisão de acordo com o alinhamento
-político dos candidatos.
+* Vieses dos institutos em relação ao consenso
+* Vieses de acordo com o alinhamento político dos candidatos
+* Desempenhos no 1º e 2º turnos de 2022
+* Margens de erro incoerentes com o tamanho da amostra 
+* Erros não-amostrais (para além da margem de erro)
 
-## Primeiro Turno
+Esta página apresenta os resultados para os cenários eleitorais mais prováveis,
+mas `agregR` é um pacote de [código aberto](https://github.com/rnmag/agregR)
+para o R que pode ser [instalado](https://rnmag.github.io/agregR/index.html#installation)
+gratuitamente. Fique à vontade para explorar os 10+ cenários disponíveis
+no banco de dados.
 
-```{r resultado_1t, include = FALSE}
+## Visão Geral dos Modelos
+
+`agregR` oferece 3[^1] modelos que se diferenciam pela importância atribuída ao
+desempenho dos institutos na última eleição. (a documentação do pacote oferece
+uma [exposição técnica detalhada](https://rnmag.github.io/agregR/index.html#methodology)):
+
+[^1]: O pacote contém mais 2 modelos com menor utilidade durante a campanha:
+o modelo **Retrospectivo** usa o resultado real da eleição para calcular
+retrospectivamente vieses e trajetórias para cada candidato, enquanto o modelo
+**Naive** é oferecido como uma curiosidade, pois não modela nenhum viés e é
+equivalente a tirar uma média simples das pesquisas.
+
+* **Viés Relativo com Pesos**: o modelo mais equilibrado. Atribui pesos aos
+  institutos de acordo com o desempenho na última eleição, mas não dá nenhuma
+  compensação aos candidatos.
+* **Viés Relativo sem Pesos**: o modelo tábula rasa. Não usa qualquer informação
+  sobre o desempenho dos institutos na última eleição, calculando vieses
+  puramente com base nas pesquisas deste ciclo eleitoral.
+* **Viés Empírico**: o modelo mais vinculado ao passado. Além de atribuir pesos
+  aos institutos de acordo com o desempenho na última eleição, também compensa
+  (ou desconta) os candidatos com alinhamentos políticos mais prejudicados (ou
+  beneficiados) por cada instituto.
+
+Embora os modelos com dados históricos pareçam preferíveis, é importante lembrar
+que desempenhos passados podem não se repetir, e institutos podem adaptar suas
+metodologias entre uma eleição e outra. Os modelos se complementam.
+
+## Viés Relativo com Pesos
+
+```{r modelo-vies-relativo-com-pesos-1t, include = FALSE}
 
 resultado_1t <- rodar_agregador(turno = 1,
                                 data_inicio = "01/01/2025",
@@ -36,15 +71,13 @@ resultado_1t <- rodar_agregador(turno = 1,
 
 ```
 
-```{r grafico_1t, echo = FALSE, dpi=220, out.width="100%"}
+```{r grafico-vies-relativo-com-pesos-1t, echo = FALSE, dpi=230, out.width="100%"}
 
 grafico_agregador(resultado_1t)
 
 ```
 
-## Segundo Turno
-
-```{r resultado_2t, include = FALSE}
+```{r modelo-vies-relativo-com-pesos-2t, include = FALSE}
 
 resultado_2t <- rodar_agregador(turno = 2,
                                 data_inicio = "01/01/2025",
@@ -53,17 +86,20 @@ resultado_2t <- rodar_agregador(turno = 2,
 
 ```
 
-```{r grafico_2t, echo = FALSE, dpi=220, out.width="100%"}
+```{r grafico-vies-relativo-com-pesos-2t, echo = FALSE, dpi=230, out.width="100%"}
 
 grafico_agregador(resultado_2t)
 
 ```
 
-## Viés dos Institutos
-
-```{r vies, echo = FALSE, fig.height=8, dpi=280, out.width="100%"}
+```{r institutos-vies-relativo-com-pesos, echo = FALSE, fig.height=8, dpi=220, out.width="100%"}
 
 grafico_vies(resultado_2t,
              candidaturas = c("Lula", "Flávio"))
 
 ```
+
+## Viés Relativo sem Pesos
+
+
+## Viés Empírico
