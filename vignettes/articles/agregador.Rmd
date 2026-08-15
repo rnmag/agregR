@@ -1,5 +1,5 @@
 ---
-title: "🇧🇷 Eleições 2026"
+title: "🇧🇷 Agregador - Eleições 2026"
 ---
 
 ```{r setup, include = FALSE}
@@ -34,7 +34,7 @@ resultado_1t <- rodar_agregador(turno = 1,
 
 ```
 
-```{r grafico_1t, include = FALSE}
+```{r grafico_1t, echo = FALSE}
 
 grafico_agregador(resultado_1t)
 
@@ -51,7 +51,7 @@ resultado_2t <- rodar_agregador(turno = 2,
 
 ```
 
-```{r grafico_2t, include = FALSE}
+```{r grafico_2t, echo = FALSE}
 
 grafico_agregador(resultado_2t)
 
@@ -59,7 +59,7 @@ grafico_agregador(resultado_2t)
 
 ## Viés dos Institutos
 
-```{r vies, include = FALSE}
+```{r vies, echo = FALSE}
 
 grafico_vies(resultado_2t,
              candidaturas = c("Lula", "Flávio"))
