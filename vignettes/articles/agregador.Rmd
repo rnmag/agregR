@@ -36,9 +36,7 @@ resultado_1t <- rodar_agregador(turno = 1,
 
 ```
 
-**Última pesquisa**: `r resultado_1t$data_ultima_pesquisa`
-
-```{r grafico_1t, echo = FALSE, fig.width=9.12, fig.height=5.98, dpi=480, out.width="100%"}
+```{r grafico_1t, echo = FALSE, dpi=200, out.width="100%"}
 
 grafico_agregador(resultado_1t)
 
@@ -55,7 +53,7 @@ resultado_2t <- rodar_agregador(turno = 2,
 
 ```
 
-```{r grafico_2t, echo = FALSE, fig.width=9.12, fig.height=5.98, dpi=480, out.width="100%"}
+```{r grafico_2t, echo = FALSE, dpi=280, out.width="100%"}
 
 grafico_agregador(resultado_2t)
 
@@ -63,7 +61,7 @@ grafico_agregador(resultado_2t)
 
 ## Viés dos Institutos
 
-```{r vies, echo = FALSE, fig.width=6.08, fig.height=6.67, dpi=480, out.width="100%"}
+```{r vies, echo = FALSE, fig.height=6.67, dpi=280, out.width="100%"}
 
 grafico_vies(resultado_2t,
              candidaturas = c("Lula", "Flávio"))
