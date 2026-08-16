@@ -1,6 +1,6 @@
-# 🇧🇷 Agregador Eleições 2026
+# Agregador Eleições 2026
 
-Última atualização: 15/08/2026
+**Última atualização: 16/08/2026**
 
 ## Introdução
 
@@ -27,8 +27,8 @@ no banco de dados.
 ## Visão Geral dos Modelos
 
 `agregR` oferece 3[^1] modelos que se diferenciam pela importância
-atribuída ao desempenho dos institutos na última eleição. (a
-documentação do pacote oferece uma [exposição técnica
+atribuída ao desempenho dos institutos na última eleição (a documentação
+do pacote oferece uma [exposição técnica
 detalhada](https://rnmag.github.io/agregR/index.html#methodology)):
 
 - **Viés Relativo com Pesos**: o modelo mais equilibrado. Atribui pesos
@@ -58,7 +58,19 @@ complementam.
 
 ## Viés Relativo sem Pesos
 
+![](agregador_files/figure-html/grafico-vies-relativo-sem-pesos-1t-1.png)
+
+![](agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)
+
+![](agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)
+
 ## Viés Empírico
+
+![](agregador_files/figure-html/grafico-vies-empirico-1t-1.png)
+
+![](agregador_files/figure-html/grafico-vies-empirico-2t-1.png)
+
+![](agregador_files/figure-html/institutos-vies-empirico-1.png)
 
 [^1]: O pacote contém mais 2 modelos com menor utilidade durante a
     campanha: o modelo **Retrospectivo** usa o resultado real da eleição
