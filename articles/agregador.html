@@ -77,11 +77,11 @@
 <div class="section level2">
 <h2 id="introdução">Introdução<a class="anchor" aria-label="anchor" href="#introdu%C3%A7%C3%A3o"></a>
 </h2>
-<p>Como interpretar os resultados de pesquisas com resultados
-divergentes? O agregador emprega uma <a href="https://rnmag.github.io/agregR/index.html#methodology">metodologia
+<p>Como interpretar tantas pesquisas eleitorais com diferentes
+resultados? O agregador emprega uma <a href="https://rnmag.github.io/agregR/index.html#methodology">metodologia
 rigorosa</a> para tratar a enxurrada de dados divulgados no período
-eleitoral e estimar o nível de apoio subjacente a cada candidato. Os
-modelos contemplam:</p>
+eleitoral e estimar o nível de apoio subjacente a cada candidato.</p>
+<p>Os modelos contemplam:</p>
 <ul>
 <li>Desempenho dos institutos na última eleição</li>
 <li>Vieses de acordo com o alinhamento político dos candidatos</li>
@@ -89,27 +89,23 @@ modelos contemplam:</p>
 <li>Margens de erro incoerentes com o tamanho da amostra</li>
 <li>Erros não-amostrais (para além da margem de erro)</li>
 </ul>
-<p>Esta página apresenta cenários eleitorais mais prováveis, mas
-<code>agregR</code> é um pacote de <a href="https://github.com/rnmag/agregR" class="external-link">código aberto</a> para o R que
-pode ser <a href="https://rnmag.github.io/agregR/index.html#installation">instalado</a>
-gratuitamente. Fique à vontade para explorar os mais de 10 cenários
-disponíveis no banco de dados.</p>
 <p><code>agregR</code> oferece 3<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;O pacote contém mais 2 modelos com menor utilidade
 durante a campanha: o modelo &lt;strong&gt;Retrospectivo&lt;/strong&gt; usa o
 resultado real da eleição para calcular retrospectivamente vieses e
 trajetórias para cada candidato, enquanto o modelo
 &lt;strong&gt;Naive&lt;/strong&gt; é disponibilizado como uma curiosidade, pois não
-modela nenhum viés e é equivalente a tirar uma média simples das
+modela nenhum viés e é equivalente a calcular uma média simples das
 pesquisas.&lt;/p&gt;"><sup>1</sup></a> modelos que se diferenciam pela importância
 atribuída ao desempenho dos institutos na última eleição. Eles são
 apresentados abaixo em ordem do menos dependente dos dados históricos
-para o mais dependente. Cada modelo é apresentado por um breve resumo, e
-uma <a href="https://rnmag.github.io/agregR/index.html#methodology">explicação
-técnica detalhada</a> está disponível na documentação.</p>
-<p>Embora os modelos com dados históricos pareçam preferíveis, é
-importante lembrar que desempenhos passados podem não se repetir, e
-institutos podem adaptar suas metodologias entre uma eleição e outra. Os
-modelos se complementam.</p>
+para o mais dependente. Cada modelo contém uma breve nota introdutória,
+e interessados podem consultar a <a href="https://rnmag.github.io/agregR/index.html#methodology">exposição
+técnica detalhada</a> na documentação.</p>
+<p>Esta página apresenta cenários eleitorais mais prováveis, mas
+<code>agregR</code> é um pacote de <a href="https://github.com/rnmag/agregR" class="external-link">código aberto</a> para o R que
+pode ser <a href="https://rnmag.github.io/agregR/index.html#installation">instalado</a>
+gratuitamente. Fique à vontade para explorar os mais de 10 cenários
+disponíveis no banco de dados.</p>
 </div>
 <div class="section level2">
 <h2 id="modelo-1-viés-relativo-sem-pesos">Modelo 1: Viés Relativo sem Pesos<a class="anchor" aria-label="anchor" href="#modelo-1-vi%C3%A9s-relativo-sem-pesos"></a>
@@ -125,8 +121,8 @@ peso.</p>
 <div class="section level2">
 <h2 id="modelo-2-viés-relativo-com-pesos">Modelo 2: Viés Relativo com Pesos<a class="anchor" aria-label="anchor" href="#modelo-2-vi%C3%A9s-relativo-com-pesos"></a>
 </h2>
-<p>Este modelo equilibra o uso de dados históricos e de dados do cliclo
-atual. Atribui pesos aos institutos de acordo com o desempenho na última
+<p>Este modelo equilibra o uso de dados históricos e do ciclo atual.
+Atribui pesos aos institutos de acordo com o desempenho na última
 eleição, considerando o alinhamento político dos candidatos. O viés é
 estimado em torno do consenso das pesquisas.</p>
 <p><img src="agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png" class="r-plt" alt="" width="100%"></p>
