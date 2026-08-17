@@ -68,11 +68,9 @@ ajustar_modelo <- function(bd,
                        mu_priori = config_prioris$mu_priori,
                        sd_mu_priori = config_prioris$sd_mu_priori,
                        omega_eta_priori = config_prioris$omega_eta_priori,
-                       sd_omega_eta_priori = config_prioris$sd_omega_eta_priori,
                        nu_priori = config_prioris$nu_priori,
                        sd_nu_priori = config_prioris$sd_nu_priori,
-                       omega_zeta_priori = config_prioris$omega_zeta_priori,
-                       sd_omega_zeta_priori = config_prioris$sd_omega_zeta_priori)
+                       omega_zeta_priori = config_prioris$omega_zeta_priori)
 
   } else if (modelo == "Vi\u00e9s Relativo com Pesos") {
 
@@ -96,11 +94,9 @@ ajustar_modelo <- function(bd,
                        mu_priori = config_prioris$mu_priori,
                        sd_mu_priori = config_prioris$sd_mu_priori,
                        omega_eta_priori = config_prioris$omega_eta_priori,
-                       sd_omega_eta_priori = config_prioris$sd_omega_eta_priori,
                        nu_priori = config_prioris$nu_priori,
                        sd_nu_priori = config_prioris$sd_nu_priori,
-                       omega_zeta_priori = config_prioris$omega_zeta_priori,
-                       sd_omega_zeta_priori = config_prioris$sd_omega_zeta_priori)
+                       omega_zeta_priori = config_prioris$omega_zeta_priori)
 
   } else if (modelo == "Vi\u00e9s Emp\u00edrico") {
 
@@ -124,11 +120,9 @@ ajustar_modelo <- function(bd,
                        mu_priori = config_prioris$mu_priori,
                        sd_mu_priori = config_prioris$sd_mu_priori,
                        omega_eta_priori = config_prioris$omega_eta_priori,
-                       sd_omega_eta_priori = config_prioris$sd_omega_eta_priori,
                        nu_priori = config_prioris$nu_priori,
                        sd_nu_priori = config_prioris$sd_nu_priori,
-                       omega_zeta_priori = config_prioris$omega_zeta_priori,
-                       sd_omega_zeta_priori = config_prioris$sd_omega_zeta_priori)
+                       omega_zeta_priori = config_prioris$omega_zeta_priori)
 
   } else if (modelo == "Retrospectivo") {
 
@@ -177,11 +171,9 @@ ajustar_modelo <- function(bd,
                        mu_priori = config_prioris$mu_priori,
                        sd_mu_priori = config_prioris$sd_mu_priori,
                        omega_eta_priori = config_prioris$omega_eta_priori,
-                       sd_omega_eta_priori = config_prioris$sd_omega_eta_priori,
                        nu_priori = config_prioris$nu_priori,
                        sd_nu_priori = config_prioris$sd_nu_priori,
-                       omega_zeta_priori = config_prioris$omega_zeta_priori,
-                       sd_omega_zeta_priori = config_prioris$sd_omega_zeta_priori)
+                       omega_zeta_priori = config_prioris$omega_zeta_priori)
 
   } else if (modelo == "Naive") {
 
@@ -193,8 +185,7 @@ ajustar_modelo <- function(bd,
                        # Hiperparâmetros
                        mu_priori = config_prioris$mu_priori,
                        sd_mu_priori = config_prioris$sd_mu_priori,
-                       omega_eta_priori = config_prioris$omega_eta_priori,
-                       sd_omega_eta_priori = config_prioris$sd_omega_eta_priori)
+                       omega_eta_priori = config_prioris$omega_eta_priori)
 
   } else {
 

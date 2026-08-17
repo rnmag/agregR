@@ -43,7 +43,6 @@ data {
   real<lower=0, upper=1> mu_priori;                 // priori para votos latentes
   real<lower=0> sd_mu_priori;                       // desvio padrão da priori para mu
   real<lower=0> omega_eta_priori;                   // priori para a volatilidade do nível
-  real<lower=0> sd_omega_eta_priori;                // desvio padrão para a volatilidade do nível
   //
   // ---------------------------- Dados observados ----------------------------
   //
@@ -54,27 +53,24 @@ data {
 parameters {
   // ----------------- Vars auxiliares para reparametrização ------------------
   vector[total_dias] mu_raw;
-  real<lower=0> omega_eta_raw;
 }
 
 transformed parameters {
   // ---------------------------- Modelo de estado ----------------------------
   vector[total_dias] mu;
-  real<lower=0> omega_eta = omega_eta_priori + omega_eta_raw * sd_omega_eta_priori;
 
   // Inicialização (t = 1)
   mu[1] = mu_priori + mu_raw[1] * sd_mu_priori;
 
   // Evolução do estado
   for (t in 2:total_dias) {
-    mu[t] = mu[t - 1] + mu_raw[t] * omega_eta;
+    mu[t] = mu[t - 1] + mu_raw[t] * omega_eta_priori;
   }
 }
 
 model {
   // ------------------------ Prioris reparametrizadas ------------------------
   mu_raw ~ std_normal();
-  omega_eta_raw ~ std_normal();
 
   // ------------------------- Verossimilhança --------------------------------
   percentual ~ normal(mu[n_dias], sigma);
@@ -82,6 +78,5 @@ model {
 
 generated quantities {
   // Simulação para *Posterior Predictive Checks*
-  // Vetor sem limites pode gerar valores simulados abaixo de 0 ou acima de 1
   vector[n_pesquisas] perc_simulado = to_vector(normal_rng(mu[n_dias], sigma));
 }

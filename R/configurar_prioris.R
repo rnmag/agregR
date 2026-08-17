@@ -17,9 +17,8 @@
 #'      \item \emph{Default values}: \eqn{\mu} starts with a flat prior of N(0.5, 0.5), allowing data to quickly dominate inference.
 #'   }
 #'   \item \code{omega_eta_priori}: Prior mean for the level volatility (\eqn{\omega_\eta}).
-#'   \item \code{sd_omega_eta_priori}: Prior uncertainty for the level volatility.
 #'   \itemize{
-#'      \item \emph{Default values}: With \code{omega_eta_priori = 0.002} and \code{sd_omega_eta_priori = 0.0001}, the model assumes a **baseline drift** of approx. \eqn{\pm 2} percentage points over a month (\eqn{1.96 \times \sqrt{30} \times 0.002 \approx 0.02}).
+#'      \item \emph{Default values}: With \code{omega_eta_priori = 0.002}, the model assumes a **baseline drift** of approx. \eqn{\pm 2} percentage points over a month (\eqn{1.96 \times \sqrt{30} \times 0.002 \approx 0.02}).
 #'      \item \emph{Higher values}: The latent vote (\eqn{\mu}) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".
 #'      \item \emph{Lower values}: The model assumes the public opinion level is more stable over time, resulting in smoother curves.
 #'   }
@@ -33,9 +32,8 @@
 #'      \item \emph{Default values}: With \code{nu_priori = 0} and \code{sd_nu_priori = 0.001}, the model expects an initial trend within \eqn{\pm 0.2} percentage points per day (\eqn{1.96 \times 0.001 \approx 0.002}).
 #'   }
 #'   \item \code{omega_zeta_priori}: Prior mean for the trend volatility (\eqn{\omega_\zeta}).
-#'   \item \code{sd_omega_zeta_priori}: Prior uncertainty for the trend volatility.
 #'   \itemize{
-#'      \item \emph{Default values}: With \code{omega_zeta_priori = 0} and \code{sd_omega_zeta_priori = 0.00001}, the model assumes a linear evolution, allowing the trend to shift rapidly (accelerations) only under strong evidence.
+#'      \item \emph{Default values}: With \code{omega_zeta_priori = 0.00001}, the model assumes a linear evolution, allowing the trend to shift rapidly (accelerations) only under strong evidence.
 #'      \item \emph{Higher values:} The trend (\eqn{\nu}) can change direction or magnitude rapidly.
 #'      \item \emph{Lower values:} The trend is assumed to be more constant over time (more linear evolution).
 #'   }
@@ -83,32 +81,32 @@ configurar_prioris <- function(nome = "Vi\u00e9s Relativo com Pesos", ...) {
                                                  # gamma_priori = 0, sd_gamma_priori = 0.02,
                                                  tau_priori = 0.02, sd_tau_priori = 0.02,
                                                  mu_priori = 0.5, sd_mu_priori = 0.5,
-                                                 omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001,
+                                                 omega_eta_priori = 0.002,
                                                  nu_priori = 0, sd_nu_priori = 0.001,
-                                                 omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001),
+                                                 omega_zeta_priori = 0.00001),
                   vies_relativo_com_pesos = list(delta_priori = 0, sd_delta_priori = 0.02,
                                                  # gamma_priori = 0, sd_gamma_priori = 0.02,
                                                  sd_tau_priori = 0.02,
                                                  mu_priori = 0.5, sd_mu_priori = 0.5,
-                                                 omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001,
+                                                 omega_eta_priori = 0.002,
                                                  nu_priori = 0, sd_nu_priori = 0.001,
-                                                 omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001),
+                                                 omega_zeta_priori = 0.00001),
                   vies_empirico = list(sd_delta_priori = 0.02,
                                        # gamma_priori = 0, sd_gamma_priori = 0.02,
                                        sd_tau_priori = 0.02,
                                        mu_priori = 0.5, sd_mu_priori = 0.5,
-                                       omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001,
+                                       omega_eta_priori = 0.002,
                                        nu_priori = 0, sd_nu_priori = 0.001,
-                                       omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001),
+                                       omega_zeta_priori = 0.00001),
                   retrospectivo = list(delta_priori = 0, sd_delta_priori = 0.02,
                                        # gamma_priori = 0, sd_gamma_priori = 0.02,
                                        tau_priori = 0.02, sd_tau_priori = 0.02,
                                        mu_priori = 0.5, sd_mu_priori = 0.5,
-                                       omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001,
+                                       omega_eta_priori = 0.002,
                                        nu_priori = 0, sd_nu_priori = 0.001,
-                                       omega_zeta_priori = 0, sd_omega_zeta_priori = 0.00001),
+                                       omega_zeta_priori = 0.00001),
                   naive = list(mu_priori = 0.5, sd_mu_priori = 0.5,
-                               omega_eta_priori = 0.002, sd_omega_eta_priori = 0.0001))
+                               omega_eta_priori = 0.002))
 
   if (!nome_convertido %in% names(valores)) {
 

@@ -12,7 +12,7 @@
 // adicional de erro não-amostral (tau) semelhante ao utilizado por Heidemanns,
 // Gelman & Morris (2020).
 //
-// --- Por que viés relativo? ---
+// Por que viés relativo?
 //
 // Os parâmetros do modelo não são identificados: há múltiplas combinações de
 // mu e delta que geram soluções válidas. Como o ajuste do modelo não é único,
@@ -24,14 +24,14 @@
 // ponto fixo em torno do qual são solucionados os parâmetros. Portanto, o viés
 // é relativo porque mede como cada instituto desvia do conjunto dos demais.
 //
-// --- Pesos ---
+// Pesos
 //
 // Este modelo NÃO utiliza dados da eleição anterior para definir as prioris de
 // qualquer parâmetro. Portanto, não são atribuídos pesos aos institutos. Todas
 // as estimativas são feitas a partir de parâmetros e dados referentes ao ciclo
 // eleitoral atual.
 //
-// --- Modelo de estado ---
+// Modelo de estado
 //
 // Nos dias em que não há pesquisas publicadas, a estimativa evolui por meio de
 // um *state model* com 2 componentes:
@@ -42,7 +42,7 @@
 // Em outras palavras, o estado latente da intenção de votos segue o nível do
 // dia anterior acrescido da tendência capturada pelo modelo.
 //
-// --- Verossimilhança ---
+// Verossimilhança
 //
 // Quando uma pesquisa é publicada, o modelo a trata como uma informação útil,
 // porém imperfeita, sobre o estado real da variável latente:
@@ -62,7 +62,7 @@
 //    viés dos institutos. Por exemplo, as amostras raramente são aleatórias,
 //    há viés de não resposta não ignorável, etc.
 //
-// --- Reparametrização ---
+// Reparametrização
 //
 // Este modelo padroniza as distribuições dos parâmetros em N(0, 1), que é uma
 // distribuição com propriedades conhecidas e que o Stan consegue explorar com
@@ -80,7 +80,7 @@
 // cos, enquanto o capítulo sobre Eficiência do Stan Users Guide (link abaixo)
 // serve como referência para a implementação da técnica.
 //
-// --- Referências ---
+// Referências
 //
 // Heidemanns, Gelman & Morris (2020): https://sites.stat.columbia.edu/gelman/research/published/Harvard_Data_Science_Review.pdf
 // Jackman (2009): https://onlinelibrary.wiley.com/doi/book/10.1002/9780470686621
@@ -112,29 +112,27 @@ data {
   // -------------------------------- Prioris ---------------------------------
   //     https://github.com/stan-dev/stan/wiki/prior-choice-recommendations
   //
-  // --- Viés dos institutos ---
+  // Viés dos institutos
   real delta_priori;                                // erro direcional dos institutos
   real<lower=0> sd_delta_priori;                    // desvio padrão da priori para delta
   //
-  // --- Viés das metodologias ---
+  // Viés das metodologias
   // real gamma_priori;                             // erro direcional por metodologia
   // real<lower=0> sd_gamma_priori;                 // desvio padrão da priori para gamma
   //
-  // --- Erro não-amostral ---
+  // Erro não-amostral
   real<lower=0> tau_priori;                         // erro não-amostral médio dos institutos
   real<lower=0> sd_tau_priori;                      // desvio padrão da priori para tau
   // 
-  // --- Modelo de estado: dinâmica de nível ---
+  // Modelo de estado: dinâmica de nível
   real<lower=0, upper=1> mu_priori;                 // priori para votos latentes
   real<lower=0> sd_mu_priori;                       // desvio padrão da priori para mu
   real<lower=0> omega_eta_priori;                   // priori para a volatilidade do nível
-  real<lower=0> sd_omega_eta_priori;                // desvio padrão para a volatilidade do nível
   //
-  // --- Modelo de estado: dinâmica de tendência ---
+  // Modelo de estado: dinâmica de tendência
   real<lower=0> nu_priori;                          // priori para a tendência inicial
   real<lower=0> sd_nu_priori;                       // desvio padrão da priori para nu
   real<lower=0> omega_zeta_priori;                  // priori para volatilidade da tendência
-  real<lower=0> sd_omega_zeta_priori;               // desvio padrão para a volatilidade da tendência
   //
   // ---------------------------- Dados observados ----------------------------
   vector<lower=0, upper=1>[n_pesquisas] percentual; // valores das pesquisas
@@ -154,11 +152,9 @@ parameters {
 
   // Dinâmica de nível
   vector[total_dias] mu_raw;
-  real<lower=0> omega_eta_raw;
 
   // Dinâmica de tendência
   vector[total_dias] nu_raw;
-  real<lower=0> omega_zeta_raw;
 }
 
 transformed parameters {
@@ -185,11 +181,9 @@ transformed parameters {
   // ---------------------------- Modelo de estado ----------------------------
   // Reconstrução da dinâmica de nível
   vector[total_dias] mu;
-  real<lower=0> omega_eta = omega_eta_priori + omega_eta_raw * sd_omega_eta_priori;
 
   // Reconstrução da dinâmica de tendência
   vector[total_dias] nu;
-  real<lower=0> omega_zeta = omega_zeta_priori + omega_zeta_raw * sd_omega_zeta_priori;
 
   // Inicialização (t = 1)
   nu[1] = nu_priori + nu_raw[1] * sd_nu_priori;
@@ -197,8 +191,8 @@ transformed parameters {
 
   // Evolução do estado
   for (t in 2:total_dias) {
-    nu[t] = nu[t - 1] + nu_raw[t] * omega_zeta;
-    mu[t] = mu[t - 1] + nu[t - 1] + mu_raw[t] * omega_eta;
+    nu[t] = nu[t - 1] + nu_raw[t] * omega_zeta_priori;
+    mu[t] = mu[t - 1] + nu[t - 1] + mu_raw[t] * omega_eta_priori;
   }
 }
 
@@ -215,11 +209,9 @@ model {
 
   // Dinâmica de nível
   mu_raw ~ std_normal();
-  omega_eta_raw ~ std_normal();
 
   // Dinâmica de tendência
   nu_raw ~ std_normal();
-  omega_zeta_raw ~ std_normal();
 
   // ------------------------- Verossimilhança --------------------------------
   // Combina erro amostral (sigma) com erro não-amostral (tau) geral
@@ -228,6 +220,5 @@ model {
 
 generated quantities {
   // Simulação para *Posterior Predictive Checks*
-  // Vetor sem limites pode gerar valores simulados abaixo de 0 ou acima de 1
   vector[n_pesquisas] perc_simulado = to_vector(normal_rng(mu[n_dias] + delta[instituto], sqrt(square(sigma) + square(tau))));
 }
