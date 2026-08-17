@@ -29,7 +29,7 @@ test_that("configurar_grafico aceita parâmetros customizados", {
 test_that("configurar_prioris retorna parâmetros corretos para cada modelo", {
   # Naive
   p_naive <- configurar_prioris(nome = "Naive")
-  expect_named(p_naive, c("mu_priori", "sd_mu_priori", "omega_eta_priori", "sd_omega_eta_priori"))
+  expect_named(p_naive, c("mu_priori", "sd_mu_priori", "omega_eta_priori"))
 
   # Viés Relativo sem Pesos
   p_vies_sem <- configurar_prioris(nome = "Vi\u00e9s Relativo sem Pesos")

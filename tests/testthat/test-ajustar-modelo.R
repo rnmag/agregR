@@ -13,7 +13,7 @@ test_that("ajustar_modelo prepara dados e delega ao Stan (Naive)", {
     sample = function(data, ...) {
       # Verificar se os dados enviados ao Stan estão corretos para o modelo Naive
       expect_named(data, c("n_dias", "total_dias", "n_pesquisas", "percentual",
-                           "sigma", "mu_priori", "sd_mu_priori", "omega_eta_priori", "sd_omega_eta_priori"))
+                           "sigma", "mu_priori", "sd_mu_priori", "omega_eta_priori"))
       return(mock_modelo_bruto)
     }
   )
