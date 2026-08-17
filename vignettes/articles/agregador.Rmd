@@ -12,14 +12,16 @@ library(agregR)
 
 ```
 
-**Última atualização: `r format(Sys.Date(), "%d/%m/%Y")`**
+**Última atualização: `r format(Sys.Date(), "%d/%m/%Y", tz = "America/Sao_Paulo")`**
 
 ## Introdução
 
-Como interpretar os resultados de pesquisas com resultados divergentes? O
-agregador emprega uma [metodologia rigorosa](https://rnmag.github.io/agregR/index.html#methodology)
+Como interpretar tantas pesquisas eleitorais com diferentes resultados? O agregador
+emprega uma [metodologia rigorosa](https://rnmag.github.io/agregR/index.html#methodology)
 para tratar a enxurrada de dados divulgados no período eleitoral e estimar o
-nível de apoio subjacente a cada candidato. Os modelos contemplam:
+nível de apoio subjacente a cada candidato.
+
+Os modelos contemplam:
 
 * Desempenho dos institutos na última eleição
 * Vieses de acordo com o alinhamento político dos candidatos
@@ -27,29 +29,24 @@ nível de apoio subjacente a cada candidato. Os modelos contemplam:
 * Margens de erro incoerentes com o tamanho da amostra 
 * Erros não-amostrais (para além da margem de erro)
 
-Esta página apresenta cenários eleitorais mais prováveis, mas `agregR` é um
-pacote de [código aberto](https://github.com/rnmag/agregR) para o R que pode
-ser [instalado](https://rnmag.github.io/agregR/index.html#installation)
-gratuitamente. Fique à vontade para explorar os mais de 10 cenários disponíveis
-no banco de dados.
-
 `agregR` oferece 3[^1] modelos que se diferenciam pela importância atribuída ao
 desempenho dos institutos na última eleição. Eles são apresentados abaixo em
 ordem do menos dependente dos dados históricos para o mais dependente. Cada
-modelo é apresentado por um breve resumo, e uma
-[explicação técnica detalhada](https://rnmag.github.io/agregR/index.html#methodology)
-está disponível na documentação.
+modelo contém uma breve nota introdutória, e interessados podem consultar a
+[exposição técnica detalhada](https://rnmag.github.io/agregR/index.html#methodology)
+na documentação.
 
 [^1]: O pacote contém mais 2 modelos com menor utilidade durante a campanha:
 o modelo **Retrospectivo** usa o resultado real da eleição para calcular
 retrospectivamente vieses e trajetórias para cada candidato, enquanto o modelo
 **Naive** é disponibilizado como uma curiosidade, pois não modela nenhum viés e
-é equivalente a tirar uma média simples das pesquisas.
+é equivalente a calcular uma média simples das pesquisas.
 
-Embora os modelos com dados históricos pareçam preferíveis, é importante lembrar
-que desempenhos passados podem não se repetir, e institutos podem adaptar suas
-metodologias entre uma eleição e outra. Os modelos se complementam.
-
+Esta página apresenta cenários eleitorais mais prováveis, mas `agregR` é um
+pacote de [código aberto](https://github.com/rnmag/agregR) para o R que pode
+ser [instalado](https://rnmag.github.io/agregR/index.html#installation)
+gratuitamente. Fique à vontade para explorar os mais de 10 cenários disponíveis
+no banco de dados.
 
 ## Modelo 1: Viés Relativo sem Pesos
 
@@ -95,10 +92,10 @@ grafico_vies(resultado_2t,
 
 ## Modelo 2: Viés Relativo com Pesos
 
-Este modelo equilibra o uso de dados históricos e de dados do cliclo atual.
-Atribui pesos aos institutos de acordo com o desempenho na última eleição,
-considerando o alinhamento político dos candidatos. O viés é estimado em torno
-do consenso das pesquisas.
+Este modelo equilibra o uso de dados históricos e do ciclo atual. Atribui pesos
+aos institutos de acordo com o desempenho na última eleição, considerando o
+alinhamento político dos candidatos. O viés é estimado em torno do consenso
+das pesquisas.
 
 ```{r modelo-vies-relativo-com-pesos-1t, include = FALSE}
 
