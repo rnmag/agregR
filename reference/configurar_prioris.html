@@ -75,16 +75,14 @@ state evolution, institute bias, and non-sampling errors.</p>
 <p><strong>State Model - Level (\(\mu\))</strong></p><ul><li><p><code>mu_priori</code>: Prior mean for the latent vote share at \(t=1\).</p></li>
 <li><p><code>sd_mu_priori</code>: Prior uncertainty for the initial latent vote.</p><ul><li><p><em>Default values</em>: \(\mu\) starts with a flat prior of N(0.5, 0.5), allowing data to quickly dominate inference.</p></li>
 </ul></li>
-<li><p><code>omega_eta_priori</code>: Prior mean for the level volatility (\(\omega_\eta\)).</p></li>
-<li><p><code>sd_omega_eta_priori</code>: Prior uncertainty for the level volatility.</p><ul><li><p><em>Default values</em>: With <code>omega_eta_priori = 0.002</code> and <code>sd_omega_eta_priori = 0.0001</code>, the model assumes a <strong>baseline drift</strong> of approx. \(\pm 2\) percentage points over a month (\(1.96 \times \sqrt{30} \times 0.002 \approx 0.02\)).</p></li>
+<li><p><code>omega_eta_priori</code>: Prior mean for the level volatility (\(\omega_\eta\)).</p><ul><li><p><em>Default values</em>: With <code>omega_eta_priori = 0.002</code>, the model assumes a <strong>baseline drift</strong> of approx. \(\pm 2\) percentage points over a month (\(1.96 \times \sqrt{30} \times 0.002 \approx 0.02\)).</p></li>
 <li><p><em>Higher values</em>: The latent vote (\(\mu\)) can jump more from one day to the next. The model adapts more quickly to new polls but becomes more "jittery".</p></li>
 <li><p><em>Lower values</em>: The model assumes the public opinion level is more stable over time, resulting in smoother curves.</p></li>
 </ul></li>
 </ul><p><strong>State Model - Trend (\(\nu\))</strong></p><ul><li><p><code>nu_priori</code>: Prior mean for the initial trend (daily growth rate).</p></li>
 <li><p><code>sd_nu_priori</code>: Prior uncertainty for the initial trend.</p><ul><li><p><em>Default values</em>: With <code>nu_priori = 0</code> and <code>sd_nu_priori = 0.001</code>, the model expects an initial trend within \(\pm 0.2\) percentage points per day (\(1.96 \times 0.001 \approx 0.002\)).</p></li>
 </ul></li>
-<li><p><code>omega_zeta_priori</code>: Prior mean for the trend volatility (\(\omega_\zeta\)).</p></li>
-<li><p><code>sd_omega_zeta_priori</code>: Prior uncertainty for the trend volatility.</p><ul><li><p><em>Default values</em>: With <code>omega_zeta_priori = 0</code> and <code>sd_omega_zeta_priori = 0.00001</code>, the model assumes a linear evolution, allowing the trend to shift rapidly (accelerations) only under strong evidence.</p></li>
+<li><p><code>omega_zeta_priori</code>: Prior mean for the trend volatility (\(\omega_\zeta\)).</p><ul><li><p><em>Default values</em>: With <code>omega_zeta_priori = 0.00001</code>, the model assumes a linear evolution, allowing the trend to shift rapidly (accelerations) only under strong evidence.</p></li>
 <li><p><em>Higher values:</em> The trend (\(\nu\)) can change direction or magnitude rapidly.</p></li>
 <li><p><em>Lower values:</em> The trend is assumed to be more constant over time (more linear evolution).</p></li>
 </ul></li>

@@ -47,12 +47,9 @@ Recommended reading:
 - `omega_eta_priori`: Prior mean for the level volatility
   (\\\omega\_\eta\\).
 
-- `sd_omega_eta_priori`: Prior uncertainty for the level volatility.
-
-  - *Default values*: With `omega_eta_priori = 0.002` and
-    `sd_omega_eta_priori = 0.0001`, the model assumes a **baseline
-    drift** of approx. \\\pm 2\\ percentage points over a month (\\1.96
-    \times \sqrt{30} \times 0.002 \approx 0.02\\).
+  - *Default values*: With `omega_eta_priori = 0.002`, the model assumes
+    a **baseline drift** of approx. \\\pm 2\\ percentage points over a
+    month (\\1.96 \times \sqrt{30} \times 0.002 \approx 0.02\\).
 
   - *Higher values*: The latent vote (\\\mu\\) can jump more from one
     day to the next. The model adapts more quickly to new polls but
@@ -74,12 +71,9 @@ Recommended reading:
 - `omega_zeta_priori`: Prior mean for the trend volatility
   (\\\omega\_\zeta\\).
 
-- `sd_omega_zeta_priori`: Prior uncertainty for the trend volatility.
-
-  - *Default values*: With `omega_zeta_priori = 0` and
-    `sd_omega_zeta_priori = 0.00001`, the model assumes a linear
-    evolution, allowing the trend to shift rapidly (accelerations) only
-    under strong evidence.
+  - *Default values*: With `omega_zeta_priori = 0.00001`, the model
+    assumes a linear evolution, allowing the trend to shift rapidly
+    (accelerations) only under strong evidence.
 
   - *Higher values:* The trend (\\\nu\\) can change direction or
     magnitude rapidly.
