@@ -45,8 +45,8 @@ configurar_agregador <- function(pesquisas = NULL,
                                  stan_chains = 4,
                                  stan_warmup = 500,
                                  stan_sampling = 500,
-                                 stan_init = 0.1,
-                                 stan_adapt_delta = 0.99,
+                                 stan_init = 0.1, # iniciar sim próximo da média
+                                 stan_adapt_delta = 0.95, # tamanho dos passos
                                  saida_bases_tratadas = "resultados_agregador/bases_tratadas",
                                  saida_modelos_brutos = "resultados_agregador/modelos_brutos") {
 
@@ -102,8 +102,8 @@ configurar_agregador <- function(pesquisas = NULL,
                    chains = stan_chains,
                    warmup = stan_warmup,
                    sampling = stan_sampling,
-                   init = stan_init, # iniciar sim próximo da média
-                   adapt_delta = stan_adapt_delta), # explorar com passos pequanos
+                   init = stan_init,
+                   adapt_delta = stan_adapt_delta),
        saida_bases_tratadas = saida_bases_tratadas,
        saida_modelos_brutos = saida_modelos_brutos)
 }
