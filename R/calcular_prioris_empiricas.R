@@ -19,7 +19,8 @@ calcular_prioris_empiricas <- function(candidatura, turno, institutos, config_ag
 
   } else {
 
-    bd_historico <- bd_historico |> filter(turno == !!turno)
+    bd_historico <- bd_historico |> filter(turno == !!turno) |>
+      mutate(erro_total = 0) # priori 0 para candidatos não alinhados, evitando somas > 100%
 
   }
 
