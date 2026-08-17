@@ -23,7 +23,7 @@ configurar_agregador(
   stan_warmup = 500,
   stan_sampling = 500,
   stan_init = 0.1,
-  stan_adapt_delta = 0.99,
+  stan_adapt_delta = 0.95,
   saida_bases_tratadas = "resultados_agregador/bases_tratadas",
   saida_modelos_brutos = "resultados_agregador/modelos_brutos"
 )
