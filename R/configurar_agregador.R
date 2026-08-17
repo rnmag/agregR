@@ -79,7 +79,7 @@ configurar_agregador <- function(pesquisas = NULL,
   }
 
   if (is.null(direita_eleicao_atual)) {
-    direita_eleicao_atual <- c("Bolsonaro", "Fl\u00e1vio", "Caiado", "Renan", "Zema")
+    direita_eleicao_atual <- c("Bolsonaro", "Fl\u00e1vio")
   }
 
   if (is.null(esquerda_eleicao_atual)) {
