@@ -8,7 +8,7 @@
 
 <!-- badges: end -->
 
-🇧🇷 **Novidade**: [acompanhe](articles/agregador.html) os resultados atualizados do agregador 🇧🇷
+🇧🇷 **Novidade**: [acompanhe](articles/agregador.html) os resultados atualizados do agregador
 
 **Bayesian State-Space Aggregation of Brazilian Presidential Polls**
 
@@ -38,8 +38,8 @@ and possibly biased. It features methods to account for:
   - [Advanced Configuration](#advanced-configuration)
 - [Methodology](#methodology)
   - [Introduction](#introduction)
-  - [Data](#data)
   - [Conceptual Framework](#conceptual-framework)
+  - [Data Quality](#data-quality)
   - [Models Overview](#models-overview)
 - [Model Validation](#model-validation)
   - [Posterior Predictive Checks](#posterior-predictive-checks)
@@ -236,25 +236,6 @@ as the GPS receiver:
  3. **Joint Parameter Updating**: As new polls are published, it simultaneously
     updates candidate support levels and re-evaluates the reliability of each pollster.
 
-### Data
-
-Data collection is deliberately *unselective*. Instead of subjectively
-deciding which institutes produce high-quality polls, we trust the
-models to separate the wheat from the chaff.
-
-Polls enter the model with checks on their sample size in order to
-avoid undue influence from pollsters claiming inflated precision. We calculate
-an *implied* $n$ derived from the published margin of error and compare it
-to the reported sample size. We use the most conservative figure $n_{eff}$ to
-compute specific standard errors for each candidate $c$ according to their
-vote share $v_{i, c}$ in poll $i$:
-
-$$
-\sigma_{i, c} = \sqrt\frac{v_{i, c}(1-v_{i, c})}{n_{eff[i]}}
-$$
-
-Historical data is sourced from Poder360’s polling database via [Base dos Dados](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
-
 ### Conceptual Framework
 
 The methods implemented by `agregR` build on Jackman (2009). They are variously
@@ -365,6 +346,21 @@ In summary, we are explicitly modeling three sources of support uncertainty in p
     capturing noise extrinsic to random sampling (e.g., design effects,
     non-ignorable non-response bias), also localized by pollster $j$,
     round $k$, and political alignment $p$.
+
+### Data Quality
+
+Polls enter the model with checks on their sample size in order to
+avoid undue influence from pollsters claiming inflated precision. We calculate
+an *implied* $n$ derived from the published margin of error and compare it
+to the reported sample size. We use the most conservative figure $n_{eff}$ to
+compute specific standard errors for each candidate $c$ according to their
+vote share $v_{i, c}$ in poll $i$:
+
+$$
+\sigma_{i, c} = \sqrt\frac{v_{i, c}(1-v_{i, c})}{n_{eff[i]}}
+$$
+
+Historical data is sourced from Poder360’s polling database via [Base dos Dados](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
 
 ### Models Overview
 
