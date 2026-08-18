@@ -1,7 +1,8 @@
 # Agregador Eleições 2026
 
-**Última atualização**: 18/08/2026 **Última pesquisa**: Nexus finalizada
-em 16/08/2026
+**Última atualização**: 18/08/2026
+
+**Última pesquisa**: Nexus finalizada em 16/08/2026
 
 ## Introdução
 
@@ -116,10 +117,23 @@ imprensa. Não há seleção qualitativa de institutos nem avaliações
 subjetivas de qualidade: os modelos são calibrados para identificar e
 descontar potenciais vieses.
 
-Atualmente, a base contém **132** pesquisas dos seguintes institutos:
-Alfa, Atlas, Datafolha, Futura, Gerp, Ideia, Ipsos-Ipec, MDA, Nexus,
-Palver, Paraná Pesquisas, PoderData, Quaest, Realtime Bigdata e Vox
-Brasil.
+Atualmente, a base contém **132 pesquisas** dos seguintes institutos:
+
+- Alfa
+- Atlas
+- Datafolha
+- Futura
+- Gerp
+- Ideia
+- Ipsos-Ipec
+- MDA
+- Nexus
+- Palver
+- Paraná Pesquisas
+- PoderData
+- Quaest
+- Realtime Bigdata
+- Vox Brasil
 
 Agradeço a Ricardo Ribeiro, que gentilmente compartilhou sua planilha de
 pesquisas para o ciclo atual, e ao Poder360, que publicou sua [base
