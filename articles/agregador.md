@@ -1,6 +1,7 @@
 # Agregador Eleições 2026
 
-**Última atualização: 18/08/2026**
+**Última atualização**: 18/08/2026 **Última pesquisa**: Nexus finalizada
+em 16/08/2026
 
 ## Introdução
 
@@ -37,11 +38,23 @@ Este modelo não usa qualquer informação sobre o desempenho dos
 institutos na última eleição, calculando vieses puramente com base nas
 pesquisas deste ciclo eleitoral. Todos os institutos têm o mesmo peso.
 
-![](agregador_files/figure-html/grafico-vies-relativo-sem-pesos-1t-1.png)
+![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-1t-1.png)](agregador_files/figure-html/grafico-vies-relativo-sem-pesos-1t-1.png)
 
-![](agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-1t-1.png)
 
-![](agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)
+![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)](agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)
+
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)
+
+![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)](agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)
+
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)
 
 ## Modelo 2: Viés Relativo com Pesos
 
@@ -50,11 +63,23 @@ Atribui pesos aos institutos de acordo com o desempenho na última
 eleição, considerando o alinhamento político dos candidatos. O viés é
 estimado em torno do consenso das pesquisas.
 
-![](agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png)
+![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png)](agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png)
 
-![](agregador_files/figure-html/grafico-vies-relativo-com-pesos-2t-1.png)
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png)
 
-![](agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)
+![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-2t-1.png)](agregador_files/figure-html/grafico-vies-relativo-com-pesos-2t-1.png)
+
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-2t-1.png)
+
+![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)](agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)
+
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)
 
 ## Modelo 3: Viés Empírico
 
@@ -64,11 +89,42 @@ os resultados das urnas para compensar (ou descontar) os candidatos com
 alinhamentos políticos mais prejudicados (ou beneficiados) por cada
 instituto.
 
-![](agregador_files/figure-html/grafico-vies-empirico-1t-1.png)
+![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-1t-1.png)](agregador_files/figure-html/grafico-vies-empirico-1t-1.png)
 
-![](agregador_files/figure-html/grafico-vies-empirico-2t-1.png)
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-1t-1.png)
 
-![](agregador_files/figure-html/institutos-vies-empirico-1.png)
+![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-2t-1.png)](agregador_files/figure-html/grafico-vies-empirico-2t-1.png)
+
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-2t-1.png)
+
+![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1.png)](agregador_files/figure-html/institutos-vies-empirico-1.png)
+
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1.png)
+
+## Pesquisas incluídas
+
+O [banco de
+dados](https://github.com/rnmag/agregR/blob/main/inst/extdata/pesquisas_2026.csv)
+é alimentado com base nas pesquisas registradas no TSE e divulgadas na
+imprensa. Não há seleção qualitativa de institutos nem avaliações
+subjetivas de qualidade: os modelos são calibrados para identificar e
+descontar potenciais vieses.
+
+Atualmente, a base contém **132** pesquisas dos seguintes institutos:
+Alfa, Atlas, Datafolha, Futura, Gerp, Ideia, Ipsos-Ipec, MDA, Nexus,
+Palver, Paraná Pesquisas, PoderData, Quaest, Realtime Bigdata e Vox
+Brasil.
+
+Agradeço a Ricardo Ribeiro, que gentilmente compartilhou sua planilha de
+pesquisas para o ciclo atual, e ao Poder360, que publicou sua [base
+histórica de
+pesquisas](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
 
 [^1]: O pacote contém outros 2 modelos com menor utilidade durante a
     campanha: o modelo **Retrospectivo** usa o resultado real da eleição
