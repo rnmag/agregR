@@ -2,12 +2,14 @@
 title: "Agregador Eleições 2026"
 ---
 ```{css, echo=FALSE}
+
 .caption, p.caption, figcaption {
   text-align: center;
 }
 ```
 
 ```{r setup, include = FALSE}
+
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -22,20 +24,9 @@ pesquisas_2026 <- read_csv2("https://raw.githubusercontent.com/rnmag/agregR/refs
                             locale = locale(decimal_mark = ",",
                             grouping_mark = "."))
 
-# Função auxiliar para a lista de institutos
-formatar_lista <- function(x) {
-  n <- length(x)
-  if (n == 0) return("")
-  if (n == 1) return(as.character(x))
-  if (n == 2) return(paste(x, collapse = " e "))
-  paste0(paste(x[1:(n - 1)], collapse = ", "), " e ", x[n])
-}
-
 ```
 
 **Última atualização**: `r format(Sys.Date(), "%d/%m/%Y", tz = "America/Sao_Paulo")`
-
-**Última pesquisa**: `r pesquisas_2026 |> slice_tail(n = 1) |> pull(instituto)` finalizada em `r pesquisas_2026 |> slice_tail(n = 1) |> pull(dia)`
 
 ## Introdução
 
@@ -76,7 +67,6 @@ Este modelo não usa qualquer informação sobre o desempenho dos institutos na
 última eleição, calculando vieses puramente com base nas pesquisas deste ciclo
 eleitoral. Todos os institutos têm o mesmo peso.
 
-
 ```{r modelo-vies-relativo-sem-pesos-1t, include = FALSE}
 
 resultado_1t <- rodar_agregador(turno = 1,
@@ -91,6 +81,8 @@ grafico_agregador(resultado_1t)
 
 ```
 
+---
+
 ```{r modelo-vies-relativo-sem-pesos-2t, include = FALSE}
 
 resultado_2t <- rodar_agregador(turno = 2,
@@ -100,13 +92,13 @@ resultado_2t <- rodar_agregador(turno = 2,
 
 ```
 
-
 ```{r grafico-vies-relativo-sem-pesos-2t, echo = FALSE, dpi=225, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)"}
 
 grafico_agregador(resultado_2t)
 
 ```
 
+---
 
 ```{r institutos-vies-relativo-sem-pesos, echo = FALSE, fig.height=8, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)"}
 
@@ -122,7 +114,6 @@ aos institutos de acordo com o desempenho na última eleição, considerando o
 alinhamento político dos candidatos. O viés é estimado em torno do consenso
 das pesquisas.
 
-
 ```{r modelo-vies-relativo-com-pesos-1t, include = FALSE}
 
 resultado_1t <- rodar_agregador(turno = 1,
@@ -137,6 +128,8 @@ grafico_agregador(resultado_1t)
 
 ```
 
+---
+
 ```{r modelo-vies-relativo-com-pesos-2t, include = FALSE}
 
 resultado_2t <- rodar_agregador(turno = 2,
@@ -146,13 +139,13 @@ resultado_2t <- rodar_agregador(turno = 2,
 
 ```
 
-
 ```{r grafico-vies-relativo-com-pesos-2t, echo = FALSE, dpi=225, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-2t-1.png)"}
 
 grafico_agregador(resultado_2t)
 
 ```
 
+---
 
 ```{r institutos-vies-relativo-com-pesos, echo = FALSE, fig.height=8, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)"}
 
@@ -168,7 +161,6 @@ de acordo com o desempenho na última eleição, também utiliza os resultados
 das urnas para compensar (ou descontar) os candidatos com alinhamentos políticos
 mais prejudicados (ou beneficiados) por cada instituto.
 
-
 ```{r modelo-vies-empirico-1t, include = FALSE}
 
 resultado_1t <- rodar_agregador(turno = 1,
@@ -183,6 +175,8 @@ grafico_agregador(resultado_1t)
 
 ```
 
+---
+
 ```{r modelo-vies-empirico-2t, include = FALSE}
 
 resultado_2t <- rodar_agregador(turno = 2,
@@ -192,13 +186,13 @@ resultado_2t <- rodar_agregador(turno = 2,
 
 ```
 
-
 ```{r grafico-vies-empirico-2t, echo = FALSE, dpi=225, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-2t-1.png)"}
 
 grafico_agregador(resultado_2t)
 
 ```
 
+---
 
 ```{r institutos-vies-empirico, echo = FALSE, fig.height=8, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1.png)"}
 
@@ -211,14 +205,13 @@ grafico_vies(resultado_2t,
 
 O [banco de dados](https://github.com/rnmag/agregR/blob/main/inst/extdata/pesquisas_2026.csv)
 é alimentado com base nas pesquisas registradas no TSE e divulgadas na imprensa.
-Não há seleção qualitativa de institutos nem avaliações subjetivas de qualidade:
-os modelos são calibrados para identificar e descontar potenciais vieses.
-
-Atualmente, a base contém **`r pesquisas_2026 |> distinct(instituto, dia) |> tally()` pesquisas**
-dos seguintes institutos:
+Ele contém **`r pesquisas_2026 |> distinct(instituto, dia) |> tally()` pesquisas**
+para a eleição de 2026, abrangendo os seguintes institutos:
 
 `r paste("*", unique(sort(pesquisas_2026$instituto)), collapse = "\n")`
 
-Agradeço a Ricardo Ribeiro, que gentilmente compartilhou sua planilha de pesquisas
+Agradecimentos a Ricardo Ribeiro, que gentilmente compartilhou sua planilha de pesquisas
 para o ciclo atual, e ao Poder360, que publicou sua
 [base histórica de pesquisas](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
+
+**Última pesquisa**: `r pesquisas_2026 |> slice_tail(n = 1) |> pull(instituto)` finalizada em `r pesquisas_2026 |> slice_tail(n = 1) |> pull(dia)`
