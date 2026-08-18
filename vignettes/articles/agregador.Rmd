@@ -142,7 +142,7 @@ grafico_agregador(resultado_2t)
 
 ```
 
-```{r institutos-vies-relativo-com-pesos, echo = FALSE, fig.height=8, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)"}}
+```{r institutos-vies-relativo-com-pesos, echo = FALSE, fig.height=8, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)"}
 
 grafico_vies(resultado_2t,
              candidaturas = c("Lula", "Flávio"))
@@ -185,7 +185,7 @@ grafico_agregador(resultado_2t)
 
 ```
 
-```{r institutos-vies-empirico, echo = FALSE, fig.height=8, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1.png)"}}
+```{r institutos-vies-empirico, echo = FALSE, fig.height=8, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1.png)"}
 
 grafico_vies(resultado_2t,
              candidaturas = c("Lula", "Flávio"))
