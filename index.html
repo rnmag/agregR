@@ -71,7 +71,7 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>🇧🇷 <strong>Novidade</strong>: <a href="articles/agregador.html">acompanhe</a> os resultados atualizados do agregador 🇧🇷</p>
+<p>🇧🇷 <strong>Novidade</strong>: <a href="articles/agregador.html">acompanhe</a> os resultados atualizados do agregador</p>
 <p><strong>Bayesian State-Space Aggregation of Brazilian Presidential Polls</strong></p>
 <p>As presidential elections approach, Brazilian voters are confronted with a growing volume of conflicting polling estimates, each employing distinct methodologies and sampling designs. <code>agregR</code> provides a rigorous framework to filter the surfeit of data and uncover the underlying level of support for each candidate.</p>
 <p>The package implements a set of Bayesian state-space models in <a href="https://mc-stan.org/" class="external-link">Stan</a> to normalize polling data from sources that are noisy and possibly biased. It features methods to account for:</p>
@@ -100,8 +100,8 @@
 <a href="#methodology">Methodology</a>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#data">Data</a></li>
 <li><a href="#conceptual-framework">Conceptual Framework</a></li>
+<li><a href="#data-quality">Data Quality</a></li>
 <li><a href="#models-overview">Models Overview</a></li>
 </ul>
 </li>
@@ -267,16 +267,6 @@
 </ol>
 </div>
 <div class="section level3">
-<h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
-</h3>
-<p>Data collection is deliberately <em>unselective</em>. Instead of subjectively deciding which institutes produce high-quality polls, we trust the models to separate the wheat from the chaff.</p>
-<p>Polls enter the model with checks on their sample size in order to avoid undue influence from pollsters claiming inflated precision. We calculate an <em>implied</em> <span class="math inline">\(n\)</span> derived from the published margin of error and compare it to the reported sample size. We use the most conservative figure <span class="math inline">\(n_{eff}\)</span> to compute specific standard errors for each candidate <span class="math inline">\(c\)</span> according to their vote share <span class="math inline">\(v_{i, c}\)</span> in poll <span class="math inline">\(i\)</span>:</p>
-<p><span class="math display">\[
-\sigma_{i, c} = \sqrt\frac{v_{i, c}(1-v_{i, c})}{n_{eff[i]}}
-\]</span></p>
-<p>Historical data is sourced from Poder360’s polling database via <a href="https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6" class="external-link">Base dos Dados</a>.</p>
-</div>
-<div class="section level3">
 <h3 id="conceptual-framework">Conceptual Framework<a class="anchor" aria-label="anchor" href="#conceptual-framework"></a>
 </h3>
 <p>The methods implemented by <code>agregR</code> build on Jackman (2009). They are variously known as state-space models (SSM), dynamic linear models (DLM) or Kalman filters and consist of two integrated components:</p>
@@ -343,6 +333,15 @@
 <strong>Non-Sampling Error</strong> (<span class="math inline">\(\tau_{j,k,p}\)</span>): An additional error parameter capturing noise extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by pollster <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span>, and political alignment <span class="math inline">\(p\)</span>.</li>
 </ol>
 </div>
+</div>
+<div class="section level3">
+<h3 id="data-quality">Data Quality<a class="anchor" aria-label="anchor" href="#data-quality"></a>
+</h3>
+<p>Polls enter the model with checks on their sample size in order to avoid undue influence from pollsters claiming inflated precision. We calculate an <em>implied</em> <span class="math inline">\(n\)</span> derived from the published margin of error and compare it to the reported sample size. We use the most conservative figure <span class="math inline">\(n_{eff}\)</span> to compute specific standard errors for each candidate <span class="math inline">\(c\)</span> according to their vote share <span class="math inline">\(v_{i, c}\)</span> in poll <span class="math inline">\(i\)</span>:</p>
+<p><span class="math display">\[
+\sigma_{i, c} = \sqrt\frac{v_{i, c}(1-v_{i, c})}{n_{eff[i]}}
+\]</span></p>
+<p>Historical data is sourced from Poder360’s polling database via <a href="https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6" class="external-link">Base dos Dados</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="models-overview">Models Overview<a class="anchor" aria-label="anchor" href="#models-overview"></a>

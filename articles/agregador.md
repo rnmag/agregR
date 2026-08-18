@@ -2,8 +2,6 @@
 
 **Última atualização**: 18/08/2026
 
-**Última pesquisa**: Nexus finalizada em 16/08/2026
-
 ## Introdução
 
 Como interpretar tantas pesquisas eleitorais com resultados divergentes?
@@ -45,11 +43,15 @@ cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/graf
 [Clique para ver em tela
 cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-1t-1.png)
 
+------------------------------------------------------------------------
+
 ![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)](agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)
 
 [Clique para ver em tela
 cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)
+
+------------------------------------------------------------------------
 
 ![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)](agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)
@@ -70,11 +72,15 @@ cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/graf
 [Clique para ver em tela
 cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png)
 
+------------------------------------------------------------------------
+
 ![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-2t-1.png)](agregador_files/figure-html/grafico-vies-relativo-com-pesos-2t-1.png)
 
 [Clique para ver em tela
 cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-2t-1.png)
+
+------------------------------------------------------------------------
 
 ![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)](agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)
@@ -96,11 +102,15 @@ cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/graf
 [Clique para ver em tela
 cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-1t-1.png)
 
+------------------------------------------------------------------------
+
 ![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-2t-1.png)](agregador_files/figure-html/grafico-vies-empirico-2t-1.png)
 
 [Clique para ver em tela
 cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-2t-1.png)
+
+------------------------------------------------------------------------
 
 ![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1.png)](agregador_files/figure-html/institutos-vies-empirico-1.png)
@@ -113,11 +123,8 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/insti
 O [banco de
 dados](https://github.com/rnmag/agregR/blob/main/inst/extdata/pesquisas_2026.csv)
 é alimentado com base nas pesquisas registradas no TSE e divulgadas na
-imprensa. Não há seleção qualitativa de institutos nem avaliações
-subjetivas de qualidade: os modelos são calibrados para identificar e
-descontar potenciais vieses.
-
-Atualmente, a base contém **132 pesquisas** dos seguintes institutos:
+imprensa. Ele contém **132 pesquisas** para a eleição de 2026,
+abrangendo os seguintes institutos:
 
 - Alfa
 - Atlas
@@ -135,10 +142,12 @@ Atualmente, a base contém **132 pesquisas** dos seguintes institutos:
 - Realtime Bigdata
 - Vox Brasil
 
-Agradeço a Ricardo Ribeiro, que gentilmente compartilhou sua planilha de
-pesquisas para o ciclo atual, e ao Poder360, que publicou sua [base
-histórica de
+Agradecimentos a Ricardo Ribeiro, que gentilmente compartilhou sua
+planilha de pesquisas para o ciclo atual, e ao Poder360, que publicou
+sua [base histórica de
 pesquisas](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
+
+**Última pesquisa**: Nexus finalizada em 16/08/2026
 
 [^1]: O pacote contém outros 2 modelos com menor utilidade durante a
     campanha: o modelo **Retrospectivo** usa o resultado real da eleição
