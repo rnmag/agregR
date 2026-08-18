@@ -1,6 +1,11 @@
 ---
 title: "Agregador Eleições 2026"
 ---
+```{css, echo=FALSE}
+.caption, p.caption, figcaption {
+  text-align: center;
+}
+```
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -24,11 +29,6 @@ formatar_lista <- function(x) {
   if (n == 1) return(as.character(x))
   if (n == 2) return(paste(x, collapse = " e "))
   paste0(paste(x[1:(n - 1)], collapse = ", "), " e ", x[n])
-}
-
-# Centralizar captions
-.caption, p.caption, figcaption {
-  text-align: center;
 }
 
 ```
