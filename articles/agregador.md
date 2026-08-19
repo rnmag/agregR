@@ -1,6 +1,6 @@
 # Agregador Eleições 2026
 
-**Última atualização**: 18/08/2026
+**Última atualização**: 19/08/2026
 
 ## Introdução
 
@@ -8,6 +8,13 @@ Como interpretar tantas pesquisas eleitorais com resultados divergentes?
 O `agregR` emprega um conjunto de modelos estatísticos para filtrar a
 enxurrada de dados divulgados no período eleitoral e estimar o nível
 subjacente de apoio para cada candidato.
+
+São 3[^1] modelos que se diferenciam pela importância que cada um
+atribui ao desempenho dos institutos na última eleição. Eles são
+apresentados abaixo em ordem do menos dependente dos dados históricos
+para o mais dependente. Cada modelo contém uma breve nota introdutória,
+e interessados em mais detalhes podem consultar a [metodologia
+completa](https://rnmag.github.io/agregR/index.html#methodology).
 
 Os modelos contemplam:
 
@@ -17,15 +24,7 @@ Os modelos contemplam:
 - Margens de erro incoerentes com o tamanho da amostra
 - Erros não-amostrais (para além da margem de erro)
 
-`agregR` oferece 3[^1] modelos que se diferenciam pela importância que
-cada um atribui ao desempenho dos institutos na última eleição. Eles são
-apresentados abaixo em ordem do menos dependente dos dados históricos
-para o mais dependente. Cada modelo contém uma breve nota introdutória,
-e interessados em mais detalhes podem consultar a [metodologia
-completa](https://rnmag.github.io/agregR/index.html#methodology) e o
-[código](https://github.com/rnmag/agregR).
-
-Esta página se limita aos cenários eleitorais mais prováveis, mas
+Esta página apresenta os cenários eleitorais mais prováveis, mas
 `agregR` é um pacote para o R que pode ser
 [instalado](https://rnmag.github.io/agregR/index.html#installation)
 gratuitamente. Fique à vontade para explorar os mais de 10 cenários
@@ -91,10 +90,9 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/insti
 ## Modelo 3: Viés Empírico
 
 Este é o modelo mais vinculado ao passado. Além de atribuir pesos aos
-institutos de acordo com o desempenho na última eleição, também utiliza
-os resultados das urnas para compensar (ou descontar) os candidatos com
-alinhamentos políticos mais prejudicados (ou beneficiados) por cada
-instituto.
+institutos de acordo com o desempenho na última eleição, também compensa
+(ou desconta) os candidatos com alinhamentos políticos mais prejudicados
+(ou beneficiados) por cada instituto.
 
 ![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-1t-1.png)](agregador_files/figure-html/grafico-vies-empirico-1t-1.png)
@@ -122,9 +120,9 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/insti
 
 O [banco de
 dados](https://github.com/rnmag/agregR/blob/main/inst/extdata/pesquisas_2026.csv)
-é alimentado com base nas pesquisas registradas no TSE e divulgadas na
-imprensa. Ele contém **132 pesquisas** para a eleição de 2026,
-abrangendo os seguintes institutos:
+se baseia nas pesquisas registradas no TSE e divulgadas na imprensa. Ele
+contém **132 pesquisas** para a eleição de 2026, abrangendo os seguintes
+institutos:
 
 - Alfa
 - Atlas
@@ -142,12 +140,12 @@ abrangendo os seguintes institutos:
 - Realtime Bigdata
 - Vox Brasil
 
+**Última pesquisa**: Nexus finalizada em 16/08/2026
+
 Agradecimentos a Ricardo Ribeiro, que gentilmente compartilhou sua
 planilha de pesquisas para o ciclo atual, e ao Poder360, que publicou
 sua [base histórica de
 pesquisas](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
-
-**Última pesquisa**: Nexus finalizada em 16/08/2026
 
 [^1]: O pacote contém outros 2 modelos com menor utilidade durante a
     campanha: o modelo **Retrospectivo** usa o resultado real da eleição
