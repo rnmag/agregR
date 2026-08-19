@@ -6,6 +6,7 @@ title: "Agregador Eleições 2026"
 .caption, p.caption, figcaption {
   text-align: center;
 }
+
 ```
 
 ```{r setup, include = FALSE}
@@ -20,9 +21,12 @@ library(readr)
 library(dplyr)
 
 pesquisas_2026 <- read_csv2("https://raw.githubusercontent.com/rnmag/agregR/refs/heads/main/inst/extdata/pesquisas_2026.csv",
-                            show_col_types = FALSE,
-                            locale = locale(decimal_mark = ",",
-                            grouping_mark = "."))
+  show_col_types = FALSE,
+  locale = locale(
+    decimal_mark = ",",
+    grouping_mark = "."
+  )
+)
 
 ```
 
@@ -30,10 +34,22 @@ pesquisas_2026 <- read_csv2("https://raw.githubusercontent.com/rnmag/agregR/refs
 
 ## Introdução
 
-Como interpretar tantas pesquisas eleitorais com resultados divergentes? O `agregR`
-emprega um conjunto de modelos estatísticos para filtrar a enxurrada de dados
-divulgados no período eleitoral e estimar o nível subjacente de apoio para cada
-candidato.
+Como interpretar tantas pesquisas eleitorais com resultados divergentes? O
+`agregR` emprega um conjunto de modelos estatísticos para filtrar a enxurrada
+de dados divulgados no período eleitoral e estimar o nível subjacente de apoio
+para cada candidato.
+
+São 3[^1] modelos que se diferenciam pela importância que cada um atribui ao
+desempenho dos institutos na última eleição. Eles são apresentados abaixo em
+ordem do menos dependente dos dados históricos para o mais dependente. Cada
+modelo contém uma breve nota introdutória, e interessados em mais detalhes podem
+consultar a [metodologia completa](https://rnmag.github.io/agregR/index.html#methodology).
+
+[^1]: O pacote contém outros 2 modelos com menor utilidade durante a campanha:
+o modelo **Retrospectivo** usa o resultado real da eleição para calcular
+retrospectivamente vieses e trajetórias para cada candidato, enquanto o modelo
+**Naive** é disponibilizado como uma curiosidade, pois não modela nenhum viés e
+é equivalente a calcular uma média simples das pesquisas.
 
 Os modelos contemplam:
 
@@ -43,20 +59,7 @@ Os modelos contemplam:
 * Margens de erro incoerentes com o tamanho da amostra 
 * Erros não-amostrais (para além da margem de erro)
 
-`agregR` oferece 3[^1] modelos que se diferenciam pela importância que cada um
-atribui ao desempenho dos institutos na última eleição. Eles são apresentados
-abaixo em ordem do menos dependente dos dados históricos para o mais dependente.
-Cada modelo contém uma breve nota introdutória, e interessados em mais detalhes
-podem consultar a [metodologia completa](https://rnmag.github.io/agregR/index.html#methodology)
-e o [código](https://github.com/rnmag/agregR).
-
-[^1]: O pacote contém outros 2 modelos com menor utilidade durante a campanha:
-o modelo **Retrospectivo** usa o resultado real da eleição para calcular
-retrospectivamente vieses e trajetórias para cada candidato, enquanto o modelo
-**Naive** é disponibilizado como uma curiosidade, pois não modela nenhum viés e
-é equivalente a calcular uma média simples das pesquisas.
-
-Esta página se limita aos cenários eleitorais mais prováveis, mas `agregR` é um
+Esta página apresenta os cenários eleitorais mais prováveis, mas `agregR` é um
 pacote para o R que pode ser [instalado](https://rnmag.github.io/agregR/index.html#installation)
 gratuitamente. Fique à vontade para explorar os mais de 10 cenários disponíveis
 no banco de dados.
@@ -157,9 +160,9 @@ grafico_vies(resultado_2t,
 ## Modelo 3: Viés Empírico
 
 Este é o modelo mais vinculado ao passado. Além de atribuir pesos aos institutos
-de acordo com o desempenho na última eleição, também utiliza os resultados
-das urnas para compensar (ou descontar) os candidatos com alinhamentos políticos
-mais prejudicados (ou beneficiados) por cada instituto.
+de acordo com o desempenho na última eleição, também compensa (ou desconta) os
+candidatos com alinhamentos políticos mais prejudicados (ou beneficiados) por
+cada instituto.
 
 ```{r modelo-vies-empirico-1t, include = FALSE}
 
@@ -204,14 +207,15 @@ grafico_vies(resultado_2t,
 ## Pesquisas incluídas
 
 O [banco de dados](https://github.com/rnmag/agregR/blob/main/inst/extdata/pesquisas_2026.csv)
-é alimentado com base nas pesquisas registradas no TSE e divulgadas na imprensa.
-Ele contém **`r pesquisas_2026 |> distinct(instituto, dia) |> tally()` pesquisas**
-para a eleição de 2026, abrangendo os seguintes institutos:
+se baseia nas pesquisas registradas no TSE e divulgadas na imprensa. Ele contém
+**`r pesquisas_2026 |> distinct(instituto, dia) |> tally()` pesquisas** para a
+eleição de 2026, abrangendo os seguintes institutos:
 
 `r paste("*", unique(sort(pesquisas_2026$instituto)), collapse = "\n")`
+
+**Última pesquisa**: `r pesquisas_2026 |> slice_tail(n = 1) |> pull(instituto)`
+finalizada em `r pesquisas_2026 |> slice_tail(n = 1) |> pull(dia)`
 
 Agradecimentos a Ricardo Ribeiro, que gentilmente compartilhou sua planilha de pesquisas
 para o ciclo atual, e ao Poder360, que publicou sua
 [base histórica de pesquisas](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
-
-**Última pesquisa**: `r pesquisas_2026 |> slice_tail(n = 1) |> pull(instituto)` finalizada em `r pesquisas_2026 |> slice_tail(n = 1) |> pull(dia)`
