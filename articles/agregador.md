@@ -121,7 +121,7 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/insti
 O [banco de
 dados](https://github.com/rnmag/agregR/blob/main/inst/extdata/pesquisas_2026.csv)
 se baseia nas pesquisas registradas no TSE e divulgadas na imprensa. Ele
-contém **132 pesquisas** para a eleição de 2026, abrangendo os seguintes
+contém **129 pesquisas** para a eleição de 2026, abrangendo os seguintes
 institutos:
 
 - Alfa
@@ -140,7 +140,7 @@ institutos:
 - Realtime Bigdata
 - Vox Brasil
 
-**Última pesquisa**: Nexus finalizada em 16/08/2026
+**Última pesquisa**: Nexus com campo entre 14/08/2026 e 16/08/2026
 
 Agradecimentos a Ricardo Ribeiro, que gentilmente compartilhou sua
 planilha de pesquisas para o ciclo atual, e ao Poder360, que publicou
