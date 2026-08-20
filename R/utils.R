@@ -79,6 +79,30 @@ colar_ascii <- function(items) {
   stringi::stri_trans_general(paste0(items, collapse = "_"), "Latin-ASCII")
 }
 
+#' @param data Date.
+#' @param abreviado Logical.
+#' @noRd
+mes_ptbr <- function(data, abreviado = FALSE) {
+  meses <- c("Janeiro", "Fevereiro", "Mar\u00e7o", "Abril", "Maio", "Junho",
+             "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro")
+  meses_abrev <- c("Jan", "Fev", "Mar", "Abr", "Mai", "Jun", 
+                   "Jul", "Ago", "Set", "Out", "Nov", "Dez")
+  
+  mes_id <- as.integer(format(data, "%m"))
+  
+  if (abreviado) {
+    return(meses_abrev[mes_id])
+  } else {
+    return(meses[mes_id])
+  }
+}
+
+#' @param data Date.
+#' @noRd
+formatar_data_ptbr <- function(data) {
+  paste0(mes_ptbr(data), "/", format(data, "%y"))
+}
+
 #' @param dir_base Character. Base directory.
 #' @param nome_modelo Character. Model name.
 #' @param nome_arquivo Character. File name.

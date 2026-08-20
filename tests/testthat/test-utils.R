@@ -89,3 +89,19 @@ test_that("registrar_fonte lida com fontes ausentes", {
   # Como a função usa system.file(), se não passarmos nada que exista ela deve retornar invisible()
   expect_silent(registrar_fonte())
 })
+
+test_that("mes_ptbr retorna meses corretos", {
+  d1 <- as.Date("2024-01-15")
+  d2 <- as.Date("2025-12-01")
+  
+  expect_equal(mes_ptbr(d1), "Janeiro")
+  expect_equal(mes_ptbr(d1, abreviado = TRUE), "Jan")
+  
+  expect_equal(mes_ptbr(d2), "Dezembro")
+  expect_equal(mes_ptbr(d2, abreviado = TRUE), "Dez")
+})
+
+test_that("formatar_data_ptbr retorna data formatada", {
+  d1 <- as.Date("2024-03-20")
+  expect_equal(formatar_data_ptbr(d1), "Mar\u00e7o/24")
+})

@@ -141,8 +141,8 @@ grafico_agregador <- function(bd,
                  date_breaks = "1 month",
                  labels = \(x) {
                    if_else(is.na(lag(x)) | year(lag(x)) != year(x),
-                           paste0(str_to_title(month(x, label = TRUE)), "\n", year(x)),
-                           paste0(str_to_title(month(x, label = TRUE))))
+                           paste0(mes_ptbr(x, abreviado = TRUE), "\n", year(x)),
+                           mes_ptbr(x, abreviado = TRUE))
                  }) +
     # Rótulos
     labs(title = titulo_grafico,
@@ -150,9 +150,9 @@ grafico_agregador <- function(bd,
          caption = paste("Estimativas baseadas em",
                          n_distinct(na.omit(bd$votos_estimados$pesquisa_id)),
                          "pesquisas publicadas entre",
-                         str_to_title(format(min(bd$votos_estimados$dia), "%B/%y")),
+                         formatar_data_ptbr(min(bd$votos_estimados$dia)),
                          "e",
-                         str_to_title(format(max(bd$votos_estimados$dia), "%B/%y")),
+                         formatar_data_ptbr(max(bd$votos_estimados$dia)),
                          "| Modelo:",
                          bd$nome_modelo,
                          "\nInstitutos:",

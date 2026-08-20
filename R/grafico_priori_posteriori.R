@@ -199,9 +199,9 @@ grafico_priori_posteriori <- function(bd,
          caption = paste("Estimativas baseadas em",
                          n_distinct(na.omit(bd$votos_estimados$pesquisa_id)),
                          "pesquisas publicadas entre",
-                         str_to_title(format(min(bd$votos_estimados$dia), "%B/%y")),
+                         formatar_data_ptbr(min(bd$votos_estimados$dia)),
                          "e",
-                         str_to_title(format(max(bd$votos_estimados$dia), "%B/%y")),
+                         formatar_data_ptbr(max(bd$votos_estimados$dia)),
                          "\nModelo:",
                          bd$nome_modelo)) +
     # Tema
