@@ -2,7 +2,7 @@ test_that("grafico_priori_posteriori valida argumentos e modelos", {
   # Mock base
   bd_naive <- list(
     nome_modelo = "Naive",
-    votos_estimados = tibble::tibble(turno = 1, dia = as.Date("2025-01-01"), pesquisa_id = "1")
+    votos_estimados = tibble::tibble(turno = 1, final_coleta = as.Date("2025-01-01"), pesquisa_id = "1")
   )
 
   # 1. Erro tipo inválido
@@ -14,7 +14,7 @@ test_that("grafico_priori_posteriori valida argumentos e modelos", {
   # 3. Erro candidatura não encontrada
   bd_erro_cand <- list(
     nome_modelo = "Vi\u00e9s Relativo sem Pesos",
-    votos_estimados = tibble::tibble(turno = 1, dia = as.Date("2025-01-01"), pesquisa_id = "1"),
+    votos_estimados = tibble::tibble(turno = 1, final_coleta = as.Date("2025-01-01"), pesquisa_id = "1"),
     modelo_bruto = list(Bolsonaro = 1)
   )
   expect_error(grafico_priori_posteriori(bd_erro_cand, candidaturas = "Lula", tipo = "Percentual"), "n\u00e3o encontrada")
@@ -26,7 +26,7 @@ test_that("grafico_priori_posteriori gera graficos de Percentual e Vi\u00e9s", {
   amostras <- data.frame(`mu[1]` = rnorm(10), `delta[1]` = rnorm(10), check.names = FALSE)
   bd_base <- list(
     nome_modelo = "Vi\u00e9s Relativo sem Pesos",
-    votos_estimados = tibble::tibble(turno = 1, dia = as.Date("2025-01-01"), pesquisa_id = "1", instituto = "Datafolha"),
+    votos_estimados = tibble::tibble(turno = 1, final_coleta = as.Date("2025-01-01"), pesquisa_id = "1", instituto = "Datafolha"),
     vies_institutos = tibble::tibble(instituto = "Datafolha", candidatura = "Lula", instituto_num = 1),
     modelo_bruto = list(Lula = amostras)
   )
@@ -60,7 +60,7 @@ test_that("grafico_priori_posteriori salva arquivos corretamente", {
   amostras <- data.frame(`mu[1]` = rnorm(10), check.names = FALSE)
   bd_naive <- list(
     nome_modelo = "Naive",
-    votos_estimados = tibble::tibble(turno = 1, dia = as.Date("2025-01-01"), pesquisa_id = "1", instituto = "Datafolha"),
+    votos_estimados = tibble::tibble(turno = 1, final_coleta = as.Date("2025-01-01"), pesquisa_id = "1", instituto = "Datafolha"),
     modelo_bruto = list(Lula = amostras)
   )
 

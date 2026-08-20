@@ -44,13 +44,13 @@ ajustar_modelo <- function(bd,
   }
 
   # Seleção de configurações do modelo
-  # total_dias usa min(bd$dia) em vez de data_inicio para que as estimativas
+  # total_dias usa min(bd$final_coleta) em vez de data_inicio para que as estimativas
   # sejam ancoradas na primeira pesquisa disponível no período, em vez de par-
   # tirem de um valor arbitrário como 50%
   if (modelo == "Vi\u00e9s Relativo sem Pesos") {
 
-    dados_stan <- list(n_dias = as.integer(bd$dia - min(bd$dia) + 1),
-                       total_dias = as.integer(data_fim - min(bd$dia)) + 1,
+    dados_stan <- list(n_dias = as.integer(bd$final_coleta - min(bd$final_coleta) + 1),
+                       total_dias = as.integer(data_fim - min(bd$final_coleta)) + 1,
                        n_pesquisas = nrow(bd),
                        n_institutos = n_distinct(bd$instituto_num),
                        n_metodologias = n_distinct(bd$metodologia_num),
@@ -74,8 +74,8 @@ ajustar_modelo <- function(bd,
 
   } else if (modelo == "Vi\u00e9s Relativo com Pesos") {
 
-    dados_stan <- list(n_dias = as.integer(bd$dia - min(bd$dia) + 1),
-                       total_dias = as.integer(data_fim - min(bd$dia)) + 1,
+    dados_stan <- list(n_dias = as.integer(bd$final_coleta - min(bd$final_coleta) + 1),
+                       total_dias = as.integer(data_fim - min(bd$final_coleta)) + 1,
                        n_pesquisas = nrow(bd),
                        n_institutos = n_distinct(bd$instituto_num),
                        n_metodologias = n_distinct(bd$metodologia_num),
@@ -100,8 +100,8 @@ ajustar_modelo <- function(bd,
 
   } else if (modelo == "Vi\u00e9s Emp\u00edrico") {
 
-    dados_stan <- list(n_dias = as.integer(bd$dia - min(bd$dia) + 1),
-                       total_dias = as.integer(data_fim - min(bd$dia)) + 1,
+    dados_stan <- list(n_dias = as.integer(bd$final_coleta - min(bd$final_coleta) + 1),
+                       total_dias = as.integer(data_fim - min(bd$final_coleta)) + 1,
                        n_pesquisas = nrow(bd),
                        n_institutos = n_distinct(bd$instituto_num),
                        n_metodologias = n_distinct(bd$metodologia_num),
@@ -150,8 +150,8 @@ ajustar_modelo <- function(bd,
       mutate(resultado = round(votos_recebidos / total_votos, 4)) |>
       pull(resultado)
 
-    dados_stan <- list(n_dias = as.integer(bd$dia - min(bd$dia) + 1),
-                       total_dias = as.integer(data_fim - min(bd$dia)) + 1,
+    dados_stan <- list(n_dias = as.integer(bd$final_coleta - min(bd$final_coleta) + 1),
+                       total_dias = as.integer(data_fim - min(bd$final_coleta)) + 1,
                        n_pesquisas = nrow(bd),
                        n_institutos = n_distinct(bd$instituto_num),
                        n_metodologias = n_distinct(bd$metodologia_num),
@@ -177,8 +177,8 @@ ajustar_modelo <- function(bd,
 
   } else if (modelo == "Naive") {
 
-    dados_stan <- list(n_dias = as.integer(bd$dia - min(bd$dia) + 1),
-                       total_dias = as.integer(data_fim - min(bd$dia)) + 1,
+    dados_stan <- list(n_dias = as.integer(bd$final_coleta - min(bd$final_coleta) + 1),
+                       total_dias = as.integer(data_fim - min(bd$final_coleta)) + 1,
                        n_pesquisas = nrow(bd),
                        percentual = bd$percentual_pesquisa,
                        sigma = bd$ep,
@@ -209,13 +209,13 @@ ajustar_modelo <- function(bd,
   # Extração das intenções de voto estimadas e junção com base de pesquisas
   sumario_votos <- modelo_bruto$summary("mu", ~quantile(.x, probs = c(0.025, 0.5, 0.975)))
 
-  votos_estimados <- tibble(dia = seq.Date(min(bd$dia), data_fim, by = "day"),
+  votos_estimados <- tibble(final_coleta = seq.Date(min(bd$final_coleta), data_fim, by = "day"),
                             li = round(sumario_votos$`2.5%`, 4),
                             mediana = round(sumario_votos$`50%`, 4),
                             ls = round(sumario_votos$`97.5%`, 4),
                             percentual_estimado = scales::label_percent(1)(mediana)) |>
-    left_join(bd, by = "dia") |>
-    arrange(dia)
+    left_join(bd, by = "final_coleta") |>
+    arrange(final_coleta)
 
   # Modelo Naive termina aqui
   if (modelo == "Naive") {

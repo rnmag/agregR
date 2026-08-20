@@ -1,7 +1,7 @@
 test_that("grafico_agregador retorna um objeto ggplot e lida com diferentes modelos e turnos", {
   # Mock de votos_estimados para 1º turno e múltiplos anos (para testar labels do eixo X)
   votos_mock_1t <- tibble::tibble(
-    dia = as.Date(c("2024-12-31", "2025-01-01")),
+    final_coleta = as.Date(c("2024-12-31", "2025-01-01")),
     turno = 1,
     candidatura = "Lula",
     mediana = 0.45,
@@ -58,7 +58,7 @@ test_that("grafico_vies retorna um objeto ggplot e valida entradas", {
   )
 
   votos_mock <- tibble::tibble(
-    dia = as.Date("2025-01-01"),
+    final_coleta = as.Date("2025-01-01"),
     pesquisa_id = "1",
     instituto = "Datafolha"
   )

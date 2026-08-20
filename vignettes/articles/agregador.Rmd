@@ -208,13 +208,14 @@ grafico_vies(resultado_2t,
 
 O [banco de dados](https://github.com/rnmag/agregR/blob/main/inst/extdata/pesquisas_2026.csv)
 se baseia nas pesquisas registradas no TSE e divulgadas na imprensa. Ele contém
-**`r pesquisas_2026 |> distinct(instituto, dia) |> tally()` pesquisas** para a
+**`r pesquisas_2026 |> distinct(instituto, final_coleta) |> tally()` pesquisas** para a
 eleição de 2026, abrangendo os seguintes institutos:
 
 `r paste("*", unique(sort(pesquisas_2026$instituto)), collapse = "\n")`
 
 **Última pesquisa**: `r pesquisas_2026 |> slice_tail(n = 1) |> pull(instituto)`
-finalizada em `r pesquisas_2026 |> slice_tail(n = 1) |> pull(dia)`
+com campo entre `r pesquisas_2026 |> slice_tail(n = 1) |> pull(inicio_coleta)`
+e `r pesquisas_2026 |> slice_tail(n = 1) |> pull(final_coleta)`
 
 Agradecimentos a Ricardo Ribeiro, que gentilmente compartilhou sua planilha de pesquisas
 para o ciclo atual, e ao Poder360, que publicou sua

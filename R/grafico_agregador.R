@@ -92,7 +92,7 @@ grafico_agregador <- function(bd,
 
   # 2. Gráfico ----------------------------------------------------------------
   p <- bd$votos_estimados |>
-    ggplot(aes(x = dia,
+    ggplot(aes(x = final_coleta,
                y = mediana)) +
     # Definição dos geoms
     geom_ribbon(aes(ymin = li,
@@ -110,7 +110,7 @@ grafico_agregador <- function(bd,
               linewidth = 1.5) +
     geom_text_repel(data = bd$votos_estimados |>
                       group_by(candidatura) |>
-                      slice_max(dia, n = 1, with_ties = FALSE),
+                      slice_max(final_coleta, n = 1, with_ties = FALSE),
                     aes(label = percentual_estimado,
                         color = candidatura),
                     size = 6,
@@ -125,7 +125,7 @@ grafico_agregador <- function(bd,
                     xlim = c(-Inf, Inf), # tirar limites do gráfico para incluir rótulos
                     ylim = c(-Inf, Inf),
                     show.legend = FALSE) +
-    coord_cartesian(xlim = c(min(bd$votos_estimados$dia), max(bd$votos_estimados$dia)),
+    coord_cartesian(xlim = c(min(bd$votos_estimados$final_coleta), max(bd$votos_estimados$final_coleta)),
                     clip = "off") + # ggplot não corta percentuais que passam a borda do gráfico
     # Legendas
     scale_fill_manual(values = unlist(config_grafico$cores_candidaturas)) +
@@ -150,9 +150,9 @@ grafico_agregador <- function(bd,
          caption = paste("Estimativas baseadas em",
                          n_distinct(na.omit(bd$votos_estimados$pesquisa_id)),
                          "pesquisas publicadas entre",
-                         formatar_data_ptbr(min(bd$votos_estimados$dia)),
+                         formatar_data_ptbr(min(bd$votos_estimados$final_coleta)),
                          "e",
-                         formatar_data_ptbr(max(bd$votos_estimados$dia)),
+                         formatar_data_ptbr(max(bd$votos_estimados$final_coleta)),
                          "| Modelo:",
                          bd$nome_modelo,
                          "\nInstitutos:",

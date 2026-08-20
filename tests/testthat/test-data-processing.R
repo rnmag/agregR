@@ -11,7 +11,7 @@ test_that("tratar_bd_atual filtra e calcula estatísticas corretamente", {
                         filtro_ambito = "Brasil",
                         filtro_cenario = "Primeiro turno")
 
-  expect_s3_class(df$dia, "Date")
+  expect_s3_class(df$final_coleta, "Date")
   expect_true(all(df$percentual_pesquisa <= 1))
   expect_true(all(df$ep > 0))
   expect_equal(nrow(df), 6)

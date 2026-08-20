@@ -2,7 +2,7 @@
 
 # Pesquisas pré-tratamanto
 pesquisas_teste <- data.frame(
-  dia = c("01/01/2025", "01/01/2025", "02/01/2025", "02/01/2025", "03/01/2025", "03/01/2025"),
+  final_coleta = c("01/01/2025", "01/01/2025", "02/01/2025", "02/01/2025", "03/01/2025", "03/01/2025"),
   instituto = c("Datafolha", "Datafolha", "Ipec", "Ipec", "Atlas", "Atlas"),
   turno = c(1, 1, 1, 1, 1, 1),
   candidatura = c("Lula", "Bolsonaro", "Lula", "Bolsonaro", "Lula", "Bolsonaro"),
@@ -18,7 +18,7 @@ pesquisas_teste <- data.frame(
 
 # Pesquisas após tratamento
 pesquisas_minimas <- data.frame(
-  dia = as.Date(c("2025-01-01", "2025-01-01", "2025-01-02", "2025-01-02", "2025-01-03", "2025-01-03")),
+  final_coleta = as.Date(c("2025-01-01", "2025-01-01", "2025-01-02", "2025-01-02", "2025-01-03", "2025-01-03")),
   instituto = c("Datafolha", "Datafolha", "Ipec", "Ipec", "Atlas", "Atlas"),
   candidatura = c("Lula", "Bolsonaro", "Lula", "Bolsonaro", "Lula", "Bolsonaro"),
   percentual_pesquisa = c(0.45, 0.40, 0.46, 0.39, 0.44, 0.41),

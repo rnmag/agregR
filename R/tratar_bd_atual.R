@@ -10,8 +10,8 @@ tratar_bd_atual <- function(bd,
                             filtro_cenario) {
 
   pesquisas <- ler_csv(bd) |>
-    mutate(dia = dmy(dia),
-           pesquisa_id = paste(instituto, "-", dia),
+    mutate(final_coleta = dmy(final_coleta),
+           pesquisa_id = paste(instituto, "-", final_coleta),
            percentual_pesquisa = as.numeric(percentual_pesquisa) / 100,
            # Tamanho da amostra implícito a partir da margem de erro
            n_implicito = round(1.96^2 * 0.5 * 0.5 / ((margem_pesquisa / 100)^2)),
@@ -39,13 +39,13 @@ tratar_bd_atual <- function(bd,
                                                     "Datatempo") ~ "Presencial",
                                    instituto %in% c("Atlas") ~ "Online",
                                    TRUE ~ "Desconhecida")) |>
-    filter(dia >= filtro_inicio & dia <= filtro_fim,
+    filter(final_coleta >= filtro_inicio & final_coleta <= filtro_fim,
            cargo == filtro_cargo,
            ambito == filtro_ambito,
            cenario == filtro_cenario,
            percentual_pesquisa > 0) |>
     select(pesquisa_id,
-           dia,
+           final_coleta,
            instituto,
            turno,
            candidatura,
@@ -58,7 +58,7 @@ tratar_bd_atual <- function(bd,
            cargo,
            ambito,
            cenario) |>
-    arrange(dia, turno)
+    arrange(final_coleta, turno)
 
   return(pesquisas)
 
