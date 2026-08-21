@@ -8,7 +8,7 @@
 
 <!-- badges: end -->
 
-🇧🇷 **Novidade**: [acompanhe](articles/agregador.html) os resultados atualizados do agregador
+🇧🇷 **Novidade**: [acompanhe](https://rnmag.github.io/agregR/articles/agregador.html) os resultados atualizados do agregador
 
 **Bayesian State-Space Aggregation of Brazilian Presidential Polls**
 

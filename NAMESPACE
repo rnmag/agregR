@@ -7,98 +7,122 @@ export(grafico_agregador)
 export(grafico_priori_posteriori)
 export(grafico_vies)
 export(rodar_agregador)
-importFrom(cli,cli_abort)
-importFrom(cli,cli_alert_info)
-importFrom(cli,cli_alert_success)
-importFrom(cli,cli_alert_warning)
-importFrom(cli,cli_h1)
-importFrom(cli,cli_h2)
-importFrom(dplyr,all_of)
-importFrom(dplyr,arrange)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,case_when)
-importFrom(dplyr,distinct)
-importFrom(dplyr,filter)
-importFrom(dplyr,group_by)
-importFrom(dplyr,if_else)
-importFrom(dplyr,inner_join)
-importFrom(dplyr,join_by)
-importFrom(dplyr,lag)
-importFrom(dplyr,left_join)
-importFrom(dplyr,mutate)
-importFrom(dplyr,n_distinct)
-importFrom(dplyr,pull)
-importFrom(dplyr,recode)
-importFrom(dplyr,select)
-importFrom(dplyr,slice_max)
-importFrom(dplyr,summarise)
-importFrom(dplyr,ungroup)
+importFrom(cli,
+  cli_abort,
+  cli_alert_info,
+  cli_alert_success,
+  cli_alert_warning,
+  cli_h1,
+  cli_h2
+)
+importFrom(dplyr,
+  all_of,
+  arrange,
+  bind_rows,
+  case_when,
+  distinct,
+  filter,
+  group_by,
+  if_else,
+  inner_join,
+  join_by,
+  lag,
+  left_join,
+  mutate,
+  n_distinct,
+  pull,
+  recode,
+  select,
+  slice_max,
+  summarise,
+  ungroup
+)
 importFrom(ggdist,stat_gradientinterval)
-importFrom(ggplot2,aes)
-importFrom(ggplot2,coord_cartesian)
-importFrom(ggplot2,element_blank)
-importFrom(ggplot2,element_line)
-importFrom(ggplot2,element_rect)
-importFrom(ggplot2,element_text)
-importFrom(ggplot2,expansion)
-importFrom(ggplot2,facet_wrap)
-importFrom(ggplot2,geom_density)
-importFrom(ggplot2,geom_line)
-importFrom(ggplot2,geom_point)
-importFrom(ggplot2,geom_ribbon)
-importFrom(ggplot2,geom_text)
-importFrom(ggplot2,geom_vline)
-importFrom(ggplot2,ggplot)
-importFrom(ggplot2,ggsave)
-importFrom(ggplot2,guide_legend)
-importFrom(ggplot2,guides)
-importFrom(ggplot2,labs)
-importFrom(ggplot2,margin)
-importFrom(ggplot2,position_dodge)
-importFrom(ggplot2,scale_color_manual)
-importFrom(ggplot2,scale_colour_manual)
-importFrom(ggplot2,scale_fill_manual)
-importFrom(ggplot2,scale_linetype_manual)
-importFrom(ggplot2,scale_shape_manual)
-importFrom(ggplot2,scale_x_continuous)
-importFrom(ggplot2,scale_x_date)
-importFrom(ggplot2,scale_y_continuous)
-importFrom(ggplot2,theme)
-importFrom(ggplot2,theme_bw)
-importFrom(ggplot2,unit)
+importFrom(ggplot2,
+  aes,
+  coord_cartesian,
+  element_blank,
+  element_line,
+  element_rect,
+  element_text,
+  expansion,
+  facet_wrap,
+  geom_density,
+  geom_line,
+  geom_point,
+  geom_ribbon,
+  geom_text,
+  geom_vline,
+  ggplot,
+  ggsave,
+  guide_legend,
+  guides,
+  labs,
+  margin,
+  position_dodge,
+  scale_color_manual,
+  scale_colour_manual,
+  scale_fill_manual,
+  scale_linetype_manual,
+  scale_shape_manual,
+  scale_x_continuous,
+  scale_x_date,
+  scale_y_continuous,
+  theme,
+  theme_bw,
+  unit
+)
 importFrom(ggrepel,geom_text_repel)
 importFrom(grid,linearGradient)
 importFrom(instantiate,stan_package_model)
-importFrom(lubridate,days)
-importFrom(lubridate,dmy)
-importFrom(lubridate,month)
-importFrom(lubridate,year)
-importFrom(lubridate,ymd)
-importFrom(purrr,list_rbind)
-importFrom(purrr,map)
-importFrom(purrr,map2)
-importFrom(purrr,map_chr)
-importFrom(purrr,pmap)
+importFrom(lubridate,
+  days,
+  dmy,
+  month,
+  year,
+  ymd
+)
+importFrom(purrr,
+  list_rbind,
+  map,
+  map2,
+  map_chr,
+  pmap
+)
 importFrom(ragg,agg_png)
-importFrom(readr,locale)
-importFrom(readr,read_csv)
-importFrom(readr,read_csv2)
-importFrom(readr,write_excel_csv2)
-importFrom(showtext,showtext_auto)
-importFrom(showtext,showtext_opts)
-importFrom(stats,dnorm)
-importFrom(stats,na.omit)
-importFrom(stats,setNames)
+importFrom(readr,
+  locale,
+  read_csv,
+  read_csv2,
+  write_excel_csv2
+)
+importFrom(showtext,
+  showtext_auto,
+  showtext_opts
+)
+importFrom(stats,
+  dnorm,
+  na.omit,
+  setNames
+)
 importFrom(stringi,stri_trans_general)
-importFrom(stringr,str_extract)
-importFrom(stringr,str_to_title)
-importFrom(sysfonts,font_add)
-importFrom(sysfonts,font_families)
+importFrom(stringr,
+  str_extract,
+  str_to_title
+)
+importFrom(sysfonts,
+  font_add,
+  font_families
+)
 importFrom(systemfonts,register_font)
-importFrom(tibble,as_tibble)
-importFrom(tibble,tibble)
-importFrom(tidyr,nest)
-importFrom(tidyr,pivot_longer)
-importFrom(tidyr,unnest)
+importFrom(tibble,
+  as_tibble,
+  tibble
+)
+importFrom(tidyr,
+  nest,
+  pivot_longer,
+  unnest
+)
 importFrom(tidyselect,everything)
 importFrom(utils,modifyList)
