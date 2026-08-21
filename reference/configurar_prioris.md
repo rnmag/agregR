@@ -5,20 +5,74 @@ Defines hyperparameters for the specific Bayesian models.
 ## Usage
 
 ``` r
-configurar_prioris(nome = "Viés Relativo com Pesos", ...)
+configurar_prioris(
+  nome = NULL,
+  mu_priori = NULL,
+  sd_mu_priori = NULL,
+  omega_eta_priori = NULL,
+  nu_priori = NULL,
+  sd_nu_priori = NULL,
+  omega_zeta_priori = NULL,
+  delta_priori = NULL,
+  sd_delta_priori = NULL,
+  tau_priori = NULL,
+  sd_tau_priori = NULL,
+  ...
+)
 ```
 
 ## Arguments
 
 - nome:
 
-  Name of the model. Options: "Viés Relativo com Pesos", "Viés Relativo
-  sem Pesos", "Viés Empírico", "Retrospectivo" and "Naive".
+  Name of the model. If NULL, inherits the model used in
+  [`rodar_agregador()`](https://rnmag.github.io/agregR/reference/rodar_agregador.md).
+
+- mu_priori:
+
+  Prior mean for the latent vote share at \\t=1\\. See "Priors Details"
+  section.
+
+- sd_mu_priori:
+
+  Prior uncertainty for the initial latent vote.
+
+- omega_eta_priori:
+
+  Prior mean for the level volatility (\\\omega\_\eta\\).
+
+- nu_priori:
+
+  Prior mean for the initial trend (daily growth rate).
+
+- sd_nu_priori:
+
+  Prior uncertainty for the initial trend.
+
+- omega_zeta_priori:
+
+  Prior mean for the trend volatility (\\\omega\_\zeta\\).
+
+- delta_priori:
+
+  Mean expected bias for institutes.
+
+- sd_delta_priori:
+
+  Scale of the bias prior.
+
+- tau_priori:
+
+  Mean expected magnitude of errors not explained by sampling or house
+  effects.
+
+- sd_tau_priori:
+
+  Prior uncertainty for non-sampling error.
 
 - ...:
 
-  Named arguments to override default hyperparameters (e.g.,
-  `sd_tau_priori = 0.05`).
+  Additional arguments to override default hyperparameters.
 
 ## Value
 
