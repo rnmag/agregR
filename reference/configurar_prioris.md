@@ -172,6 +172,62 @@ Recommended reading:
   - *Lower values:* The model trusts polling precision more, leading to
     tighter intervals and potentially more sensitivity to outliers.
 
+## Model Defaults
+
+Each model has a specific set of default priors.
+
+**Viés Relativo com Pesos (Default)**
+
+- `mu_priori = 0.5`, `sd_mu_priori = 0.5`, `omega_eta_priori = 0.002`
+
+- `nu_priori = 0`, `sd_nu_priori = 0.001`, `omega_zeta_priori = 0.00001`
+
+- `delta_priori = 0`, `sd_delta_priori = 0.02`
+
+- `sd_tau_priori = 0.02`
+
+- *Not applicable:* `tau_priori` (model uses empirical values)
+
+**Viés Relativo sem Pesos**
+
+- `mu_priori = 0.5`, `sd_mu_priori = 0.5`, `omega_eta_priori = 0.002`
+
+- `nu_priori = 0`, `sd_nu_priori = 0.001`, `omega_zeta_priori = 0.00001`
+
+- `delta_priori = 0`, `sd_delta_priori = 0.02`
+
+- `tau_priori = 0.02`, `sd_tau_priori = 0.02`
+
+**Viés Empírico**
+
+- `mu_priori = 0.5`, `sd_mu_priori = 0.5`, `omega_eta_priori = 0.002`
+
+- `nu_priori = 0`, `sd_nu_priori = 0.001`, `omega_zeta_priori = 0.00001`
+
+- `sd_delta_priori = 0.02`
+
+- `sd_tau_priori = 0.02`
+
+- *Not applicable:* `delta_priori` and `tau_priori` (model uses
+  empirical values for both)
+
+**Retrospectivo**
+
+- `mu_priori = 0.5`, `sd_mu_priori = 0.5`, `omega_eta_priori = 0.002`
+
+- `nu_priori = 0`, `sd_nu_priori = 0.001`, `omega_zeta_priori = 0.00001`
+
+- `delta_priori = 0`, `sd_delta_priori = 0.02`
+
+- `tau_priori = 0.02`, `sd_tau_priori = 0.02`
+
+**Naive**
+
+- `mu_priori = 0.5`, `sd_mu_priori = 0.5`, `omega_eta_priori = 0.002`
+
+- *Not applicable:* `nu_priori`, `sd_nu_priori`, `omega_zeta_priori`,
+  `delta_priori`, `sd_delta_priori`, `tau_priori`, `sd_tau_priori`
+
 ## Examples
 
 ``` r

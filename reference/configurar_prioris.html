@@ -150,6 +150,32 @@ state evolution, institute bias, and non-sampling errors.</p>
 <li><p><em>Lower values:</em> The model trusts polling precision more, leading to tighter intervals and potentially more sensitivity to outliers.</p></li>
 </ul></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="model-defaults">Model Defaults<a class="anchor" aria-label="anchor" href="#model-defaults"></a></h2>
+
+
+<p>Each model has a specific set of default priors.</p>
+<p><strong>Viés Relativo com Pesos (Default)</strong></p><ul><li><p><code>mu_priori = 0.5</code>, <code>sd_mu_priori = 0.5</code>, <code>omega_eta_priori = 0.002</code></p></li>
+<li><p><code>nu_priori = 0</code>, <code>sd_nu_priori = 0.001</code>, <code>omega_zeta_priori = 0.00001</code></p></li>
+<li><p><code>delta_priori = 0</code>, <code>sd_delta_priori = 0.02</code></p></li>
+<li><p><code>sd_tau_priori = 0.02</code></p></li>
+<li><p><em>Not applicable:</em> <code>tau_priori</code> (model uses empirical values)</p></li>
+</ul><p><strong>Viés Relativo sem Pesos</strong></p><ul><li><p><code>mu_priori = 0.5</code>, <code>sd_mu_priori = 0.5</code>, <code>omega_eta_priori = 0.002</code></p></li>
+<li><p><code>nu_priori = 0</code>, <code>sd_nu_priori = 0.001</code>, <code>omega_zeta_priori = 0.00001</code></p></li>
+<li><p><code>delta_priori = 0</code>, <code>sd_delta_priori = 0.02</code></p></li>
+<li><p><code>tau_priori = 0.02</code>, <code>sd_tau_priori = 0.02</code></p></li>
+</ul><p><strong>Viés Empírico</strong></p><ul><li><p><code>mu_priori = 0.5</code>, <code>sd_mu_priori = 0.5</code>, <code>omega_eta_priori = 0.002</code></p></li>
+<li><p><code>nu_priori = 0</code>, <code>sd_nu_priori = 0.001</code>, <code>omega_zeta_priori = 0.00001</code></p></li>
+<li><p><code>sd_delta_priori = 0.02</code></p></li>
+<li><p><code>sd_tau_priori = 0.02</code></p></li>
+<li><p><em>Not applicable:</em> <code>delta_priori</code> and <code>tau_priori</code> (model uses empirical values for both)</p></li>
+</ul><p><strong>Retrospectivo</strong></p><ul><li><p><code>mu_priori = 0.5</code>, <code>sd_mu_priori = 0.5</code>, <code>omega_eta_priori = 0.002</code></p></li>
+<li><p><code>nu_priori = 0</code>, <code>sd_nu_priori = 0.001</code>, <code>omega_zeta_priori = 0.00001</code></p></li>
+<li><p><code>delta_priori = 0</code>, <code>sd_delta_priori = 0.02</code></p></li>
+<li><p><code>tau_priori = 0.02</code>, <code>sd_tau_priori = 0.02</code></p></li>
+</ul><p><strong>Naive</strong></p><ul><li><p><code>mu_priori = 0.5</code>, <code>sd_mu_priori = 0.5</code>, <code>omega_eta_priori = 0.002</code></p></li>
+<li><p><em>Not applicable:</em> <code>nu_priori</code>, <code>sd_nu_priori</code>, <code>omega_zeta_priori</code>, <code>delta_priori</code>, <code>sd_delta_priori</code>, <code>tau_priori</code>, <code>sd_tau_priori</code></p></li>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
