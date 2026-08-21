@@ -1,5 +1,16 @@
 # Changelog
 
+## agregR 1.0.4
+
+CRAN release: 2026-08-21
+
+- Fixed priors for non-aligned candidates causing vote share to exceed
+  100%
+- Fixed month names displaying in English in international servers
+- Fixed vote share labels collision
+- Removed spike priors for scales in volatility parameters
+- Updated repo for cmdstanr
+
 ## agregR 1.0.3
 
 CRAN release: 2026-03-06
