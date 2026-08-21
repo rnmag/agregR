@@ -60,8 +60,18 @@
 #'     \item \emph{Lower values:} The model trusts polling precision more, leading to tighter intervals and potentially more sensitivity to outliers.
 #'   }
 #' }
-#' @param nome Name of the model. Options: "Vi\u00e9s Relativo com Pesos", "Vi\u00e9s Relativo sem Pesos", "Vi\u00e9s Emp\u00edrico", "Retrospectivo" and "Naive".
-#' @param ... Named arguments to override default hyperparameters (e.g., `sd_tau_priori = 0.05`).
+#' @param nome Name of the model. Options: "Vi\u00e9s Relativo com Pesos", "Vi\u00e9s Relativo sem Pesos", "Vi\u00e9s Emp\u00edrico", "Retrospectivo" and "Naive". If NULL, defaults to "Vi\u00e9s Relativo com Pesos" or inherits the model when used within `rodar_agregador()`.
+#' @param mu_priori Prior mean for the latent vote share at \eqn{t=1}. See "Priors Details" section.
+#' @param sd_mu_priori Prior uncertainty for the initial latent vote.
+#' @param omega_eta_priori Prior mean for the level volatility (\eqn{\omega_\eta}).
+#' @param nu_priori Prior mean for the initial trend (daily growth rate).
+#' @param sd_nu_priori Prior uncertainty for the initial trend.
+#' @param omega_zeta_priori Prior mean for the trend volatility (\eqn{\omega_\zeta}).
+#' @param delta_priori Mean expected bias for institutes.
+#' @param sd_delta_priori Scale of the bias prior.
+#' @param tau_priori Mean expected magnitude of errors not explained by sampling or house effects.
+#' @param sd_tau_priori Prior uncertainty for non-sampling error.
+#' @param ... Additional arguments to override default hyperparameters.
 #' @return A list of model parameters.
 #' @export
 #' @importFrom utils modifyList
@@ -72,7 +82,55 @@
 #'
 #' # Get parameters for "Naive" and override a default value
 #' custom_params <- configurar_prioris(nome = "Naive", sd_mu_priori = 0.2)
-configurar_prioris <- function(nome = "Vi\u00e9s Relativo com Pesos", ...) {
+configurar_prioris <- function(nome = NULL,
+                               mu_priori = NULL,
+                               sd_mu_priori = NULL,
+                               omega_eta_priori = NULL,
+                               nu_priori = NULL,
+                               sd_nu_priori = NULL,
+                               omega_zeta_priori = NULL,
+                               delta_priori = NULL,
+                               sd_delta_priori = NULL,
+                               tau_priori = NULL,
+                               sd_tau_priori = NULL,
+                               ...) {
+
+  # lista de parâmetros a substituir
+  substituir <- list(
+    mu_priori = mu_priori,
+    sd_mu_priori = sd_mu_priori,
+    omega_eta_priori = omega_eta_priori,
+    nu_priori = nu_priori,
+    sd_nu_priori = sd_nu_priori,
+    omega_zeta_priori = omega_zeta_priori,
+    delta_priori = delta_priori,
+    sd_delta_priori = sd_delta_priori,
+    tau_priori = tau_priori,
+    sd_tau_priori = sd_tau_priori
+  )
+
+  # remover argumentos nulos para modelos que não usam certos parâmetros
+  substituir <- substituir[!vapply(substituir, is.null, logical(1))]
+
+  # adicionar quaisquer outros argumentos passados no ...
+  if (length(list(...)) > 0) {
+    substituir <- c(substituir, list(...))
+  }
+
+  # Se o nome do modelo não foi especificado, usar default
+  if (is.null(nome)) {
+
+    if (length(substituir) == 0) {
+
+      nome <- "Vi\u00e9s Relativo com Pesos"
+    
+    } else {
+    
+      return(substituir)
+    
+    }
+  
+  }
 
   # Padronizar nome do modelo
   nome_convertido <- limpar_texto_minusculo(nome)
@@ -116,9 +174,6 @@ configurar_prioris <- function(nome = "Vi\u00e9s Relativo com Pesos", ...) {
 
   # Configuração padrão
   config <- valores[[nome_convertido]]
-
-  # Substituir com valores do usuário
-  substituir <- list(...)
 
   if (length(substituir) > 0) {
 

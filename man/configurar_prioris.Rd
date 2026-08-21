@@ -5,12 +5,45 @@
 \alias{configurar_prioris}
 \title{Configuration for Statistical Models}
 \usage{
-configurar_prioris(nome = "Viés Relativo com Pesos", ...)
+configurar_prioris(
+  nome = NULL,
+  mu_priori = NULL,
+  sd_mu_priori = NULL,
+  omega_eta_priori = NULL,
+  nu_priori = NULL,
+  sd_nu_priori = NULL,
+  omega_zeta_priori = NULL,
+  delta_priori = NULL,
+  sd_delta_priori = NULL,
+  tau_priori = NULL,
+  sd_tau_priori = NULL,
+  ...
+)
 }
 \arguments{
-\item{nome}{Name of the model. Options: "Viés Relativo com Pesos", "Viés Relativo sem Pesos", "Viés Empírico", "Retrospectivo" and "Naive".}
+\item{nome}{Name of the model. If NULL, inherits the model used in \code{rodar_agregador()}.}
 
-\item{...}{Named arguments to override default hyperparameters (e.g., \code{sd_tau_priori = 0.05}).}
+\item{mu_priori}{Prior mean for the latent vote share at \eqn{t=1}. See "Priors Details" section.}
+
+\item{sd_mu_priori}{Prior uncertainty for the initial latent vote.}
+
+\item{omega_eta_priori}{Prior mean for the level volatility (\eqn{\omega_\eta}).}
+
+\item{nu_priori}{Prior mean for the initial trend (daily growth rate).}
+
+\item{sd_nu_priori}{Prior uncertainty for the initial trend.}
+
+\item{omega_zeta_priori}{Prior mean for the trend volatility (\eqn{\omega_\zeta}).}
+
+\item{delta_priori}{Mean expected bias for institutes.}
+
+\item{sd_delta_priori}{Scale of the bias prior.}
+
+\item{tau_priori}{Mean expected magnitude of errors not explained by sampling or house effects.}
+
+\item{sd_tau_priori}{Prior uncertainty for non-sampling error.}
+
+\item{...}{Additional arguments to override default hyperparameters.}
 }
 \value{
 A list of model parameters.

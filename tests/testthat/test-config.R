@@ -59,3 +59,15 @@ test_that("configurar_prioris retorna parâmetros corretos para cada modelo", {
 test_that("configurar_prioris falha para modelo inexistente", {
   expect_error(configurar_prioris(nome = "Modelo Fantasma"))
 })
+
+test_that("defaults em configurar_prioris", {
+  # Teste que sem argumentos, retorna default "Viés Relativo com Pesos"
+  p_default <- configurar_prioris()
+  expect_false("tau_priori" %in% names(p_default))
+  expect_true("sd_tau_priori" %in% names(p_default))
+  expect_equal(p_default$sd_delta_priori, 0.02)
+  
+  # Teste que sem nome mas com modificação, retorna apenas as modificações
+  p_mod <- configurar_prioris(sd_mu_priori = 0.8)
+  expect_equal(p_mod, list(sd_mu_priori = 0.8))
+})
