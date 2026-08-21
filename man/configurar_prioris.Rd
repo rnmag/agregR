@@ -113,6 +113,51 @@ Recommended reading: \url{https://github.com/stan-dev/stan/wiki/prior-choice-rec
 }
 }
 
+\section{Model Defaults}{
+
+Each model has a specific set of default priors.
+
+\strong{Viés Relativo com Pesos (Default)}
+\itemize{
+\item \code{mu_priori = 0.5}, \code{sd_mu_priori = 0.5}, \code{omega_eta_priori = 0.002}
+\item \code{nu_priori = 0}, \code{sd_nu_priori = 0.001}, \code{omega_zeta_priori = 0.00001}
+\item \code{delta_priori = 0}, \code{sd_delta_priori = 0.02}
+\item \code{sd_tau_priori = 0.02}
+\item \emph{Not applicable:} \code{tau_priori} (model uses empirical values)
+}
+
+\strong{Viés Relativo sem Pesos}
+\itemize{
+\item \code{mu_priori = 0.5}, \code{sd_mu_priori = 0.5}, \code{omega_eta_priori = 0.002}
+\item \code{nu_priori = 0}, \code{sd_nu_priori = 0.001}, \code{omega_zeta_priori = 0.00001}
+\item \code{delta_priori = 0}, \code{sd_delta_priori = 0.02}
+\item \code{tau_priori = 0.02}, \code{sd_tau_priori = 0.02}
+}
+
+\strong{Viés Empírico}
+\itemize{
+\item \code{mu_priori = 0.5}, \code{sd_mu_priori = 0.5}, \code{omega_eta_priori = 0.002}
+\item \code{nu_priori = 0}, \code{sd_nu_priori = 0.001}, \code{omega_zeta_priori = 0.00001}
+\item \code{sd_delta_priori = 0.02}
+\item \code{sd_tau_priori = 0.02}
+\item \emph{Not applicable:} \code{delta_priori} and \code{tau_priori} (model uses empirical values for both)
+}
+
+\strong{Retrospectivo}
+\itemize{
+\item \code{mu_priori = 0.5}, \code{sd_mu_priori = 0.5}, \code{omega_eta_priori = 0.002}
+\item \code{nu_priori = 0}, \code{sd_nu_priori = 0.001}, \code{omega_zeta_priori = 0.00001}
+\item \code{delta_priori = 0}, \code{sd_delta_priori = 0.02}
+\item \code{tau_priori = 0.02}, \code{sd_tau_priori = 0.02}
+}
+
+\strong{Naive}
+\itemize{
+\item \code{mu_priori = 0.5}, \code{sd_mu_priori = 0.5}, \code{omega_eta_priori = 0.002}
+\item \emph{Not applicable:} \code{nu_priori}, \code{sd_nu_priori}, \code{omega_zeta_priori}, \code{delta_priori}, \code{sd_delta_priori}, \code{tau_priori}, \code{sd_tau_priori}
+}
+}
+
 \examples{
 # Get default parameters for the "Naive" model
 naive_params <- configurar_prioris(nome = "Naive")

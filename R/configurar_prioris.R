@@ -60,7 +60,49 @@
 #'     \item \emph{Lower values:} The model trusts polling precision more, leading to tighter intervals and potentially more sensitivity to outliers.
 #'   }
 #' }
-#' @param nome Name of the model. Options: "Vi\u00e9s Relativo com Pesos", "Vi\u00e9s Relativo sem Pesos", "Vi\u00e9s Emp\u00edrico", "Retrospectivo" and "Naive". If NULL, defaults to "Vi\u00e9s Relativo com Pesos" or inherits the model when used within `rodar_agregador()`.
+#' @section Model Defaults:
+#' Each model has a specific set of default priors.
+#'
+#' \strong{Vi\u00e9s Relativo com Pesos (Default)}
+#' \itemize{
+#'   \item \code{mu_priori = 0.5}, \code{sd_mu_priori = 0.5}, \code{omega_eta_priori = 0.002}
+#'   \item \code{nu_priori = 0}, \code{sd_nu_priori = 0.001}, \code{omega_zeta_priori = 0.00001}
+#'   \item \code{delta_priori = 0}, \code{sd_delta_priori = 0.02}
+#'   \item \code{sd_tau_priori = 0.02}
+#'   \item \emph{Not applicable:} \code{tau_priori} (model uses empirical values)
+#' }
+#'
+#' \strong{Vi\u00e9s Relativo sem Pesos}
+#' \itemize{
+#'   \item \code{mu_priori = 0.5}, \code{sd_mu_priori = 0.5}, \code{omega_eta_priori = 0.002}
+#'   \item \code{nu_priori = 0}, \code{sd_nu_priori = 0.001}, \code{omega_zeta_priori = 0.00001}
+#'   \item \code{delta_priori = 0}, \code{sd_delta_priori = 0.02}
+#'   \item \code{tau_priori = 0.02}, \code{sd_tau_priori = 0.02}
+#' }
+#'
+#' \strong{Vi\u00e9s Emp\u00edrico}
+#' \itemize{
+#'   \item \code{mu_priori = 0.5}, \code{sd_mu_priori = 0.5}, \code{omega_eta_priori = 0.002}
+#'   \item \code{nu_priori = 0}, \code{sd_nu_priori = 0.001}, \code{omega_zeta_priori = 0.00001}
+#'   \item \code{sd_delta_priori = 0.02}
+#'   \item \code{sd_tau_priori = 0.02}
+#'   \item \emph{Not applicable:} \code{delta_priori} and \code{tau_priori} (model uses empirical values for both)
+#' }
+#'
+#' \strong{Retrospectivo}
+#' \itemize{
+#'   \item \code{mu_priori = 0.5}, \code{sd_mu_priori = 0.5}, \code{omega_eta_priori = 0.002}
+#'   \item \code{nu_priori = 0}, \code{sd_nu_priori = 0.001}, \code{omega_zeta_priori = 0.00001}
+#'   \item \code{delta_priori = 0}, \code{sd_delta_priori = 0.02}
+#'   \item \code{tau_priori = 0.02}, \code{sd_tau_priori = 0.02}
+#' }
+#'
+#' \strong{Naive}
+#' \itemize{
+#'   \item \code{mu_priori = 0.5}, \code{sd_mu_priori = 0.5}, \code{omega_eta_priori = 0.002}
+#'   \item \emph{Not applicable:} \code{nu_priori}, \code{sd_nu_priori}, \code{omega_zeta_priori}, \code{delta_priori}, \code{sd_delta_priori}, \code{tau_priori}, \code{sd_tau_priori}
+#' }
+#' @param nome Name of the model. If NULL, inherits the model used in `rodar_agregador()`.
 #' @param mu_priori Prior mean for the latent vote share at \eqn{t=1}. See "Priors Details" section.
 #' @param sd_mu_priori Prior uncertainty for the initial latent vote.
 #' @param omega_eta_priori Prior mean for the level volatility (\eqn{\omega_\eta}).
