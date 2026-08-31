@@ -32,7 +32,8 @@ configurar_grafico <- function(fonte = "Fira Sans",
                        "Fl\u00e1vio" = "#446AAF",
                        "Caiado" = "#008564",
                        "Renan" = "#F7D13D",
-                       "Zema" = "#9000C8")
+                       "Cury" = "#9000C8",
+                       "Zema" = "#FFA500")
 
   simbolos_padrao <- list(Online = 3,
                           Presencial = 1,

@@ -41,11 +41,34 @@ test_that("grafico_agregador retorna um objeto ggplot e lida com diferentes mode
   tmp <- tempdir()
   expect_message(suppressWarnings(grafico_agregador(bd_naive, salvar = TRUE, dir_saida = tmp)), "Gr\u00e1fico salvo")
 })
-
 test_that("grafico_agregador falha sem turno (linha 64)", {
   bd_erro <- list(votos_estimados = tibble::tibble(turno = 3))
   expect_error(grafico_agregador(bd_erro), "definir o turno")
 })
+
+test_that("grafico_agregador atribui cores padrão do ggplot para candidatos sem cor", {
+  votos_mock_novo <- tibble::tibble(
+    final_coleta = as.Date(c("2024-12-31", "2025-01-01")),
+    turno = 1,
+    candidatura = "CandidatoX",
+    mediana = 0.45,
+    li = 0.43,
+    ls = 0.47,
+    percentual_pesquisa = 0.45,
+    percentual_estimado = "45%",
+    metodologia = "Presencial",
+    instituto = "Datafolha",
+    pesquisa_id = "1"
+  )
+
+  bd_naive <- list(nome_modelo = "Naive", votos_estimados = votos_mock_novo)
+  p <- grafico_agregador(bd_naive, salvar = FALSE)
+  expect_s3_class(p, "ggplot")
+  
+  cor_scale <- p$scales$get_scales("colour")
+  expect_true("CandidatoX" %in% names(cor_scale$palette(1)))
+})
+
 
 test_that("grafico_vies retorna um objeto ggplot e valida entradas", {
   vies_mock <- data.frame(
@@ -94,3 +117,34 @@ test_that("grafico_vies retorna um objeto ggplot e valida entradas", {
   tmp <- tempdir()
   expect_message(suppressWarnings(grafico_vies(bd_emp, candidaturas = "Lula", salvar = TRUE, dir_saida = tmp)), "Gr\u00e1fico salvo")
 })
+
+test_that("grafico_vies atribui cores padrão do ggplot para candidatos sem cor", {
+  vies_mock <- data.frame(
+    instituto = c("Datafolha", "Ipec"),
+    li = c(-0.02, -0.01),
+    mediana = c(0.01, 0.02),
+    ls = c(0.04, 0.05),
+    candidatura = "CandidatoX",
+    instituto_num = 1:2
+  )
+
+  votos_mock <- tibble::tibble(
+    final_coleta = as.Date("2025-01-01"),
+    pesquisa_id = "1",
+    instituto = "Datafolha"
+  )
+
+  bd_base <- list(
+    nome_modelo = "Vi\u00e9s Emp\u00edrico",
+    votos_estimados = votos_mock,
+    vies_institutos = vies_mock,
+    modelo_bruto = list(CandidatoX = data.frame(`delta[1]` = rnorm(10), `delta[2]` = rnorm(10), check.names = FALSE))
+  )
+
+  p <- grafico_vies(bd_base, candidaturas = "CandidatoX")
+  expect_s3_class(p, "ggplot")
+
+  cor_scale <- p$scales$get_scales("fill")
+  expect_true("CandidatoX" %in% names(cor_scale$palette(1)))
+})
+

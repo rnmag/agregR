@@ -56,6 +56,19 @@ grafico_vies <- function(bd,
   candidaturas <- map_chr(candidaturas,
                           nome_robusto)
 
+  # Candidatos sem cor personalizada usam padrão do ggplot
+  candidatos_sem_cor <- setdiff(candidaturas, names(config_grafico$cores_candidaturas))
+
+  if (length(candidatos_sem_cor) > 0) {
+
+    cores_extras <- scales::hue_pal()(length(candidatos_sem_cor))
+
+    names(cores_extras) <- candidatos_sem_cor
+
+    config_grafico$cores_candidaturas <- c(config_grafico$cores_candidaturas, as.list(cores_extras))
+
+  }
+
   # Erro se objeto vier do modelo "Naive"
   if (bd$nome_modelo == "Naive") cli_abort("O gr\u00e1fico de vi\u00e9s n\u00e3o \u00e9 aplic\u00e1vel ao modelo 'Naive'.")
 

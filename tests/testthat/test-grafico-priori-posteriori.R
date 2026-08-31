@@ -56,6 +56,22 @@ test_that("grafico_priori_posteriori gera graficos de Percentual e Vi\u00e9s", {
   expect_s3_class(p_emp, "ggplot")
 })
 
+test_that("grafico_priori_posteriori atribui cores padrão do ggplot para candidatos sem cor", {
+  amostras <- data.frame(`mu[1]` = rnorm(10), check.names = FALSE)
+  bd_base <- list(
+    nome_modelo = "Vi\u00e9s Relativo sem Pesos",
+    votos_estimados = tibble::tibble(turno = 1, final_coleta = as.Date("2025-01-01"), pesquisa_id = "1", instituto = "Datafolha"),
+    vies_institutos = tibble::tibble(instituto = "Datafolha", candidatura = "CandidatoX", instituto_num = 1),
+    modelo_bruto = list(CandidatoX = amostras)
+  )
+
+  p <- grafico_priori_posteriori(bd_base, candidaturas = "CandidatoX", tipo = "Percentual")
+  expect_s3_class(p, "ggplot")
+
+  cor_scale <- p$scales$get_scales("colour")
+  expect_true("CandidatoX" %in% names(cor_scale$palette(1)))
+})
+
 test_that("grafico_priori_posteriori salva arquivos corretamente", {
   amostras <- data.frame(`mu[1]` = rnorm(10), check.names = FALSE)
   bd_naive <- list(

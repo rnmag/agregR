@@ -46,6 +46,19 @@ grafico_agregador <- function(bd,
   # Registrar fonte
   registrar_fonte(config_grafico$graf_agregador$dpi)
 
+  # Candidatos sem cor personalizada usam padrão do ggplot
+  candidatos_sem_cor <- setdiff(unique(bd$votos_estimados$candidatura), names(config_grafico$cores_candidaturas))
+
+  if (length(candidatos_sem_cor) > 0) {
+
+    cores_extras <- scales::hue_pal()(length(candidatos_sem_cor))
+
+    names(cores_extras) <- candidatos_sem_cor
+
+    config_grafico$cores_candidaturas <- c(config_grafico$cores_candidaturas, as.list(cores_extras))
+
+  }
+
   # Identificar turno
   turno <- unique(na.omit(bd$votos_estimados$turno))
 

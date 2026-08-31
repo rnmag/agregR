@@ -64,6 +64,20 @@ grafico_priori_posteriori <- function(bd,
   candidaturas <- map_chr(candidaturas,
                           nome_robusto)
 
+  # Candidatos sem cor personalizada usam padrão do ggplot
+
+  candidatos_sem_cor <- setdiff(candidaturas, names(config_grafico$cores_candidaturas))
+
+  if (length(candidatos_sem_cor) > 0) {
+
+    cores_extras <- scales::hue_pal()(length(candidatos_sem_cor))
+
+    names(cores_extras) <- candidatos_sem_cor
+
+    config_grafico$cores_candidaturas <- c(config_grafico$cores_candidaturas, as.list(cores_extras))
+
+  }
+
   # Definir parâmetro a ser extraído conforme o tipo selecionado
   parametro <- if (tipo == "Vi\u00e9s") "delta" else "mu"
 
