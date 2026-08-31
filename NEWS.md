@@ -1,3 +1,7 @@
+# agregR (development version)
+
+* Fixed broken color palette for non-standard candidates
+
 # agregR 1.0.4
 
 * Fixed priors for non-aligned candidates causing vote share to exceed 100%
