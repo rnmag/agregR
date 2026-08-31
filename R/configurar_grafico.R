@@ -31,7 +31,7 @@ configurar_grafico <- function(fonte = "Fira Sans",
                        "Bolsonaro" = "#446AAF",
                        "Fl\u00e1vio" = "#446AAF",
                        "Caiado" = "#008564",
-                       "Renan" = "#F7D13D",
+                       "Renan" = "#F2CD5A",
                        "Cury" = "#9000C8",
                        "Zema" = "#FFA500")
 

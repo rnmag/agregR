@@ -71,11 +71,11 @@ configurar_agregador <- function(pesquisas = NULL,
 
   # Definir candidaturas sem precisar refazer documentação
   if (is.null(candidaturas_1t)) {
-    candidaturas_1t <- c("Lula", "Fl\u00e1vio", "Caiado", "Renan", "Zema")
+    candidaturas_1t <- c("Lula", "Fl\u00e1vio", "Caiado", "Renan", "Cury", "Zema")
   }
 
   if (is.null(candidaturas_2t)) { # Bolsonaro fica só para rodar os exemplos do pacote
-    candidaturas_2t <- c("Bolsonaro", "Lula", "Fl\u00e1vio", "Caiado", "Renan", "Zema")
+    candidaturas_2t <- c("Bolsonaro", "Lula", "Fl\u00e1vio", "Caiado", "Renan", "Cury", "Zema")
   }
 
   if (is.null(direita_eleicao_atual)) {
