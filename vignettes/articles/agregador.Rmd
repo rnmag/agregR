@@ -30,7 +30,9 @@ pesquisas_2026 <- read_csv2("https://raw.githubusercontent.com/rnmag/agregR/refs
 
 ```
 
-**Última atualização**: `r format(Sys.Date(), "%d/%m/%Y", tz = "America/Sao_Paulo")`
+**Última atualização**: pesquisa `r pesquisas_2026 |> slice_tail(n = 1) |> pull(instituto)`
+com campo entre `r pesquisas_2026 |> slice_tail(n = 1) |> pull(inicio_coleta)`
+e `r pesquisas_2026 |> slice_tail(n = 1) |> pull(final_coleta)`
 
 ## Introdução
 
@@ -212,10 +214,6 @@ se baseia nas pesquisas registradas no TSE e divulgadas na imprensa. Ele contém
 eleição de 2026, abrangendo os seguintes institutos:
 
 `r paste("*", unique(sort(pesquisas_2026$instituto)), collapse = "\n")`
-
-**Última pesquisa**: `r pesquisas_2026 |> slice_tail(n = 1) |> pull(instituto)`
-com campo entre `r pesquisas_2026 |> slice_tail(n = 1) |> pull(inicio_coleta)`
-e `r pesquisas_2026 |> slice_tail(n = 1) |> pull(final_coleta)`
 
 Agradecimentos a Ricardo Ribeiro, que gentilmente compartilhou sua planilha de pesquisas
 para o ciclo atual, e ao Poder360, que publicou sua
