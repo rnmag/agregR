@@ -144,8 +144,8 @@ grafico_agregador <- function(bd,
     scale_fill_manual(values = unlist(config_grafico$cores_candidaturas)) +
     scale_colour_manual(values = unlist(config_grafico$cores_candidaturas)) +
     scale_shape_manual(values = unlist(config_grafico$simbolos), na.translate = FALSE) +
-    guides(color = guide_legend(order = 1),
-           fill = guide_legend(order = 1),
+    guides(color = guide_legend(order = 1, nrow = 1),
+           fill = guide_legend(order = 1, nrow = 1),
            shape = guide_legend(order = 2)) +
     # Eixos
     scale_y_continuous(expand = expansion(mult = c(.02, .02)),
