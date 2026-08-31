@@ -1,5 +1,9 @@
 # Changelog
 
+## agregR (development version)
+
+- Fixed broken color palette for non-standard candidates
+
 ## agregR 1.0.4
 
 CRAN release: 2026-08-21

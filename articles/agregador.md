@@ -1,6 +1,6 @@
 # Agregador Eleições 2026
 
-**Última atualização**: 24/08/2026
+**Última atualização**: 31/08/2026
 
 ## Introdução
 
