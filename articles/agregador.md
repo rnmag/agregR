@@ -1,6 +1,7 @@
 # Agregador Eleições 2026
 
-**Última atualização**: 31/08/2026
+**Última atualização**: pesquisa Quaest com campo entre 30/08/2026 e
+01/09/2026
 
 ## Introdução
 
@@ -121,7 +122,7 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/insti
 O [banco de
 dados](https://github.com/rnmag/agregR/blob/main/inst/extdata/pesquisas_2026.csv)
 se baseia nas pesquisas registradas no TSE e divulgadas na imprensa. Ele
-contém **132 pesquisas** para a eleição de 2026, abrangendo os seguintes
+contém **134 pesquisas** para a eleição de 2026, abrangendo os seguintes
 institutos:
 
 - Alfa
@@ -139,8 +140,6 @@ institutos:
 - Quaest
 - Realtime Bigdata
 - Vox Brasil
-
-**Última pesquisa**: Nexus com campo entre 28/08/2026 e 30/08/2026
 
 Agradecimentos a Ricardo Ribeiro, que gentilmente compartilhou sua
 planilha de pesquisas para o ciclo atual, e ao Poder360, que publicou
