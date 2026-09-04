@@ -1,7 +1,7 @@
 # Agregador Eleições 2026
 
-**Última atualização**: pesquisa Quaest com campo entre 30/08/2026 e
-01/09/2026
+**Última atualização**: pesquisa Datafolha com campo entre 01/09/2026 e
+02/09/2026
 
 ## Introdução
 
@@ -122,7 +122,7 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/insti
 O [banco de
 dados](https://github.com/rnmag/agregR/blob/main/inst/extdata/pesquisas_2026.csv)
 se baseia nas pesquisas registradas no TSE e divulgadas na imprensa. Ele
-contém **134 pesquisas** para a eleição de 2026, abrangendo os seguintes
+contém **136 pesquisas** para a eleição de 2026, abrangendo os seguintes
 institutos:
 
 - Alfa
