@@ -40,7 +40,7 @@ Como interpretar pesquisas eleitorais com resultados divergentes? O `agregR` é
 um pacote para o R que filtra a enxurrada de dados divulgados no período eleitoral
 e estima o nível subjacente de apoio para cada candidato.
 
-Trata-se de um conjunto de modelos estatísticos que lidam com os seguintes fatores:
+Trata-se de um conjunto de modelos estatísticos que lidam com:
 
 * Desempenho dos institutos na última eleição
 * Desvios dos institutos em relação ao consenso
@@ -49,11 +49,9 @@ Trata-se de um conjunto de modelos estatísticos que lidam com os seguintes fato
 * Erros não-amostrais (para além da margem de erro)
 
 Os 3 modelos apresentados aqui[^1] variam de acordo com a importância atribuída
-ao resultado dos institutos na eleição passada. O modelo 1 não utiliza qualquer
-informação de desempenho passado, enquanto os modelos 2 e 3 são progressivamente
-mais sensíveis aos dados históricos. Cada modelo é introduzido por uma breve nota,
-e interessados em mais detalhes podem consultar a
-[metodologia completa](https://rnmag.github.io/agregR/index.html#methodology).
+ao resultado dos institutos na última eleição. Enquanto o modelo 1 não utiliza
+qualquer informação de desempenho passado, os modelos 2 e 3 são progressivamente
+mais sensíveis aos dados históricos.
 
 [^1]: O pacote inclui outros 2 modelos com menor utilidade durante a campanha:
 o modelo **Retrospectivo** usa o resultado real da eleição para calcular
@@ -61,7 +59,10 @@ retrospectivamente vieses e trajetórias para cada candidato, enquanto o modelo
 **Naive** é disponibilizado como uma curiosidade, pois não modela nenhum viés e
 é equivalente a calcular uma média simples das pesquisas.
 
-## Pesquisas incluídas
+Cada modelo é introduzido por uma breve nota, e interessados em mais detalhes
+podem consultar a [metodologia completa](https://rnmag.github.io/agregR/index.html#methodology).
+
+### Pesquisas incluídas
 
 O banco de dados se baseia nas pesquisas registradas no TSE e divulgadas na
 imprensa. Ele contém **`r pesquisas_2026 |> distinct(instituto, final_coleta) |> tally()` pesquisas**
