@@ -4,24 +4,24 @@
 
 ## Introdução
 
-Como interpretar pesquisas eleitorais com resultados divergentes?
-`agregR` é um pacote para o R que emprega um conjunto de modelos
-estatísticos para filtrar a enxurrada de dados divulgados no período
-eleitoral e estimar o nível subjacente de apoio de cada candidato.
+Como interpretar pesquisas eleitorais com resultados divergentes? O
+`agregR` é um pacote para o R que filtra a enxurrada de dados divulgados
+no período eleitoral e estima o nível subjacente de apoio para cada
+candidato.
 
-Os modelos contemplam:
+Trata-se de um conjunto de modelos estatísticos que consideram:
 
-- Desempenho dos institutos na última eleição
+- Resultados dos institutos na última eleição
+- Desvios dos institutos em relação ao consenso
 - Vieses de acordo com o alinhamento político dos candidatos
-- Vieses dos institutos em relação ao consenso
-- Margens de erro incoerentes com o tamanho da amostra
+- Margens de erro incoerentes com o tamanho das amostras
 - Erros não-amostrais (para além da margem de erro)
 
-São 3[^1] modelos que se diferenciam pela importância que cada um
-atribui ao desempenho dos institutos na última eleição. Eles são
-apresentados abaixo em ordem do menos dependente dos dados históricos
-para o mais dependente. Cada modelo contém uma breve nota introdutória,
-e interessados em mais detalhes podem consultar a [metodologia
+São 3[^1] modelos que se diferenciam pela importância atribuída ao
+desempenho dos institutos na última eleição. Eles são apresentados
+abaixo em ordem do menos dependente dos dados históricos para o mais
+dependente. Cada modelo contém uma breve nota introdutória, e
+interessados em mais detalhes podem consultar a [metodologia
 completa](https://rnmag.github.io/agregR/index.html#methodology).
 
 ## Pesquisas incluídas
@@ -47,14 +47,14 @@ institutos:
 - Vox Brasil
 
 Esta página apresenta apenas os cenários eleitorais mais prováveis, mas
-a base registra os dados completos de cada pesquisa. [Instale o
-pacote](https://rnmag.github.io/agregR/index.html#installation)
-gratuitamente para explorar os mais de 10 cenários disponíveis.
+o pacote inclui os dados completos de cada pesquisa. [Instale-o
+gratuitamente](https://rnmag.github.io/agregR/index.html#installation)
+para explorar os mais de 10 cenários disponíveis.
 
 ## Modelo 1: Viés Relativo sem Pesos
 
 Este modelo não usa qualquer informação sobre o desempenho dos
-institutos na última eleição, calculando vieses puramente com base nas
+institutos na última eleição, calculando vieses puramente em relação às
 pesquisas deste ciclo eleitoral. Todos os institutos têm o mesmo peso.
 
 ![\[Clique para ver em tela
@@ -84,7 +84,7 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/insti
 Este modelo equilibra o uso de dados históricos e do ciclo atual.
 Atribui pesos aos institutos de acordo com o desempenho na última
 eleição, considerando o alinhamento político dos candidatos. O viés é
-estimado em torno do consenso das pesquisas.
+estimado em relação ao consenso das pesquisas.
 
 ![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png)](agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png)
@@ -137,10 +137,12 @@ cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/inst
 [Clique para ver em tela
 cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1.png)
 
+## Agradecimentos
+
 Agradecimentos a Ricardo Ribeiro, que gentilmente compartilhou sua
-planilha de pesquisas para o ciclo atual, e ao Poder360, que publicou
-sua [base histórica de
-pesquisas](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
+planilha de pesquisas para a eleição de 2026, e ao Poder360, que
+publicou sua [base
+histórica](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6).
 
 [^1]: O pacote inclui outros 2 modelos com menor utilidade durante a
     campanha: o modelo **Retrospectivo** usa o resultado real da eleição
