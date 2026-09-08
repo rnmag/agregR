@@ -80,16 +80,25 @@
 }
 
 </style>
-<p><strong>Última atualização</strong>: pesquisa Datafolha com campo
-entre 01/09/2026 e 02/09/2026</p>
+<p><strong>Última pesquisa</strong>: Quaest com campo entre 03/09 e
+06/09</p>
 <div class="section level2">
 <h2 id="introdução">Introdução<a class="anchor" aria-label="anchor" href="#introdu%C3%A7%C3%A3o"></a>
 </h2>
-<p>Como interpretar tantas pesquisas eleitorais com resultados
-divergentes? O <code>agregR</code> emprega um conjunto de modelos
-estatísticos para filtrar a enxurrada de dados divulgados no período
-eleitoral e estimar o nível subjacente de apoio para cada candidato.</p>
-<p>São 3<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;O pacote contém outros 2 modelos com menor utilidade
+<p>Como interpretar pesquisas eleitorais com resultados divergentes?
+<code>agregR</code> é um pacote para o R que emprega um conjunto de
+modelos estatísticos para filtrar a enxurrada de dados divulgados no
+período eleitoral e estimar o nível subjacente de apoio de cada
+candidato.</p>
+<p>Os modelos contemplam:</p>
+<ul>
+<li>Desempenho dos institutos na última eleição</li>
+<li>Vieses de acordo com o alinhamento político dos candidatos</li>
+<li>Vieses dos institutos em relação ao consenso</li>
+<li>Margens de erro incoerentes com o tamanho da amostra</li>
+<li>Erros não-amostrais (para além da margem de erro)</li>
+</ul>
+<p>São 3<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;O pacote inclui outros 2 modelos com menor utilidade
 durante a campanha: o modelo &lt;strong&gt;Retrospectivo&lt;/strong&gt; usa o
 resultado real da eleição para calcular retrospectivamente vieses e
 trajetórias para cada candidato, enquanto o modelo
@@ -102,18 +111,34 @@ abaixo em ordem do menos dependente dos dados históricos para o mais
 dependente. Cada modelo contém uma breve nota introdutória, e
 interessados em mais detalhes podem consultar a <a href="https://rnmag.github.io/agregR/index.html#methodology">metodologia
 completa</a>.</p>
-<p>Os modelos contemplam:</p>
+</div>
+<div class="section level2">
+<h2 id="pesquisas-incluídas">Pesquisas incluídas<a class="anchor" aria-label="anchor" href="#pesquisas-inclu%C3%ADdas"></a>
+</h2>
+<p>O banco de dados se baseia nas pesquisas registradas no TSE e
+divulgadas na imprensa. Ele contém <strong>138 pesquisas</strong>
+abrangendo os seguintes institutos:</p>
 <ul>
-<li>Desempenho dos institutos na última eleição</li>
-<li>Vieses de acordo com o alinhamento político dos candidatos</li>
-<li>Vieses dos institutos em relação ao consenso</li>
-<li>Margens de erro incoerentes com o tamanho da amostra</li>
-<li>Erros não-amostrais (para além da margem de erro)</li>
+<li>Alfa</li>
+<li>Atlas</li>
+<li>Datafolha</li>
+<li>Futura</li>
+<li>Gerp</li>
+<li>Ideia</li>
+<li>Ipsos-Ipec</li>
+<li>MDA</li>
+<li>Nexus</li>
+<li>Palver</li>
+<li>Paraná Pesquisas</li>
+<li>PoderData</li>
+<li>Quaest</li>
+<li>Realtime Bigdata</li>
+<li>Vox Brasil</li>
 </ul>
-<p>Esta página apresenta os cenários eleitorais mais prováveis, mas
-<code>agregR</code> é um pacote para o R que pode ser <a href="https://rnmag.github.io/agregR/index.html#installation">instalado</a>
-gratuitamente. Fique à vontade para explorar os mais de 10 cenários
-disponíveis no banco de dados.</p>
+<p>Esta página apresenta apenas os cenários eleitorais mais prováveis,
+mas a base registra os dados completos de cada pesquisa. <a href="https://rnmag.github.io/agregR/index.html#installation">Instale o
+pacote</a> gratuitamente para explorar os mais de 10 cenários
+disponíveis.</p>
 </div>
 <div class="section level2">
 <h2 id="modelo-1-viés-relativo-sem-pesos">Modelo 1: Viés Relativo sem Pesos<a class="anchor" aria-label="anchor" href="#modelo-1-vi%C3%A9s-relativo-sem-pesos"></a>
@@ -198,31 +223,6 @@ para ver em tela cheia</a>
 para ver em tela cheia</a>
 </p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="pesquisas-incluídas">Pesquisas incluídas<a class="anchor" aria-label="anchor" href="#pesquisas-inclu%C3%ADdas"></a>
-</h2>
-<p>O <a href="https://github.com/rnmag/agregR/blob/main/inst/extdata/pesquisas_2026.csv" class="external-link">banco
-de dados</a> se baseia nas pesquisas registradas no TSE e divulgadas na
-imprensa. Ele contém <strong>136 pesquisas</strong> para a eleição de
-2026, abrangendo os seguintes institutos:</p>
-<ul>
-<li>Alfa</li>
-<li>Atlas</li>
-<li>Datafolha</li>
-<li>Futura</li>
-<li>Gerp</li>
-<li>Ideia</li>
-<li>Ipsos-Ipec</li>
-<li>MDA</li>
-<li>Nexus</li>
-<li>Palver</li>
-<li>Paraná Pesquisas</li>
-<li>PoderData</li>
-<li>Quaest</li>
-<li>Realtime Bigdata</li>
-<li>Vox Brasil</li>
-</ul>
 <p>Agradecimentos a Ricardo Ribeiro, que gentilmente compartilhou sua
 planilha de pesquisas para o ciclo atual, e ao Poder360, que publicou
 sua <a href="https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999c?table=b6df9e1c-cbcb-4dbd-893b-8645a51773e6" class="external-link">base
