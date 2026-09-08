@@ -9,8 +9,7 @@ Como interpretar pesquisas eleitorais com resultados divergentes? O
 no período eleitoral e estima o nível subjacente de apoio para cada
 candidato.
 
-Trata-se de um conjunto de modelos estatísticos que lidam com os
-seguintes fatores:
+Trata-se de um conjunto de modelos estatísticos que lidam com:
 
 - Desempenho dos institutos na última eleição
 - Desvios dos institutos em relação ao consenso
@@ -19,14 +18,15 @@ seguintes fatores:
 - Erros não-amostrais (para além da margem de erro)
 
 Os 3 modelos apresentados aqui[^1] variam de acordo com a importância
-atribuída ao resultado dos institutos na eleição passada. O modelo 1 não
-utiliza qualquer informação de desempenho passado, enquanto os modelos 2
-e 3 são progressivamente mais sensíveis aos dados históricos. Cada
-modelo é introduzido por uma breve nota, e interessados em mais detalhes
-podem consultar a [metodologia
+atribuída ao resultado dos institutos na última eleição. Enquanto o
+modelo 1 não utiliza qualquer informação de desempenho passado, os
+modelos 2 e 3 são progressivamente mais sensíveis aos dados históricos.
+
+Cada modelo é introduzido por uma breve nota, e interessados em mais
+detalhes podem consultar a [metodologia
 completa](https://rnmag.github.io/agregR/index.html#methodology).
 
-## Pesquisas incluídas
+### Pesquisas incluídas
 
 O banco de dados se baseia nas pesquisas registradas no TSE e divulgadas
 na imprensa. Ele contém **139 pesquisas** abrangendo os seguintes
