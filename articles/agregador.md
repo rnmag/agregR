@@ -1,6 +1,6 @@
 # Agregador Eleições 2026
 
-**Última pesquisa**: Palver com campo entre 04/09 e 07/09
+**Última pesquisa**: Quaest com campo entre 10/09 e 13/09
 
 ## Introdução
 
@@ -29,7 +29,7 @@ completa](https://rnmag.github.io/agregR/index.html#methodology).
 ### Pesquisas incluídas
 
 O banco de dados se baseia nas pesquisas registradas no TSE e divulgadas
-na imprensa. Ele contém **141 pesquisas** abrangendo os seguintes
+na imprensa. Ele contém **146 pesquisas** abrangendo os seguintes
 institutos:
 
 - Alfa
