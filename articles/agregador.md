@@ -1,6 +1,6 @@
 # Agregador Eleições 2026
 
-**Última pesquisa**: MDA com campo entre 09/09 e 13/09
+**Última pesquisa**: DataTrends com campo entre 12/09 e 14/09
 
 ## Introdução
 
@@ -29,15 +29,17 @@ completa](https://rnmag.github.io/agregR/index.html#methodology).
 ### Pesquisas incluídas
 
 O banco de dados se baseia nas pesquisas registradas no TSE e divulgadas
-na imprensa. Ele contém **147 pesquisas** abrangendo os seguintes
+na imprensa. Ele contém **153 pesquisas** abrangendo os seguintes
 institutos:
 
 - Alfa
 - Atlas
 - Datafolha
+- DataTrends
 - Futura
 - Gerp
 - Ideia
+- Indexa
 - Ipsos-Ipec
 - MDA
 - Nexus

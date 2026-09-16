@@ -147,7 +147,7 @@
 <p>You can install the stable version of <code>agregR</code> from CRAN with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"agregR"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Experimental</strong>: the development (and possibly unstable) version of <code>agregR</code> can be installed with:</p>
+<p><em>Experimental</em>: the development (and possibly unstable) version of <code>agregR</code> can be installed with:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://pak.r-lib.org/" class="external-link">pak</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"rnmag/agregR"</span><span class="op">)</span></span></code></pre></div>
@@ -246,24 +246,24 @@
 <div class="section level3">
 <h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h3>
-<p>We are interested in performing inference on the <strong>latent state</strong> of public opinion: the dynamic, unobserved level of support for each candidate. Polls are periodic snapshots of this state, but the pictures are distorted and grainy.</p>
+<p>We are interested in performing inference on the <em>latent state</em> of public opinion: the dynamic, unobserved level of support for each candidate. Polls are periodic snapshots of this state, but the pictures are distorted and grainy.</p>
 <p>An apt analogy is a GPS receiver navigating an area with spotty connectivity. It receives sparse, conflicting pings from different satellites, each with its own uncertainty due to corrupted data packages, equipment miscalibration or inherent manufacturer bias. The system must achieve three objectives:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Data Reconciliation</strong>: It must filter the noise from competing sources to resolve a definitive vehicle position.</li>
+<em>Data Reconciliation</em>: It must filter the noise from competing sources to resolve a definitive vehicle position.</li>
 <li>
-<strong>Path Estimation</strong>: It must reconstruct the trajectory between data points, since movement continues even when satellites lose track of the vehicle.</li>
+<em>Path Estimation</em>: It must reconstruct the trajectory between data points, since movement continues even when satellites lose track of the vehicle.</li>
 <li>
-<strong>Joint Parameter Updating</strong>: As new data arrives, the system must simultaneously update the vehicle’s position and re-evaluate the reliability of each satellite.</li>
+<em>Joint Parameter Updating</em>: As new data arrives, the system must simultaneously update the vehicle’s position and re-evaluate the reliability of each satellite.</li>
 </ol>
 <p>Much like satellites, pollsters might be miscalibrated. Their readings contain noise introduced by different sampling designs, weighting protocols, and question wording, among other factors. <code>agregR</code> shares the same objectives as the GPS receiver:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Data Reconciliation</strong>: It filters the noise from competing pollsters to isolate the latent state of candidate support.</li>
+<em>Data Reconciliation</em>: It filters the noise from competing pollsters to isolate the latent state of candidate support.</li>
 <li>
-<strong>Path Estimation</strong>: It reconstructs the trajectory of public opinion during polling gaps, ensuring a continuous estimate even when data is unavailable.</li>
+<em>Path Estimation</em>: It reconstructs the trajectory of public opinion during polling gaps, ensuring a continuous estimate even when data is unavailable.</li>
 <li>
-<strong>Joint Parameter Updating</strong>: As new polls are published, it simultaneously updates candidate support levels and re-evaluates the reliability of each pollster.</li>
+<em>Joint Parameter Updating</em>: As new polls are published, it simultaneously updates candidate support levels and re-evaluates the reliability of each pollster.</li>
 </ol>
 </div>
 <div class="section level3">
@@ -272,7 +272,7 @@
 <p>The methods implemented by <code>agregR</code> build on Jackman (2009). They are variously known as state-space models (SSM), dynamic linear models (DLM) or Kalman filters and consist of two integrated components:</p>
 <ol style="list-style-type: decimal">
 <li>A <strong>state model</strong> that estimates the underlying trajectory of candidate support in the periods between polling releases.</li>
-<li>A <strong>measurement model</strong> that filters incoming observations and updates institute-specific biases. It decomposes uncertainty into sampling error (<span class="math inline">\(\sigma\)</span>), house effects (<span class="math inline">\(\delta\)</span>), and an additional non-sampling error term (<span class="math inline">\(\tau\)</span>) inspired by Heidemanns, Gelman &amp; Morris (2020).</li>
+<li>A <strong>measurement model</strong> that filters incoming polls and updates pollster-specific biases. It decomposes uncertainty into sampling error (<span class="math inline">\(\sigma\)</span>), house effects (<span class="math inline">\(\delta\)</span>), and an additional non-sampling error term (<span class="math inline">\(\tau\)</span>) inspired by Heidemanns, Gelman &amp; Morris (2020).</li>
 </ol>
 <div class="section level4">
 <h4 id="state-model">State Model<a class="anchor" aria-label="anchor" href="#state-model"></a>
