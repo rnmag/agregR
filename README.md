@@ -93,7 +93,7 @@ You can install the stable version of `agregR` from CRAN with:
 install.packages("agregR", type = "source")
 ```
 
-**Experimental**: the development (and possibly unstable) version of `agregR`
+*Experimental*: the development (and possibly unstable) version of `agregR`
 can be installed with:
 
 ``` r
@@ -162,7 +162,7 @@ grafico_vies(result, candidaturas = c("Lula", "Flávio"))
 #### 3. Bayesian Updating Check
 
 Visualizes how the data has informed the model by comparing prior
-vs. posterior distributions for selected parameters.
+vs. posterior distributions for selected parameters.
 
 ``` r
 grafico_priori_posteriori(result, tipo = "Viés", candidaturas = c("Lula", "Flávio"))
@@ -208,7 +208,7 @@ grafico_agregador(result, config_grafico = config_custom)
 
 ### Introduction
 
-We are interested in performing inference on the **latent state** of public opinion:
+We are interested in performing inference on the *latent state* of public opinion:
 the dynamic, unobserved level of support for each candidate. Polls are periodic
 snapshots of this state, but the pictures are distorted and grainy.
 
@@ -217,11 +217,11 @@ It receives sparse, conflicting pings from different satellites, each with its
 own uncertainty due to corrupted data packages, equipment miscalibration or
 inherent manufacturer bias. The system must achieve three objectives:
 
-1. **Data Reconciliation**: It must filter the noise from competing sources to
+1. *Data Reconciliation*: It must filter the noise from competing sources to
    resolve a definitive vehicle position.
-2. **Path Estimation**: It must reconstruct the trajectory between data points,
+2. *Path Estimation*: It must reconstruct the trajectory between data points,
    since movement continues even when satellites lose track of the vehicle.
-3. **Joint Parameter Updating**: As new data arrives, the system must simultaneously
+3. *Joint Parameter Updating*: As new data arrives, the system must simultaneously
    update the vehicle's position and re-evaluate the reliability of each satellite.
 
 Much like satellites, pollsters might be miscalibrated. Their readings
@@ -229,11 +229,11 @@ contain noise introduced by different sampling designs, weighting protocols,
 and question wording, among other factors. `agregR` shares the same objectives
 as the GPS receiver:
 
- 1. **Data Reconciliation**: It filters the noise from competing pollsters to
+ 1. *Data Reconciliation*: It filters the noise from competing pollsters to
     isolate the latent state of candidate support.
- 2. **Path Estimation**: It reconstructs the trajectory of public opinion during
+ 2. *Path Estimation*: It reconstructs the trajectory of public opinion during
     polling gaps, ensuring a continuous estimate even when data is unavailable.
- 3. **Joint Parameter Updating**: As new polls are published, it simultaneously
+ 3. *Joint Parameter Updating*: As new polls are published, it simultaneously
     updates candidate support levels and re-evaluates the reliability of each pollster.
 
 ### Conceptual Framework
@@ -244,8 +244,8 @@ and consist of two integrated components:
 
 1. A **state model** that estimates the underlying trajectory of candidate
    support in the periods between polling releases.
-2. A **measurement model** that filters incoming observations and updates
-   institute-specific biases. It decomposes uncertainty into sampling error
+2. A **measurement model** that filters incoming polls and updates
+   pollster-specific biases. It decomposes uncertainty into sampling error
    ($\sigma$), house effects ($\delta$), and an additional non-sampling error
    term ($\tau$) inspired by Heidemanns, Gelman & Morris (2020).
 
