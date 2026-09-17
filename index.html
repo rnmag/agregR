@@ -147,7 +147,7 @@
 <p>You can install the stable version of <code>agregR</code> from CRAN with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"agregR"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
-<p><em>Experimental</em>: the development (and possibly unstable) version of <code>agregR</code> can be installed with:</p>
+<p>The development (and possibly unstable) version of <code>agregR</code> can be installed with:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://pak.r-lib.org/" class="external-link">pak</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"rnmag/agregR"</span><span class="op">)</span></span></code></pre></div>
@@ -163,13 +163,10 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rnmag.github.io/agregR/">agregR</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Execute the aggregation pipeline for a 2nd round scenario</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rodar_agregador.html">rodar_agregador</a></span><span class="op">(</span></span>
-<span>  data_inicio <span class="op">=</span> <span class="st">"01/06/2025"</span>,</span>
-<span>  turno <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  cenario <span class="op">=</span> <span class="st">"Lula vs Flávio"</span>,</span>
-<span>  modelo <span class="op">=</span> <span class="st">"Viés Relativo com Pesos"</span></span>
-<span><span class="op">)</span></span>
+<span><span class="co"># Run poll aggregation routine</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rodar_agregador.html">rodar_agregador</a></span><span class="op">(</span>turno <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                          data_inicio <span class="op">=</span> <span class="st">"01/01/2025"</span>,</span>
+<span>                          modelo <span class="op">=</span> <span class="st">"Viés Relativo com Pesos"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Daily voting estimates + poll data in tidy format</span></span>
 <span><span class="va">result</span><span class="op">$</span><span class="va">votos_estimados</span></span>
@@ -184,7 +181,7 @@
 <h3 id="visualization">Visualization<a class="anchor" aria-label="anchor" href="#visualization"></a>
 </h3>
 <p>The package includes a suite of plots designed for public communication.</p>
-<p>We strongly recommend <strong>RStudio</strong> users to <a href="https://posit.co/blog/rstudio-v1-4-preview-little-things#render-plots-with-agg" class="external-link">enable the AGG graphics device</a> in <code>Options -&gt; General -&gt; Graphics -&gt; Backend</code>.</p>
+<p>For the best results, we strongly recommend <strong>RStudio</strong> users to <a href="https://posit.co/blog/rstudio-v1-4-preview-little-things#render-plots-with-agg" class="external-link">enable the AGG graphics device</a> in <code>Options -&gt; General -&gt; Graphics -&gt; Backend</code>.</p>
 <div class="section level4">
 <h4 id="id_1-voting-intentions">1. Voting Intentions<a class="anchor" aria-label="anchor" href="#id_1-voting-intentions"></a>
 </h4>
@@ -246,24 +243,18 @@
 <div class="section level3">
 <h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h3>
-<p>We are interested in performing inference on the <em>latent state</em> of public opinion: the dynamic, unobserved level of support for each candidate. Polls are periodic snapshots of this state, but the pictures are distorted and grainy.</p>
+<p>We are interested in performing inference on the <strong>latent state</strong> of public opinion: the dynamic, unobserved level of support for each candidate. Polls are periodic snapshots of this state, but the pictures are distorted and grainy.</p>
 <p>An apt analogy is a GPS receiver navigating an area with spotty connectivity. It receives sparse, conflicting pings from different satellites, each with its own uncertainty due to corrupted data packages, equipment miscalibration or inherent manufacturer bias. The system must achieve three objectives:</p>
 <ol style="list-style-type: decimal">
-<li>
-<em>Data Reconciliation</em>: It must filter the noise from competing sources to resolve a definitive vehicle position.</li>
-<li>
-<em>Path Estimation</em>: It must reconstruct the trajectory between data points, since movement continues even when satellites lose track of the vehicle.</li>
-<li>
-<em>Joint Parameter Updating</em>: As new data arrives, the system must simultaneously update the vehicle’s position and re-evaluate the reliability of each satellite.</li>
+<li>Data Reconciliation: It must filter the noise from competing sources to resolve a definitive vehicle position.</li>
+<li>Path Estimation: It must reconstruct the trajectory between data points, since movement continues even when satellites lose track of the vehicle.</li>
+<li>Joint Parameter Updating: As new data arrives, the system must simultaneously update the vehicle’s position and re-evaluate the reliability of each satellite.</li>
 </ol>
 <p>Much like satellites, pollsters might be miscalibrated. Their readings contain noise introduced by different sampling designs, weighting protocols, and question wording, among other factors. <code>agregR</code> shares the same objectives as the GPS receiver:</p>
 <ol style="list-style-type: decimal">
-<li>
-<em>Data Reconciliation</em>: It filters the noise from competing pollsters to isolate the latent state of candidate support.</li>
-<li>
-<em>Path Estimation</em>: It reconstructs the trajectory of public opinion during polling gaps, ensuring a continuous estimate even when data is unavailable.</li>
-<li>
-<em>Joint Parameter Updating</em>: As new polls are published, it simultaneously updates candidate support levels and re-evaluates the reliability of each pollster.</li>
+<li>Data Reconciliation: It filters the noise from competing pollsters to isolate the latent state of candidate support.</li>
+<li>Path Estimation: It reconstructs the trajectory of public opinion during polling gaps, ensuring a continuous estimate even when data is unavailable.</li>
+<li>Joint Parameter Updating: As new polls are published, it simultaneously updates candidate support levels and re-evaluates the reliability of each pollster.</li>
 </ol>
 </div>
 <div class="section level3">
@@ -326,11 +317,11 @@
 <p>In summary, we are explicitly modeling three sources of support uncertainty in polls:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Sampling Error</strong> (<span class="math inline">\(\sigma_{i, c}\)</span>): The inherent uncertainty derived from the effective sample size of the poll <span class="math inline">\(i\)</span> and the support level for candidate <span class="math inline">\(c\)</span>.</li>
+<strong>Sampling Error:</strong> (<span class="math inline">\(\sigma_{i, c}\)</span>) The inherent uncertainty derived from the effective sample size of the poll <span class="math inline">\(i\)</span> and the support level for candidate <span class="math inline">\(c\)</span>.</li>
 <li>
-<strong>House Effects</strong> (<span class="math inline">\(\delta_{j,k,p}\)</span>): A systematic bias specific to pollster <span class="math inline">\(j\)</span>, conditional on the election round <span class="math inline">\(k\)</span> and the candidate’s political alignment <span class="math inline">\(p\)</span>.</li>
+<strong>House Effects:</strong> (<span class="math inline">\(\delta_{j,k,p}\)</span>) A systematic bias specific to pollster <span class="math inline">\(j\)</span>, conditional on the election round <span class="math inline">\(k\)</span> and the candidate’s political alignment <span class="math inline">\(p\)</span>.</li>
 <li>
-<strong>Non-Sampling Error</strong> (<span class="math inline">\(\tau_{j,k,p}\)</span>): An additional error parameter capturing noise extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by pollster <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span>, and political alignment <span class="math inline">\(p\)</span>.</li>
+<strong>Non-Sampling Error:</strong> (<span class="math inline">\(\tau_{j,k,p}\)</span>) An additional error parameter capturing noise extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by pollster <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span>, and political alignment <span class="math inline">\(p\)</span>.</li>
 </ol>
 </div>
 </div>
@@ -351,7 +342,7 @@
 <li>
 <strong>House Effects</strong>: Since <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\delta\)</span> are not jointly identifiable, house effects <span class="math inline">\(\delta_{j,k,p}\)</span> follow a regularizing prior centered either on the pollsters’ average or on electoral results. The anchor choice defines whether house effects are interpreted as relative deviations from the current-cycle consensus or as biases against observed data.</li>
 <li>
-<strong>Non-Sampling Error</strong>: Models using localized non-sampling errors <span class="math inline">\(\tau_{j,k,p}\)</span> as prior means effectively perform <strong>automated weighting</strong>. This approach penalizes pollsters with higher Root Mean Square Error (RMSE) in the last election while maintaining the flexibility to update its estimates based on current-cycle data. Models employing a global <span class="math inline">\(\tau\)</span> give every pollster equal weight.</li>
+<strong>Non-Sampling Error</strong>: Models using localized non-sampling errors <span class="math inline">\(\tau_{j,k,p}\)</span> as prior means effectively perform automated weighting. This approach penalizes pollsters with higher Root Mean Square Error (RMSE) in the last election while maintaining the flexibility to update its estimates based on current-cycle data. Models employing a global <span class="math inline">\(\tau\)</span> give every pollster equal weight.</li>
 </ul>
 <table class="table">
 <colgroup>

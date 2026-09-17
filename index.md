@@ -93,8 +93,8 @@ You can install the stable version of `agregR` from CRAN with:
 install.packages("agregR", type = "source")
 ```
 
-*Experimental*: the development (and possibly unstable) version of
-`agregR` can be installed with:
+The development (and possibly unstable) version of `agregR` can be
+installed with:
 
 ``` r
 
@@ -116,13 +116,10 @@ data frames for house effects and daily voting estimates.
 
 library(agregR)
 
-# Execute the aggregation pipeline for a 2nd round scenario
-result <- rodar_agregador(
-  data_inicio = "01/06/2025",
-  turno = 2,
-  cenario = "Lula vs Flávio",
-  modelo = "Viés Relativo com Pesos"
-)
+# Run poll aggregation routine
+result <- rodar_agregador(turno = 1,
+                          data_inicio = "01/01/2025",
+                          modelo = "Viés Relativo com Pesos")
 
 # Daily voting estimates + poll data in tidy format
 result$votos_estimados
@@ -138,7 +135,8 @@ result$modelo_bruto
 
 The package includes a suite of plots designed for public communication.
 
-We strongly recommend **RStudio** users to [enable the AGG graphics
+For the best results, we strongly recommend **RStudio** users to [enable
+the AGG graphics
 device](https://posit.co/blog/rstudio-v1-4-preview-little-things#render-plots-with-agg)
 in `Options -> General -> Graphics -> Backend`.
 
@@ -221,7 +219,7 @@ grafico_agregador(result, config_grafico = config_custom)
 
 ### Introduction
 
-We are interested in performing inference on the *latent state* of
+We are interested in performing inference on the **latent state** of
 public opinion: the dynamic, unobserved level of support for each
 candidate. Polls are periodic snapshots of this state, but the pictures
 are distorted and grainy.
@@ -232,12 +230,12 @@ satellites, each with its own uncertainty due to corrupted data
 packages, equipment miscalibration or inherent manufacturer bias. The
 system must achieve three objectives:
 
-1.  *Data Reconciliation*: It must filter the noise from competing
-    sources to resolve a definitive vehicle position.
-2.  *Path Estimation*: It must reconstruct the trajectory between data
+1.  Data Reconciliation: It must filter the noise from competing sources
+    to resolve a definitive vehicle position.
+2.  Path Estimation: It must reconstruct the trajectory between data
     points, since movement continues even when satellites lose track of
     the vehicle.
-3.  *Joint Parameter Updating*: As new data arrives, the system must
+3.  Joint Parameter Updating: As new data arrives, the system must
     simultaneously update the vehicle’s position and re-evaluate the
     reliability of each satellite.
 
@@ -246,12 +244,12 @@ contain noise introduced by different sampling designs, weighting
 protocols, and question wording, among other factors. `agregR` shares
 the same objectives as the GPS receiver:
 
-1.  *Data Reconciliation*: It filters the noise from competing pollsters
+1.  Data Reconciliation: It filters the noise from competing pollsters
     to isolate the latent state of candidate support.
-2.  *Path Estimation*: It reconstructs the trajectory of public opinion
+2.  Path Estimation: It reconstructs the trajectory of public opinion
     during polling gaps, ensuring a continuous estimate even when data
     is unavailable.
-3.  *Joint Parameter Updating*: As new polls are published, it
+3.  Joint Parameter Updating: As new polls are published, it
     simultaneously updates candidate support levels and re-evaluates the
     reliability of each pollster.
 
@@ -353,13 +351,13 @@ divergent transitions.
 In summary, we are explicitly modeling three sources of support
 uncertainty in polls:
 
-1.  **Sampling Error** (\\\sigma\_{i, c}\\): The inherent uncertainty
+1.  **Sampling Error:** (\\\sigma\_{i, c}\\) The inherent uncertainty
     derived from the effective sample size of the poll \\i\\ and the
     support level for candidate \\c\\.
-2.  **House Effects** (\\\delta\_{j,k,p}\\): A systematic bias specific
+2.  **House Effects:** (\\\delta\_{j,k,p}\\) A systematic bias specific
     to pollster \\j\\, conditional on the election round \\k\\ and the
     candidate’s political alignment \\p\\.
-3.  **Non-Sampling Error** (\\\tau\_{j,k,p}\\): An additional error
+3.  **Non-Sampling Error:** (\\\tau\_{j,k,p}\\) An additional error
     parameter capturing noise extrinsic to random sampling (e.g., design
     effects, non-ignorable non-response bias), also localized by
     pollster \\j\\, round \\k\\, and political alignment \\p\\.
@@ -393,8 +391,8 @@ and non-sampling error (\\\tau\\) estimation:
   interpreted as relative deviations from the current-cycle consensus or
   as biases against observed data.
 - **Non-Sampling Error**: Models using localized non-sampling errors
-  \\\tau\_{j,k,p}\\ as prior means effectively perform **automated
-  weighting**. This approach penalizes pollsters with higher Root Mean
+  \\\tau\_{j,k,p}\\ as prior means effectively perform automated
+  weighting. This approach penalizes pollsters with higher Root Mean
   Square Error (RMSE) in the last election while maintaining the
   flexibility to update its estimates based on current-cycle data.
   Models employing a global \\\tau\\ give every pollster equal weight.
