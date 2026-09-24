@@ -7,6 +7,17 @@ template:
     base_font: {google: "Fira Sans"}
     heading_font: {google: "Fira Sans"}
     code_font: {google: "Fira Code"}
+  includes:
+    in_header: |
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-RC6GGM304L"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+      
+        gtag('config', 'G-RC6GGM304L');
+      </script>
 navbar:
   structure:
     left:  [intro, reference, tutorials, news, models]
