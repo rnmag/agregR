@@ -163,6 +163,7 @@ Recommended reading: \url{https://github.com/stan-dev/stan/wiki/prior-choice-rec
 if (instantiate::stan_cmdstan_exists()) {
   result <- rodar_agregador(
     data_inicio = "01/01/2025",
+    data_fim = "31/12/2025",
     turno = 2,
     cenario = "Lula vs Bolsonaro"
   )
@@ -170,6 +171,7 @@ if (instantiate::stan_cmdstan_exists()) {
 # Tuning Stan, changing the model and altering specific priors
   custom_result <- rodar_agregador(
     data_inicio = "01/01/2025",
+    data_fim = "31/12/2025",
     turno = 2,
     cenario = "Lula vs Bolsonaro",
     modelo = "Viés Relativo sem Pesos",

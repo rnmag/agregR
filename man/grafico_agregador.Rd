@@ -34,6 +34,7 @@ Generates a plot of the aggregated poll results over time.
 if (instantiate::stan_cmdstan_exists()) {
   result <- rodar_agregador(
     data_inicio = "01/01/2025",
+    data_fim = "31/12/2025",
     turno = 2,
     cenario = "Lula vs Bolsonaro"
   )
