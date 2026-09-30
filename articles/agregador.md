@@ -1,6 +1,6 @@
 # Agregador Eleições 2026
 
-**Última pesquisa**: Vox Brasil com campo entre 26/09 e 28/09
+**Última pesquisa**: Indexa com campo entre 27/09 e 29/09
 
 ## Introdução
 
@@ -29,7 +29,7 @@ completa](https://rnmag.github.io/agregR/index.html#methodology).
 ### Pesquisas incluídas
 
 O banco de dados se baseia nas pesquisas registradas no TSE e divulgadas
-na imprensa. Ele contém **173 pesquisas** abrangendo os seguintes
+na imprensa. Ele contém **176 pesquisas** abrangendo os seguintes
 institutos:
 
 - Alfa
