@@ -106,7 +106,7 @@ pak::pak("rnmag/agregR")
 ### Estimation
 
 The main function `rodar_agregador()` centralizes data preparation, model
-compilation, and sampling. It returns the full `CmdStanMCMC` objects for
+compilation and sampling. It returns the full `CmdStanMCMC` objects for
 diagnostics, along with tidy data frames for house effects and daily
 voting estimates.
 ``` r
@@ -205,7 +205,7 @@ grafico_agregador(result, config_grafico = config_custom)
 
 ### Introduction
 
-We are interested in performing inference on the **latent state** of public opinion:
+We are interested in performing inference on the latent state of public opinion:
 the dynamic, unobserved level of support for each candidate. Polls are periodic
 snapshots of this state, but the pictures are distorted and grainy.
 
@@ -214,11 +214,11 @@ It receives sparse, conflicting pings from different satellites, each with its
 own uncertainty due to corrupted data packages, equipment miscalibration or
 inherent manufacturer bias. The system must achieve three objectives:
 
-1. Data Reconciliation: It must filter the noise from competing sources to
+1. Data reconciliation: It must filter the noise from competing sources to
    resolve a definitive vehicle position.
-2. Path Estimation: It must reconstruct the trajectory between data points,
+2. Path estimation: It must reconstruct the trajectory between data points,
    since movement continues even when satellites lose track of the vehicle.
-3. Joint Parameter Updating: As new data arrives, the system must simultaneously
+3. Joint parameter updating: As new data arrives, the system must simultaneously
    update the vehicle's position and re-evaluate the reliability of each satellite.
 
 Much like satellites, pollsters might be miscalibrated. Their readings
@@ -226,11 +226,11 @@ contain noise introduced by different sampling designs, weighting protocols,
 and question wording, among other factors. `agregR` shares the same objectives
 as the GPS receiver:
 
- 1. Data Reconciliation: It filters the noise from competing pollsters to
+ 1. Data reconciliation: It filters the noise from competing pollsters to
     isolate the latent state of candidate support.
- 2. Path Estimation: It reconstructs the trajectory of public opinion during
+ 2. Path estimation: It reconstructs the trajectory of public opinion during
     polling gaps, ensuring a continuous estimate even when data is unavailable.
- 3. Joint Parameter Updating: As new polls are published, it simultaneously
+ 3. Joint parameter updating: As new polls are published, it simultaneously
     updates candidate support levels and re-evaluates the reliability of each pollster.
 
 ### Conceptual Framework
@@ -243,15 +243,15 @@ and consist of two integrated components:
    support in the periods between polling releases.
 2. A **measurement model** that filters incoming polls and updates
    pollster-specific biases. It decomposes uncertainty into sampling error
-   ($\sigma$), house effects ($\delta$), and an additional non-sampling error
+   ($\sigma$), house effects ($\delta$) and an additional non-sampling error
    term ($\tau$) inspired by Heidemanns, Gelman & Morris (2020).
 
 #### State Model
 
 The latent voting intention for each candidate updates daily according
 to a local linear trend. The evolution of the latent state through time $t$
-for candidate $c$ is governed by the **level component** $\mu_{t, c}$ and
-influenced by the **trend component** $\nu_{t, c}$.
+for candidate $c$ is governed by the level component $\mu_{t, c}$ and
+influenced by the trend component $\nu_{t, c}$.
 
 The level $\mu_{t, c}$ is defined by the previous state $\mu_{t - 1, c}$ plus
 the trend $\nu_{t - 1, c}$, subject to stochastic level innovations $\eta_{t, c}$.
@@ -329,20 +329,20 @@ The normal likelihood provides a convenient approximation of latent support for
 competitive candidates whose polling numbers do not approach the 0% boundary.
 Compared to the multinomial implementation proposed by Stoetzer et al. (2019),
 this normal approximation yields nearly identical inferences for leading candidates,
-samples significantly faster, and is far less prone to divergent transitions.
+samples significantly faster and is far less prone to divergent transitions.
 
 In summary, we are explicitly modeling three sources of support uncertainty in polls:
 
-1.  **Sampling Error:** ($\sigma_{i, c}$) The inherent uncertainty derived
+1.  **Sampling Error** ($\sigma_{i, c}$): The inherent uncertainty derived
     from the effective sample size of the poll $i$ and the support level
     for candidate $c$.
-2.  **House Effects:** ($\delta_{j,k,p}$) A systematic bias specific
+2.  **House Effects** ($\delta_{j,k,p}$): A systematic bias specific
     to pollster $j$, conditional on the election round $k$ and the
     candidate’s political alignment $p$.
-4.  **Non-Sampling Error:** ($\tau_{j,k,p}$) An additional error parameter
+4.  **Non-Sampling Error** ($\tau_{j,k,p}$): An additional error parameter
     capturing noise extrinsic to random sampling (e.g., design effects,
     non-ignorable non-response bias), also localized by pollster $j$,
-    round $k$, and political alignment $p$.
+    round $k$ and political alignment $p$.
 
 ### Data Quality
 
