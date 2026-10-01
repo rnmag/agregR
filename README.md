@@ -113,8 +113,9 @@ voting estimates.
 library(agregR)
 
 # Run poll aggregation routine
-result <- rodar_agregador(turno = 1,
-                          data_inicio = "01/01/2025",
+result <- rodar_agregador(data_inicio = "01/01/2025",
+                          data_fim = "04/10/2026",
+                          turno = 1,
                           modelo = "Viés Relativo com Pesos")
 
 # Daily voting estimates + poll data in tidy format
@@ -162,7 +163,9 @@ Visualizes how the data has informed the model by comparing prior
 vs. posterior distributions for selected parameters.
 
 ``` r
-grafico_priori_posteriori(result, tipo = "Viés", candidaturas = c("Lula", "Flávio"))
+grafico_priori_posteriori(result, 
+                          tipo = "Viés",
+                          candidaturas = c("Lula", "Flávio"))
 ```
 
 ![](man/figures/README-prior-posterior-plot.png)
