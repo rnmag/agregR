@@ -166,13 +166,14 @@
 <div class="section level3">
 <h3 id="estimation">Estimation<a class="anchor" aria-label="anchor" href="#estimation"></a>
 </h3>
-<p>The main function <code><a href="reference/rodar_agregador.html">rodar_agregador()</a></code> centralizes data preparation, model compilation, and sampling. It returns the full <code>CmdStanMCMC</code> objects for diagnostics, along with tidy data frames for house effects and daily voting estimates.</p>
+<p>The main function <code><a href="reference/rodar_agregador.html">rodar_agregador()</a></code> centralizes data preparation, model compilation and sampling. It returns the full <code>CmdStanMCMC</code> objects for diagnostics, along with tidy data frames for house effects and daily voting estimates.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rnmag.github.io/agregR/">agregR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Run poll aggregation routine</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rodar_agregador.html">rodar_agregador</a></span><span class="op">(</span>turno <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                          data_inicio <span class="op">=</span> <span class="st">"01/01/2025"</span>,</span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rodar_agregador.html">rodar_agregador</a></span><span class="op">(</span>data_inicio <span class="op">=</span> <span class="st">"01/01/2025"</span>,</span>
+<span>                          data_fim <span class="op">=</span> <span class="st">"04/10/2026"</span>,</span>
+<span>                          turno <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                          modelo <span class="op">=</span> <span class="st">"Viés Relativo com Pesos"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Daily voting estimates + poll data in tidy format</span></span>
@@ -210,7 +211,9 @@
 </h4>
 <p>Visualizes how the data has informed the model by comparing prior vs. posterior distributions for selected parameters.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_priori_posteriori.html">grafico_priori_posteriori</a></span><span class="op">(</span><span class="va">result</span>, tipo <span class="op">=</span> <span class="st">"Viés"</span>, candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lula"</span>, <span class="st">"Flávio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/grafico_priori_posteriori.html">grafico_priori_posteriori</a></span><span class="op">(</span><span class="va">result</span>, </span>
+<span>                          tipo <span class="op">=</span> <span class="st">"Viés"</span>,</span>
+<span>                          candidaturas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lula"</span>, <span class="st">"Flávio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-prior-posterior-plot.png"></p>
 </div>
 </div>
@@ -250,18 +253,18 @@
 <div class="section level3">
 <h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h3>
-<p>We are interested in performing inference on the <strong>latent state</strong> of public opinion: the dynamic, unobserved level of support for each candidate. Polls are periodic snapshots of this state, but the pictures are distorted and grainy.</p>
+<p>We are interested in performing inference on the latent state of public opinion: the dynamic, unobserved level of support for each candidate. Polls are periodic snapshots of this state, but the pictures are distorted and grainy.</p>
 <p>An apt analogy is a GPS receiver navigating an area with spotty connectivity. It receives sparse, conflicting pings from different satellites, each with its own uncertainty due to corrupted data packages, equipment miscalibration or inherent manufacturer bias. The system must achieve three objectives:</p>
 <ol style="list-style-type: decimal">
-<li>Data Reconciliation: It must filter the noise from competing sources to resolve a definitive vehicle position.</li>
-<li>Path Estimation: It must reconstruct the trajectory between data points, since movement continues even when satellites lose track of the vehicle.</li>
-<li>Joint Parameter Updating: As new data arrives, the system must simultaneously update the vehicle’s position and re-evaluate the reliability of each satellite.</li>
+<li>Data reconciliation: It must filter the noise from competing sources to resolve a definitive vehicle position.</li>
+<li>Path estimation: It must reconstruct the trajectory between data points, since movement continues even when satellites lose track of the vehicle.</li>
+<li>Joint parameter updating: As new data arrives, the system must simultaneously update the vehicle’s position and re-evaluate the reliability of each satellite.</li>
 </ol>
 <p>Much like satellites, pollsters might be miscalibrated. Their readings contain noise introduced by different sampling designs, weighting protocols, and question wording, among other factors. <code>agregR</code> shares the same objectives as the GPS receiver:</p>
 <ol style="list-style-type: decimal">
-<li>Data Reconciliation: It filters the noise from competing pollsters to isolate the latent state of candidate support.</li>
-<li>Path Estimation: It reconstructs the trajectory of public opinion during polling gaps, ensuring a continuous estimate even when data is unavailable.</li>
-<li>Joint Parameter Updating: As new polls are published, it simultaneously updates candidate support levels and re-evaluates the reliability of each pollster.</li>
+<li>Data reconciliation: It filters the noise from competing pollsters to isolate the latent state of candidate support.</li>
+<li>Path estimation: It reconstructs the trajectory of public opinion during polling gaps, ensuring a continuous estimate even when data is unavailable.</li>
+<li>Joint parameter updating: As new polls are published, it simultaneously updates candidate support levels and re-evaluates the reliability of each pollster.</li>
 </ol>
 </div>
 <div class="section level3">
@@ -270,12 +273,12 @@
 <p>The methods implemented by <code>agregR</code> build on Jackman (2009). They are variously known as state-space models (SSM), dynamic linear models (DLM) or Kalman filters and consist of two integrated components:</p>
 <ol style="list-style-type: decimal">
 <li>A <strong>state model</strong> that estimates the underlying trajectory of candidate support in the periods between polling releases.</li>
-<li>A <strong>measurement model</strong> that filters incoming polls and updates pollster-specific biases. It decomposes uncertainty into sampling error (<span class="math inline">\(\sigma\)</span>), house effects (<span class="math inline">\(\delta\)</span>), and an additional non-sampling error term (<span class="math inline">\(\tau\)</span>) inspired by Heidemanns, Gelman &amp; Morris (2020).</li>
+<li>A <strong>measurement model</strong> that filters incoming polls and updates pollster-specific biases. It decomposes uncertainty into sampling error (<span class="math inline">\(\sigma\)</span>), house effects (<span class="math inline">\(\delta\)</span>) and an additional non-sampling error term (<span class="math inline">\(\tau\)</span>) inspired by Heidemanns, Gelman &amp; Morris (2020).</li>
 </ol>
 <div class="section level4">
 <h4 id="state-model">State Model<a class="anchor" aria-label="anchor" href="#state-model"></a>
 </h4>
-<p>The latent voting intention for each candidate updates daily according to a local linear trend. The evolution of the latent state through time <span class="math inline">\(t\)</span> for candidate <span class="math inline">\(c\)</span> is governed by the <strong>level component</strong> <span class="math inline">\(\mu_{t, c}\)</span> and influenced by the <strong>trend component</strong> <span class="math inline">\(\nu_{t, c}\)</span>.</p>
+<p>The latent voting intention for each candidate updates daily according to a local linear trend. The evolution of the latent state through time <span class="math inline">\(t\)</span> for candidate <span class="math inline">\(c\)</span> is governed by the level component <span class="math inline">\(\mu_{t, c}\)</span> and influenced by the trend component <span class="math inline">\(\nu_{t, c}\)</span>.</p>
 <p>The level <span class="math inline">\(\mu_{t, c}\)</span> is defined by the previous state <span class="math inline">\(\mu_{t - 1, c}\)</span> plus the trend <span class="math inline">\(\nu_{t - 1, c}\)</span>, subject to stochastic level innovations <span class="math inline">\(\eta_{t, c}\)</span>. The trend itself evolves as a random walk driven by innovations <span class="math inline">\(\zeta_{t, c}\)</span>.</p>
 <p><span class="math display">\[  \begin{pmatrix}\mu_{t, c} \\
     \nu_{t, c}\end{pmatrix} =
@@ -320,15 +323,15 @@
 </ul>
 <p>In the error term <span class="math inline">\(\varepsilon\)</span>, <span class="math inline">\(\sigma\)</span> represents a lower bound of uncertainty from sampling theory, whereas <span class="math inline">\(\tau\)</span> captures the excess empirical variance required to model overdispersion. This non-sampling error parameter accounts for the fact that published interval estimates sometimes entirely miss the election results, and can be used to downweight inaccurate pollsters (see <a href="#models-overview">Models Overview</a>).</p>
 <p>The scale parameters for <span class="math inline">\(\delta\)</span> and <span class="math inline">\(\tau\)</span> are calibrated to address polling sparsity in the early stages of the election cycle, allowing the model to transition gracefully from a prior-dominated regime to a data-dominated one as the volume of polling increases<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Partial pooling struggles to identify group-level variances in low-information environments like early campaigns, often leading to complete shrinkage or convergence failures. Anchoring the scale parameters keeps the models robust and reliable throughout the entire cycle.&lt;/p&gt;"><sup>1</sup></a>. Specific values for priors can be modified by the <code><a href="reference/configurar_prioris.html">configurar_prioris()</a></code> function, and details are available in its documentation.</p>
-<p>Computationally, the measurement model is designed to prioritize high sampling efficiency and convergence stability (see <a href="#model-validation">Model Validation</a>). The normal likelihood provides a convenient approximation of latent support for competitive candidates whose polling numbers do not approach the 0% boundary. Compared to the multinomial implementation proposed by Stoetzer et al. (2019), this normal approximation yields nearly identical inferences for leading candidates, samples significantly faster, and is far less prone to divergent transitions.</p>
+<p>Computationally, the measurement model is designed to prioritize high sampling efficiency and convergence stability (see <a href="#model-validation">Model Validation</a>). The normal likelihood provides a convenient approximation of latent support for competitive candidates whose polling numbers do not approach the 0% boundary. Compared to the multinomial implementation proposed by Stoetzer et al. (2019), this normal approximation yields nearly identical inferences for leading candidates, samples significantly faster and is far less prone to divergent transitions.</p>
 <p>In summary, we are explicitly modeling three sources of support uncertainty in polls:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Sampling Error:</strong> (<span class="math inline">\(\sigma_{i, c}\)</span>) The inherent uncertainty derived from the effective sample size of the poll <span class="math inline">\(i\)</span> and the support level for candidate <span class="math inline">\(c\)</span>.</li>
+<strong>Sampling Error</strong> (<span class="math inline">\(\sigma_{i, c}\)</span>): The inherent uncertainty derived from the effective sample size of the poll <span class="math inline">\(i\)</span> and the support level for candidate <span class="math inline">\(c\)</span>.</li>
 <li>
-<strong>House Effects:</strong> (<span class="math inline">\(\delta_{j,k,p}\)</span>) A systematic bias specific to pollster <span class="math inline">\(j\)</span>, conditional on the election round <span class="math inline">\(k\)</span> and the candidate’s political alignment <span class="math inline">\(p\)</span>.</li>
+<strong>House Effects</strong> (<span class="math inline">\(\delta_{j,k,p}\)</span>): A systematic bias specific to pollster <span class="math inline">\(j\)</span>, conditional on the election round <span class="math inline">\(k\)</span> and the candidate’s political alignment <span class="math inline">\(p\)</span>.</li>
 <li>
-<strong>Non-Sampling Error:</strong> (<span class="math inline">\(\tau_{j,k,p}\)</span>) An additional error parameter capturing noise extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by pollster <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span>, and political alignment <span class="math inline">\(p\)</span>.</li>
+<strong>Non-Sampling Error</strong> (<span class="math inline">\(\tau_{j,k,p}\)</span>): An additional error parameter capturing noise extrinsic to random sampling (e.g., design effects, non-ignorable non-response bias), also localized by pollster <span class="math inline">\(j\)</span>, round <span class="math inline">\(k\)</span> and political alignment <span class="math inline">\(p\)</span>.</li>
 </ol>
 </div>
 </div>

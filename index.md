@@ -108,17 +108,18 @@ pak::pak("rnmag/agregR")
 
 The main function
 [`rodar_agregador()`](https://rnmag.github.io/agregR/reference/rodar_agregador.md)
-centralizes data preparation, model compilation, and sampling. It
-returns the full `CmdStanMCMC` objects for diagnostics, along with tidy
-data frames for house effects and daily voting estimates.
+centralizes data preparation, model compilation and sampling. It returns
+the full `CmdStanMCMC` objects for diagnostics, along with tidy data
+frames for house effects and daily voting estimates.
 
 ``` r
 
 library(agregR)
 
 # Run poll aggregation routine
-result <- rodar_agregador(turno = 1,
-                          data_inicio = "01/01/2025",
+result <- rodar_agregador(data_inicio = "01/01/2025",
+                          data_fim = "04/10/2026",
+                          turno = 1,
                           modelo = "Viés Relativo com Pesos")
 
 # Daily voting estimates + poll data in tidy format
@@ -171,7 +172,9 @@ vs. posterior distributions for selected parameters.
 
 ``` r
 
-grafico_priori_posteriori(result, tipo = "Viés", candidaturas = c("Lula", "Flávio"))
+grafico_priori_posteriori(result, 
+                          tipo = "Viés",
+                          candidaturas = c("Lula", "Flávio"))
 ```
 
 ![](reference/figures/README-prior-posterior-plot.png)
@@ -219,10 +222,10 @@ grafico_agregador(result, config_grafico = config_custom)
 
 ### Introduction
 
-We are interested in performing inference on the **latent state** of
-public opinion: the dynamic, unobserved level of support for each
-candidate. Polls are periodic snapshots of this state, but the pictures
-are distorted and grainy.
+We are interested in performing inference on the latent state of public
+opinion: the dynamic, unobserved level of support for each candidate.
+Polls are periodic snapshots of this state, but the pictures are
+distorted and grainy.
 
 An apt analogy is a GPS receiver navigating an area with spotty
 connectivity. It receives sparse, conflicting pings from different
@@ -230,12 +233,12 @@ satellites, each with its own uncertainty due to corrupted data
 packages, equipment miscalibration or inherent manufacturer bias. The
 system must achieve three objectives:
 
-1.  Data Reconciliation: It must filter the noise from competing sources
+1.  Data reconciliation: It must filter the noise from competing sources
     to resolve a definitive vehicle position.
-2.  Path Estimation: It must reconstruct the trajectory between data
+2.  Path estimation: It must reconstruct the trajectory between data
     points, since movement continues even when satellites lose track of
     the vehicle.
-3.  Joint Parameter Updating: As new data arrives, the system must
+3.  Joint parameter updating: As new data arrives, the system must
     simultaneously update the vehicle’s position and re-evaluate the
     reliability of each satellite.
 
@@ -244,12 +247,12 @@ contain noise introduced by different sampling designs, weighting
 protocols, and question wording, among other factors. `agregR` shares
 the same objectives as the GPS receiver:
 
-1.  Data Reconciliation: It filters the noise from competing pollsters
+1.  Data reconciliation: It filters the noise from competing pollsters
     to isolate the latent state of candidate support.
-2.  Path Estimation: It reconstructs the trajectory of public opinion
+2.  Path estimation: It reconstructs the trajectory of public opinion
     during polling gaps, ensuring a continuous estimate even when data
     is unavailable.
-3.  Joint Parameter Updating: As new polls are published, it
+3.  Joint parameter updating: As new polls are published, it
     simultaneously updates candidate support levels and re-evaluates the
     reliability of each pollster.
 
@@ -263,7 +266,7 @@ or Kalman filters and consist of two integrated components:
     candidate support in the periods between polling releases.
 2.  A **measurement model** that filters incoming polls and updates
     pollster-specific biases. It decomposes uncertainty into sampling
-    error (\\\sigma\\), house effects (\\\delta\\), and an additional
+    error (\\\sigma\\), house effects (\\\delta\\) and an additional
     non-sampling error term (\\\tau\\) inspired by Heidemanns, Gelman &
     Morris (2020).
 
@@ -271,9 +274,8 @@ or Kalman filters and consist of two integrated components:
 
 The latent voting intention for each candidate updates daily according
 to a local linear trend. The evolution of the latent state through time
-\\t\\ for candidate \\c\\ is governed by the **level component**
-\\\mu\_{t, c}\\ and influenced by the **trend component** \\\nu\_{t,
-c}\\.
+\\t\\ for candidate \\c\\ is governed by the level component \\\mu\_{t,
+c}\\ and influenced by the trend component \\\nu\_{t, c}\\.
 
 The level \\\mu\_{t, c}\\ is defined by the previous state \\\mu\_{t -
 1, c}\\ plus the trend \\\nu\_{t - 1, c}\\, subject to stochastic level
@@ -345,22 +347,22 @@ convenient approximation of latent support for competitive candidates
 whose polling numbers do not approach the 0% boundary. Compared to the
 multinomial implementation proposed by Stoetzer et al. (2019), this
 normal approximation yields nearly identical inferences for leading
-candidates, samples significantly faster, and is far less prone to
+candidates, samples significantly faster and is far less prone to
 divergent transitions.
 
 In summary, we are explicitly modeling three sources of support
 uncertainty in polls:
 
-1.  **Sampling Error:** (\\\sigma\_{i, c}\\) The inherent uncertainty
+1.  **Sampling Error** (\\\sigma\_{i, c}\\): The inherent uncertainty
     derived from the effective sample size of the poll \\i\\ and the
     support level for candidate \\c\\.
-2.  **House Effects:** (\\\delta\_{j,k,p}\\) A systematic bias specific
+2.  **House Effects** (\\\delta\_{j,k,p}\\): A systematic bias specific
     to pollster \\j\\, conditional on the election round \\k\\ and the
     candidate’s political alignment \\p\\.
-3.  **Non-Sampling Error:** (\\\tau\_{j,k,p}\\) An additional error
+3.  **Non-Sampling Error** (\\\tau\_{j,k,p}\\): An additional error
     parameter capturing noise extrinsic to random sampling (e.g., design
     effects, non-ignorable non-response bias), also localized by
-    pollster \\j\\, round \\k\\, and political alignment \\p\\.
+    pollster \\j\\, round \\k\\ and political alignment \\p\\.
 
 ### Data Quality
 
