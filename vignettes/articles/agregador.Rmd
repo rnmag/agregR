@@ -84,6 +84,7 @@ eleitoral. Todos os institutos têm o mesmo peso.
 
 resultado_1t <- rodar_agregador(turno = 1,
                                 data_inicio = "01/01/2025",
+                                data_fim = "03/10/2026",
                                 modelo = "Viés Relativo sem Pesos")
 
 ```
@@ -94,6 +95,14 @@ grafico_agregador(resultado_1t)
 
 ```
 
+---
+
+```{r institutos-vies-relativo-sem-pesos-1t, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1t-1.png)"}
+
+grafico_vies(resultado_1t,
+             candidaturas = c("Lula", "Flávio"))
+
+```
 ---
 
 ```{r modelo-vies-relativo-sem-pesos-2t, include = FALSE}
@@ -113,7 +122,7 @@ grafico_agregador(resultado_2t)
 
 ---
 
-```{r institutos-vies-relativo-sem-pesos, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)"}
+```{r institutos-vies-relativo-sem-pesos-2t, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-2t-1.png)"}
 
 grafico_vies(resultado_2t,
              candidaturas = c("Lula", "Flávio"))
@@ -131,6 +140,7 @@ das pesquisas.
 
 resultado_1t <- rodar_agregador(turno = 1,
                                 data_inicio = "01/01/2025",
+                                data_fim = "03/10/2026",
                                 modelo = "Viés Relativo com Pesos")
 
 ```
@@ -138,6 +148,15 @@ resultado_1t <- rodar_agregador(turno = 1,
 ```{r grafico-vies-relativo-com-pesos-1t, echo = FALSE, dpi=225, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png)"}
 
 grafico_agregador(resultado_1t)
+
+```
+
+---
+
+```{r institutos-vies-relativo-com-pesos-1t, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1t-1.png)"}
+
+grafico_vies(resultado_1t,
+             candidaturas = c("Lula", "Flávio"))
 
 ```
 
@@ -160,7 +179,7 @@ grafico_agregador(resultado_2t)
 
 ---
 
-```{r institutos-vies-relativo-com-pesos, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)"}
+```{r institutos-vies-relativo-com-pesos-2t, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-2t-1.png)"}
 
 grafico_vies(resultado_2t,
              candidaturas = c("Lula", "Flávio"))
@@ -178,6 +197,7 @@ cada instituto.
 
 resultado_1t <- rodar_agregador(turno = 1,
                                 data_inicio = "01/01/2025",
+                                data_fim = "03/10/2026",
                                 modelo = "Viés Empírico")
 
 ```
@@ -185,6 +205,15 @@ resultado_1t <- rodar_agregador(turno = 1,
 ```{r grafico-vies-empirico-1t, echo = FALSE, dpi=225, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-1t-1.png)"}
 
 grafico_agregador(resultado_1t)
+
+```
+
+---
+
+```{r institutos-vies-empirico-1t, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1t-1.png)"}
+
+grafico_vies(resultado_1t,
+             candidaturas = c("Lula", "Flávio"))
 
 ```
 
@@ -207,12 +236,49 @@ grafico_agregador(resultado_2t)
 
 ---
 
-```{r institutos-vies-empirico, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1.png)"}
+```{r institutos-vies-empirico-2t, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-2t-1.png)"}
 
 grafico_vies(resultado_2t,
              candidaturas = c("Lula", "Flávio"))
 
 ```
+
+## Após as Eleições: Modelo Retrospectivo
+
+Este modelo usa o resultado real da eleição para calcular
+retrospectivamente vieses e trajetórias para cada candidato.
+Trata-se do modelo com vieses mais bem ancorados, mas com a
+desvantagem óbvia de só rodar depois que o resultado é conhecido.
+
+
+```{r modelo-retrospectivo-1t, include = FALSE}
+
+resultado_1t <- rodar_agregador(turno = 1,
+                                data_inicio = "01/01/2025",
+                                data_fim = "03/10/2026",
+                                modelo = "Retrospectivo")
+
+```
+
+```{r grafico-retrospectivo-1t, echo = FALSE, dpi=225, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-retrospectivo-1t-1.png)"}
+
+grafico_agregador(resultado_1t)
+
+```
+
+---
+
+```{r institutos-retrospectivo-1t, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-retrospectivo-1t-1.png)"}
+
+grafico_vies(resultado_1t,
+             candidaturas = c("Lula", "Flávio"))
+
+```
+
+---
+
+**Resultados do segundo turno serão incluídos aqui quando disponiveis**
+
 
 ## Agradecimentos
 
