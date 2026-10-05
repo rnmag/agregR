@@ -70,6 +70,14 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafi
 ------------------------------------------------------------------------
 
 ![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1t-1.png)](agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1t-1.png)
+
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1t-1.png)
+
+------------------------------------------------------------------------
+
+![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)](agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)
 
 [Clique para ver em tela
@@ -78,10 +86,10 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafi
 ------------------------------------------------------------------------
 
 ![\[Clique para ver em tela
-cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)](agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-2t-1.png)](agregador_files/figure-html/institutos-vies-relativo-sem-pesos-2t-1.png)
 
 [Clique para ver em tela
-cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1.png)
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-2t-1.png)
 
 ## Modelo 2: Viés Relativo com Pesos
 
@@ -99,6 +107,14 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafi
 ------------------------------------------------------------------------
 
 ![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1t-1.png)](agregador_files/figure-html/institutos-vies-relativo-com-pesos-1t-1.png)
+
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1t-1.png)
+
+------------------------------------------------------------------------
+
+![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-2t-1.png)](agregador_files/figure-html/grafico-vies-relativo-com-pesos-2t-1.png)
 
 [Clique para ver em tela
@@ -107,10 +123,10 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafi
 ------------------------------------------------------------------------
 
 ![\[Clique para ver em tela
-cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)](agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-2t-1.png)](agregador_files/figure-html/institutos-vies-relativo-com-pesos-2t-1.png)
 
 [Clique para ver em tela
-cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1.png)
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-2t-1.png)
 
 ## Modelo 3: Viés Empírico
 
@@ -128,6 +144,14 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafi
 ------------------------------------------------------------------------
 
 ![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1t-1.png)](agregador_files/figure-html/institutos-vies-empirico-1t-1.png)
+
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1t-1.png)
+
+------------------------------------------------------------------------
+
+![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-2t-1.png)](agregador_files/figure-html/grafico-vies-empirico-2t-1.png)
 
 [Clique para ver em tela
@@ -136,10 +160,35 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafi
 ------------------------------------------------------------------------
 
 ![\[Clique para ver em tela
-cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1.png)](agregador_files/figure-html/institutos-vies-empirico-1.png)
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-2t-1.png)](agregador_files/figure-html/institutos-vies-empirico-2t-1.png)
 
 [Clique para ver em tela
-cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1.png)
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-2t-1.png)
+
+## Após as Eleições: Modelo Retrospectivo
+
+Este modelo usa o resultado real da eleição para calcular
+retrospectivamente vieses e trajetórias para cada candidato. Trata-se do
+modelo com vieses mais bem ancorados, mas com a desvantagem óbvia de só
+rodar depois que o resultado é conhecido.
+
+![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-retrospectivo-1t-1.png)](agregador_files/figure-html/grafico-retrospectivo-1t-1.png)
+
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-retrospectivo-1t-1.png)
+
+------------------------------------------------------------------------
+
+![\[Clique para ver em tela
+cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-retrospectivo-1t-1.png)](agregador_files/figure-html/institutos-retrospectivo-1t-1.png)
+
+[Clique para ver em tela
+cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-retrospectivo-1t-1.png)
+
+------------------------------------------------------------------------
+
+**Resultados do segundo turno serão incluídos aqui quando disponiveis**
 
 ## Agradecimentos
 
