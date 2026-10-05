@@ -116,7 +116,7 @@ library(agregR)
 result <- rodar_agregador(data_inicio = "01/01/2025",
                           data_fim = "04/10/2026",
                           turno = 1,
-                          modelo = "Viés Relativo com Pesos")
+                          modelo = "Viés Empírico")
 
 # Daily voting estimates + poll data in tidy format
 result$votos_estimados
