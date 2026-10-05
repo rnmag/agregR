@@ -104,17 +104,16 @@ para cada candidato.</p>
 <li>Margens de erro incoerentes com o tamanho das amostras</li>
 <li>Erros não-amostrais (para além da margem de erro)</li>
 </ul>
-<p>Os 3 modelos apresentados aqui<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;O pacote inclui outros 2 modelos com menor utilidade
-durante a campanha: o modelo &lt;strong&gt;Retrospectivo&lt;/strong&gt; usa o
-resultado real da eleição para calcular retrospectivamente vieses e
-trajetórias para cada candidato, enquanto o modelo
-&lt;strong&gt;Naive&lt;/strong&gt; é disponibilizado como uma curiosidade, pois não
-modela nenhum viés e é equivalente a calcular uma média simples das
-pesquisas.&lt;/p&gt;"><sup>1</sup></a> variam de acordo com a importância
+<p>Os modelos apresentados aqui variam de acordo com a importância
 atribuída ao resultado dos institutos na última eleição. Enquanto o
 modelo 1 não utiliza qualquer informação de desempenho passado, os
-modelos 2 e 3 são progressivamente mais sensíveis aos dados
-históricos.</p>
+modelos 2 e 3 são progressivamente mais sensíveis aos dados históricos<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;O pacote inclui outros 2 modelos com menor utilidade
+durante a campanha: o modelo &lt;strong&gt;Retrospectivo&lt;/strong&gt; usa o
+resultado real da eleição para calcular retrospectivamente vieses e
+trajetórias para cada candidato, e será incluído nesta página ao fim das
+eleições; o modelo &lt;strong&gt;Naive&lt;/strong&gt;, por sua vez, é
+disponibilizado como uma curiosidade, pois não modela nenhum viés e é
+equivalente a calcular uma média simples das pesquisas.&lt;/p&gt;"><sup>1</sup></a>.</p>
 <p>Cada modelo é introduzido por uma breve nota, e interessados em mais
 detalhes podem consultar a <a href="https://rnmag.github.io/agregR/index.html#methodology">metodologia
 completa</a>.</p>
@@ -163,13 +162,6 @@ para ver em tela cheia</a>
 </div>
 <hr>
 <div class="figure">
-<img src="agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1t-1.png" class="r-plt" alt="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1t-1.png)" width="100%"><p class="caption">
-<a href="https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1t-1.png">Clique
-para ver em tela cheia</a>
-</p>
-</div>
-<hr>
-<div class="figure">
 <img src="agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png" class="r-plt" alt="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)" width="100%"><p class="caption">
 <a href="https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png">Clique
 para ver em tela cheia</a>
@@ -193,13 +185,6 @@ estimado em relação ao consenso das pesquisas.</p>
 <div class="figure">
 <img src="agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png" class="r-plt" alt="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png)" width="100%"><p class="caption">
 <a href="https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png">Clique
-para ver em tela cheia</a>
-</p>
-</div>
-<hr>
-<div class="figure">
-<img src="agregador_files/figure-html/institutos-vies-relativo-com-pesos-1t-1.png" class="r-plt" alt="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1t-1.png)" width="100%"><p class="caption">
-<a href="https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1t-1.png">Clique
 para ver em tela cheia</a>
 </p>
 </div>
@@ -233,13 +218,6 @@ para ver em tela cheia</a>
 </div>
 <hr>
 <div class="figure">
-<img src="agregador_files/figure-html/institutos-vies-empirico-1t-1.png" class="r-plt" alt="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1t-1.png)" width="100%"><p class="caption">
-<a href="https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1t-1.png">Clique
-para ver em tela cheia</a>
-</p>
-</div>
-<hr>
-<div class="figure">
 <img src="agregador_files/figure-html/grafico-vies-empirico-2t-1.png" class="r-plt" alt="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-2t-1.png)" width="100%"><p class="caption">
 <a href="https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-2t-1.png">Clique
 para ver em tela cheia</a>
@@ -254,12 +232,10 @@ para ver em tela cheia</a>
 </div>
 </div>
 <div class="section level2">
-<h2 id="após-as-eleições-modelo-retrospectivo">Após as Eleições: Modelo Retrospectivo<a class="anchor" aria-label="anchor" href="#ap%C3%B3s-as-elei%C3%A7%C3%B5es-modelo-retrospectivo"></a>
+<h2 id="modelo-retrospectivo">Modelo Retrospectivo<a class="anchor" aria-label="anchor" href="#modelo-retrospectivo"></a>
 </h2>
 <p>Este modelo usa o resultado real da eleição para calcular
-retrospectivamente vieses e trajetórias para cada candidato. Trata-se do
-modelo com vieses mais bem ancorados, mas com a desvantagem óbvia de só
-rodar depois que o resultado é conhecido.</p>
+retrospectivamente vieses e trajetórias para cada candidato.</p>
 <div class="figure">
 <img src="agregador_files/figure-html/grafico-retrospectivo-1t-1.png" class="r-plt" alt="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-retrospectivo-1t-1.png)" width="100%"><p class="caption">
 <a href="https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-retrospectivo-1t-1.png">Clique
@@ -274,8 +250,8 @@ para ver em tela cheia</a>
 </p>
 </div>
 <hr>
-<p><strong>Resultados do segundo turno serão incluídos aqui quando
-disponiveis</strong></p>
+<p><strong>Obs:</strong> Resultados do segundo turno serão incluídos
+aqui quando disponiveis</p>
 </div>
 <div class="section level2">
 <h2 id="agradecimentos">Agradecimentos<a class="anchor" aria-label="anchor" href="#agradecimentos"></a>

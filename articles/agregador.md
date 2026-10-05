@@ -17,10 +17,11 @@ Trata-se de um conjunto de modelos estatísticos que lidam com:
 - Margens de erro incoerentes com o tamanho das amostras
 - Erros não-amostrais (para além da margem de erro)
 
-Os 3 modelos apresentados aqui[^1] variam de acordo com a importância
+Os modelos apresentados aqui variam de acordo com a importância
 atribuída ao resultado dos institutos na última eleição. Enquanto o
 modelo 1 não utiliza qualquer informação de desempenho passado, os
-modelos 2 e 3 são progressivamente mais sensíveis aos dados históricos.
+modelos 2 e 3 são progressivamente mais sensíveis aos dados
+históricos[^1].
 
 Cada modelo é introduzido por uma breve nota, e interessados em mais
 detalhes podem consultar a [metodologia
@@ -70,14 +71,6 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafi
 ------------------------------------------------------------------------
 
 ![\[Clique para ver em tela
-cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1t-1.png)](agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1t-1.png)
-
-[Clique para ver em tela
-cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1t-1.png)
-
-------------------------------------------------------------------------
-
-![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)](agregador_files/figure-html/grafico-vies-relativo-sem-pesos-2t-1.png)
 
 [Clique para ver em tela
@@ -103,14 +96,6 @@ cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/graf
 
 [Clique para ver em tela
 cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png)
-
-------------------------------------------------------------------------
-
-![\[Clique para ver em tela
-cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1t-1.png)](agregador_files/figure-html/institutos-vies-relativo-com-pesos-1t-1.png)
-
-[Clique para ver em tela
-cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1t-1.png)
 
 ------------------------------------------------------------------------
 
@@ -144,14 +129,6 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafi
 ------------------------------------------------------------------------
 
 ![\[Clique para ver em tela
-cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1t-1.png)](agregador_files/figure-html/institutos-vies-empirico-1t-1.png)
-
-[Clique para ver em tela
-cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1t-1.png)
-
-------------------------------------------------------------------------
-
-![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-empirico-2t-1.png)](agregador_files/figure-html/grafico-vies-empirico-2t-1.png)
 
 [Clique para ver em tela
@@ -165,12 +142,10 @@ cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/inst
 [Clique para ver em tela
 cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-2t-1.png)
 
-## Após as Eleições: Modelo Retrospectivo
+## Modelo Retrospectivo
 
 Este modelo usa o resultado real da eleição para calcular
-retrospectivamente vieses e trajetórias para cada candidato. Trata-se do
-modelo com vieses mais bem ancorados, mas com a desvantagem óbvia de só
-rodar depois que o resultado é conhecido.
+retrospectivamente vieses e trajetórias para cada candidato.
 
 ![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-retrospectivo-1t-1.png)](agregador_files/figure-html/grafico-retrospectivo-1t-1.png)
@@ -188,7 +163,8 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/insti
 
 ------------------------------------------------------------------------
 
-**Resultados do segundo turno serão incluídos aqui quando disponiveis**
+**Obs:** Resultados do segundo turno serão incluídos aqui quando
+disponiveis
 
 ## Agradecimentos
 
@@ -200,6 +176,7 @@ histórica](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999
 [^1]: O pacote inclui outros 2 modelos com menor utilidade durante a
     campanha: o modelo **Retrospectivo** usa o resultado real da eleição
     para calcular retrospectivamente vieses e trajetórias para cada
-    candidato, enquanto o modelo **Naive** é disponibilizado como uma
+    candidato, e será incluído nesta página ao fim das eleições; o
+    modelo **Naive**, por sua vez, é disponibilizado como uma
     curiosidade, pois não modela nenhum viés e é equivalente a calcular
     uma média simples das pesquisas.
