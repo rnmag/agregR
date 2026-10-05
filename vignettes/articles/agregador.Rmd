@@ -48,15 +48,16 @@ Trata-se de um conjunto de modelos estatísticos que lidam com:
 * Margens de erro incoerentes com o tamanho das amostras 
 * Erros não-amostrais (para além da margem de erro)
 
-Os 3 modelos apresentados aqui[^1] variam de acordo com a importância atribuída
+Os modelos apresentados aqui variam de acordo com a importância atribuída
 ao resultado dos institutos na última eleição. Enquanto o modelo 1 não utiliza
 qualquer informação de desempenho passado, os modelos 2 e 3 são progressivamente
-mais sensíveis aos dados históricos.
+mais sensíveis aos dados históricos[^1].
 
 [^1]: O pacote inclui outros 2 modelos com menor utilidade durante a campanha:
 o modelo **Retrospectivo** usa o resultado real da eleição para calcular
-retrospectivamente vieses e trajetórias para cada candidato, enquanto o modelo
-**Naive** é disponibilizado como uma curiosidade, pois não modela nenhum viés e
+retrospectivamente vieses e trajetórias para cada candidato, e será incluído
+nesta página ao fim das eleições; o modelo **Naive**, por sua vez, é
+disponibilizado como uma curiosidade, pois não modela nenhum viés e
 é equivalente a calcular uma média simples das pesquisas.
 
 Cada modelo é introduzido por uma breve nota, e interessados em mais detalhes
@@ -95,14 +96,6 @@ grafico_agregador(resultado_1t)
 
 ```
 
----
-
-```{r institutos-vies-relativo-sem-pesos-1t, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-sem-pesos-1t-1.png)"}
-
-grafico_vies(resultado_1t,
-             candidaturas = c("Lula", "Flávio"))
-
-```
 ---
 
 ```{r modelo-vies-relativo-sem-pesos-2t, include = FALSE}
@@ -148,15 +141,6 @@ resultado_1t <- rodar_agregador(turno = 1,
 ```{r grafico-vies-relativo-com-pesos-1t, echo = FALSE, dpi=225, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-vies-relativo-com-pesos-1t-1.png)"}
 
 grafico_agregador(resultado_1t)
-
-```
-
----
-
-```{r institutos-vies-relativo-com-pesos-1t, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-relativo-com-pesos-1t-1.png)"}
-
-grafico_vies(resultado_1t,
-             candidaturas = c("Lula", "Flávio"))
 
 ```
 
@@ -210,15 +194,6 @@ grafico_agregador(resultado_1t)
 
 ---
 
-```{r institutos-vies-empirico-1t, echo = FALSE, fig.height=10, dpi=210, out.width="100%", fig.cap="[Clique para ver em tela cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-1t-1.png)"}
-
-grafico_vies(resultado_1t,
-             candidaturas = c("Lula", "Flávio"))
-
-```
-
----
-
 ```{r modelo-vies-empirico-2t, include = FALSE}
 
 resultado_2t <- rodar_agregador(turno = 2,
@@ -243,12 +218,10 @@ grafico_vies(resultado_2t,
 
 ```
 
-## Após as Eleições: Modelo Retrospectivo
+## Modelo Retrospectivo
 
 Este modelo usa o resultado real da eleição para calcular
 retrospectivamente vieses e trajetórias para cada candidato.
-Trata-se do modelo com vieses mais bem ancorados, mas com a
-desvantagem óbvia de só rodar depois que o resultado é conhecido.
 
 
 ```{r modelo-retrospectivo-1t, include = FALSE}
@@ -277,7 +250,8 @@ grafico_vies(resultado_1t,
 
 ---
 
-**Resultados do segundo turno serão incluídos aqui quando disponiveis**
+
+**Obs:** Resultados do segundo turno serão incluídos aqui quando disponiveis
 
 
 ## Agradecimentos
