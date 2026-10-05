@@ -85,7 +85,7 @@ eleitoral. Todos os institutos têm o mesmo peso.
 
 resultado_1t <- rodar_agregador(turno = 1,
                                 data_inicio = "01/01/2025",
-                                data_fim = "03/10/2026",
+                                data_fim = "04/10/2026",
                                 modelo = "Viés Relativo sem Pesos")
 
 ```
@@ -133,7 +133,7 @@ das pesquisas.
 
 resultado_1t <- rodar_agregador(turno = 1,
                                 data_inicio = "01/01/2025",
-                                data_fim = "03/10/2026",
+                                data_fim = "04/10/2026",
                                 modelo = "Viés Relativo com Pesos")
 
 ```
@@ -181,7 +181,7 @@ cada instituto.
 
 resultado_1t <- rodar_agregador(turno = 1,
                                 data_inicio = "01/01/2025",
-                                data_fim = "03/10/2026",
+                                data_fim = "04/10/2026",
                                 modelo = "Viés Empírico")
 
 ```
@@ -228,7 +228,7 @@ retrospectivamente vieses e trajetórias para cada candidato.
 
 resultado_1t <- rodar_agregador(turno = 1,
                                 data_inicio = "01/01/2025",
-                                data_fim = "03/10/2026",
+                                data_fim = "04/10/2026",
                                 modelo = "Retrospectivo")
 
 ```
