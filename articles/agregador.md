@@ -1,6 +1,6 @@
 # Agregador Eleições 2026
 
-**Última pesquisa**: Datafolha com campo entre 06/10 e 07/10
+**Última pesquisa**: Atlas com campo entre 03/10 e 08/10
 
 ## Introdução
 
@@ -30,7 +30,7 @@ completa](https://rnmag.github.io/agregR/index.html#methodology).
 ### Pesquisas incluídas
 
 O banco de dados se baseia nas pesquisas registradas no TSE e divulgadas
-na imprensa. Ele contém **188 pesquisas** abrangendo os seguintes
+na imprensa. Ele contém **190 pesquisas** abrangendo os seguintes
 institutos:
 
 - Alfa
@@ -144,8 +144,15 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/insti
 
 ## Modelo Retrospectivo
 
-Este modelo usa o resultado real da eleição para calcular
-retrospectivamente vieses e trajetórias para cada candidato.
+Abertas as urnas, podemos utilizar os resultados eleitorais para
+calcular retrospectivamente os vieses de cada instituto e reconstruir a
+trajetória dos candidatos.
+
+Não se trata de uma comparação estática entre os últimos resultados de
+cada instituto e o que aconcetceu na eleição. Estamos modelando
+explicitamente o ciclo eleitoral.
+
+### Primeiro turno
 
 ![\[Clique para ver em tela
 cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-retrospectivo-1t-1.png)](agregador_files/figure-html/grafico-retrospectivo-1t-1.png)
@@ -163,8 +170,9 @@ cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/insti
 
 ------------------------------------------------------------------------
 
-**Obs:** Resultados do segundo turno serão incluídos aqui quando
-disponiveis
+### Segundo turno
+
+Resultados do segundo turno serão incluídos aqui quando disponiveis
 
 ## Agradecimentos
 
