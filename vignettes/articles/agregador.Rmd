@@ -220,9 +220,15 @@ grafico_vies(resultado_2t,
 
 ## Modelo Retrospectivo
 
-Este modelo usa o resultado real da eleição para calcular
-retrospectivamente vieses e trajetórias para cada candidato.
+Abertas as urnas, podemos utilizar os resultados eleitorais para calcular
+retrospectivamente os vieses de cada instituto e reconstruir a trajetória dos
+candidatos.
 
+Não se trata de uma comparação estática entre os últimos resultados de cada
+instituto e o que aconcetceu na eleição. Estamos modelando explicitamente o
+ciclo eleitoral.
+
+### Primeiro turno
 
 ```{r modelo-retrospectivo-1t, include = FALSE}
 
@@ -250,8 +256,9 @@ grafico_vies(resultado_1t,
 
 ---
 
+### Segundo turno
 
-**Obs:** Resultados do segundo turno serão incluídos aqui quando disponiveis
+Resultados do segundo turno serão incluídos aqui quando disponiveis
 
 
 ## Agradecimentos
