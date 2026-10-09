@@ -225,7 +225,7 @@ retrospectivamente os vieses de cada instituto e reconstruir a trajetória dos
 candidatos.
 
 Não se trata de uma comparação estática entre os últimos resultados de cada
-instituto e o que aconcetceu na eleição. Estamos modelando explicitamente o
+instituto e o que aconteceu na eleição. Estamos modelando explicitamente o
 ciclo eleitoral.
 
 ### Primeiro turno
