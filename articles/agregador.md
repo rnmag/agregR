@@ -1,6 +1,6 @@
 # Agregador Eleições 2026
 
-**Última pesquisa**: Atlas com campo entre 03/10 e 08/10
+**Última pesquisa**: Nexus com campo entre 10/10 e 12/10
 
 ## Introdução
 
@@ -30,7 +30,7 @@ completa](https://rnmag.github.io/agregR/index.html#methodology).
 ### Pesquisas incluídas
 
 O banco de dados se baseia nas pesquisas registradas no TSE e divulgadas
-na imprensa. Ele contém **190 pesquisas** abrangendo os seguintes
+na imprensa. Ele contém **196 pesquisas** abrangendo os seguintes
 institutos:
 
 - Alfa
@@ -41,6 +41,7 @@ institutos:
 - Gerp
 - Ideia
 - Indexa
+- Ipespe
 - Ipsos-Ipec
 - MDA
 - Nexus
@@ -149,7 +150,7 @@ calcular retrospectivamente os vieses de cada instituto e reconstruir a
 trajetória dos candidatos.
 
 Não se trata de uma comparação estática entre os últimos resultados de
-cada instituto e o que aconcetceu na eleição. Estamos modelando
+cada instituto e o que aconteceu na eleição. Estamos modelando
 explicitamente o ciclo eleitoral.
 
 ### Primeiro turno
