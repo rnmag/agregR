@@ -1,6 +1,6 @@
 # Agregador Eleições 2026
 
-**Última pesquisa**: PoderData com campo entre 13/10 e 15/10
+**Última pesquisa**: Vox Brasil com campo entre 15/10 e 17/10
 
 ## Introdução
 
@@ -30,7 +30,7 @@ completa](https://rnmag.github.io/agregR/index.html#methodology).
 ### Pesquisas incluídas
 
 O banco de dados se baseia nas pesquisas registradas no TSE e divulgadas
-na imprensa. Ele contém **203 pesquisas** abrangendo os seguintes
+na imprensa. Ele contém **206 pesquisas** abrangendo os seguintes
 institutos:
 
 - Alfa
