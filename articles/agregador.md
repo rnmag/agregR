@@ -1,6 +1,6 @@
 # Agregador Eleições 2026
 
-**Última pesquisa**: Realtime Bigdata com campo entre 15/10 e 19/10
+**Última pesquisa**: Gerp com campo entre 19/10 e 21/10
 
 ## Introdução
 
@@ -30,7 +30,7 @@ completa](https://rnmag.github.io/agregR/index.html#methodology).
 ### Pesquisas incluídas
 
 O banco de dados se baseia nas pesquisas registradas no TSE e divulgadas
-na imprensa. Ele contém **212 pesquisas** abrangendo os seguintes
+na imprensa. Ele contém **216 pesquisas** abrangendo os seguintes
 institutos:
 
 - Alfa
