@@ -1,6 +1,6 @@
 # Agregador Eleições 2026
 
-**Última pesquisa**: Quaest com campo entre 23/10 e 24/10
+**Última pesquisa**: Futura com campo entre 23/10 e 24/10
 
 ## Introdução
 
@@ -30,7 +30,7 @@ completa](https://rnmag.github.io/agregR/index.html#methodology).
 ### Pesquisas incluídas
 
 O banco de dados se baseia nas pesquisas registradas no TSE e divulgadas
-na imprensa. Ele contém **230 pesquisas** abrangendo os seguintes
+na imprensa. Ele contém **231 pesquisas** abrangendo os seguintes
 institutos:
 
 - Alfa
