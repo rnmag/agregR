@@ -1,6 +1,6 @@
 # Agregador Eleições 2026
 
-**Última pesquisa**: Vox Brasil com campo entre 20/10 e 22/10
+**Última pesquisa**: Quaest com campo entre 23/10 e 24/10
 
 ## Introdução
 
@@ -30,7 +30,7 @@ completa](https://rnmag.github.io/agregR/index.html#methodology).
 ### Pesquisas incluídas
 
 O banco de dados se baseia nas pesquisas registradas no TSE e divulgadas
-na imprensa. Ele contém **223 pesquisas** abrangendo os seguintes
+na imprensa. Ele contém **230 pesquisas** abrangendo os seguintes
 institutos:
 
 - Alfa
@@ -143,38 +143,6 @@ cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/inst
 [Clique para ver em tela
 cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-vies-empirico-2t-1.png)
 
-## Modelo Retrospectivo
-
-Abertas as urnas, podemos utilizar os resultados eleitorais para
-calcular retrospectivamente os vieses de cada instituto e reconstruir a
-trajetória dos candidatos.
-
-Não se trata de uma comparação estática entre os últimos resultados de
-cada instituto e o que aconteceu na eleição. Estamos modelando
-explicitamente o ciclo eleitoral.
-
-### Primeiro turno
-
-![\[Clique para ver em tela
-cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-retrospectivo-1t-1.png)](agregador_files/figure-html/grafico-retrospectivo-1t-1.png)
-
-[Clique para ver em tela
-cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/grafico-retrospectivo-1t-1.png)
-
-------------------------------------------------------------------------
-
-![\[Clique para ver em tela
-cheia\](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-retrospectivo-1t-1.png)](agregador_files/figure-html/institutos-retrospectivo-1t-1.png)
-
-[Clique para ver em tela
-cheia](https://rnmag.github.io/agregR/articles/agregador_files/figure-html/institutos-retrospectivo-1t-1.png)
-
-------------------------------------------------------------------------
-
-### Segundo turno
-
-Resultados do segundo turno serão incluídos aqui quando disponiveis
-
 ## Agradecimentos
 
 Agradecimentos a Ricardo Ribeiro, que gentilmente compartilhou sua
@@ -185,7 +153,6 @@ histórica](https://basedosdados.org/dataset/fb38dbe8-03ce-46b4-a6b7-638ade03999
 [^1]: O pacote inclui outros 2 modelos com menor utilidade durante a
     campanha: o modelo **Retrospectivo** usa o resultado real da eleição
     para calcular retrospectivamente vieses e trajetórias para cada
-    candidato, e será incluído nesta página ao fim das eleições; o
-    modelo **Naive**, por sua vez, é disponibilizado como uma
+    candidato, enquanto o modelo **Naive** é disponibilizado como uma
     curiosidade, pois não modela nenhum viés e é equivalente a calcular
     uma média simples das pesquisas.
