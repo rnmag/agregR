@@ -101,6 +101,7 @@ grafico_agregador(resultado_1t)
 
 resultado_2t <- rodar_agregador(turno = 2,
                                 data_inicio = "01/01/2025",
+                                data_fim = "25/10/2026",
                                 cenario = "Lula vs Flávio",
                                 modelo = "Viés Relativo sem Pesos")
 
@@ -149,6 +150,7 @@ grafico_agregador(resultado_1t)
 
 resultado_2t <- rodar_agregador(turno = 2,
                                 data_inicio = "01/01/2025",
+                                data_fim = "25/10/2026",
                                 cenario = "Lula vs Flávio",
                                 modelo = "Viés Relativo com Pesos")
 
@@ -197,6 +199,7 @@ grafico_agregador(resultado_1t)
 
 resultado_2t <- rodar_agregador(turno = 2,
                                 data_inicio = "01/01/2025",
+                                data_fim = "25/10/2026",
                                 cenario = "Lula vs Flávio",
                                 modelo = "Viés Empírico")
 
