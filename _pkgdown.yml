@@ -20,7 +20,7 @@ template:
       </script>
 navbar:
   structure:
-    left:  [intro, reference, tutorials, news, models]
+    left:  [intro, reference, tutorials, news]
     right: [search, github]
   components:
     models:
